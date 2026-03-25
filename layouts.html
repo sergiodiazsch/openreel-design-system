@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layouts - OpenReel Design System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --brand:        #1F12DE;
+      --brand-hover:  #1a0fbc;
+      --brand-light:  rgba(31, 18, 222, 0.1);
+
+      --blue-50:   #EFF8FF;
+      --blue-100:  #B2DDFF;
+      --blue-500:  #2970FF;
+      --blue-600:  #175CD3;
+      --blue-light:#53B1FD;
+
+      --gray-25:   #FCFCFD;
+      --gray-50:   #F9FAFB;
+      --gray-100:  #F2F4F7;
+      --gray-200:  #EAECF0;
+      --gray-300:  #E4E7EC;
+      --gray-400:  #98A2B3;
+      --gray-500:  #667085;
+      --gray-600:  #475467;
+      --gray-700:  #344054;
+      --gray-900:  #101828;
+
+      --success-50:  #ECFDF3;
+      --success-500: #17B26A;
+      --success-700: #067647;
+
+      --error-50:  #FEF3F2;
+      --error-500: #F04438;
+      --error-700: #B42318;
+
+      --warning-50:  #FFFAEB;
+      --warning-700: #B54708;
+
+      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   10px;
+      --radius-xl:   14px;
+      --radius-full: 9999px;
+
+      --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    }
+
+    /* Light mode */
+    html:not(.dark) {
+      --bg-page:      #F9FAFB;
+      --bg-card:      #FFFFFF;
+      --bg-preview:   #FFFFFF;
+      --bg-controls:  #F9FAFB;
+      --border-color: #EAECF0;
+      --text-primary: #101828;
+      --text-secondary: #667085;
+      --text-tertiary: #98A2B3;
+    }
+
+    /* Dark mode */
+    html.dark {
+      --bg-page:      #0C111D;
+      --bg-card:      #161B26;
+      --bg-preview:   #1F242F;
+      --bg-controls:  #161B26;
+      --border-color: #333741;
+      --text-primary: #F5F5F6;
+      --text-secondary: #94969C;
+      --text-tertiary: #61646C;
+    }
+
+    /* =========================================================
+       BASE STYLES
+       ========================================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 14px;
+      line-height: 24px;
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
+
+    /* ---- Header ---- */
+    .dm-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dm-toggle:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- Sidebar ---- */
+    .sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 220px;
+      height: calc(100vh - 64px);
+      padding: 20px 16px;
+      overflow-y: auto;
+      border-right: 1px solid var(--border-color);
+      background: var(--bg-card);
+      z-index: 40;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .sidebar-link {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 7px 12px;
+      border-radius: var(--radius-md);
+      transition: all 0.15s ease;
+      margin-bottom: 2px;
+    }
+    .sidebar-link:hover {
+      color: var(--text-primary);
+      background: var(--brand-light);
+    }
+    html.dark .sidebar-link:hover {
+      background: rgba(129,140,248,0.1);
+    }
+    .sidebar-link.active-section {
+      color: var(--brand);
+      background: var(--brand-light);
+      font-weight: 600;
+    }
+    html.dark .sidebar-link.active-section {
+      color: #818cf8;
+      background: rgba(129,140,248,0.12);
+    }
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 16px 12px 6px;
+    }
+
+    /* ---- Section heading ---- */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section-heading h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-heading .count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 22px;
+      padding: 0 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand);
+      background: var(--brand-light);
+      border-radius: var(--radius-full);
+      margin-left: 8px;
+    }
+    html.dark .section-heading .count-badge {
+      color: #818cf8;
+      background: rgba(129,140,248,0.12);
+    }
+
+    /* ---- Code block ---- */
+    .code-block {
+      position: relative;
+      background: var(--gray-900);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .code-block pre {
+      margin: 0;
+      padding: 12px 14px;
+      overflow-x: auto;
+      max-height: 220px;
+    }
+    .code-block code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+    .code-block .cb-copy {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 500;
+      font-family: var(--font-family);
+      color: #94a3b8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .code-block .cb-copy:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* ---- Buttons ---- */
+    .btn-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-family);
+      color: #fff;
+      background: var(--brand);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-brand:hover { background: var(--brand-hover); }
+    .btn-brand:active { transform: scale(0.96); }
+    .btn-brand.active { box-shadow: 0 0 0 2px var(--bg-page), 0 0 0 4px var(--brand); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: var(--font-family);
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-outline:hover {
+      color: var(--text-primary);
+      border-color: var(--brand);
+    }
+    .btn-outline.active {
+      color: var(--brand);
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+    html.dark .btn-outline.active {
+      color: #818cf8;
+      border-color: #818cf8;
+      background: rgba(129,140,248,0.12);
+    }
+
+    /* ---- Range input ---- */
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 4px;
+      background: var(--gray-200);
+      border-radius: 2px;
+      outline: none;
+    }
+    html.dark input[type="range"] {
+      background: #333741;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--brand);
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    html.dark input[type="range"]::-webkit-slider-thumb {
+      background: #818cf8;
+    }
+
+    /* ---- Number input ---- */
+    .num-input {
+      width: 64px;
+      padding: 4px 8px;
+      font-family: var(--font-family);
+      font-size: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      outline: none;
+      text-align: center;
+    }
+    .num-input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px var(--brand-light);
+    }
+
+    /* ---- Select ---- */
+    .ctrl-select {
+      font-family: var(--font-family);
+      font-size: 11px;
+      padding: 4px 8px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      outline: none;
+    }
+    .ctrl-select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px var(--brand-light);
+    }
+
+    /* ---- Demo container ---- */
+    .demo-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all 0.2s ease;
+      margin-bottom: 24px;
+    }
+    .demo-container:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .demo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .demo-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .demo-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .demo-body {
+      padding: 20px;
+    }
+    .demo-preview {
+      background: var(--bg-preview);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      min-height: 120px;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 20px;
+      background: var(--bg-controls);
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* ---- Grid column visualization ---- */
+    .grid-col {
+      background: linear-gradient(135deg, var(--brand), var(--blue-500));
+      opacity: 0.15;
+      border-radius: var(--radius-sm);
+      min-height: 60px;
+      transition: all 0.3s ease;
+    }
+    .grid-col-filled {
+      background: linear-gradient(135deg, var(--brand), var(--blue-500));
+      opacity: 0.85;
+      border-radius: var(--radius-sm);
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    html.dark .grid-col {
+      opacity: 0.12;
+    }
+    html.dark .grid-col-filled {
+      opacity: 0.9;
+    }
+
+    /* ---- Flex demo items ---- */
+    .flex-item {
+      background: var(--brand-light);
+      border: 1px solid rgba(31,18,222,0.2);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--brand);
+      transition: all 0.2s;
+    }
+    html.dark .flex-item {
+      background: rgba(129,140,248,0.1);
+      border-color: rgba(129,140,248,0.2);
+      color: #818cf8;
+    }
+
+    /* ---- Container query card ---- */
+    .cq-container {
+      container-type: inline-size;
+      container-name: card;
+      resize: horizontal;
+      overflow: hidden;
+      min-width: 200px;
+      max-width: 100%;
+      border: 2px dashed var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      position: relative;
+      background: var(--bg-preview);
+    }
+    .cq-container::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 16px;
+      height: 16px;
+      cursor: se-resize;
+    }
+    .cq-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .cq-card-image {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(135deg, var(--brand), var(--blue-500));
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .cq-card-body { flex: 1; }
+    .cq-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .cq-card-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .cq-card-meta {
+      display: none;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+    .cq-card-actions {
+      display: none;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    @container card (min-width: 300px) {
+      .cq-card {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      .cq-card-image {
+        width: 140px;
+        height: 100px;
+      }
+    }
+    @container card (min-width: 500px) {
+      .cq-card {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+      .cq-card-image {
+        width: 180px;
+        height: 130px;
+      }
+      .cq-card-meta {
+        display: flex;
+      }
+      .cq-card-actions {
+        display: flex;
+      }
+    }
+
+    /* ---- Responsive preview ---- */
+    .bp-slider-track {
+      position: relative;
+      height: 32px;
+      background: var(--bg-preview);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+    }
+    .bp-marker {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border-color);
+    }
+    .bp-marker-label {
+      position: absolute;
+      top: -18px;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+    }
+    .bp-preview-frame {
+      margin: 0 auto;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: width 0.3s ease;
+      background: var(--bg-card);
+    }
+
+    /* ---- Spacing bars ---- */
+    .spacing-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border-radius: var(--radius-md);
+    }
+    .spacing-bar:hover {
+      background: var(--brand-light);
+      padding-left: 8px;
+    }
+    html.dark .spacing-bar:hover {
+      background: rgba(129,140,248,0.08);
+    }
+    .spacing-bar-visual {
+      height: 24px;
+      background: linear-gradient(135deg, var(--brand), var(--blue-500));
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+    .spacing-bar.active .spacing-bar-visual {
+      opacity: 1;
+      box-shadow: 0 0 12px rgba(31,18,222,0.3);
+    }
+
+    /* ---- Z-index layers ---- */
+    .z-layer {
+      position: absolute;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .z-layer:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: var(--shadow-lg);
+    }
+    .z-layer.active {
+      border-color: var(--brand);
+      box-shadow: 0 0 20px rgba(31,18,222,0.3);
+    }
+
+    /* ---- Toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 100;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ---- Misc ---- */
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+    }
+    .tag {
+      display: inline-flex;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      background: var(--brand-light);
+      color: var(--brand);
+      white-space: nowrap;
+    }
+    html.dark .tag {
+      background: rgba(129,140,248,0.12);
+      color: #818cf8;
+    }
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      max-width: 640px;
+      line-height: 1.6;
+    }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+</head>
+
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       SIDEBAR
+       ========================================================= -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Grid</div>
+    <a href="#grid" class="sidebar-link active-section">12-Column Grid</a>
+    <div class="sidebar-label">Flexbox</div>
+    <a href="#flexbox" class="sidebar-link">Flexbox Patterns</a>
+    <div class="sidebar-label">Responsive</div>
+    <a href="#container-queries" class="sidebar-link">Container Queries</a>
+    <a href="#breakpoints" class="sidebar-link">Breakpoint Visualizer</a>
+    <div class="sidebar-label">Primitives</div>
+    <a href="#primitives" class="sidebar-link">Layout Primitives</a>
+    <div class="sidebar-label">Tokens</div>
+    <a href="#spacing" class="sidebar-link">Spacing Scale</a>
+    <a href="#z-index" class="sidebar-link">Z-Index Scale</a>
+  </nav>
+
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
+  <main id="main-content" class="main-content" style="padding-top:88px; padding-bottom:80px; margin-left:220px; padding-left:32px; padding-right:32px; max-width:1200px;">
+
+    <!-- HERO -->
+    <div style="margin-bottom:40px;">
+      <h1 style="font-size:32px; font-weight:700; letter-spacing:-0.03em; margin-bottom:8px;">Layouts &amp; Grid</h1>
+      <p style="font-size:15px; color:var(--text-secondary); max-width:560px; line-height:1.6;">
+        A comprehensive layout system built on CSS Grid, Flexbox, container queries, and responsive design primitives. Interactive demos for every pattern.
+      </p>
+    </div>
+
+    <!-- =========================================================
+         SECTION 1: 12-COLUMN GRID
+         ========================================================= -->
+    <section id="grid" style="margin-bottom:56px;">
+      <div class="section-heading">
+        <h2>12-Column Grid System</h2>
+      </div>
+      <p class="section-desc">The foundation of every layout. A 12-column grid with configurable gutters and responsive breakpoint behavior.</p>
+
+      <!-- Grid overlay visualization -->
+      <div class="demo-container">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Grid Overlay</div>
+            <div class="demo-subtitle">Visualize the 12-column grid with gutters</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn-outline active" onclick="setGridConfig(12,1)" data-grid-btn>12x1</button>
+            <button class="btn-outline" onclick="setGridConfig(6,2)" data-grid-btn>6x2</button>
+            <button class="btn-outline" onclick="setGridConfig(4,3)" data-grid-btn>4x3</button>
+            <button class="btn-outline" onclick="setGridConfig(3,4)" data-grid-btn>3x4</button>
+            <button class="btn-outline" onclick="setGridConfig(2,6)" data-grid-btn>2x6</button>
+            <button class="btn-outline" onclick="setGridConfig(1,12)" data-grid-btn>1x12</button>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div id="grid-overlay" style="display:grid; grid-template-columns:repeat(12, 1fr); gap:12px; margin-bottom:16px;">
+          </div>
+          <div id="grid-code" class="code-block">
+            <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>display: grid;
+grid-template-columns: repeat(12, 1fr);
+gap: 12px;</code></pre>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Columns
+            <input type="number" class="num-input" id="grid-cols-input" value="12" min="1" max="12" onchange="updateCustomGrid()">
+          </label>
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Gap (px)
+            <input type="number" class="num-input" id="grid-gap-input" value="12" min="0" max="48" step="4" onchange="updateCustomGrid()">
+          </label>
+        </div>
+      </div>
+
+      <!-- Responsive grid behavior -->
+      <div class="demo-container">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Responsive Grid Behavior</div>
+            <div class="demo-subtitle">How the grid adapts at different breakpoints</div>
+          </div>
+        </div>
+        <div class="demo-body" style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:13px;">
+            <thead>
+              <tr>
+                <th style="text-align:left; padding:10px 16px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-tertiary); border-bottom:1px solid var(--border-color);">Breakpoint</th>
+                <th style="text-align:left; padding:10px 16px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-tertiary); border-bottom:1px solid var(--border-color);">Width</th>
+                <th style="text-align:left; padding:10px 16px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-tertiary); border-bottom:1px solid var(--border-color);">Columns</th>
+                <th style="text-align:left; padding:10px 16px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-tertiary); border-bottom:1px solid var(--border-color);">Gap</th>
+                <th style="text-align:left; padding:10px 16px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-tertiary); border-bottom:1px solid var(--border-color);">Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);"><span class="tag">Mobile</span></td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">&lt; 640px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">4</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">16px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">16px</td></tr>
+              <tr><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);"><span class="tag">SM</span></td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">640px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">8</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">20px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">24px</td></tr>
+              <tr><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);"><span class="tag">MD</span></td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">768px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">12</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">24px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">32px</td></tr>
+              <tr><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);"><span class="tag">LG</span></td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">1024px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">12</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">24px</td><td style="padding:12px 16px; border-bottom:1px solid var(--border-color);">48px</td></tr>
+              <tr><td style="padding:12px 16px;"><span class="tag">XL</span></td><td style="padding:12px 16px;">1280px</td><td style="padding:12px 16px;">12</td><td style="padding:12px 16px;">32px</td><td style="padding:12px 16px;">auto (max 1200px)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Example layouts -->
+      <div class="demo-container">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Example Layouts</div>
+            <div class="demo-subtitle">Common layout patterns built with the 12-column grid</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn-outline active" onclick="showExampleLayout('holy-grail')" data-layout-btn>Holy Grail</button>
+            <button class="btn-outline" onclick="showExampleLayout('cards')" data-layout-btn>Equal Cards</button>
+            <button class="btn-outline" onclick="showExampleLayout('asym-8-4')" data-layout-btn>8 + 4</button>
+            <button class="btn-outline" onclick="showExampleLayout('asym-9-3')" data-layout-btn>9 + 3</button>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div id="example-layout-preview" style="display:grid; gap:12px; min-height:200px;">
+          </div>
+          <div id="example-layout-code" class="code-block" style="margin-top:16px;">
+            <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+            <pre><code id="example-layout-code-text"></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2: FLEXBOX PATTERNS
+         ========================================================= -->
+    <section id="flexbox" style="margin-bottom:56px;">
+      <div class="section-heading">
+        <h2>Flexbox Patterns <span class="count-badge">7</span></h2>
+      </div>
+      <p class="section-desc">Common flex patterns with live previews. Toggle the CSS overlay to see properties applied to each element.</p>
+
+      <div id="flex-patterns-container"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: CONTAINER QUERIES
+         ========================================================= -->
+    <section id="container-queries" style="margin-bottom:56px;">
+      <div class="section-heading">
+        <h2>Container Queries Demo</h2>
+      </div>
+      <p class="section-desc">Drag the right edge of the container to resize it. The card adapts its layout based on the container width, not the viewport.</p>
+
+      <div class="demo-container">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Responsive Card (Container Query)</div>
+            <div class="demo-subtitle">Resize the dashed container by dragging its right edge</div>
+          </div>
+          <div id="cq-width-display" style="font-size:13px; font-weight:600; font-family:'SF Mono',monospace; color:var(--brand); background:var(--brand-light); padding:4px 12px; border-radius:var(--radius-full);">
+            600px
+          </div>
+        </div>
+        <div class="demo-body">
+          <div class="cq-container" id="cq-resizable" style="width:600px;">
+            <div class="cq-card">
+              <div class="cq-card-image"></div>
+              <div class="cq-card-body">
+                <div class="cq-card-title">Project Dashboard</div>
+                <div class="cq-card-text">A comprehensive overview of your project metrics, milestones, and team activity. Track progress and stay aligned with your goals.</div>
+                <div class="cq-card-meta">
+                  <span>Updated 2h ago</span>
+                  <span>12 contributors</span>
+                  <span>v2.4.1</span>
+                </div>
+                <div class="cq-card-actions">
+                  <button class="btn-brand" style="font-size:11px; padding:4px 10px;">View Details</button>
+                  <button class="btn-outline" style="font-size:11px; padding:4px 10px;">Share</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; gap:16px; margin-top:16px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:200px;">
+              <div class="label" style="margin-bottom:6px;">Layout breakpoints</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <span class="tag" id="cq-tag-small">&lt; 300px &mdash; Stacked</span>
+                <span class="tag" id="cq-tag-medium">300-500px &mdash; Horizontal</span>
+                <span class="tag" id="cq-tag-large">&gt; 500px &mdash; Full</span>
+              </div>
+            </div>
+          </div>
+          <div class="code-block" style="margin-top:16px;">
+            <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>.container {
+  container-type: inline-size;
+  container-name: card;
+}
+
+/* Stacked (default, &lt; 300px) */
+.card { flex-direction: column; }
+.card-image { width: 100%; height: 120px; }
+
+/* Horizontal (300px - 500px) */
+@container card (min-width: 300px) {
+  .card { flex-direction: row; }
+  .card-image { width: 140px; height: 100px; }
+}
+
+/* Full layout (> 500px) */
+@container card (min-width: 500px) {
+  .card { flex-direction: row; }
+  .card-image { width: 180px; height: 130px; }
+  .card-meta { display: flex; }
+  .card-actions { display: flex; }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: RESPONSIVE BREAKPOINT VISUALIZER
+         ========================================================= -->
+    <section id="breakpoints" style="margin-bottom:56px;">
+      <div class="section-heading">
+        <h2>Responsive Breakpoint Visualizer</h2>
+      </div>
+      <p class="section-desc">Slide to preview how a sample layout reflows at each breakpoint. The preview area resizes to match the slider value.</p>
+
+      <div class="demo-container">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Viewport Width Simulator</div>
+            <div class="demo-subtitle">Drag the slider to test responsive behavior</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span id="bp-width-label" style="font-size:13px; font-weight:600; font-family:'SF Mono',monospace; color:var(--brand); background:var(--brand-light); padding:4px 12px; border-radius:var(--radius-full);">1024px</span>
+            <span id="bp-name-label" class="tag">LG</span>
+          </div>
+        </div>
+        <div class="demo-body">
+          <!-- Slider with breakpoint markers -->
+          <div style="position:relative; margin-bottom:40px; padding-top:24px;">
+            <div style="position:relative; height:6px;">
+              <div id="bp-markers" style="position:absolute; inset:0;"></div>
+              <input type="range" id="bp-slider" min="320" max="1440" value="1024" step="1" style="width:100%; position:relative; z-index:2;" oninput="updateBreakpointPreview(this.value)">
+            </div>
+            <div id="bp-marker-labels" style="position:relative; height:20px; margin-top:8px;"></div>
+          </div>
+
+          <!-- Active media query -->
+          <div id="bp-media-query" class="code-block" style="margin-bottom:20px;">
+            <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+            <pre><code id="bp-media-query-code">@media (min-width: 1024px) { /* LG */ }</code></pre>
+          </div>
+
+          <!-- Preview frame -->
+          <div style="overflow:hidden;">
+            <div id="bp-preview-frame" class="bp-preview-frame" style="width:1024px; max-width:100%;">
+              <div id="bp-preview-content" style="padding:12px;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: LAYOUT PRIMITIVES
+         ========================================================= -->
+    <section id="primitives" style="margin-bottom:56px;">
+      <div class="section-heading">
+        <h2>Layout Primitives <span class="count-badge">6</span></h2>
+      </div>
+      <p class="section-desc">Composable layout building blocks. Each primitive solves one layout concern and can be combined with others.</p>
+
+      <!-- STACK -->
+      <div class="demo-container" id="prim-stack">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Stack</div>
+            <div class="demo-subtitle">Uniform vertical spacing between children</div>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-preview">
+            <div id="stack-demo" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="flex-item">Item 1</div>
+              <div class="flex-item">Item 2</div>
+              <div class="flex-item">Item 3</div>
+              <div class="flex-item">Item 4</div>
+              <div class="flex-item">Item 5</div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="label" style="display:flex; align-items:center; gap:6px;">Gap</label>
+          <button class="btn-outline" onclick="setStackGap(4)" data-stack-btn>4px</button>
+          <button class="btn-outline" onclick="setStackGap(8)" data-stack-btn>8px</button>
+          <button class="btn-outline" onclick="setStackGap(12)" data-stack-btn>12px</button>
+          <button class="btn-outline active" onclick="setStackGap(16)" data-stack-btn>16px</button>
+          <button class="btn-outline" onclick="setStackGap(24)" data-stack-btn>24px</button>
+          <button class="btn-outline" onclick="setStackGap(32)" data-stack-btn>32px</button>
+        </div>
+      </div>
+
+      <!-- CLUSTER -->
+      <div class="demo-container" id="prim-cluster">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Cluster</div>
+            <div class="demo-subtitle">Horizontal wrapping items with consistent gaps</div>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-preview">
+            <div id="cluster-demo" style="display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-start;">
+              <span class="tag">Design</span>
+              <span class="tag">System</span>
+              <span class="tag">CSS Grid</span>
+              <span class="tag">Flexbox</span>
+              <span class="tag">Responsive</span>
+              <span class="tag">Tokens</span>
+              <span class="tag">Layout</span>
+              <span class="tag">Components</span>
+              <span class="tag">Accessibility</span>
+              <span class="tag">Dark Mode</span>
+              <span class="tag">Container Queries</span>
+              <span class="tag">Animations</span>
+              <span class="tag">Typography</span>
+              <span class="tag">Color</span>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Gap
+            <input type="range" id="cluster-gap" min="4" max="24" value="8" step="4" style="width:80px;" oninput="updateCluster()">
+            <span id="cluster-gap-val" style="font-size:10px; min-width:30px;">8px</span>
+          </label>
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Align
+            <select class="ctrl-select" id="cluster-align" onchange="updateCluster()">
+              <option value="flex-start" selected>Start</option>
+              <option value="center">Center</option>
+              <option value="flex-end">End</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="demo-container" id="prim-sidebar">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Sidebar</div>
+            <div class="demo-subtitle">Main content area with a fixed-width sidebar</div>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-preview" style="min-height:200px;">
+            <div id="sidebar-demo" style="display:flex; gap:16px; height:180px;">
+              <div id="sidebar-panel" style="width:240px; flex-shrink:0; background:var(--brand-light); border:1px solid rgba(31,18,222,0.2); border-radius:var(--radius-md); padding:16px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:var(--brand);">
+                Sidebar (240px)
+              </div>
+              <div style="flex:1; background:var(--bg-controls); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:500; color:var(--text-secondary);">
+                Main Content (flexible)
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Width
+            <input type="range" id="sidebar-width" min="200" max="400" value="240" step="10" style="width:100px;" oninput="updateSidebarPrimitive()">
+            <span id="sidebar-width-val" style="font-size:10px; min-width:40px;">240px</span>
+          </label>
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Position
+            <button class="btn-outline active" onclick="setSidebarPos('left')" data-sidebar-pos>Left</button>
+            <button class="btn-outline" onclick="setSidebarPos('right')" data-sidebar-pos>Right</button>
+          </label>
+        </div>
+      </div>
+
+      <!-- SWITCHER -->
+      <div class="demo-container" id="prim-switcher">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Switcher</div>
+            <div class="demo-subtitle">Items go horizontal when space allows, vertical when it doesn't</div>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-preview">
+            <div id="switcher-demo" style="display:flex; flex-wrap:wrap; gap:12px;">
+              <div class="flex-item" style="flex-grow:1; flex-basis:calc((400px - 100%) * 999); text-align:center;">Card A</div>
+              <div class="flex-item" style="flex-grow:1; flex-basis:calc((400px - 100%) * 999); text-align:center;">Card B</div>
+              <div class="flex-item" style="flex-grow:1; flex-basis:calc((400px - 100%) * 999); text-align:center;">Card C</div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Threshold
+            <input type="range" id="switcher-threshold" min="200" max="800" value="400" step="50" style="width:120px;" oninput="updateSwitcher()">
+            <span id="switcher-threshold-val" style="font-size:10px; min-width:40px;">400px</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- COVER -->
+      <div class="demo-container" id="prim-cover">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Cover</div>
+            <div class="demo-subtitle">Vertically centered hero with optional header/footer</div>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div id="cover-demo" style="display:flex; flex-direction:column; justify-content:center; min-height:50vh; background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:24px; position:relative; overflow:hidden;">
+            <div style="text-align:center; position:absolute; top:12px; left:0; right:0; font-size:11px; color:var(--text-tertiary);">Header</div>
+            <div style="text-align:center;">
+              <div style="font-size:28px; font-weight:700; letter-spacing:-0.03em; margin-bottom:8px;">Hero Content</div>
+              <div style="font-size:14px; color:var(--text-secondary); max-width:400px; margin:0 auto;">This content is vertically centered in the cover area, creating a visually balanced hero section.</div>
+            </div>
+            <div style="text-align:center; position:absolute; bottom:12px; left:0; right:0; font-size:11px; color:var(--text-tertiary);">Footer</div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="label" style="display:flex; align-items:center; gap:6px;">
+            Min Height
+            <input type="range" id="cover-height" min="30" max="100" value="50" step="10" style="width:120px;" oninput="updateCover()">
+            <span id="cover-height-val" style="font-size:10px; min-width:40px;">50vh</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- FRAME -->
+      <div class="demo-container" id="prim-frame">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Frame</div>
+            <div class="demo-subtitle">Maintains aspect ratio for media content</div>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-preview">
+            <div id="frame-demo" style="max-width:480px; margin:0 auto;">
+              <div style="position:relative; width:100%; padding-bottom:56.25%; background:linear-gradient(135deg, var(--brand), var(--blue-500)); border-radius:var(--radius-lg); overflow:hidden;">
+                <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                  </svg>
+                  <span id="frame-ratio-label" style="color:#fff; font-size:13px; font-weight:600;">16:9</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <label class="label">Ratio</label>
+          <button class="btn-outline active" onclick="setFrameRatio('16:9', 56.25)" data-frame-btn>16:9</button>
+          <button class="btn-outline" onclick="setFrameRatio('4:3', 75)" data-frame-btn>4:3</button>
+          <button class="btn-outline" onclick="setFrameRatio('1:1', 100)" data-frame-btn>1:1</button>
+          <button class="btn-outline" onclick="setFrameRatio('21:9', 42.857)" data-frame-btn>21:9</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 6: SPACING SCALE
+         ========================================================= -->
+    <section id="spacing" style="margin-bottom:56px;">
+      <div class="section-heading">
+        <h2>Spacing Scale Visualizer</h2>
+      </div>
+      <p class="section-desc">Interactive diagram showing all spacing tokens. Click a value to see its usage. Select two values to compare them side by side.</p>
+
+      <div class="demo-container">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Spacing Tokens</div>
+            <div class="demo-subtitle">Click to select, hold Shift+Click to compare two values</div>
+          </div>
+        </div>
+        <div class="demo-body">
+          <div id="spacing-bars" style="display:flex; flex-direction:column; gap:2px;"></div>
+
+          <!-- Comparison -->
+          <div id="spacing-compare" style="display:none; margin-top:24px; padding:20px; background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md);">
+            <div class="label" style="margin-bottom:12px;">Comparison</div>
+            <div style="display:flex; align-items:flex-end; gap:24px;">
+              <div style="text-align:center;">
+                <div id="compare-bar-a" style="width:60px; background:linear-gradient(135deg, var(--brand), var(--blue-500)); border-radius:var(--radius-sm); margin:0 auto 8px;"></div>
+                <div id="compare-label-a" style="font-size:12px; font-weight:600;"></div>
+              </div>
+              <div style="text-align:center;">
+                <div id="compare-bar-b" style="width:60px; background:linear-gradient(135deg, var(--blue-500), var(--blue-light)); border-radius:var(--radius-sm); margin:0 auto 8px;"></div>
+                <div id="compare-label-b" style="font-size:12px; font-weight:600;"></div>
+              </div>
+              <div id="compare-ratio" style="font-size:12px; color:var(--text-secondary); padding-bottom:4px;"></div>
+            </div>
+          </div>
+
+          <!-- Usage info -->
+          <div id="spacing-usage" style="display:none; margin-top:16px; padding:16px; background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md);">
+            <div class="label" style="margin-bottom:8px;">Used in</div>
+            <div id="spacing-usage-list" style="font-size:12px; color:var(--text-secondary); line-height:1.8;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 7: Z-INDEX SCALE
+         ========================================================= -->
+    <section id="z-index" style="margin-bottom:56px;">
+      <div class="section-heading">
+        <h2>Z-Index Scale</h2>
+      </div>
+      <p class="section-desc">Visual stacked layers showing z-index values used in the design system. Click a layer to see which components use it.</p>
+
+      <div class="demo-container">
+        <div class="demo-header">
+          <div>
+            <div class="demo-title">Layer Stack</div>
+            <div class="demo-subtitle">3D perspective view of z-index layers</div>
+          </div>
+          <button class="btn-outline" id="z-perspective-toggle" onclick="toggleZPerspective()">Toggle 3D View</button>
+        </div>
+        <div class="demo-body">
+          <div id="z-layers-container" style="position:relative; height:380px; perspective:800px; margin:0 auto; max-width:600px;">
+            <div id="z-layers-inner" style="position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            </div>
+          </div>
+
+          <!-- Component info panel -->
+          <div id="z-info-panel" style="display:none; margin-top:20px; padding:16px; background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span id="z-info-name" style="font-size:14px; font-weight:600;"></span>
+              <span id="z-info-value" style="font-family:'SF Mono',monospace; font-size:12px; font-weight:500; color:var(--brand); background:var(--brand-light); padding:2px 8px; border-radius:var(--radius-sm);"></span>
+            </div>
+            <div id="z-info-components" style="font-size:12px; color:var(--text-secondary); line-height:1.8;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+  <script>
+    /* ===========================================================
+       DARK MODE
+       =========================================================== */
+    (function(){
+      const saved = localStorage.getItem('ds-dark-mode');
+      if (saved === 'true') document.documentElement.classList.add('dark');
+      updateDmIcon();
+    })();
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', document.documentElement.classList.contains('dark'));
+      updateDmIcon();
+    }
+
+    function updateDmIcon() {
+      const icon = document.getElementById('dm-icon');
+      if (!icon) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      icon.innerHTML = isDark
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+    }
+
+    /* ===========================================================
+       TOAST
+       =========================================================== */
+    let toastTimeout;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    /* ===========================================================
+       COPY CODE
+       =========================================================== */
+    function copyCode(btn) {
+      const code = btn.parentElement.querySelector('code');
+      if (!code) return;
+      navigator.clipboard.writeText(code.textContent).then(() => {
+        showToast('Copied to clipboard');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 1500);
+      });
+    }
+
+    /* ===========================================================
+       SECTION 1: 12-COLUMN GRID
+       =========================================================== */
+    function renderGridOverlay(cols, span) {
+      const container = document.getElementById('grid-overlay');
+      const gap = parseInt(document.getElementById('grid-gap-input').value) || 12;
+      container.style.gridTemplateColumns = `repeat(12, 1fr)`;
+      container.style.gap = gap + 'px';
+      container.innerHTML = '';
+      const totalCols = cols * span;
+      for (let i = 0; i < cols; i++) {
+        const div = document.createElement('div');
+        div.className = 'grid-col-filled';
+        div.style.gridColumn = `span ${span}`;
+        div.textContent = `${span} col${span > 1 ? 's' : ''}`;
+        container.appendChild(div);
+      }
+
+      // Update code
+      const codeEl = document.querySelector('#grid-code code');
+      if (span === 1) {
+        codeEl.textContent = `display: grid;\ngrid-template-columns: repeat(12, 1fr);\ngap: ${gap}px;\n\n/* Each item spans 1 column */\n.item { grid-column: span 1; }`;
+      } else {
+        codeEl.textContent = `display: grid;\ngrid-template-columns: repeat(12, 1fr);\ngap: ${gap}px;\n\n/* ${cols} items, each spanning ${span} columns */\n.item { grid-column: span ${span}; }`;
+      }
+    }
+
+    function setGridConfig(cols, span) {
+      document.querySelectorAll('[data-grid-btn]').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('grid-cols-input').value = cols;
+      renderGridOverlay(cols, span);
+    }
+
+    function updateCustomGrid() {
+      const cols = parseInt(document.getElementById('grid-cols-input').value) || 12;
+      const gap = parseInt(document.getElementById('grid-gap-input').value) || 12;
+      const span = Math.floor(12 / cols) || 1;
+      document.querySelectorAll('[data-grid-btn]').forEach(b => b.classList.remove('active'));
+      const container = document.getElementById('grid-overlay');
+      container.style.gap = gap + 'px';
+      renderGridOverlay(cols, span);
+    }
+
+    // Example layouts
+    const EXAMPLE_LAYOUTS = {
+      'holy-grail': {
+        css: `display: grid;
+grid-template-columns: repeat(12, 1fr);
+grid-template-rows: auto 1fr auto;
+gap: 12px;
+
+.header  { grid-column: 1 / -1; }
+.sidebar { grid-column: 1 / 4; }
+.content { grid-column: 4 / 10; }
+.aside   { grid-column: 10 / -1; }
+.footer  { grid-column: 1 / -1; }`,
+        render(el) {
+          el.style.gridTemplateColumns = 'repeat(12, 1fr)';
+          el.style.gridTemplateRows = 'auto 1fr auto';
+          el.innerHTML = `
+            <div class="grid-col-filled" style="grid-column:1/-1; min-height:40px;">Header</div>
+            <div class="grid-col-filled" style="grid-column:1/4; min-height:120px; opacity:0.6;">Sidebar</div>
+            <div class="grid-col-filled" style="grid-column:4/10; min-height:120px;">Content</div>
+            <div class="grid-col-filled" style="grid-column:10/-1; min-height:120px; opacity:0.6;">Aside</div>
+            <div class="grid-col-filled" style="grid-column:1/-1; min-height:40px;">Footer</div>
+          `;
+        }
+      },
+      'cards': {
+        css: `display: grid;
+grid-template-columns: repeat(12, 1fr);
+gap: 12px;
+
+/* 4 equal cards, 3 columns each */
+.card { grid-column: span 3; }`,
+        render(el) {
+          el.style.gridTemplateColumns = 'repeat(12, 1fr)';
+          el.style.gridTemplateRows = '';
+          el.innerHTML = '';
+          for (let i = 1; i <= 4; i++) {
+            el.innerHTML += `<div class="grid-col-filled" style="grid-column:span 3; min-height:100px;">Card ${i}</div>`;
+          }
+        }
+      },
+      'asym-8-4': {
+        css: `display: grid;
+grid-template-columns: repeat(12, 1fr);
+gap: 12px;
+
+.main    { grid-column: span 8; }
+.sidebar { grid-column: span 4; }`,
+        render(el) {
+          el.style.gridTemplateColumns = 'repeat(12, 1fr)';
+          el.style.gridTemplateRows = '';
+          el.innerHTML = `
+            <div class="grid-col-filled" style="grid-column:span 8; min-height:160px;">Main Content (8 cols)</div>
+            <div class="grid-col-filled" style="grid-column:span 4; min-height:160px; opacity:0.7;">Sidebar (4 cols)</div>
+          `;
+        }
+      },
+      'asym-9-3': {
+        css: `display: grid;
+grid-template-columns: repeat(12, 1fr);
+gap: 12px;
+
+.main    { grid-column: span 9; }
+.sidebar { grid-column: span 3; }`,
+        render(el) {
+          el.style.gridTemplateColumns = 'repeat(12, 1fr)';
+          el.style.gridTemplateRows = '';
+          el.innerHTML = `
+            <div class="grid-col-filled" style="grid-column:span 9; min-height:160px;">Main Content (9 cols)</div>
+            <div class="grid-col-filled" style="grid-column:span 3; min-height:160px; opacity:0.7;">Sidebar (3 cols)</div>
+          `;
+        }
+      }
+    };
+
+    function showExampleLayout(key) {
+      document.querySelectorAll('[data-layout-btn]').forEach(b => b.classList.remove('active'));
+      if (event && event.target) event.target.classList.add('active');
+      const layout = EXAMPLE_LAYOUTS[key];
+      const preview = document.getElementById('example-layout-preview');
+      layout.render(preview);
+      document.getElementById('example-layout-code-text').textContent = layout.css;
+    }
+
+    /* ===========================================================
+       SECTION 2: FLEXBOX PATTERNS
+       =========================================================== */
+    const FLEX_PATTERNS = [
+      {
+        name: 'Row Distribute',
+        desc: 'Items spread evenly with space-between',
+        css: `display: flex;
+justify-content: space-between;
+align-items: center;`,
+        render() {
+          return `<div style="display:flex; justify-content:space-between; align-items:center; padding:16px;">
+            <div class="flex-item">Item A</div>
+            <div class="flex-item">Item B</div>
+            <div class="flex-item">Item C</div>
+            <div class="flex-item">Item D</div>
+          </div>`;
+        },
+        overlay() {
+          return `<div style="display:flex; justify-content:space-between; align-items:center; padding:16px; position:relative;">
+            <div class="flex-item" style="outline:2px dashed var(--brand); outline-offset:2px;">Item A</div>
+            <div style="flex:1; height:1px; border-top:2px dashed var(--error-500); margin:0 4px; position:relative;"><span style="position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:9px; color:var(--error-500); white-space:nowrap;">auto space</span></div>
+            <div class="flex-item" style="outline:2px dashed var(--brand); outline-offset:2px;">Item B</div>
+            <div style="flex:1; height:1px; border-top:2px dashed var(--error-500); margin:0 4px;"></div>
+            <div class="flex-item" style="outline:2px dashed var(--brand); outline-offset:2px;">Item C</div>
+            <div style="flex:1; height:1px; border-top:2px dashed var(--error-500); margin:0 4px;"></div>
+            <div class="flex-item" style="outline:2px dashed var(--brand); outline-offset:2px;">Item D</div>
+          </div>`;
+        }
+      },
+      {
+        name: 'Center Everything',
+        desc: 'Both axes centered',
+        css: `display: flex;
+justify-content: center;
+align-items: center;
+min-height: 160px;`,
+        render() {
+          return `<div style="display:flex; justify-content:center; align-items:center; min-height:160px;">
+            <div class="flex-item" style="padding:20px 32px; font-size:14px;">Centered Content</div>
+          </div>`;
+        },
+        overlay() {
+          return `<div style="display:flex; justify-content:center; align-items:center; min-height:160px; position:relative;">
+            <div style="position:absolute; left:0; right:0; top:50%; border-top:1px dashed var(--error-500);"><span style="position:absolute; right:4px; top:-14px; font-size:9px; color:var(--error-500);">align-items: center</span></div>
+            <div style="position:absolute; top:0; bottom:0; left:50%; border-left:1px dashed var(--error-500);"><span style="position:absolute; bottom:4px; left:4px; font-size:9px; color:var(--error-500); white-space:nowrap;">justify-content: center</span></div>
+            <div class="flex-item" style="padding:20px 32px; font-size:14px; outline:2px dashed var(--brand); outline-offset:2px;">Centered Content</div>
+          </div>`;
+        }
+      },
+      {
+        name: 'Sticky Footer',
+        desc: 'Header + flexible content + footer',
+        css: `display: flex;
+flex-direction: column;
+min-height: 240px;
+
+.content { flex: 1; }`,
+        render() {
+          return `<div style="display:flex; flex-direction:column; min-height:240px; gap:8px;">
+            <div class="flex-item" style="text-align:center;">Header</div>
+            <div class="flex-item" style="flex:1; display:flex; align-items:center; justify-content:center;">Content (flex: 1)</div>
+            <div class="flex-item" style="text-align:center;">Footer (sticky)</div>
+          </div>`;
+        },
+        overlay() {
+          return `<div style="display:flex; flex-direction:column; min-height:240px; gap:8px;">
+            <div class="flex-item" style="text-align:center; outline:2px dashed var(--brand); outline-offset:2px;">Header <span style="font-size:9px; color:var(--text-tertiary);">flex: 0</span></div>
+            <div class="flex-item" style="flex:1; display:flex; align-items:center; justify-content:center; outline:2px dashed var(--success-500); outline-offset:2px; position:relative;">
+              Content
+              <span style="position:absolute; right:8px; top:4px; font-size:9px; color:var(--success-500); font-weight:600;">flex: 1</span>
+            </div>
+            <div class="flex-item" style="text-align:center; outline:2px dashed var(--brand); outline-offset:2px;">Footer <span style="font-size:9px; color:var(--text-tertiary);">flex: 0</span></div>
+          </div>`;
+        }
+      },
+      {
+        name: 'Media Object',
+        desc: 'Image left, text right',
+        css: `display: flex;
+gap: 16px;
+align-items: flex-start;
+
+.image { flex-shrink: 0; width: 80px; }
+.text  { flex: 1; }`,
+        render() {
+          return `<div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:80px; height:80px; border-radius:var(--radius-md); background:linear-gradient(135deg, var(--brand), var(--blue-500)); flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Media Object Title</div>
+              <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">This is a classic media object pattern. The image stays fixed width while the text content takes up all remaining space and wraps as needed.</div>
+            </div>
+          </div>`;
+        },
+        overlay() {
+          return `<div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:80px; height:80px; border-radius:var(--radius-md); background:linear-gradient(135deg, var(--brand), var(--blue-500)); flex-shrink:0; outline:2px dashed var(--brand); outline-offset:2px; position:relative;">
+              <span style="position:absolute; bottom:-18px; left:0; font-size:9px; color:var(--brand); white-space:nowrap;">flex-shrink: 0</span>
+            </div>
+            <div style="flex:1; outline:2px dashed var(--success-500); outline-offset:2px; position:relative;">
+              <span style="position:absolute; top:-18px; right:0; font-size:9px; color:var(--success-500);">flex: 1</span>
+              <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Media Object Title</div>
+              <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">This is a classic media object pattern. The image stays fixed width while the text content takes up all remaining space.</div>
+            </div>
+          </div>`;
+        }
+      },
+      {
+        name: 'Holy Grail',
+        desc: 'Header, 3 columns, footer',
+        css: `/* Outer: column layout */
+display: flex;
+flex-direction: column;
+min-height: 260px;
+
+/* Middle row: 3 columns */
+.middle {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+}
+.sidebar { width: 100px; }
+.content { flex: 1; }
+.aside   { width: 100px; }`,
+        render() {
+          return `<div style="display:flex; flex-direction:column; min-height:260px; gap:8px;">
+            <div class="flex-item" style="text-align:center;">Header</div>
+            <div style="display:flex; flex:1; gap:8px;">
+              <div class="flex-item" style="width:100px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">Nav</div>
+              <div class="flex-item" style="flex:1; display:flex; align-items:center; justify-content:center;">Main Content</div>
+              <div class="flex-item" style="width:100px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">Aside</div>
+            </div>
+            <div class="flex-item" style="text-align:center;">Footer</div>
+          </div>`;
+        },
+        overlay() {
+          return `<div style="display:flex; flex-direction:column; min-height:260px; gap:8px;">
+            <div class="flex-item" style="text-align:center; outline:2px dashed var(--brand); outline-offset:2px;">Header</div>
+            <div style="display:flex; flex:1; gap:8px; outline:2px dashed var(--error-500); outline-offset:4px; position:relative;">
+              <span style="position:absolute; top:-18px; left:0; font-size:9px; color:var(--error-500);">flex: 1 (row)</span>
+              <div class="flex-item" style="width:100px; flex-shrink:0; display:flex; align-items:center; justify-content:center; outline:2px dashed var(--warning-700); outline-offset:2px;">Nav<br><span style="font-size:8px;">100px</span></div>
+              <div class="flex-item" style="flex:1; display:flex; align-items:center; justify-content:center; outline:2px dashed var(--success-500); outline-offset:2px;">Main<br><span style="font-size:8px;">flex:1</span></div>
+              <div class="flex-item" style="width:100px; flex-shrink:0; display:flex; align-items:center; justify-content:center; outline:2px dashed var(--warning-700); outline-offset:2px;">Aside<br><span style="font-size:8px;">100px</span></div>
+            </div>
+            <div class="flex-item" style="text-align:center; outline:2px dashed var(--brand); outline-offset:2px;">Footer</div>
+          </div>`;
+        }
+      },
+      {
+        name: 'Navbar',
+        desc: 'Logo left, links center, actions right',
+        css: `display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 12px 16px;
+
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}`,
+        render() {
+          return `<div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; position:relative;">
+            <div class="flex-item" style="font-weight:600;">Logo</div>
+            <div style="display:flex; gap:8px; position:absolute; left:50%; transform:translateX(-50%);">
+              <div class="flex-item" style="padding:6px 12px;">Home</div>
+              <div class="flex-item" style="padding:6px 12px;">About</div>
+              <div class="flex-item" style="padding:6px 12px;">Contact</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <div class="flex-item" style="padding:6px 12px;">Sign in</div>
+            </div>
+          </div>`;
+        },
+        overlay() {
+          return `<div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; position:relative;">
+            <div class="flex-item" style="font-weight:600; outline:2px dashed var(--brand); outline-offset:2px; position:relative;"><span style="position:absolute; top:-16px; font-size:9px; color:var(--brand);">flex-start</span>Logo</div>
+            <div style="display:flex; gap:8px; position:absolute; left:50%; transform:translateX(-50%); outline:2px dashed var(--success-500); outline-offset:4px;">
+              <span style="position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:9px; color:var(--success-500); white-space:nowrap;">centered (absolute)</span>
+              <div class="flex-item" style="padding:6px 12px;">Home</div>
+              <div class="flex-item" style="padding:6px 12px;">About</div>
+              <div class="flex-item" style="padding:6px 12px;">Contact</div>
+            </div>
+            <div style="display:flex; gap:8px; outline:2px dashed var(--error-500); outline-offset:4px; position:relative;">
+              <span style="position:absolute; top:-16px; right:0; font-size:9px; color:var(--error-500);">flex-end</span>
+              <div class="flex-item" style="padding:6px 12px;">Sign in</div>
+            </div>
+          </div>`;
+        }
+      },
+      {
+        name: 'Card List',
+        desc: 'Wrapping flex with consistent card sizes',
+        css: `display: flex;
+flex-wrap: wrap;
+gap: 12px;
+
+.card {
+  flex: 1 1 200px;
+  max-width: calc(33.333% - 8px);
+}`,
+        render() {
+          let html = '<div style="display:flex; flex-wrap:wrap; gap:12px;">';
+          for (let i = 1; i <= 6; i++) {
+            html += `<div class="flex-item" style="flex:1 1 200px; max-width:calc(33.333% - 8px); padding:20px; text-align:center;">Card ${i}</div>`;
+          }
+          html += '</div>';
+          return html;
+        },
+        overlay() {
+          let html = '<div style="display:flex; flex-wrap:wrap; gap:12px; position:relative;">';
+          for (let i = 1; i <= 6; i++) {
+            html += `<div class="flex-item" style="flex:1 1 200px; max-width:calc(33.333% - 8px); padding:20px; text-align:center; outline:2px dashed var(--brand); outline-offset:2px;">${i === 1 ? 'flex: 1 1 200px' : 'Card ' + i}</div>`;
+          }
+          html += '</div>';
+          return html;
+        }
+      }
+    ];
+
+    function buildFlexPatterns() {
+      const container = document.getElementById('flex-patterns-container');
+      FLEX_PATTERNS.forEach((pattern, idx) => {
+        const showOverlayId = `flex-overlay-${idx}`;
+        const previewId = `flex-preview-${idx}`;
+        container.innerHTML += `
+          <div class="demo-container" id="flex-demo-${idx}">
+            <div class="demo-header">
+              <div>
+                <div class="demo-title">${pattern.name}</div>
+                <div class="demo-subtitle">${pattern.desc}</div>
+              </div>
+              <button class="btn-outline" id="${showOverlayId}" onclick="toggleFlexOverlay(${idx})">Show CSS Overlay</button>
+            </div>
+            <div class="demo-body">
+              <div class="demo-preview" id="${previewId}">
+                ${pattern.render()}
+              </div>
+              <div class="code-block" style="margin-top:12px;">
+                <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+                <pre><code>${escapeHtml(pattern.css)}</code></pre>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    const flexOverlayState = {};
+    function toggleFlexOverlay(idx) {
+      const preview = document.getElementById(`flex-preview-${idx}`);
+      const btn = document.getElementById(`flex-overlay-${idx}`);
+      flexOverlayState[idx] = !flexOverlayState[idx];
+      if (flexOverlayState[idx]) {
+        preview.innerHTML = FLEX_PATTERNS[idx].overlay();
+        btn.textContent = 'Hide CSS Overlay';
+        btn.classList.add('active');
+      } else {
+        preview.innerHTML = FLEX_PATTERNS[idx].render();
+        btn.textContent = 'Show CSS Overlay';
+        btn.classList.remove('active');
+      }
+    }
+
+    /* ===========================================================
+       SECTION 3: CONTAINER QUERIES
+       =========================================================== */
+    function initContainerResize() {
+      const el = document.getElementById('cq-resizable');
+      const widthDisplay = document.getElementById('cq-width-display');
+
+      // Update width display on native resize
+      const ro = new ResizeObserver(entries => {
+        for (const entry of entries) {
+          const w = Math.round(entry.contentRect.width);
+          widthDisplay.textContent = w + 'px';
+          updateCqTags(w);
+        }
+      });
+      ro.observe(el);
+    }
+
+    function updateCqTags(w) {
+      const tagSmall = document.getElementById('cq-tag-small');
+      const tagMedium = document.getElementById('cq-tag-medium');
+      const tagLarge = document.getElementById('cq-tag-large');
+
+      [tagSmall, tagMedium, tagLarge].forEach(t => {
+        t.style.opacity = '0.4';
+        t.style.fontWeight = '500';
+      });
+
+      if (w < 300) {
+        tagSmall.style.opacity = '1';
+        tagSmall.style.fontWeight = '700';
+      } else if (w < 500) {
+        tagMedium.style.opacity = '1';
+        tagMedium.style.fontWeight = '700';
+      } else {
+        tagLarge.style.opacity = '1';
+        tagLarge.style.fontWeight = '700';
+      }
+    }
+
+    /* ===========================================================
+       SECTION 4: BREAKPOINT VISUALIZER
+       =========================================================== */
+    const BREAKPOINTS = [
+      { name: 'Mobile', width: 320 },
+      { name: 'SM', width: 640 },
+      { name: 'MD', width: 768 },
+      { name: 'LG', width: 1024 },
+      { name: 'XL', width: 1280 },
+      { name: '2XL', width: 1440 }
+    ];
+
+    function initBreakpointVisualizer() {
+      // Render markers
+      const labelsContainer = document.getElementById('bp-marker-labels');
+      BREAKPOINTS.forEach(bp => {
+        const pct = ((bp.width - 320) / (1440 - 320)) * 100;
+        labelsContainer.innerHTML += `
+          <div style="position:absolute; left:${pct}%; transform:translateX(-50%); font-size:9px; font-weight:600; color:var(--text-tertiary); text-align:center; white-space:nowrap;">
+            <div style="width:1px; height:8px; background:var(--border-color); margin:0 auto 2px;"></div>
+            ${bp.name}<br>${bp.width}
+          </div>
+        `;
+      });
+      updateBreakpointPreview(1024);
+    }
+
+    function updateBreakpointPreview(w) {
+      w = parseInt(w);
+      document.getElementById('bp-width-label').textContent = w + 'px';
+
+      // Find current breakpoint
+      let currentBp = 'Mobile';
+      let mediaQuery = '/* No media query (base styles) */';
+      if (w >= 1440) { currentBp = '2XL'; mediaQuery = '@media (min-width: 1440px) { /* 2XL */ }'; }
+      else if (w >= 1280) { currentBp = 'XL'; mediaQuery = '@media (min-width: 1280px) { /* XL */ }'; }
+      else if (w >= 1024) { currentBp = 'LG'; mediaQuery = '@media (min-width: 1024px) { /* LG */ }'; }
+      else if (w >= 768) { currentBp = 'MD'; mediaQuery = '@media (min-width: 768px) { /* MD */ }'; }
+      else if (w >= 640) { currentBp = 'SM'; mediaQuery = '@media (min-width: 640px) { /* SM */ }'; }
+      else { currentBp = 'Mobile'; mediaQuery = '/* Base styles (< 640px) */'; }
+
+      document.getElementById('bp-name-label').textContent = currentBp;
+      document.getElementById('bp-media-query-code').textContent = mediaQuery;
+
+      // Resize preview frame
+      const frame = document.getElementById('bp-preview-frame');
+      frame.style.width = Math.min(w, frame.parentElement.offsetWidth) + 'px';
+
+      // Render preview content based on width
+      const content = document.getElementById('bp-preview-content');
+      if (w < 640) {
+        // Mobile: single column
+        content.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:11px; font-weight:600; color:var(--brand);">Header</div>
+            <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:24px; text-align:center; font-size:11px; color:var(--text-secondary); min-height:80px;">Content</div>
+            <div style="display:grid; grid-template-columns:1fr; gap:8px;">
+              <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 1</div>
+              <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 2</div>
+            </div>
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:8px; text-align:center; font-size:10px; color:var(--brand);">Footer</div>
+          </div>
+        `;
+      } else if (w < 768) {
+        // SM: 2-column cards
+        content.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:11px; font-weight:600; color:var(--brand);">Header</div>
+            <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:24px; text-align:center; font-size:11px; color:var(--text-secondary); min-height:80px;">Content</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 1</div>
+              <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 2</div>
+            </div>
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:8px; text-align:center; font-size:10px; color:var(--brand);">Footer</div>
+          </div>
+        `;
+      } else if (w < 1024) {
+        // MD: sidebar + content
+        content.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:11px; font-weight:600; color:var(--brand);">Header</div>
+            <div style="display:flex; gap:8px;">
+              <div style="width:120px; flex-shrink:0; background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:10px; color:var(--brand); min-height:100px;">Sidebar</div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+                <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:11px; color:var(--text-secondary); flex:1;">Content</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 1</div>
+                  <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 2</div>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:8px; text-align:center; font-size:10px; color:var(--brand);">Footer</div>
+          </div>
+        `;
+      } else {
+        // LG+: sidebar + content + aside
+        content.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:11px; font-weight:600; color:var(--brand);">Header</div>
+            <div style="display:flex; gap:8px;">
+              <div style="width:140px; flex-shrink:0; background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:10px; color:var(--brand); min-height:120px;">Sidebar</div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+                <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:11px; color:var(--text-secondary); flex:1;">Main Content</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+                  <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 1</div>
+                  <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 2</div>
+                  <div style="background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:12px; text-align:center; font-size:10px; color:var(--text-tertiary);">Card 3</div>
+                </div>
+              </div>
+              <div style="width:100px; flex-shrink:0; background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:16px; text-align:center; font-size:10px; color:var(--text-tertiary); min-height:120px;">Aside</div>
+            </div>
+            <div style="background:var(--brand-light); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-md); padding:8px; text-align:center; font-size:10px; color:var(--brand);">Footer</div>
+          </div>
+        `;
+      }
+    }
+
+    /* ===========================================================
+       SECTION 5: LAYOUT PRIMITIVES
+       =========================================================== */
+
+    // Stack
+    function setStackGap(val) {
+      document.querySelectorAll('[data-stack-btn]').forEach(b => b.classList.remove('active'));
+      if (event && event.target) event.target.classList.add('active');
+      document.getElementById('stack-demo').style.gap = val + 'px';
+    }
+
+    // Cluster
+    function updateCluster() {
+      const gap = document.getElementById('cluster-gap').value;
+      const align = document.getElementById('cluster-align').value;
+      const demo = document.getElementById('cluster-demo');
+      demo.style.gap = gap + 'px';
+      demo.style.justifyContent = align;
+      document.getElementById('cluster-gap-val').textContent = gap + 'px';
+    }
+
+    // Sidebar primitive
+    function updateSidebarPrimitive() {
+      const w = document.getElementById('sidebar-width').value;
+      document.getElementById('sidebar-panel').style.width = w + 'px';
+      document.getElementById('sidebar-panel').textContent = `Sidebar (${w}px)`;
+      document.getElementById('sidebar-width-val').textContent = w + 'px';
+    }
+
+    function setSidebarPos(pos) {
+      document.querySelectorAll('[data-sidebar-pos]').forEach(b => b.classList.remove('active'));
+      if (event && event.target) event.target.classList.add('active');
+      const demo = document.getElementById('sidebar-demo');
+      const panel = document.getElementById('sidebar-panel');
+      if (pos === 'right') {
+        demo.style.flexDirection = 'row-reverse';
+      } else {
+        demo.style.flexDirection = 'row';
+      }
+    }
+
+    // Switcher
+    function updateSwitcher() {
+      const threshold = document.getElementById('switcher-threshold').value;
+      document.getElementById('switcher-threshold-val').textContent = threshold + 'px';
+      const items = document.querySelectorAll('#switcher-demo > div');
+      items.forEach(item => {
+        item.style.flexBasis = `calc((${threshold}px - 100%) * 999)`;
+      });
+    }
+
+    // Cover
+    function updateCover() {
+      const h = document.getElementById('cover-height').value;
+      document.getElementById('cover-demo').style.minHeight = h + 'vh';
+      document.getElementById('cover-height-val').textContent = h + 'vh';
+    }
+
+    // Frame
+    function setFrameRatio(label, pct) {
+      document.querySelectorAll('[data-frame-btn]').forEach(b => b.classList.remove('active'));
+      if (event && event.target) event.target.classList.add('active');
+      const frame = document.querySelector('#frame-demo > div');
+      frame.style.paddingBottom = pct + '%';
+      document.getElementById('frame-ratio-label').textContent = label;
+    }
+
+    /* ===========================================================
+       SECTION 6: SPACING SCALE
+       =========================================================== */
+    const SPACING_TOKENS = [
+      { name: '--space-1', value: 4, usage: ['Icon padding', 'Inline element gap', 'Badge internal padding'] },
+      { name: '--space-2', value: 8, usage: ['Button group gap', 'Form field internal spacing', 'Tag padding', 'Small card padding'] },
+      { name: '--space-3', value: 12, usage: ['Card internal padding', 'List item spacing', 'Grid gap (compact)', 'Input padding'] },
+      { name: '--space-4', value: 16, usage: ['Section inner padding', 'Card padding (default)', 'Sidebar link padding', 'Stack gap (default)'] },
+      { name: '--space-5', value: 20, usage: ['Form group spacing', 'Sidebar padding', 'Demo container padding'] },
+      { name: '--space-6', value: 24, usage: ['Page section gap', 'Header padding', 'Grid gap (default)', 'Modal padding'] },
+      { name: '--space-8', value: 32, usage: ['Page margin (desktop)', 'Section separation', 'Hero content spacing', 'Large card padding'] },
+    ];
+
+    let selectedSpacing = [];
+
+    function buildSpacingBars() {
+      const container = document.getElementById('spacing-bars');
+      const maxVal = 32;
+      SPACING_TOKENS.forEach((token, idx) => {
+        const pct = (token.value / maxVal) * 100;
+        container.innerHTML += `
+          <div class="spacing-bar" id="spacing-bar-${idx}" onclick="selectSpacing(${idx}, event)">
+            <div style="width:80px; flex-shrink:0; text-align:right;">
+              <span style="font-family:'SF Mono',monospace; font-size:11px; font-weight:500; color:var(--text-secondary);">${token.value}px</span>
+            </div>
+            <div class="spacing-bar-visual" style="width:${pct}%;"></div>
+            <div style="flex:1; min-width:80px;">
+              <span style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand);">${token.name}</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function selectSpacing(idx, evt) {
+      if (evt && evt.shiftKey && selectedSpacing.length === 1 && selectedSpacing[0] !== idx) {
+        selectedSpacing.push(idx);
+        showSpacingComparison(selectedSpacing[0], selectedSpacing[1]);
+      } else {
+        selectedSpacing = [idx];
+        document.querySelectorAll('.spacing-bar').forEach(b => b.classList.remove('active'));
+        document.getElementById(`spacing-bar-${idx}`).classList.add('active');
+        showSpacingUsage(idx);
+        document.getElementById('spacing-compare').style.display = 'none';
+      }
+    }
+
+    function showSpacingUsage(idx) {
+      const token = SPACING_TOKENS[idx];
+      const usageEl = document.getElementById('spacing-usage');
+      const listEl = document.getElementById('spacing-usage-list');
+      usageEl.style.display = 'block';
+      listEl.innerHTML = token.usage.map(u => `<div style="display:flex; align-items:center; gap:6px;">
+        <div style="width:4px; height:4px; border-radius:50%; background:var(--brand); flex-shrink:0;"></div>
+        ${u}
+      </div>`).join('');
+    }
+
+    function showSpacingComparison(a, b) {
+      const tokenA = SPACING_TOKENS[a];
+      const tokenB = SPACING_TOKENS[b];
+      const compareEl = document.getElementById('spacing-compare');
+      compareEl.style.display = 'block';
+
+      document.getElementById('compare-bar-a').style.height = (tokenA.value * 3) + 'px';
+      document.getElementById('compare-label-a').textContent = `${tokenA.name} (${tokenA.value}px)`;
+      document.getElementById('compare-bar-b').style.height = (tokenB.value * 3) + 'px';
+      document.getElementById('compare-label-b').textContent = `${tokenB.name} (${tokenB.value}px)`;
+
+      const ratio = tokenB.value / tokenA.value;
+      document.getElementById('compare-ratio').textContent = `Ratio: ${ratio.toFixed(2)}x (${tokenA.value}px vs ${tokenB.value}px)`;
+
+      document.querySelectorAll('.spacing-bar').forEach(b => b.classList.remove('active'));
+      document.getElementById(`spacing-bar-${a}`).classList.add('active');
+      document.getElementById(`spacing-bar-${b}`).classList.add('active');
+    }
+
+    /* ===========================================================
+       SECTION 7: Z-INDEX SCALE
+       =========================================================== */
+    const Z_LAYERS = [
+      { name: 'base', value: 0, color: '#E4E7EC', components: ['Page content', 'Static elements', 'Default positioned elements'] },
+      { name: 'dropdown', value: 10, color: '#B2DDFF', components: ['Select menus', 'Dropdown menus', 'Autocomplete lists'] },
+      { name: 'sticky', value: 20, color: '#A6F4C5', components: ['Sticky table headers', 'Sticky sidebar', 'Pinned elements'] },
+      { name: 'fixed', value: 30, color: '#FDE68A', components: ['Fixed header/navbar', 'Fixed footer', 'Floating action buttons'] },
+      { name: 'modal-backdrop', value: 40, color: '#FECACA', components: ['Modal overlay', 'Drawer backdrop', 'Dialog scrim'] },
+      { name: 'modal', value: 50, color: '#C4B5FD', components: ['Modal dialog', 'Drawer panel', 'Full-screen overlay'] },
+      { name: 'popover', value: 60, color: '#818cf8', components: ['Tooltips', 'Popovers', 'Context menus on modals'] },
+      { name: 'toast', value: 70, color: '#F472B6', components: ['Toast notifications', 'Snackbars', 'Alert banners'] }
+    ];
+
+    let zPerspective = true;
+
+    function buildZLayers() {
+      const container = document.getElementById('z-layers-inner');
+      const total = Z_LAYERS.length;
+      Z_LAYERS.forEach((layer, idx) => {
+        const offset = idx * 44;
+        const width = 90 - idx * 4;
+        const el = document.createElement('div');
+        el.className = 'z-layer';
+        el.id = `z-layer-${idx}`;
+        el.onclick = () => selectZLayer(idx);
+        el.style.cssText = `
+          left: ${(100 - width) / 2}%;
+          width: ${width}%;
+          height: 40px;
+          top: ${offset}px;
+          background: ${layer.color}20;
+          border-color: ${layer.color}60;
+          color: var(--text-primary);
+          transform: ${zPerspective ? `translateZ(${idx * 12}px)` : 'none'};
+        `;
+        el.innerHTML = `
+          <span style="font-size:11px; font-weight:600;">${layer.name}</span>
+          <span style="font-size:10px; color:var(--text-tertiary); margin-left:8px;">z-index: ${layer.value}</span>
+        `;
+        container.appendChild(el);
+      });
+
+      if (zPerspective) {
+        container.parentElement.style.transform = 'rotateX(25deg) rotateY(-15deg)';
+      }
+    }
+
+    function selectZLayer(idx) {
+      document.querySelectorAll('.z-layer').forEach(l => l.classList.remove('active'));
+      document.getElementById(`z-layer-${idx}`).classList.add('active');
+
+      const layer = Z_LAYERS[idx];
+      const panel = document.getElementById('z-info-panel');
+      panel.style.display = 'block';
+      document.getElementById('z-info-name').textContent = layer.name;
+      document.getElementById('z-info-value').textContent = `z-index: ${layer.value}`;
+      document.getElementById('z-info-components').innerHTML = layer.components.map(c => `
+        <div style="display:flex; align-items:center; gap:6px;">
+          <div style="width:4px; height:4px; border-radius:50%; background:${layer.color}; flex-shrink:0;"></div>
+          ${c}
+        </div>
+      `).join('');
+    }
+
+    function toggleZPerspective() {
+      zPerspective = !zPerspective;
+      const inner = document.getElementById('z-layers-inner');
+      const btn = document.getElementById('z-perspective-toggle');
+
+      if (zPerspective) {
+        inner.parentElement.style.transform = 'rotateX(25deg) rotateY(-15deg)';
+        btn.textContent = 'Toggle 3D View';
+        btn.classList.remove('active');
+      } else {
+        inner.parentElement.style.transform = 'rotateX(0) rotateY(0)';
+        btn.textContent = 'Toggle 3D View';
+        btn.classList.add('active');
+      }
+
+      // Update layer transforms
+      Z_LAYERS.forEach((layer, idx) => {
+        const el = document.getElementById(`z-layer-${idx}`);
+        if (el) {
+          el.style.transform = zPerspective ? `translateZ(${idx * 12}px)` : 'none';
+        }
+      });
+    }
+
+    /* ===========================================================
+       SIDEBAR SCROLL SPY
+       =========================================================== */
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('section[id]');
+
+    function updateSidebar() {
+      let current = '';
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 120) current = sec.id;
+      });
+      sidebarLinks.forEach(link => {
+        link.classList.toggle('active-section', link.getAttribute('href') === '#' + current);
+      });
+    }
+
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    window.addEventListener('scroll', updateSidebar, { passive: true });
+
+    /* ===========================================================
+       INIT
+       =========================================================== */
+    (function init() {
+      // Grid overlay
+      renderGridOverlay(12, 1);
+
+      // Example layouts
+      showExampleLayout('holy-grail');
+
+      // Flexbox patterns
+      buildFlexPatterns();
+
+      // Container queries
+      initContainerResize();
+
+      // Breakpoint visualizer
+      initBreakpointVisualizer();
+
+      // Spacing bars
+      buildSpacingBars();
+
+      // Z-index layers
+      buildZLayers();
+
+      // Initial scroll spy
+      updateSidebar();
+    })();
+  </script>
+</body>
+</html>

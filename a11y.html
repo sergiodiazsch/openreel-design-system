@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessibility - OpenReel Design System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand:#1F12DE;--brand-hover:#1a0fbc;--brand-light:rgba(31,18,222,0.1);
+      --blue-50:#EFF8FF;--blue-100:#B2DDFF;--blue-500:#2970FF;--blue-600:#175CD3;--blue-light:#53B1FD;
+      --gray-25:#FCFCFD;--gray-50:#F9FAFB;--gray-100:#F2F4F7;--gray-200:#EAECF0;--gray-300:#E4E7EC;--gray-400:#98A2B3;--gray-500:#667085;--gray-600:#475467;--gray-700:#344054;--gray-900:#101828;
+      --success-50:#ECFDF3;--success-100:#D1FAE0;--success-200:#A6F4C5;--success-500:#17B26A;--success-700:#067647;
+      --error-50:#FEF3F2;--error-100:#FEE4E2;--error-500:#F04438;--error-700:#B42318;
+      --warning-50:#FFFAEB;--warning-100:#FEDF89;--warning-700:#B54708;
+      --font-family:'Inter',system-ui,-apple-system,sans-serif;
+      --radius-sm:4px;--radius-md:8px;--radius-lg:10px;--radius-xl:14px;--radius-full:9999px;
+      --shadow-xs:0px 1px 2px rgba(16,24,40,0.05);
+      --shadow-sm:0px 1px 3px rgba(16,24,40,0.1),0px 1px 2px rgba(16,24,40,0.06);
+      --shadow-md:0px 4px 8px -2px rgba(16,24,40,0.1),0px 2px 4px -2px rgba(16,24,40,0.06);
+      --shadow-lg:0px 12px 16px -4px rgba(16,24,40,0.08),0px 4px 6px -2px rgba(16,24,40,0.03);
+      --shadow-xl:0px 20px 24px -4px rgba(16,24,40,0.08),0px 8px 8px -4px rgba(16,24,40,0.03);
+    }
+    html:not(.dark){--bg-page:#F9FAFB;--bg-card:#FFFFFF;--bg-preview:#FFFFFF;--border-color:#EAECF0;--text-primary:#101828;--text-secondary:#667085;--text-tertiary:#98A2B3;}
+    html.dark{--bg-page:#0C111D;--bg-card:#161B26;--bg-preview:#1F242F;--border-color:#333741;--text-primary:#F5F5F6;--text-secondary:#94969C;--text-tertiary:#61646C;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--font-family);font-size:14px;line-height:24px;color:var(--text-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased;transition:background .25s,color .25s;}
+    ::-webkit-scrollbar{width:6px;height:6px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:var(--radius-full);}html.dark ::-webkit-scrollbar-thumb{background:#333741;}
+    .dm-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:var(--radius-md);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;cursor:pointer;transition:all .2s;}
+    .dm-toggle:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);}
+
+    /* Tab nav */
+    .tab-nav{display:flex;gap:0;border-bottom:2px solid var(--border-color);margin-bottom:28px;overflow-x:auto;}
+    .tab-btn{padding:12px 20px;font-size:14px;font-weight:600;font-family:var(--font-family);color:var(--text-secondary);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+    .tab-btn:hover{color:var(--text-primary);}
+    .tab-btn.active{color:var(--brand);border-bottom-color:var(--brand);}
+    html.dark .tab-btn.active{color:#818cf8;border-bottom-color:#818cf8;}
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;}
+
+    /* Cards */
+    .a11y-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:24px;transition:all .2s;}
+    .a11y-card h3{font-size:16px;font-weight:700;margin-bottom:4px;}
+    .a11y-card .desc{font-size:13px;color:var(--text-secondary);margin-bottom:16px;}
+
+    /* Filter grid */
+    .filter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+    .filter-card{background:var(--bg-preview);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;transition:all .2s;}
+    .filter-card-header{padding:12px 16px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;}
+    .filter-card-header h4{font-size:13px;font-weight:700;}
+    .filter-card-header span{font-size:11px;color:var(--text-tertiary);}
+    .filter-card-body{padding:16px;min-height:120px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+
+    /* Buttons used in demos */
+    .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;font-size:14px;font-weight:600;font-family:var(--font-family);color:#fff;background:var(--brand);border:none;border-radius:var(--radius-md);cursor:pointer;transition:all .15s;}
+    .btn-primary:hover{background:var(--brand-hover);}
+    .btn-primary:active{transform:scale(0.97);}
+    .btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;font-size:14px;font-weight:600;font-family:var(--font-family);color:var(--text-primary);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;}
+    .btn-secondary:hover{border-color:var(--brand);color:var(--brand);}
+
+    /* Badge */
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;font-size:12px;font-weight:500;border-radius:var(--radius-full);}
+    .badge-success{background:var(--success-50);color:var(--success-700);}
+    html.dark .badge-success{background:rgba(23,178,106,0.12);color:#4ade80;}
+    .badge-error{background:var(--error-50);color:var(--error-700);}
+    html.dark .badge-error{background:rgba(240,68,56,0.12);color:#f87171;}
+    .badge-warning{background:var(--warning-50);color:var(--warning-700);}
+    html.dark .badge-warning{background:rgba(254,223,137,0.12);color:#fbbf24;}
+
+    /* Focus demo */
+    .focus-demo-area{background:var(--bg-preview);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:24px;position:relative;}
+    .focus-demo-area *:focus{outline:3px solid var(--brand);outline-offset:2px;border-radius:var(--radius-sm);}
+    html.dark .focus-demo-area *:focus{outline-color:#818cf8;}
+    .focus-path{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:12px 16px;background:var(--bg-preview);border:1px solid var(--border-color);border-radius:var(--radius-md);min-height:48px;margin-top:16px;}
+    .focus-crumb{font-size:12px;font-weight:500;padding:2px 8px;background:var(--brand-light);color:var(--brand);border-radius:var(--radius-sm);}
+    html.dark .focus-crumb{background:rgba(129,140,248,0.12);color:#818cf8;}
+    .focus-crumb-arrow{color:var(--text-tertiary);font-size:12px;}
+    .tab-order-badge{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--brand);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);z-index:10;pointer-events:none;box-shadow:var(--shadow-sm);}
+    html.dark .tab-order-badge{background:#818cf8;}
+
+    /* Focus visualizer */
+    .page-layout{display:grid;grid-template-columns:200px 1fr;grid-template-rows:60px 1fr 50px;gap:1px;background:var(--border-color);border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;min-height:400px;}
+    .layout-header{grid-column:1/-1;background:var(--bg-card);padding:12px 16px;display:flex;align-items:center;gap:12px;}
+    .layout-sidebar{background:var(--bg-card);padding:12px;display:flex;flex-direction:column;gap:8px;}
+    .layout-main{background:var(--bg-card);padding:16px;display:flex;flex-direction:column;gap:12px;}
+    .layout-footer{grid-column:1/-1;background:var(--bg-card);padding:12px 16px;display:flex;align-items:center;gap:12px;}
+    .focus-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;transition:all .3s;}
+    .focus-num.green{background:var(--success-500);}
+    .focus-num.yellow{background:#f59e0b;}
+    .focus-num.red{background:var(--error-500);}
+    .focus-num.inactive{background:var(--gray-300);color:var(--gray-500);}
+    html.dark .focus-num.inactive{background:#333741;color:#94969C;}
+    .focus-connector{position:absolute;pointer-events:none;z-index:5;}
+    .focus-overlay{position:absolute;inset:0;pointer-events:none;z-index:5;}
+
+    /* Touch target */
+    .target-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;}
+    .target-card{background:var(--bg-preview);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;}
+    .target-card .label{font-size:12px;font-weight:600;color:var(--text-secondary);}
+    .target-card .size{font-size:11px;font-weight:500;padding:2px 8px;border-radius:var(--radius-full);}
+    .target-card .size.pass{background:var(--success-50);color:var(--success-700);}
+    html.dark .target-card .size.pass{background:rgba(23,178,106,0.12);color:#4ade80;}
+    .target-card .size.warn{background:var(--warning-50);color:var(--warning-700);}
+    html.dark .target-card .size.warn{background:rgba(254,223,137,0.12);color:#fbbf24;}
+    .target-card .size.fail{background:var(--error-50);color:var(--error-700);}
+    html.dark .target-card .size.fail{background:rgba(240,68,56,0.12);color:#f87171;}
+    .target-element{display:flex;align-items:center;justify-content:center;border:2px dashed transparent;position:relative;}
+    .target-element.pass-outline{border-color:var(--success-500);}
+    .target-element.warn-outline{border-color:#f59e0b;}
+    .target-element.fail-outline{border-color:var(--error-500);}
+
+    /* ARIA table */
+    .aria-table{width:100%;border-collapse:collapse;font-size:13px;}
+    .aria-table th{text-align:left;padding:10px 14px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);background:var(--bg-preview);border-bottom:1px solid var(--border-color);}
+    .aria-table td{padding:10px 14px;border-bottom:1px solid var(--border-color);vertical-align:top;}
+    .aria-table tr:hover td{background:var(--brand-light);}
+    html.dark .aria-table tr:hover td{background:rgba(129,140,248,0.06);}
+    .aria-table code{font-family:'SF Mono','Fira Code',monospace;font-size:12px;background:var(--bg-preview);padding:1px 6px;border-radius:var(--radius-sm);color:var(--brand);}
+    html.dark .aria-table code{color:#818cf8;}
+    .aria-category{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-tertiary);padding:16px 14px 6px;border-bottom:1px solid var(--border-color);background:var(--bg-page);}
+    .code-snippet{position:relative;background:var(--gray-900);border-radius:var(--radius-md);overflow:hidden;margin-top:12px;}
+    .code-snippet pre{margin:0;padding:14px 16px;overflow-x:auto;}
+    .code-snippet code{font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:1.6;color:#e2e8f0;white-space:pre;background:transparent;padding:0;}
+    .code-snippet .copy-btn{position:absolute;top:8px;right:8px;padding:4px 10px;font-size:10px;font-weight:500;font-family:var(--font-family);color:#94a3b8;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;}
+    .code-snippet .copy-btn:hover{color:#fff;background:rgba(255,255,255,0.12);}
+
+    /* Search */
+    .search-input{font-family:var(--font-family);font-size:14px;padding:9px 13px 9px 36px;border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-card);color:var(--text-primary);outline:none;transition:all .15s;width:100%;max-width:360px;}
+    .search-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-light);}
+    .search-input:focus-visible{outline:2px solid var(--brand);outline-offset:2px;}
+    html.dark .search-input:focus{border-color:#818cf8;box-shadow:0 0 0 3px rgba(129,140,248,0.15);}
+    .search-wrap{position:relative;display:inline-flex;align-items:center;}
+    .search-wrap svg{position:absolute;left:12px;color:var(--text-tertiary);pointer-events:none;}
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);padding:10px 20px;font-size:13px;font-weight:500;color:#fff;background:var(--gray-900);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);opacity:0;transition:all .3s cubic-bezier(0.34,1.56,0.64,1);z-index:100;pointer-events:none;}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+    /* Tips panel */
+    .tips-panel{background:var(--bg-preview);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:20px;}
+    .tips-panel h4{font-size:14px;font-weight:700;margin-bottom:12px;}
+    .shortcut-row{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13px;color:var(--text-secondary);}
+    .kbd{display:inline-flex;align-items:center;justify-content:center;min-width:28px;padding:2px 8px;font-size:11px;font-weight:600;font-family:'SF Mono','Fira Code',monospace;color:var(--text-primary);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-sm);box-shadow:0 1px 0 var(--border-color);}
+
+    /* Score */
+    .score-card{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--bg-preview);border:1px solid var(--border-color);border-radius:var(--radius-lg);margin-top:16px;}
+    .score-num{font-size:28px;font-weight:700;color:var(--success-500);}
+    .score-label{font-size:13px;color:var(--text-secondary);}
+
+    /* Checkbox */
+    .check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;}
+    .check-box{width:18px;height:18px;border:2px solid var(--border-color);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+    .check-wrap.checked .check-box{background:var(--brand);border-color:var(--brand);}
+    html.dark .check-wrap.checked .check-box{background:#818cf8;border-color:#818cf8;}
+
+    /* Dropdown demo */
+    .demo-dropdown{position:relative;display:inline-block;}
+    .demo-dropdown-btn{padding:9px 32px 9px 13px;font-size:14px;font-family:var(--font-family);border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-card);color:var(--text-primary);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
+    .demo-dropdown-btn:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-light);outline:none;}
+    .demo-dropdown-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px;}
+
+    /* Highlight stepping */
+    .step-highlight{outline:3px solid var(--brand)!important;outline-offset:2px;border-radius:var(--radius-sm);}
+    html.dark .step-highlight{outline-color:#818cf8!important;}
+    .stepped-bg{background:var(--brand-light)!important;transition:background .2s;}
+    html.dark .stepped-bg{background:rgba(129,140,248,0.08)!important;}
+
+    @media(max-width:768px){
+      .filter-grid{grid-template-columns:1fr;}
+      .page-layout{grid-template-columns:1fr;grid-template-rows:auto auto 1fr auto;}
+      .target-grid{grid-template-columns:repeat(2,1fr);}
+      .tab-nav{gap:0;}
+      .tab-btn{padding:10px 14px;font-size:13px;}
+    }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  /* focus-visible for inline-styled inputs that suppress the default outline */
+  #hex-input:focus-visible,
+  .kb-focusable[type="email"]:focus-visible,
+  .fo-item[type="text"]:focus-visible,
+  textarea.fo-item:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+</head>
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+
+<!-- SVG FILTERS (hidden) -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden;" aria-hidden="true">
+  <defs>
+    <filter id="protanopia">
+      <feColorMatrix type="matrix" values="0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="deuteranopia">
+      <feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="tritanopia">
+      <feColorMatrix type="matrix" values="0.95 0.05 0 0 0  0 0.433 0.567 0 0  0 0.475 0.525 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="protanomaly">
+      <feColorMatrix type="matrix" values="0.817 0.183 0 0 0  0.333 0.667 0 0 0  0 0.125 0.875 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="deuteranomaly">
+      <feColorMatrix type="matrix" values="0.8 0.2 0 0 0  0.258 0.742 0 0 0  0 0.142 0.858 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="tritanomaly">
+      <feColorMatrix type="matrix" values="0.967 0.033 0 0 0  0 0.733 0.267 0 0  0 0.183 0.817 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="achromatopsia">
+      <feColorMatrix type="matrix" values="0.299 0.587 0.114 0 0  0.299 0.587 0.114 0 0  0.299 0.587 0.114 0 0  0 0 0 1 0"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- HEADER -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+<!-- MAIN CONTENT -->
+<main id="main-content" style="max-width:1200px;margin:0 auto;padding:88px 24px 60px;">
+  <!-- Page title -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+      <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.02em;">Accessibility Audit &amp; Tools</h1>
+    </div>
+    <p style="font-size:15px;color:var(--text-secondary);max-width:640px;">Interactive tools for testing color blindness simulation, keyboard navigation, focus order, touch targets, and ARIA patterns in the OpenReel Design System.</p>
+  </div>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-nav" role="tablist" aria-label="Accessibility tools">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-color" id="tab-color" onclick="switchTab('color')">Color Blindness</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-keyboard" id="tab-keyboard" onclick="switchTab('keyboard')">Keyboard Nav</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-focus" id="tab-focus" onclick="switchTab('focus')">Focus Order</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-touch" id="tab-touch" onclick="switchTab('touch')">Touch Targets</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-aria" id="tab-aria" onclick="switchTab('aria')">ARIA Reference</button>
+  </nav>
+
+  <!-- ============================================================
+       TAB 1: COLOR BLINDNESS SIMULATOR
+       ============================================================ -->
+  <div class="tab-panel active" id="panel-color" role="tabpanel" aria-labelledby="tab-color">
+    <div class="a11y-card" style="margin-bottom:24px;">
+      <h2>Color Blindness Simulator</h2>
+      <p class="desc">See how design system components appear under different types of color vision deficiency. Each card applies an SVG filter simulating a specific condition.</p>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <label style="font-size:13px;font-weight:500;">Custom color:</label>
+        <input type="color" id="custom-color" value="#1F12DE" style="width:40px;height:32px;border:1px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;padding:2px;" onchange="updateColorPreview(this.value)"/>
+        <input type="text" id="hex-input" value="#1F12DE" placeholder="#HEX" style="font-family:var(--font-family);font-size:13px;padding:7px 12px;border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-card);color:var(--text-primary);width:100px;" oninput="handleHexInput(this.value)"/>
+        <div id="color-swatch" style="width:80px;height:32px;border-radius:var(--radius-md);background:#1F12DE;border:1px solid var(--border-color);"></div>
+      </div>
+    </div>
+
+    <div class="filter-grid" id="filter-grid">
+      <!-- Filter cards generated by JS -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 2: KEYBOARD NAVIGATION TESTER
+       ============================================================ -->
+  <div class="tab-panel" id="panel-keyboard" role="tabpanel" aria-labelledby="tab-keyboard">
+    <div class="a11y-card" style="margin-bottom:24px;">
+      <h2>Keyboard Navigation Tester</h2>
+      <p class="desc">Test keyboard accessibility of interactive components. Start the test, then use Tab to navigate. The focus path and tab order are tracked in real-time.</p>
+      <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="startKbTest()" id="kb-start-btn">Start Test</button>
+        <button class="btn-secondary" onclick="resetKbTest()">Reset</button>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;cursor:pointer;">
+          <input type="checkbox" id="show-tab-order" checked onchange="toggleTabOrderBadges()" style="accent-color:var(--brand);"/>
+          Show tab order numbers
+        </label>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:24px;">
+      <div>
+        <div class="focus-demo-area" id="kb-demo-area" style="position:relative;">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <button class="btn-primary kb-focusable" data-label="Primary Button" tabindex="0">Primary Button</button>
+              <button class="btn-secondary kb-focusable" data-label="Secondary Button" tabindex="0">Secondary Button</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:13px;font-weight:500;">Email address</label>
+              <input type="email" class="kb-focusable" data-label="Email Input" placeholder="Enter your email" style="font-family:var(--font-family);font-size:14px;padding:9px 13px;border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-card);color:var(--text-primary);max-width:320px;" tabindex="0"/>
+            </div>
+            <div class="check-wrap kb-focusable" data-label="Checkbox" tabindex="0" role="checkbox" aria-checked="false" onclick="this.classList.toggle('checked');this.setAttribute('aria-checked',this.classList.contains('checked'))" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();this.click();}">
+              <div class="check-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span style="font-size:14px;">I agree to the terms</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:13px;font-weight:500;">Category</label>
+              <select class="demo-dropdown-btn kb-focusable" data-label="Dropdown" tabindex="0" style="max-width:240px;font-family:var(--font-family);">
+                <option>Select option...</option>
+                <option>Design</option>
+                <option>Engineering</option>
+                <option>Marketing</option>
+              </select>
+            </div>
+            <a href="#" class="kb-focusable" data-label="Link" tabindex="0" onclick="event.preventDefault();" style="font-size:14px;color:var(--brand);font-weight:500;text-decoration:underline;display:inline-block;max-width:fit-content;">Learn more about accessibility</a>
+            <button class="btn-secondary kb-focusable" data-label="Modal Trigger" tabindex="0" onclick="openDemoModal()" style="max-width:fit-content;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+              Open Modal
+            </button>
+          </div>
+          <!-- Tab order badges rendered by JS -->
+        </div>
+
+        <!-- Focus path trail -->
+        <div style="margin-top:16px;">
+          <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-tertiary);margin-bottom:8px;">Focus Path</div>
+          <div class="focus-path" id="focus-path">
+            <span style="font-size:12px;color:var(--text-tertiary);">Press "Start Test" and use Tab to navigate...</span>
+          </div>
+        </div>
+
+        <!-- Score -->
+        <div class="score-card" id="kb-score">
+          <div>
+            <div class="score-num" id="kb-score-num">0/0</div>
+            <div class="score-label">Elements keyboard accessible</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:13px;color:var(--text-secondary);" id="kb-score-detail">Start the test to evaluate keyboard accessibility.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips panel -->
+      <div>
+        <div class="tips-panel">
+          <h4>Keyboard Shortcuts</h4>
+          <div class="shortcut-row"><span class="kbd">Tab</span> Move to next element</div>
+          <div class="shortcut-row"><span class="kbd">Shift</span>+<span class="kbd">Tab</span> Move to previous</div>
+          <div class="shortcut-row"><span class="kbd">Enter</span> Activate button/link</div>
+          <div class="shortcut-row"><span class="kbd">Space</span> Toggle checkbox/button</div>
+          <div class="shortcut-row"><span class="kbd">Esc</span> Close modal/dialog</div>
+          <div class="shortcut-row"><span class="kbd">&uarr;</span><span class="kbd">&darr;</span> Navigate dropdown</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo Modal (hidden) -->
+    <div id="demo-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:28px;max-width:420px;width:90%;box-shadow:var(--shadow-xl);">
+        <h3 id="modal-title" style="font-size:18px;font-weight:700;margin-bottom:8px;">Demo Modal</h3>
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">This modal tests keyboard focus trapping. You should be able to Tab between the buttons and close with Escape.</p>
+        <div style="display:flex;gap:12px;">
+          <button class="btn-primary kb-modal-focusable" onclick="closeDemoModal()">Confirm</button>
+          <button class="btn-secondary kb-modal-focusable" onclick="closeDemoModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 3: FOCUS ORDER VISUALIZER
+       ============================================================ -->
+  <div class="tab-panel" id="panel-focus" role="tabpanel" aria-labelledby="tab-focus">
+    <div class="a11y-card" style="margin-bottom:24px;">
+      <h2>Focus Order Visualizer</h2>
+      <p class="desc">Visualize the tab order of a typical page layout. Numbered indicators show the sequence, connecting lines show the flow, and color coding highlights potential issues.</p>
+      <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+        <button class="btn-primary" id="focus-step-btn" onclick="stepFocusOrder()">Step Through</button>
+        <button class="btn-secondary" onclick="resetFocusOrder()">Reset</button>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;cursor:pointer;">
+          <input type="checkbox" id="show-focus-lines" checked onchange="toggleFocusLines()" style="accent-color:var(--brand);"/>
+          Show connecting lines
+        </label>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 240px;gap:24px;">
+      <div style="position:relative;" id="focus-layout-container">
+        <div class="page-layout" id="page-layout">
+          <!-- Header -->
+          <div class="layout-header">
+            <button class="fo-item" data-fo="1" style="padding:6px 14px;font-size:12px;font-weight:600;font-family:var(--font-family);background:var(--brand);color:#fff;border:none;border-radius:var(--radius-md);cursor:pointer;">Logo</button>
+            <a href="#" class="fo-item" data-fo="2" onclick="event.preventDefault();" style="font-size:12px;color:var(--text-secondary);text-decoration:none;">Home</a>
+            <a href="#" class="fo-item" data-fo="3" onclick="event.preventDefault();" style="font-size:12px;color:var(--text-secondary);text-decoration:none;">About</a>
+            <a href="#" class="fo-item" data-fo="4" onclick="event.preventDefault();" style="font-size:12px;color:var(--text-secondary);text-decoration:none;">Contact</a>
+            <div style="flex:1;"></div>
+            <input type="text" class="fo-item" data-fo="5" placeholder="Search..." style="font-family:var(--font-family);font-size:12px;padding:5px 10px;border:1px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-preview);color:var(--text-primary);width:120px;"/>
+          </div>
+          <!-- Sidebar -->
+          <div class="layout-sidebar">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-tertiary);margin-bottom:4px;">Navigation</div>
+            <a href="#" class="fo-item" data-fo="6" onclick="event.preventDefault();" style="font-size:12px;padding:6px 10px;color:var(--text-secondary);text-decoration:none;border-radius:var(--radius-sm);display:block;">Dashboard</a>
+            <a href="#" class="fo-item" data-fo="7" onclick="event.preventDefault();" style="font-size:12px;padding:6px 10px;color:var(--text-secondary);text-decoration:none;border-radius:var(--radius-sm);display:block;">Settings</a>
+            <a href="#" class="fo-item" data-fo="8" onclick="event.preventDefault();" style="font-size:12px;padding:6px 10px;color:var(--text-secondary);text-decoration:none;border-radius:var(--radius-sm);display:block;">Profile</a>
+            <a href="#" class="fo-item" data-fo="9" onclick="event.preventDefault();" style="font-size:12px;padding:6px 10px;color:var(--text-secondary);text-decoration:none;border-radius:var(--radius-sm);display:block;">Help</a>
+          </div>
+          <!-- Main -->
+          <div class="layout-main">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Main Content</div>
+            <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">Tab order should flow logically through the page regions.</p>
+            <button class="fo-item" data-fo="10" style="padding:8px 16px;font-size:12px;font-weight:600;font-family:var(--font-family);background:var(--brand);color:#fff;border:none;border-radius:var(--radius-md);cursor:pointer;align-self:flex-start;">Action Button</button>
+            <input type="text" class="fo-item" data-fo="11" placeholder="Text input..." style="font-family:var(--font-family);font-size:12px;padding:7px 12px;border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-preview);color:var(--text-primary);max-width:280px;"/>
+            <textarea class="fo-item" data-fo="12" placeholder="Textarea..." rows="2" style="font-family:var(--font-family);font-size:12px;padding:7px 12px;border:1px solid var(--border-color);border-radius:var(--radius-md);background:var(--bg-preview);color:var(--text-primary);max-width:280px;resize:vertical;"></textarea>
+            <a href="#" class="fo-item" data-fo="13" onclick="event.preventDefault();" style="font-size:12px;color:var(--brand);font-weight:500;">Read more</a>
+          </div>
+          <!-- Footer -->
+          <div class="layout-footer">
+            <a href="#" class="fo-item" data-fo="14" onclick="event.preventDefault();" style="font-size:11px;color:var(--text-secondary);text-decoration:none;">Privacy</a>
+            <a href="#" class="fo-item" data-fo="15" onclick="event.preventDefault();" style="font-size:11px;color:var(--text-secondary);text-decoration:none;">Terms</a>
+            <a href="#" class="fo-item" data-fo="16" onclick="event.preventDefault();" style="font-size:11px;color:var(--text-secondary);text-decoration:none;">Support</a>
+          </div>
+        </div>
+        <!-- SVG overlay for connecting lines -->
+        <svg id="focus-lines-svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;"></svg>
+      </div>
+
+      <!-- Legend -->
+      <div>
+        <div class="a11y-card">
+          <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;">Legend</h4>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);">
+              <span class="focus-num green">1</span> Correct order
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);">
+              <span class="focus-num yellow">!</span> Possible issue
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);">
+              <span class="focus-num red">X</span> Focus trap / skip
+            </div>
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border-color);">
+            <div style="font-size:12px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Current Step</div>
+            <div id="focus-step-info" style="font-size:14px;font-weight:600;">Not started</div>
+            <div id="focus-step-region" style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Press "Step Through" to begin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 4: TOUCH TARGET CHECKER
+       ============================================================ -->
+  <div class="tab-panel" id="panel-touch" role="tabpanel" aria-labelledby="tab-touch">
+    <div class="a11y-card" style="margin-bottom:24px;">
+      <h2>Touch Target Checker</h2>
+      <p class="desc">Verify that interactive elements meet WCAG 2.5.5 minimum touch target sizes. Green = pass (44x44px+), yellow = borderline (36-43px), red = fail (&lt;36px).</p>
+      <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--success-700);">
+          <span style="width:12px;height:12px;border-radius:50%;background:var(--success-500);display:inline-block;"></span>
+          Pass (>= 44x44px)
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--warning-700);">
+          <span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>
+          Borderline (36-43px)
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--error-700);">
+          <span style="width:12px;height:12px;border-radius:50%;background:var(--error-500);display:inline-block;"></span>
+          Fail (&lt; 36px)
+        </div>
+      </div>
+    </div>
+
+    <div class="target-grid" id="touch-target-grid">
+      <!-- Generated by JS -->
+    </div>
+
+    <div class="a11y-card" style="margin-top:24px;">
+      <h2>WCAG 2.5.5 Reference</h2>
+      <p class="desc" style="margin-bottom:0;">The minimum target size for pointer inputs must be at least <strong>24x24 CSS pixels</strong> (Level AA). For enhanced accessibility (Level AAA), aim for at least <strong>44x44 CSS pixels</strong>. This ensures users with motor impairments or those using touch screens can reliably interact with controls.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 5: ARIA REFERENCE
+       ============================================================ -->
+  <div class="tab-panel" id="panel-aria" role="tabpanel" aria-labelledby="tab-aria">
+    <div class="a11y-card" style="margin-bottom:24px;">
+      <h2>ARIA Roles &amp; Patterns Reference</h2>
+      <p class="desc">A searchable reference of ARIA roles and common accessibility patterns used in the OpenReel Design System.</p>
+      <div class="search-wrap" style="margin-top:16px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input" id="aria-search" placeholder="Search roles, patterns..." oninput="filterAriaTable()"/>
+      </div>
+    </div>
+
+    <!-- Roles Table -->
+    <div class="a11y-card" style="margin-bottom:24px;padding:0;overflow:hidden;">
+      <div style="padding:20px 24px 0;">
+        <h3 style="font-size:16px;">ARIA Roles</h3>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="aria-table" id="aria-roles-table">
+          <thead>
+            <tr>
+              <th style="width:160px;">Role</th>
+              <th>Description</th>
+              <th style="width:160px;">HTML Equivalent</th>
+            </tr>
+          </thead>
+          <tbody id="aria-roles-body">
+            <!-- Generated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Patterns -->
+    <div style="display:flex;flex-direction:column;gap:20px;" id="aria-patterns-container">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</main>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+<script>
+/* ===========================================================
+   DARK MODE
+   =========================================================== */
+(function(){
+  const saved = localStorage.getItem('ds-dark-mode');
+  if (saved === 'true') document.documentElement.classList.add('dark');
+  updateDmIcon();
+})();
+
+function toggleDarkMode(){
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ds-dark-mode', document.documentElement.classList.contains('dark'));
+  updateDmIcon();
+}
+function updateDmIcon(){
+  const icon = document.getElementById('dm-icon');
+  if(!icon) return;
+  const isDark = document.documentElement.classList.contains('dark');
+  icon.innerHTML = isDark
+    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+}
+
+/* ===========================================================
+   TOAST
+   =========================================================== */
+let toastTimeout;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+/* ===========================================================
+   TAB SWITCHING
+   =========================================================== */
+function switchTab(id){
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    b.classList.remove('active');
+    b.setAttribute('aria-selected','false');
+  });
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.getElementById('tab-'+id).setAttribute('aria-selected','true');
+  document.getElementById('panel-'+id).classList.add('active');
+
+  // Re-render focus lines if switching to focus tab
+  if(id==='focus') requestAnimationFrame(()=>drawFocusLines());
+}
+
+/* ===========================================================
+   TAB 1: COLOR BLINDNESS SIMULATOR
+   =========================================================== */
+const visionTypes = [
+  { id:'normal', name:'Normal Vision', filter:null, desc:'Trichromatic vision (no deficiency)' },
+  { id:'protanopia', name:'Protanopia', filter:'protanopia', desc:'No red cones (1% of males)' },
+  { id:'deuteranopia', name:'Deuteranopia', filter:'deuteranopia', desc:'No green cones (1% of males)' },
+  { id:'tritanopia', name:'Tritanopia', filter:'tritanopia', desc:'No blue cones (very rare)' },
+  { id:'protanomaly', name:'Protanomaly', filter:'protanomaly', desc:'Weak red cones (1% of males)' },
+  { id:'deuteranomaly', name:'Deuteranomaly', filter:'deuteranomaly', desc:'Weak green cones (5% of males)' },
+  { id:'tritanomaly', name:'Tritanomaly', filter:'tritanomaly', desc:'Weak blue cones (very rare)' },
+  { id:'achromatopsia', name:'Achromatopsia', filter:'achromatopsia', desc:'Total color blindness (very rare)' },
+];
+
+function getComponentPreviewHTML(color){
+  return `
+    <button style="padding:8px 16px;font-size:12px;font-weight:600;font-family:Inter,system-ui,sans-serif;color:#fff;background:${color};border:none;border-radius:8px;cursor:pointer;">Button</button>
+    <span style="display:inline-flex;padding:2px 10px;font-size:11px;font-weight:500;border-radius:9999px;background:${color}22;color:${color};border:1px solid ${color}44;">Badge</span>
+    <div style="padding:10px 14px;border:1px solid #EAECF0;border-radius:8px;font-size:12px;">
+      <div style="font-weight:600;margin-bottom:4px;">Card Title</div>
+      <div style="color:#667085;font-size:11px;">Description text</div>
+      <div style="margin-top:6px;width:100%;height:4px;background:#F2F4F7;border-radius:2px;overflow:hidden;">
+        <div style="width:60%;height:100%;background:${color};border-radius:2px;"></div>
+      </div>
+    </div>
+    <input type="text" value="Input field" readonly style="font-family:Inter,system-ui,sans-serif;font-size:12px;padding:6px 10px;border:2px solid ${color};border-radius:6px;outline:none;background:transparent;color:inherit;width:100%;max-width:160px;"/>
+  `;
+}
+
+function renderFilterCards(){
+  const grid = document.getElementById('filter-grid');
+  const color = document.getElementById('hex-input').value || '#1F12DE';
+  grid.innerHTML = '';
+  visionTypes.forEach(v=>{
+    const card = document.createElement('div');
+    card.className = 'filter-card';
+    const filterAttr = v.filter ? `style="filter:url(#${v.filter});"` : '';
+    card.innerHTML = `
+      <div class="filter-card-header">
+        <h4>${v.name}</h4>
+        <span>${v.desc}</span>
+      </div>
+      <div class="filter-card-body" ${filterAttr}>
+        ${getComponentPreviewHTML(color)}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function updateColorPreview(hex){
+  document.getElementById('hex-input').value = hex;
+  document.getElementById('color-swatch').style.background = hex;
+  document.getElementById('custom-color').value = hex;
+  renderFilterCards();
+}
+
+function handleHexInput(val){
+  if(/^#[0-9A-Fa-f]{6}$/.test(val)){
+    document.getElementById('custom-color').value = val;
+    document.getElementById('color-swatch').style.background = val;
+    renderFilterCards();
+  }
+}
+
+// Init
+renderFilterCards();
+
+/* ===========================================================
+   TAB 2: KEYBOARD NAVIGATION TESTER
+   =========================================================== */
+let kbTestActive = false;
+let focusPath = [];
+let focusedElements = new Set();
+
+function startKbTest(){
+  kbTestActive = true;
+  focusPath = [];
+  focusedElements.clear();
+  updateFocusPathDisplay();
+  const first = document.querySelector('#kb-demo-area .kb-focusable');
+  if(first) first.focus();
+  renderTabOrderBadges();
+}
+
+function resetKbTest(){
+  kbTestActive = false;
+  focusPath = [];
+  focusedElements.clear();
+  document.getElementById('focus-path').innerHTML = '<span style="font-size:12px;color:var(--text-tertiary);">Press "Start Test" and use Tab to navigate...</span>';
+  document.getElementById('kb-score-num').textContent = '0/0';
+  document.getElementById('kb-score-detail').textContent = 'Start the test to evaluate keyboard accessibility.';
+  document.querySelectorAll('.tab-order-badge').forEach(b=>b.remove());
+}
+
+function updateFocusPathDisplay(){
+  const container = document.getElementById('focus-path');
+  if(focusPath.length === 0){
+    container.innerHTML = '<span style="font-size:12px;color:var(--text-tertiary);">Navigating...</span>';
+    return;
+  }
+  container.innerHTML = focusPath.map((label, i)=>{
+    const arrow = i < focusPath.length - 1 ? '<span class="focus-crumb-arrow"> &rarr; </span>' : '';
+    return `<span class="focus-crumb">${label}</span>${arrow}`;
+  }).join('');
+}
+
+function updateKbScore(){
+  const all = document.querySelectorAll('#kb-demo-area .kb-focusable');
+  const total = all.length;
+  const reached = focusedElements.size;
+  document.getElementById('kb-score-num').textContent = `${reached}/${total}`;
+  if(reached === total){
+    document.getElementById('kb-score-detail').textContent = 'All elements are keyboard accessible. No focus traps detected.';
+  } else {
+    document.getElementById('kb-score-detail').textContent = `${total - reached} element(s) not yet reached. Keep tabbing to test all.`;
+  }
+}
+
+function renderTabOrderBadges(){
+  document.querySelectorAll('.tab-order-badge').forEach(b=>b.remove());
+  if(!document.getElementById('show-tab-order').checked) return;
+  const area = document.getElementById('kb-demo-area');
+  const items = area.querySelectorAll('.kb-focusable');
+  const areaRect = area.getBoundingClientRect();
+  items.forEach((el, i)=>{
+    const rect = el.getBoundingClientRect();
+    const badge = document.createElement('div');
+    badge.className = 'tab-order-badge';
+    badge.textContent = i + 1;
+    badge.style.left = (rect.left - areaRect.left) + 'px';
+    badge.style.top = (rect.top - areaRect.top) + 'px';
+    area.appendChild(badge);
+  });
+}
+
+function toggleTabOrderBadges(){
+  renderTabOrderBadges();
+}
+
+// Listen for focus events in the demo area
+document.addEventListener('focusin', function(e){
+  if(!kbTestActive) return;
+  const el = e.target;
+  if(!el.classList.contains('kb-focusable')) return;
+  const label = el.getAttribute('data-label') || el.tagName;
+  focusPath.push(label);
+  focusedElements.add(el);
+  updateFocusPathDisplay();
+  updateKbScore();
+});
+
+// Demo modal
+function openDemoModal(){
+  const modal = document.getElementById('demo-modal');
+  modal.style.display = 'flex';
+  const first = modal.querySelector('.kb-modal-focusable');
+  if(first) setTimeout(()=>first.focus(), 50);
+}
+
+function closeDemoModal(){
+  document.getElementById('demo-modal').style.display = 'none';
+  const trigger = document.querySelector('[data-label="Modal Trigger"]');
+  if(trigger) trigger.focus();
+}
+
+document.addEventListener('keydown', function(e){
+  const modal = document.getElementById('demo-modal');
+  if(modal.style.display === 'flex' && e.key === 'Escape'){
+    closeDemoModal();
+  }
+  // Focus trap inside modal
+  if(modal.style.display === 'flex' && e.key === 'Tab'){
+    const focusable = modal.querySelectorAll('.kb-modal-focusable');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if(e.shiftKey){
+      if(document.activeElement === first){ e.preventDefault(); last.focus(); }
+    } else {
+      if(document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  }
+});
+
+/* ===========================================================
+   TAB 3: FOCUS ORDER VISUALIZER
+   =========================================================== */
+let focusStepCurrent = 0;
+const focusStepTotal = 16;
+const focusRegions = {
+  1:'Header',2:'Header',3:'Header',4:'Header',5:'Header',
+  6:'Sidebar',7:'Sidebar',8:'Sidebar',9:'Sidebar',
+  10:'Main Content',11:'Main Content',12:'Main Content',13:'Main Content',
+  14:'Footer',15:'Footer',16:'Footer'
+};
+// Mark items 8-9 as yellow (sidebar last items before jumping to main), all others green
+const focusColors = {
+  1:'green',2:'green',3:'green',4:'green',5:'green',
+  6:'green',7:'green',8:'yellow',9:'yellow',
+  10:'green',11:'green',12:'green',13:'green',
+  14:'green',15:'green',16:'green'
+};
+
+function initFocusNums(){
+  document.querySelectorAll('.fo-item').forEach(el=>{
+    const num = parseInt(el.getAttribute('data-fo'));
+    const color = focusColors[num];
+    // Create badge
+    const badge = document.createElement('span');
+    badge.className = 'focus-num inactive';
+    badge.textContent = num;
+    badge.setAttribute('data-fo-badge', num);
+    badge.style.marginRight = '6px';
+    badge.style.display = 'inline-flex';
+    badge.style.verticalAlign = 'middle';
+    el.parentNode.insertBefore(badge, el);
+  });
+}
+
+function stepFocusOrder(){
+  focusStepCurrent++;
+  if(focusStepCurrent > focusStepTotal){
+    focusStepCurrent = 0;
+    resetFocusOrder();
+    return;
+  }
+  // Highlight current
+  document.querySelectorAll('.fo-item').forEach(el=>{
+    el.classList.remove('step-highlight','stepped-bg');
+  });
+  document.querySelectorAll('[data-fo-badge]').forEach(b=>{
+    const n = parseInt(b.getAttribute('data-fo-badge'));
+    if(n <= focusStepCurrent){
+      b.className = 'focus-num ' + focusColors[n];
+    } else {
+      b.className = 'focus-num inactive';
+    }
+  });
+  const current = document.querySelector(`[data-fo="${focusStepCurrent}"]`);
+  if(current){
+    current.classList.add('step-highlight','stepped-bg');
+    document.getElementById('focus-step-info').textContent = `Step ${focusStepCurrent} of ${focusStepTotal}`;
+    document.getElementById('focus-step-region').textContent = focusRegions[focusStepCurrent];
+  }
+  drawFocusLines();
+}
+
+function resetFocusOrder(){
+  focusStepCurrent = 0;
+  document.querySelectorAll('.fo-item').forEach(el=>{
+    el.classList.remove('step-highlight','stepped-bg');
+  });
+  document.querySelectorAll('[data-fo-badge]').forEach(b=>{
+    b.className = 'focus-num inactive';
+  });
+  document.getElementById('focus-step-info').textContent = 'Not started';
+  document.getElementById('focus-step-region').textContent = 'Press "Step Through" to begin';
+  drawFocusLines();
+}
+
+function drawFocusLines(){
+  const svg = document.getElementById('focus-lines-svg');
+  if(!svg) return;
+  if(!document.getElementById('show-focus-lines').checked){
+    svg.innerHTML = '';
+    return;
+  }
+  const container = document.getElementById('focus-layout-container');
+  const containerRect = container.getBoundingClientRect();
+  svg.innerHTML = '';
+
+  const items = [];
+  for(let i = 1; i <= focusStepTotal; i++){
+    const el = document.querySelector(`[data-fo="${i}"]`);
+    if(el){
+      const rect = el.getBoundingClientRect();
+      items.push({
+        num: i,
+        x: rect.left - containerRect.left + rect.width / 2,
+        y: rect.top - containerRect.top + rect.height / 2,
+        active: i <= focusStepCurrent
+      });
+    }
+  }
+
+  for(let i = 0; i < items.length - 1; i++){
+    const from = items[i];
+    const to = items[i + 1];
+    if(!from.active && focusStepCurrent > 0) continue;
+    if(focusStepCurrent === 0) continue;
+    if(from.num > focusStepCurrent) continue;
+
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', from.x);
+    line.setAttribute('y1', from.y);
+    line.setAttribute('x2', to.x);
+    line.setAttribute('y2', to.y);
+    const color = focusColors[from.num] === 'green' ? '#17B26A' : focusColors[from.num] === 'yellow' ? '#f59e0b' : '#F04438';
+    line.setAttribute('stroke', color);
+    line.setAttribute('stroke-width', '2');
+    line.setAttribute('stroke-dasharray', '4 3');
+    line.setAttribute('opacity', '0.6');
+    svg.appendChild(line);
+  }
+}
+
+function toggleFocusLines(){
+  drawFocusLines();
+}
+
+// Init
+initFocusNums();
+
+/* ===========================================================
+   TAB 4: TOUCH TARGET CHECKER
+   =========================================================== */
+const touchTargets = [
+  { name:'Large Button', el:'<button style="padding:12px 24px;font-size:14px;font-weight:600;font-family:Inter,system-ui,sans-serif;background:var(--brand);color:#fff;border:none;border-radius:var(--radius-md);cursor:pointer;">Click Me</button>', expectedW:120, expectedH:44 },
+  { name:'Medium Button', el:'<button style="padding:8px 16px;font-size:13px;font-weight:600;font-family:Inter,system-ui,sans-serif;background:var(--brand);color:#fff;border:none;border-radius:var(--radius-md);cursor:pointer;">Action</button>', expectedW:84, expectedH:38 },
+  { name:'Small Button', el:'<button style="padding:4px 10px;font-size:11px;font-weight:600;font-family:Inter,system-ui,sans-serif;background:var(--brand);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;">Sm</button>', expectedW:42, expectedH:28 },
+  { name:'Icon Button (44px)', el:'<button style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);cursor:pointer;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>', expectedW:44, expectedH:44 },
+  { name:'Icon Button (36px)', el:'<button style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>', expectedW:36, expectedH:36 },
+  { name:'Icon Button (24px)', el:'<button style="width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;padding:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>', expectedW:24, expectedH:24 },
+  { name:'Checkbox (native)', el:'<input type="checkbox" style="width:18px;height:18px;accent-color:var(--brand);cursor:pointer;"/>', expectedW:18, expectedH:18 },
+  { name:'Checkbox (custom 44px)', el:'<div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;"><div style="width:20px;height:20px;border:2px solid var(--border-color);border-radius:4px;"></div></div>', expectedW:44, expectedH:44 },
+  { name:'Radio (native)', el:'<input type="radio" name="touch-demo" style="width:18px;height:18px;accent-color:var(--brand);cursor:pointer;"/>', expectedW:18, expectedH:18 },
+  { name:'Radio (custom 44px)', el:'<div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;"><div style="width:20px;height:20px;border:2px solid var(--border-color);border-radius:50%;"></div></div>', expectedW:44, expectedH:44 },
+  { name:'Text Link', el:'<a href="#" onclick="event.preventDefault();" style="font-size:14px;color:var(--brand);text-decoration:underline;padding:10px 0;display:inline-block;">Link Text</a>', expectedW:80, expectedH:44 },
+  { name:'Inline Link', el:'<a href="#" onclick="event.preventDefault();" style="font-size:12px;color:var(--brand);text-decoration:underline;">Small Link</a>', expectedW:64, expectedH:18 },
+];
+
+function renderTouchTargets(){
+  const grid = document.getElementById('touch-target-grid');
+  grid.innerHTML = '';
+  touchTargets.forEach(t=>{
+    const card = document.createElement('div');
+    card.className = 'target-card';
+
+    // Determine pass/warn/fail
+    const minDim = Math.min(t.expectedW, t.expectedH);
+    let status, statusClass, outlineClass;
+    if(minDim >= 44){ status = 'Pass'; statusClass = 'pass'; outlineClass = 'pass-outline'; }
+    else if(minDim >= 36){ status = 'Borderline'; statusClass = 'warn'; outlineClass = 'warn-outline'; }
+    else { status = 'Fail'; statusClass = 'fail'; outlineClass = 'fail-outline'; }
+
+    card.innerHTML = `
+      <div class="label">${t.name}</div>
+      <div class="target-element ${outlineClass}" style="padding:8px;">
+        ${t.el}
+      </div>
+      <div class="size ${statusClass}">${t.expectedW}x${t.expectedH}px - ${status}</div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Measure actual sizes after render
+  requestAnimationFrame(()=>{
+    const cards = grid.querySelectorAll('.target-card');
+    cards.forEach((card, i)=>{
+      const target = card.querySelector('.target-element').firstElementChild;
+      if(target){
+        const rect = target.getBoundingClientRect();
+        const w = Math.round(rect.width);
+        const h = Math.round(rect.height);
+        const minDim = Math.min(w, h);
+        let status, statusClass;
+        if(minDim >= 44){ status = 'Pass'; statusClass = 'pass'; }
+        else if(minDim >= 36){ status = 'Borderline'; statusClass = 'warn'; }
+        else { status = 'Fail'; statusClass = 'fail'; }
+        const sizeEl = card.querySelector('.size');
+        sizeEl.textContent = `${w}x${h}px - ${status}`;
+        sizeEl.className = `size ${statusClass}`;
+      }
+    });
+  });
+}
+
+renderTouchTargets();
+
+/* ===========================================================
+   TAB 5: ARIA REFERENCE
+   =========================================================== */
+const ariaRoles = [
+  // Landmark roles
+  { category:'Landmark Roles', role:'banner', desc:'Identifies the site header region.', html:'<code>&lt;header&gt;</code>' },
+  { category:'Landmark Roles', role:'navigation', desc:'A region containing navigation links.', html:'<code>&lt;nav&gt;</code>' },
+  { category:'Landmark Roles', role:'main', desc:'The primary content of the page.', html:'<code>&lt;main&gt;</code>' },
+  { category:'Landmark Roles', role:'complementary', desc:'Supporting content related to main.', html:'<code>&lt;aside&gt;</code>' },
+  { category:'Landmark Roles', role:'contentinfo', desc:'Identifies the page footer region.', html:'<code>&lt;footer&gt;</code>' },
+  { category:'Landmark Roles', role:'search', desc:'A region for search functionality.', html:'<code>&lt;search&gt;</code>' },
+  { category:'Landmark Roles', role:'region', desc:'A generic landmark with a label.', html:'<code>&lt;section&gt;</code>' },
+  { category:'Landmark Roles', role:'form', desc:'A region containing a form.', html:'<code>&lt;form&gt;</code>' },
+  // Widget roles
+  { category:'Widget Roles', role:'button', desc:'An interactive element that triggers an action.', html:'<code>&lt;button&gt;</code>' },
+  { category:'Widget Roles', role:'checkbox', desc:'A checkable input with true/false/mixed state.', html:'<code>&lt;input type="checkbox"&gt;</code>' },
+  { category:'Widget Roles', role:'dialog', desc:'A dialog or modal window overlay.', html:'<code>&lt;dialog&gt;</code>' },
+  { category:'Widget Roles', role:'link', desc:'An interactive reference to a resource.', html:'<code>&lt;a href&gt;</code>' },
+  { category:'Widget Roles', role:'listbox', desc:'A list from which one or more items can be selected.', html:'<code>&lt;select&gt;</code>' },
+  { category:'Widget Roles', role:'option', desc:'A selectable item in a listbox.', html:'<code>&lt;option&gt;</code>' },
+  { category:'Widget Roles', role:'progressbar', desc:'Displays the progress of a task.', html:'<code>&lt;progress&gt;</code>' },
+  { category:'Widget Roles', role:'radio', desc:'A checkable input in a group (one selected at a time).', html:'<code>&lt;input type="radio"&gt;</code>' },
+  { category:'Widget Roles', role:'slider', desc:'An input for selecting a value from a range.', html:'<code>&lt;input type="range"&gt;</code>' },
+  { category:'Widget Roles', role:'switch', desc:'A type of checkbox that represents on/off.', html:'None' },
+  { category:'Widget Roles', role:'tab', desc:'A tab element in a tablist.', html:'None' },
+  { category:'Widget Roles', role:'tablist', desc:'A container for a set of tab elements.', html:'None' },
+  { category:'Widget Roles', role:'tabpanel', desc:'A container for the content associated with a tab.', html:'None' },
+  { category:'Widget Roles', role:'textbox', desc:'An input that accepts free-form text.', html:'<code>&lt;input type="text"&gt;</code> / <code>&lt;textarea&gt;</code>' },
+  { category:'Widget Roles', role:'tooltip', desc:'A popup that displays a description for an element.', html:'None' },
+  // Document roles
+  { category:'Document Roles', role:'article', desc:'A self-contained composition (e.g. blog post).', html:'<code>&lt;article&gt;</code>' },
+  { category:'Document Roles', role:'heading', desc:'A heading for a section (use aria-level).', html:'<code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>' },
+  { category:'Document Roles', role:'img', desc:'An image or collection of image elements.', html:'<code>&lt;img&gt;</code>' },
+  { category:'Document Roles', role:'list', desc:'A group of non-interactive list items.', html:'<code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code>' },
+  { category:'Document Roles', role:'listitem', desc:'A single item in a list.', html:'<code>&lt;li&gt;</code>' },
+  { category:'Document Roles', role:'table', desc:'A data table structure.', html:'<code>&lt;table&gt;</code>' },
+  // Live region roles
+  { category:'Live Region Roles', role:'alert', desc:'An important, time-sensitive message.', html:'None' },
+  { category:'Live Region Roles', role:'alertdialog', desc:'A dialog with an alert message requiring response.', html:'None' },
+  { category:'Live Region Roles', role:'log', desc:'A live region where new information is appended.', html:'None' },
+  { category:'Live Region Roles', role:'status', desc:'An advisory with less urgency than an alert.', html:'<code>&lt;output&gt;</code>' },
+  { category:'Live Region Roles', role:'timer', desc:'A numerical counter showing elapsed or remaining time.', html:'None' },
+];
+
+function renderAriaRolesTable(filter=''){
+  const tbody = document.getElementById('aria-roles-body');
+  tbody.innerHTML = '';
+  let lastCategory = '';
+  const lowerFilter = filter.toLowerCase();
+
+  ariaRoles.forEach(r=>{
+    if(lowerFilter && !r.role.includes(lowerFilter) && !r.desc.toLowerCase().includes(lowerFilter) && !r.category.toLowerCase().includes(lowerFilter)) return;
+
+    if(r.category !== lastCategory){
+      const catRow = document.createElement('tr');
+      catRow.innerHTML = `<td colspan="3" class="aria-category">${r.category}</td>`;
+      tbody.appendChild(catRow);
+      lastCategory = r.category;
+    }
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><code>${r.role}</code></td>
+      <td>${r.desc}</td>
+      <td>${r.html}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+const ariaPatterns = [
+  {
+    name:'Button',
+    desc:'Interactive element that performs an action when activated.',
+    attrs:['role="button"','aria-pressed="true|false"','aria-disabled="true"'],
+    code:`<button
+  class="btn-primary"
+  aria-pressed="false"
+  onclick="this.setAttribute('aria-pressed',
+    this.getAttribute('aria-pressed')==='true'?'false':'true'
+  )">
+  Toggle Button
+</button>
+
+<!-- Disabled state -->
+<button class="btn-primary" aria-disabled="true" disabled>
+  Disabled Button
+</button>`
+  },
+  {
+    name:'Modal / Dialog',
+    desc:'A dialog overlay that captures user attention and requires interaction.',
+    attrs:['role="dialog"','aria-modal="true"','aria-labelledby="title-id"','aria-describedby="desc-id"'],
+    code:`<div role="dialog" aria-modal="true"
+     aria-labelledby="dialog-title"
+     aria-describedby="dialog-desc">
+  <h2 id="dialog-title">Confirm Action</h2>
+  <p id="dialog-desc">Are you sure you want to proceed?</p>
+  <button>Confirm</button>
+  <button>Cancel</button>
+</div>`
+  },
+  {
+    name:'Tabs',
+    desc:'A set of layered sections of content, where only one panel is displayed at a time.',
+    attrs:['role="tablist"','role="tab"','role="tabpanel"','aria-selected="true|false"','aria-controls="panel-id"','aria-labelledby="tab-id"'],
+    code:`<div role="tablist" aria-label="Settings">
+  <button role="tab" aria-selected="true"
+          aria-controls="panel-1" id="tab-1">
+    General
+  </button>
+  <button role="tab" aria-selected="false"
+          aria-controls="panel-2" id="tab-2" tabindex="-1">
+    Security
+  </button>
+</div>
+<div role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+  General settings content...
+</div>
+<div role="tabpanel" id="panel-2" aria-labelledby="tab-2"
+     hidden>
+  Security settings content...
+</div>`
+  },
+  {
+    name:'Toast / Alert',
+    desc:'A time-sensitive message that appears briefly to convey information.',
+    attrs:['role="alert"','aria-live="assertive"','aria-atomic="true"'],
+    code:`<div role="alert" aria-live="assertive" aria-atomic="true"
+     class="toast">
+  Changes saved successfully!
+</div>
+
+<!-- Polite notification (less urgent) -->
+<div role="status" aria-live="polite" aria-atomic="true">
+  3 new messages
+</div>`
+  },
+  {
+    name:'Dropdown / Listbox',
+    desc:'A widget that allows the user to select one or more items from a list.',
+    attrs:['role="listbox"','aria-expanded="true|false"','aria-haspopup="listbox"','role="option"','aria-selected="true|false"'],
+    code:`<div class="dropdown">
+  <button aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="options-list">
+    Select option
+  </button>
+  <ul role="listbox" id="options-list" hidden>
+    <li role="option" aria-selected="false">Option 1</li>
+    <li role="option" aria-selected="true">Option 2</li>
+    <li role="option" aria-selected="false">Option 3</li>
+  </ul>
+</div>`
+  },
+  {
+    name:'Accordion',
+    desc:'A vertically stacked set of interactive headings that each reveal a section of content.',
+    attrs:['aria-expanded="true|false"','aria-controls="section-id"','role="region"','aria-labelledby="header-id"'],
+    code:`<div class="accordion">
+  <h3>
+    <button aria-expanded="true"
+            aria-controls="acc-section-1"
+            id="acc-header-1">
+      Section Title
+    </button>
+  </h3>
+  <div role="region"
+       aria-labelledby="acc-header-1"
+       id="acc-section-1">
+    <p>Section content goes here...</p>
+  </div>
+</div>`
+  },
+  {
+    name:'Progress Bar',
+    desc:'Displays the completion progress of a task.',
+    attrs:['role="progressbar"','aria-valuenow="50"','aria-valuemin="0"','aria-valuemax="100"','aria-label="Upload progress"'],
+    code:`<div role="progressbar"
+     aria-valuenow="65"
+     aria-valuemin="0"
+     aria-valuemax="100"
+     aria-label="Upload progress"
+     style="background:#F2F4F7;border-radius:4px;height:8px;">
+  <div style="width:65%;background:#1F12DE;
+              height:100%;border-radius:4px;">
+  </div>
+</div>
+
+<!-- Indeterminate -->
+<div role="progressbar"
+     aria-label="Loading..."
+     style="background:#F2F4F7;border-radius:4px;height:8px;">
+  <!-- animated bar -->
+</div>`
+  },
+];
+
+function renderAriaPatterns(filter=''){
+  const container = document.getElementById('aria-patterns-container');
+  container.innerHTML = '';
+  const lowerFilter = filter.toLowerCase();
+
+  ariaPatterns.forEach(p=>{
+    if(lowerFilter && !p.name.toLowerCase().includes(lowerFilter) && !p.desc.toLowerCase().includes(lowerFilter) && !p.attrs.some(a=>a.toLowerCase().includes(lowerFilter))) return;
+
+    const card = document.createElement('div');
+    card.className = 'a11y-card';
+    card.innerHTML = `
+      <h3>${p.name}</h3>
+      <p class="desc">${p.desc}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+        ${p.attrs.map(a=>`<code style="font-family:'SF Mono','Fira Code',monospace;font-size:11px;background:var(--bg-preview);padding:3px 8px;border-radius:var(--radius-sm);border:1px solid var(--border-color);color:var(--brand);">${escapeHtml(a)}</code>`).join('')}
+      </div>
+      <div class="code-snippet">
+        <pre><code>${escapeHtml(p.code)}</code></pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function escapeHtml(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function copyCode(btn){
+  const code = btn.previousElementSibling.querySelector('code').textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    showToast('Code copied to clipboard!');
+    btn.textContent = 'Copied!';
+    setTimeout(()=>btn.textContent='Copy', 1500);
+  });
+}
+
+function filterAriaTable(){
+  const q = document.getElementById('aria-search').value.trim();
+  renderAriaRolesTable(q);
+  renderAriaPatterns(q);
+}
+
+// Init ARIA tab
+renderAriaRolesTable();
+renderAriaPatterns();
+
+/* ===========================================================
+   WINDOW RESIZE HANDLER
+   =========================================================== */
+window.addEventListener('resize', ()=>{
+  if(document.getElementById('panel-focus').classList.contains('active')){
+    drawFocusLines();
+  }
+  renderTabOrderBadges();
+});
+</script>
+</body>
+</html>

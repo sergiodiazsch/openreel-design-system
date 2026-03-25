@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Figma Handoff - OpenReel Design System</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --brand:        #1F12DE;
+      --brand-hover:  #1a0fbc;
+      --brand-light:  rgba(31, 18, 222, 0.1);
+      --blue-50:   #EFF8FF;
+      --blue-100:  #B2DDFF;
+      --blue-500:  #2970FF;
+      --blue-600:  #175CD3;
+      --blue-light:#53B1FD;
+      --gray-25:   #FCFCFD;
+      --gray-50:   #F9FAFB;
+      --gray-100:  #F2F4F7;
+      --gray-200:  #EAECF0;
+      --gray-300:  #E4E7EC;
+      --gray-400:  #98A2B3;
+      --gray-500:  #667085;
+      --gray-600:  #475467;
+      --gray-700:  #344054;
+      --gray-900:  #101828;
+      --success-50:  #ECFDF3;
+      --success-500: #17B26A;
+      --success-700: #067647;
+      --error-50:  #FEF3F2;
+      --error-500: #F04438;
+      --error-700: #B42318;
+      --warning-50:  #FFFAEB;
+      --warning-700: #B54708;
+      --font-family:  'Inter', system-ui, -apple-system, sans-serif;
+      --text-xs:10px; --text-sm:12px; --text-base:14px; --text-md:16px; --text-lg:18px; --text-xl:20px; --text-2xl:24px;
+      --font-regular:400; --font-medium:500; --font-semibold:600;
+      --leading-xs:16px; --leading-sm:20px; --leading-base:24px; --leading-lg:28px; --leading-xl:32px;
+      --radius-sm:4px; --radius-md:8px; --radius-lg:10px; --radius-xl:14px; --radius-full:9999px;
+      --space-1:4px; --space-1h:6px; --space-2:8px; --space-2h:10px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px; --space-8:32px;
+      --shadow-xs:  0px 1px 2px rgba(16,24,40,0.05);
+      --shadow-sm:  0px 1px 3px rgba(16,24,40,0.1), 0px 1px 2px rgba(16,24,40,0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16,24,40,0.1), 0px 2px 4px -2px rgba(16,24,40,0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16,24,40,0.08), 0px 4px 6px -2px rgba(16,24,40,0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16,24,40,0.08), 0px 8px 8px -4px rgba(16,24,40,0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16,24,40,0.18);
+      --bg-primary:   #FFFFFF;
+      --bg-secondary: var(--gray-50);
+      --bg-tertiary:  var(--gray-100);
+      --text-primary:   var(--gray-900);
+      --text-secondary: var(--gray-500);
+      --border-primary: var(--gray-200);
+      --redline: #F04438;
+    }
+    html.dark {
+      --bg-primary:   #0C111D;
+      --bg-secondary: #161B26;
+      --bg-tertiary:  #1F242F;
+      --text-primary:   #F5F5F6;
+      --text-secondary: #94969C;
+      --border-primary: #333741;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--text-base);
+      line-height: var(--leading-base);
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
+
+    .dm-toggle {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; transition: all 0.2s ease;
+    }
+    .dm-toggle:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+    .sidebar-link {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--radius-md);
+      font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.15s;
+    }
+    .sidebar-link:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+    .sidebar-link.active { color: var(--brand); background: var(--brand-light); font-weight: 600; }
+    html.dark .sidebar-link.active { color: #818cf8; background: rgba(129,140,248,0.1); }
+
+    .section-title { font-size: var(--text-2xl); font-weight: 600; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .section-desc { font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-lg); max-width: 640px; }
+
+    .code-wrapper {
+      position: relative; background: var(--gray-900); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);
+    }
+    .code-wrapper pre { margin: 0; padding: 20px 24px; overflow-x: auto; }
+    .code-wrapper code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px; line-height: 1.7; color: #e2e8f0; white-space: pre;
+    }
+    .code-wrapper .copy-btn {
+      position: absolute; top: 12px; right: 12px; padding: 6px 14px; font-size: 12px; font-weight: 500;
+      color: #94a3b8; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease;
+    }
+    .code-wrapper .copy-btn:hover { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+
+    .ds-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      border: 1px solid var(--border-primary); border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .ds-table th {
+      text-align: left; padding: 12px 16px; font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary);
+      background: var(--bg-secondary); border-bottom: 1px solid var(--border-primary);
+    }
+    .ds-table td {
+      padding: 14px 16px; font-size: 14px; color: var(--text-primary);
+      border-bottom: 1px solid var(--border-primary); vertical-align: middle;
+    }
+    .ds-table tr:last-child td { border-bottom: none; }
+    .ds-table tr:hover td { background: var(--bg-secondary); }
+    .ds-table .hidden-row { display: none; }
+
+    .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; }
+
+    /* Redline measurement lines */
+    .redline { position: absolute; background: var(--redline); z-index: 10; }
+    .redline-h { height: 1px; }
+    .redline-v { width: 1px; }
+    .redline-dashed-h { position: absolute; height: 0; border-top: 1px dashed var(--redline); z-index: 10; }
+    .redline-dashed-v { position: absolute; width: 0; border-left: 1px dashed var(--redline); z-index: 10; }
+    .redline-label {
+      position: absolute; background: var(--redline); color: #fff; font-size: 9px; font-weight: 600;
+      padding: 1px 4px; border-radius: 2px; white-space: nowrap; z-index: 11;
+      font-family: 'SF Mono', monospace; line-height: 1.4;
+    }
+    .redline-cap { position: absolute; width: 5px; height: 5px; background: var(--redline); border-radius: 50%; z-index: 11; }
+
+    /* Measurement overlay toggle */
+    .measure-overlay { transition: opacity 0.3s ease; }
+    .measure-overlay.hidden { opacity: 0; pointer-events: none; }
+
+    /* Component preview boxes */
+    .component-preview {
+      position: relative; border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+      padding: 48px; display: flex; align-items: center; justify-content: center; background: var(--bg-primary);
+      min-height: 200px;
+    }
+
+    /* Step cards */
+    .step-card {
+      border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+      overflow: hidden; background: var(--bg-primary);
+    }
+    .step-header {
+      display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+      border-bottom: 1px solid var(--border-primary); background: var(--bg-secondary);
+    }
+    .step-number {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--brand); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+    }
+    .step-body { padding: 20px; }
+
+    /* Toggle button for overlays */
+    .overlay-toggle {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+      border-radius: var(--radius-md); font-size: 12px; font-weight: 600; cursor: pointer;
+      border: 1px solid var(--border-primary); background: var(--bg-primary); color: var(--text-primary);
+      transition: all 0.15s;
+    }
+    .overlay-toggle:hover { border-color: var(--brand); color: var(--brand); }
+    .overlay-toggle.active { background: var(--redline); color: #fff; border-color: var(--redline); }
+
+    .fade-in { animation: fadeIn 0.4s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Tooltip on hover for measurements */
+    .measure-tip { position: relative; cursor: help; }
+    .measure-tip .tip-content {
+      display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      background: var(--gray-900); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;
+      white-space: nowrap; z-index: 20; pointer-events: none;
+      font-family: 'SF Mono', monospace;
+    }
+    .measure-tip:hover .tip-content { display: block; }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+
+  /* ---- Responsive ---- */
+  @media(max-width:1024px){.figma-sidebar{display:none!important}main#main-content{margin-left:0!important}}
+  </style>
+
+  <script>
+    (function() {
+      const stored = localStorage.getItem('ds-dark-mode');
+      if (stored === 'true' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', html.classList.contains('dark'));
+      const icon = document.getElementById('dm-icon');
+      if (icon) {
+        icon.innerHTML = html.classList.contains('dark')
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+      }
+    }
+    function copyCode(btn) {
+      const code = btn.closest('.code-wrapper').querySelector('code').textContent;
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    }
+    function toggleOverlay(id, btn) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle('hidden');
+      btn.classList.toggle('active');
+    }
+    function filterTokenTable() {
+      const q = document.getElementById('token-search').value.toLowerCase().trim();
+      document.querySelectorAll('#token-table tbody tr').forEach(row => {
+        if (!q) { row.classList.remove('hidden-row'); return; }
+        const text = row.textContent.toLowerCase();
+        row.classList.toggle('hidden-row', !text.includes(q));
+      });
+    }
+    function filterCssTable() {
+      const q = document.getElementById('css-search').value.toLowerCase().trim();
+      document.querySelectorAll('#css-table tbody tr').forEach(row => {
+        if (!q) { row.classList.remove('hidden-row'); return; }
+        const text = row.textContent.toLowerCase();
+        row.classList.toggle('hidden-row', !text.includes(q));
+      });
+    }
+  </script>
+</head>
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+
+  <!-- HEADER -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- LAYOUT -->
+  <div style="display:flex; padding-top:64px; min-height:100vh;">
+
+    <!-- SIDEBAR -->
+    <nav class="figma-sidebar" style="
+      position:sticky; top:64px; align-self:flex-start; width:240px; min-width:240px;
+      height:calc(100vh - 64px); overflow-y:auto; padding:24px 16px;
+      border-right:1px solid var(--border-primary); background:var(--bg-primary);
+    ">
+      <div style="margin-bottom:24px;">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Handoff Specs</p>
+        <a href="#spacing-specs" class="sidebar-link active">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M21 18H7"/></svg>
+          Spacing Specs
+        </a>
+        <a href="#redline-overlays" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Redline Overlays
+        </a>
+        <a href="#css-reference" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+          CSS Reference
+        </a>
+        <a href="#implementation" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Implementation
+        </a>
+        <a href="#token-mapping" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          Token Mapping
+        </a>
+      </div>
+      <div style="margin-bottom:24px;">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Figma Setup</p>
+        <a href="#figma-install" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-1"/><polygon points="12 15 17 21 7 21 12 15"/></svg>
+          Install in Figma
+        </a>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" style="flex:1; padding:40px 48px 80px; max-width:1100px;">
+
+      <!-- Page Header -->
+      <div style="margin-bottom:48px;" class="fade-in">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+          <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em;">Figma Handoff</h1>
+          <span style="font-size:11px; font-weight:600; letter-spacing:0.04em; padding:3px 10px; border-radius:var(--radius-full); background:var(--brand); color:#fff;">SPECS</span>
+        </div>
+        <p class="section-desc">Developer handoff reference with spacing specs, redline overlays, CSS property mappings, and step-by-step implementation guides for building components from Figma designs.</p>
+      </div>
+
+      <!-- ============================================================
+           SECTION 1: SPACING SPECS WITH VISUAL RULERS
+           ============================================================ -->
+      <section id="spacing-specs" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Spacing Specs with Visual Rulers</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Interactive component diagrams with red measurement lines showing padding, margin, and gap values. Hover over any measurement to see the token name.</p>
+
+        <!-- BUTTON Spacing -->
+        <div style="margin-bottom:32px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+            <h3 style="font-size:16px; font-weight:600;">Button</h3>
+            <button class="overlay-toggle active" onclick="toggleOverlay('btn-measures', this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Measurements
+            </button>
+          </div>
+          <div class="component-preview" style="padding:64px 80px;">
+            <div style="position:relative; display:inline-flex;">
+              <!-- The button itself -->
+              <button style="
+                display:inline-flex; align-items:center; gap:8px;
+                padding:8px 16px; height:40px;
+                background:var(--brand); color:#fff; border:none; border-radius:var(--radius-md);
+                font-size:14px; font-weight:600; font-family:var(--font-family); cursor:pointer;
+                line-height:var(--leading-base);
+              ">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                Add Item
+              </button>
+
+              <!-- Measurement overlays -->
+              <div id="btn-measures" class="measure-overlay">
+                <!-- Horizontal padding left -->
+                <div style="position:absolute; top:50%; left:0; transform:translateY(-50%);">
+                  <div class="measure-tip" style="position:absolute; top:-20px; left:0; width:16px; text-align:center;">
+                    <span class="tip-content">--space-4 (16px)</span>
+                  </div>
+                  <div style="position:absolute; top:-2px; left:1px; width:14px; height:0; border-top:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:-5px; left:0; width:1px; height:7px; background:var(--redline);"></div>
+                  <div style="position:absolute; top:-5px; left:15px; width:1px; height:7px; background:var(--redline);"></div>
+                  <div class="redline-label" style="top:-18px; left:2px; font-size:8px;">16px</div>
+                </div>
+
+                <!-- Horizontal padding right -->
+                <div style="position:absolute; top:50%; right:0; transform:translateY(-50%);">
+                  <div style="position:absolute; top:-2px; right:1px; width:14px; height:0; border-top:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:-5px; right:0; width:1px; height:7px; background:var(--redline);"></div>
+                  <div style="position:absolute; top:-5px; right:15px; width:1px; height:7px; background:var(--redline);"></div>
+                  <div class="redline-label" style="top:-18px; right:2px; font-size:8px;">16px</div>
+                </div>
+
+                <!-- Vertical padding top -->
+                <div style="position:absolute; top:0; left:50%; transform:translateX(-50%);">
+                  <div style="position:absolute; left:-1px; top:1px; width:0; height:6px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; left:-4px; top:0; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; left:-4px; top:7px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; top:-2px; font-size:8px;">8px</div>
+                </div>
+
+                <!-- Vertical padding bottom -->
+                <div style="position:absolute; bottom:0; left:50%; transform:translateX(-50%);">
+                  <div style="position:absolute; left:-1px; bottom:1px; width:0; height:6px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; left:-4px; bottom:0; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; left:-4px; bottom:7px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; bottom:-2px; font-size:8px;">8px</div>
+                </div>
+
+                <!-- Height indicator (right side) -->
+                <div style="position:absolute; top:0; right:-40px;">
+                  <div style="width:0; height:40px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; bottom:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; top:14px; font-size:8px;">40px</div>
+                </div>
+
+                <!-- Icon gap indicator -->
+                <div style="position:absolute; top:50%; left:38px; transform:translateY(-50%);">
+                  <div style="width:6px; height:0; border-top:1px dashed var(--redline);"></div>
+                  <div class="redline-label" style="top:-14px; left:-2px; font-size:8px;">8px gap</div>
+                </div>
+
+                <!-- Border radius indicator -->
+                <div style="position:absolute; top:-28px; left:-4px;">
+                  <div class="redline-label" style="font-size:8px; background:var(--brand);">r: 8px</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:16px; flex-wrap:wrap;">
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300); padding-bottom:1px;">
+              Horizontal padding: 16px (--space-4)
+              <span class="tip-content">padding-left: var(--space-4); padding-right: var(--space-4);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300); padding-bottom:1px;">
+              Vertical padding: 8px (--space-2)
+              <span class="tip-content">padding-top: var(--space-2); padding-bottom: var(--space-2);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300); padding-bottom:1px;">
+              Icon gap: 8px (--space-2)
+              <span class="tip-content">gap: var(--space-2);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300); padding-bottom:1px;">
+              Height: 40px
+              <span class="tip-content">height: 40px;</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- CARD Spacing -->
+        <div style="margin-bottom:32px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+            <h3 style="font-size:16px; font-weight:600;">Card</h3>
+            <button class="overlay-toggle active" onclick="toggleOverlay('card-measures', this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Measurements
+            </button>
+          </div>
+          <div class="component-preview" style="padding:48px 64px;">
+            <div style="position:relative; display:inline-block;">
+              <div style="
+                width:320px; padding:24px; border:1px solid var(--border-primary);
+                border-radius:var(--radius-lg); background:var(--bg-primary); box-shadow:var(--shadow-sm);
+              ">
+                <h4 style="font-size:16px; font-weight:600; margin-bottom:4px;">Card Title</h4>
+                <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">Card description text goes here with more details.</p>
+                <div style="display:flex; gap:12px;">
+                  <button style="padding:8px 16px; background:var(--brand); color:#fff; border:none; border-radius:var(--radius-md); font-size:13px; font-weight:600; cursor:pointer; font-family:var(--font-family);">Primary</button>
+                  <button style="padding:8px 16px; background:transparent; color:var(--text-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-md); font-size:13px; font-weight:600; cursor:pointer; font-family:var(--font-family);">Secondary</button>
+                </div>
+              </div>
+
+              <div id="card-measures" class="measure-overlay">
+                <!-- Left padding -->
+                <div style="position:absolute; top:50%; left:0;">
+                  <div style="width:22px; height:0; border-top:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:-3px; left:0; width:1px; height:7px; background:var(--redline);"></div>
+                  <div style="position:absolute; top:-3px; left:23px; width:1px; height:7px; background:var(--redline);"></div>
+                  <div class="redline-label" style="top:-16px; left:4px; font-size:8px;">24px</div>
+                </div>
+                <!-- Top padding -->
+                <div style="position:absolute; top:0; left:50%;">
+                  <div style="width:0; height:22px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; top:23px; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; top:6px; font-size:8px;">24px</div>
+                </div>
+                <!-- Content gap between description and buttons -->
+                <div style="position:absolute; bottom:60px; left:28px;">
+                  <div style="width:0; height:14px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; bottom:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; top:0px; font-size:8px;">16px</div>
+                </div>
+                <!-- Button gap -->
+                <div style="position:absolute; bottom:32px; left:122px;">
+                  <div style="width:10px; height:0; border-top:1px dashed var(--redline);"></div>
+                  <div class="redline-label" style="top:-14px; left:-2px; font-size:8px;">12px</div>
+                </div>
+                <!-- Border radius -->
+                <div style="position:absolute; top:-28px; right:0;">
+                  <div class="redline-label" style="font-size:8px; background:var(--brand);">r: 10px</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:16px; flex-wrap:wrap;">
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Padding: 24px (--space-6)<span class="tip-content">padding: var(--space-6);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Content gap: 16px (--space-4)<span class="tip-content">gap: var(--space-4);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Button gap: 12px (--space-3)<span class="tip-content">gap: var(--space-3);</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- INPUT Spacing -->
+        <div style="margin-bottom:32px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+            <h3 style="font-size:16px; font-weight:600;">Input</h3>
+            <button class="overlay-toggle active" onclick="toggleOverlay('input-measures', this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Measurements
+            </button>
+          </div>
+          <div class="component-preview" style="padding:48px 80px;">
+            <div style="position:relative; display:inline-block; width:280px;">
+              <label style="display:block; font-size:14px; font-weight:500; color:var(--text-primary); margin-bottom:6px;">Email Address</label>
+              <input type="text" placeholder="you@example.com" style="
+                width:100%; padding:8px 12px; height:40px;
+                border:1px solid var(--border-primary); border-radius:var(--radius-md);
+                font-size:14px; font-family:var(--font-family); color:var(--text-primary);
+                background:var(--bg-primary); outline:none;
+              " />
+              <p style="margin-top:6px; font-size:12px; color:var(--text-secondary);">We'll never share your email.</p>
+
+              <div id="input-measures" class="measure-overlay">
+                <!-- Label to input gap -->
+                <div style="position:absolute; top:20px; right:-48px;">
+                  <div style="width:0; height:5px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; bottom:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; top:-2px; font-size:8px;">6px</div>
+                </div>
+                <!-- Input internal padding -->
+                <div style="position:absolute; top:30px; left:0;">
+                  <div style="width:10px; height:0; border-top:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:-3px; left:0; width:1px; height:7px; background:var(--redline);"></div>
+                  <div style="position:absolute; top:-3px; left:11px; width:1px; height:7px; background:var(--redline);"></div>
+                  <div class="redline-label" style="top:-16px; left:0; font-size:8px;">12px</div>
+                </div>
+                <!-- Input height -->
+                <div style="position:absolute; top:26px; right:-48px;">
+                  <div style="width:0; height:40px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; bottom:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; top:14px; font-size:8px;">40px</div>
+                </div>
+                <!-- Helper text gap -->
+                <div style="position:absolute; bottom:14px; right:-48px;">
+                  <div style="width:0; height:5px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; bottom:0; left:-3px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div class="redline-label" style="left:6px; top:-2px; font-size:8px;">6px</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:16px; flex-wrap:wrap;">
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Internal padding: 12px (--space-3)<span class="tip-content">padding: var(--space-2) var(--space-3);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Label gap: 6px (--space-1h)<span class="tip-content">margin-bottom: var(--space-1h);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Helper gap: 6px (--space-1h)<span class="tip-content">margin-top: var(--space-1h);</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- BADGE Spacing -->
+        <div style="margin-bottom:32px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+            <h3 style="font-size:16px; font-weight:600;">Badge</h3>
+            <button class="overlay-toggle active" onclick="toggleOverlay('badge-measures', this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Measurements
+            </button>
+          </div>
+          <div class="component-preview" style="padding:48px 80px;">
+            <div style="position:relative; display:inline-flex; gap:16px; align-items:center;">
+              <div style="position:relative;">
+                <span style="display:inline-flex; align-items:center; padding:4px 8px; background:var(--success-50); color:var(--success-700); border-radius:var(--radius-full); font-size:12px; font-weight:500;">Active</span>
+                <div id="badge-measures" class="measure-overlay">
+                  <div style="position:absolute; top:-2px; left:0;">
+                    <div style="width:6px; height:0; border-top:1px dashed var(--redline);"></div>
+                    <div class="redline-label" style="top:-14px; left:-2px; font-size:8px;">8px</div>
+                  </div>
+                  <div style="position:absolute; top:0; left:50%; transform:translateX(-50%);">
+                    <div style="width:0; height:3px; border-left:1px dashed var(--redline);"></div>
+                    <div class="redline-label" style="left:6px; top:-4px; font-size:8px;">4px</div>
+                  </div>
+                </div>
+              </div>
+              <span style="display:inline-flex; align-items:center; padding:4px 8px; background:var(--error-50); color:var(--error-700); border-radius:var(--radius-full); font-size:12px; font-weight:500;">Error</span>
+              <span style="display:inline-flex; align-items:center; padding:4px 8px; background:var(--warning-50); color:var(--warning-700); border-radius:var(--radius-full); font-size:12px; font-weight:500;">Warning</span>
+              <span style="display:inline-flex; align-items:center; padding:4px 8px; background:var(--brand-light); color:var(--brand); border-radius:var(--radius-full); font-size:12px; font-weight:500;">Brand</span>
+            </div>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:16px; flex-wrap:wrap;">
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Horizontal: 8px (--space-2)<span class="tip-content">padding-left: var(--space-2); padding-right: var(--space-2);</span>
+            </span>
+            <span class="measure-tip" style="font-size:12px; color:var(--text-secondary); border-bottom:1px dashed var(--gray-300);">
+              Vertical: 4px (--space-1)<span class="tip-content">padding-top: var(--space-1); padding-bottom: var(--space-1);</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 2: REDLINE OVERLAYS ON COMPONENTS
+           ============================================================ -->
+      <section id="redline-overlays" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Redline Overlays on Components</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Key components rendered at 2x scale with detailed measurement overlays. Toggle measurements to inspect dimensions, padding, gaps, and radius values.</p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+
+          <!-- BUTTON Redline -->
+          <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">
+              <span style="font-size:13px; font-weight:600;">Button</span>
+              <button class="overlay-toggle active" onclick="toggleOverlay('rl-btn', this)" style="font-size:11px; padding:4px 8px;">Toggle</button>
+            </div>
+            <div style="padding:40px; display:flex; align-items:center; justify-content:center; position:relative; min-height:160px;">
+              <div style="position:relative; transform:scale(1.5); transform-origin:center;">
+                <button style="display:inline-flex; align-items:center; gap:8px; padding:8px 16px; height:40px; background:var(--brand); color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; font-family:var(--font-family);">Button</button>
+                <div id="rl-btn" class="measure-overlay">
+                  <div class="redline-label" style="top:-20px; left:0; font-size:7px;">h: 40px</div>
+                  <div class="redline-label" style="bottom:-20px; left:0; font-size:7px;">px: 16px</div>
+                  <div class="redline-label" style="bottom:-20px; right:0; font-size:7px;">r: 8px</div>
+                  <div class="redline-label" style="top:-20px; right:0; font-size:7px; background:var(--brand);">14px / 600</div>
+                  <div style="position:absolute; top:0; left:-16px; width:0; height:40px; border-left:1px dashed var(--redline);"></div>
+                  <div style="position:absolute; top:0; left:-19px; width:7px; height:1px; background:var(--redline);"></div>
+                  <div style="position:absolute; bottom:0; left:-19px; width:7px; height:1px; background:var(--redline);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD Redline -->
+          <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">
+              <span style="font-size:13px; font-weight:600;">Card</span>
+              <button class="overlay-toggle active" onclick="toggleOverlay('rl-card', this)" style="font-size:11px; padding:4px 8px;">Toggle</button>
+            </div>
+            <div style="padding:24px; display:flex; align-items:center; justify-content:center; position:relative; min-height:200px;">
+              <div style="position:relative;">
+                <div style="width:220px; padding:20px; border:1px solid var(--border-primary); border-radius:10px; background:var(--bg-primary); box-shadow:var(--shadow-sm);">
+                  <div style="font-size:13px; font-weight:600; margin-bottom:8px;">Title</div>
+                  <div style="font-size:11px; color:var(--text-secondary); margin-bottom:12px;">Description text content here.</div>
+                  <div style="height:28px; background:var(--brand); border-radius:6px; width:70px;"></div>
+                </div>
+                <div id="rl-card" class="measure-overlay">
+                  <div class="redline-label" style="top:-16px; left:0; font-size:7px;">padding: 24px</div>
+                  <div class="redline-label" style="top:-16px; right:0; font-size:7px; background:var(--brand);">r: 10px</div>
+                  <div class="redline-label" style="bottom:-16px; left:0; font-size:7px;">shadow: sm</div>
+                  <div class="redline-label" style="bottom:-16px; right:0; font-size:7px;">gap: 16px</div>
+                  <div style="position:absolute; top:0; bottom:0; left:0; right:0; border:1px dashed var(--redline); border-radius:10px; pointer-events:none;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- INPUT Redline -->
+          <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">
+              <span style="font-size:13px; font-weight:600;">Input</span>
+              <button class="overlay-toggle active" onclick="toggleOverlay('rl-input', this)" style="font-size:11px; padding:4px 8px;">Toggle</button>
+            </div>
+            <div style="padding:32px; display:flex; align-items:center; justify-content:center; position:relative; min-height:180px;">
+              <div style="position:relative; width:200px;">
+                <label style="display:block; font-size:12px; font-weight:500; margin-bottom:6px;">Label</label>
+                <div style="height:36px; border:1px solid var(--border-primary); border-radius:8px; background:var(--bg-primary); display:flex; align-items:center; padding:0 12px;">
+                  <span style="font-size:12px; color:var(--gray-400);">Placeholder</span>
+                </div>
+                <p style="font-size:10px; color:var(--text-secondary); margin-top:6px;">Helper text</p>
+                <div id="rl-input" class="measure-overlay">
+                  <div class="redline-label" style="top:14px; right:-52px; font-size:7px;">gap: 6px</div>
+                  <div class="redline-label" style="top:30px; right:-52px; font-size:7px;">h: 40px</div>
+                  <div class="redline-label" style="bottom:0; right:-52px; font-size:7px;">gap: 6px</div>
+                  <div class="redline-label" style="top:22px; left:-48px; font-size:7px;">px: 12px</div>
+                  <div class="redline-label" style="top:22px; left:2px; font-size:7px; background:var(--brand);">r: 8px</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODAL Redline -->
+          <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">
+              <span style="font-size:13px; font-weight:600;">Modal</span>
+              <button class="overlay-toggle active" onclick="toggleOverlay('rl-modal', this)" style="font-size:11px; padding:4px 8px;">Toggle</button>
+            </div>
+            <div style="padding:24px; display:flex; align-items:center; justify-content:center; position:relative; min-height:220px;">
+              <div style="position:relative;">
+                <div style="width:240px; border-radius:14px; background:var(--bg-primary); box-shadow:var(--shadow-xl); border:1px solid var(--border-primary); overflow:hidden;">
+                  <div style="padding:16px 20px; border-bottom:1px solid var(--border-primary); font-size:14px; font-weight:600;">Modal Title</div>
+                  <div style="padding:20px; font-size:11px; color:var(--text-secondary); min-height:60px;">Modal body content goes here.</div>
+                  <div style="padding:12px 20px; border-top:1px solid var(--border-primary); display:flex; justify-content:flex-end; gap:8px;">
+                    <div style="padding:4px 10px; border:1px solid var(--border-primary); border-radius:6px; font-size:10px;">Cancel</div>
+                    <div style="padding:4px 10px; background:var(--brand); color:#fff; border-radius:6px; font-size:10px;">Confirm</div>
+                  </div>
+                </div>
+                <div id="rl-modal" class="measure-overlay">
+                  <div class="redline-label" style="top:-16px; left:0; font-size:7px;">padding: 24px</div>
+                  <div class="redline-label" style="top:-16px; right:0; font-size:7px; background:var(--brand);">r: 14px</div>
+                  <div class="redline-label" style="bottom:-16px; left:0; font-size:7px;">max-w: 560px</div>
+                  <div class="redline-label" style="bottom:-16px; right:0; font-size:7px;">overlay: 0.5</div>
+                  <div style="position:absolute; top:0; bottom:0; left:0; right:0; border:1px dashed var(--redline); border-radius:14px; pointer-events:none;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TABLE Redline -->
+          <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">
+              <span style="font-size:13px; font-weight:600;">Table</span>
+              <button class="overlay-toggle active" onclick="toggleOverlay('rl-table', this)" style="font-size:11px; padding:4px 8px;">Toggle</button>
+            </div>
+            <div style="padding:24px; display:flex; align-items:center; justify-content:center; position:relative; min-height:180px;">
+              <div style="position:relative; width:220px;">
+                <table style="width:100%; border-collapse:collapse; font-size:10px; border:1px solid var(--border-primary); border-radius:6px; overflow:hidden;">
+                  <thead>
+                    <tr><th style="padding:8px 12px; text-align:left; font-size:9px; font-weight:600; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">Name</th><th style="padding:8px 12px; text-align:left; font-size:9px; font-weight:600; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td style="padding:10px 12px; border-bottom:1px solid var(--border-primary);">Item A</td><td style="padding:10px 12px; border-bottom:1px solid var(--border-primary);"><span style="color:var(--success-500);">Active</span></td></tr>
+                    <tr><td style="padding:10px 12px;">Item B</td><td style="padding:10px 12px;"><span style="color:var(--error-500);">Inactive</span></td></tr>
+                  </tbody>
+                </table>
+                <div id="rl-table" class="measure-overlay">
+                  <div class="redline-label" style="top:-16px; left:0; font-size:7px;">row-h: 52px</div>
+                  <div class="redline-label" style="top:-16px; right:0; font-size:7px;">header: 44px</div>
+                  <div class="redline-label" style="bottom:-16px; left:0; font-size:7px;">cell-px: 16px</div>
+                  <div class="redline-label" style="bottom:-16px; right:0; font-size:7px;">border: 1px</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AVATAR Redline -->
+          <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg-secondary); border-bottom:1px solid var(--border-primary);">
+              <span style="font-size:13px; font-weight:600;">Avatar</span>
+              <button class="overlay-toggle active" onclick="toggleOverlay('rl-avatar', this)" style="font-size:11px; padding:4px 8px;">Toggle</button>
+            </div>
+            <div style="padding:40px; display:flex; align-items:center; justify-content:center; position:relative; min-height:160px; gap:24px;">
+              <div style="position:relative;">
+                <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, var(--brand), var(--blue-500)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:600; font-size:16px; border:2px solid var(--bg-primary); box-shadow:0 0 0 2px var(--brand);">SD</div>
+                <div style="position:absolute; bottom:-1px; right:-1px; width:12px; height:12px; background:var(--success-500); border-radius:50%; border:2px solid var(--bg-primary);"></div>
+                <div id="rl-avatar" class="measure-overlay">
+                  <div class="redline-label" style="top:-16px; left:50%; transform:translateX(-50%); font-size:7px;">48x48</div>
+                  <div class="redline-label" style="bottom:-22px; left:50%; transform:translateX(-50%); font-size:7px;">border: 2px</div>
+                  <div class="redline-label" style="top:50%; right:-52px; transform:translateY(-50%); font-size:7px;">dot: 12px</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:8px; align-items:flex-end;">
+                <div style="width:24px; height:24px; border-radius:50%; background:var(--gray-300); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:600; color:var(--gray-600);">XS</div>
+                <div style="width:32px; height:32px; border-radius:50%; background:var(--gray-300); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:600; color:var(--gray-600);">SM</div>
+                <div style="width:40px; height:40px; border-radius:50%; background:var(--gray-300); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:var(--gray-600);">MD</div>
+                <div style="width:64px; height:64px; border-radius:50%; background:var(--gray-300); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:var(--gray-600);">XL</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 3: CSS PROPERTY REFERENCE TABLE
+           ============================================================ -->
+      <section id="css-reference" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">CSS Property Reference</h2>
+        <p class="section-desc" style="margin-bottom:16px;">Maps Figma Auto Layout and style properties to their CSS equivalents with token references and usage examples.</p>
+        <div style="margin-bottom:16px;">
+          <input id="css-search" type="text" placeholder="Search properties..." oninput="filterCssTable()" style="
+            width:320px; padding:8px 14px; border:1px solid var(--border-primary); border-radius:var(--radius-md);
+            font-size:13px; font-family:var(--font-family); background:var(--bg-primary); color:var(--text-primary); outline:none;
+          " />
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="ds-table" id="css-table">
+            <thead>
+              <tr>
+                <th style="width:22%;">Figma Property</th>
+                <th style="width:22%;">CSS Property</th>
+                <th style="width:18%;">Token</th>
+                <th style="width:38%;">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Auto Layout Horizontal</td>
+                <td class="mono">flex-direction: row</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">display: flex; flex-direction: row;</td>
+              </tr>
+              <tr>
+                <td>Auto Layout Vertical</td>
+                <td class="mono">flex-direction: column</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">display: flex; flex-direction: column;</td>
+              </tr>
+              <tr>
+                <td>Item Spacing</td>
+                <td class="mono">gap</td>
+                <td class="mono">--space-*</td>
+                <td class="mono">gap: var(--space-3); /* 12px */</td>
+              </tr>
+              <tr>
+                <td>Padding</td>
+                <td class="mono">padding</td>
+                <td class="mono">--space-*</td>
+                <td class="mono">padding: var(--space-4); /* 16px */</td>
+              </tr>
+              <tr>
+                <td>Horizontal Padding</td>
+                <td class="mono">padding-inline</td>
+                <td class="mono">--space-*</td>
+                <td class="mono">padding-inline: var(--space-4);</td>
+              </tr>
+              <tr>
+                <td>Vertical Padding</td>
+                <td class="mono">padding-block</td>
+                <td class="mono">--space-*</td>
+                <td class="mono">padding-block: var(--space-2);</td>
+              </tr>
+              <tr>
+                <td>Fill Container</td>
+                <td class="mono">flex: 1</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">flex: 1 1 0%;</td>
+              </tr>
+              <tr>
+                <td>Hug Contents</td>
+                <td class="mono">width: fit-content</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">width: fit-content;</td>
+              </tr>
+              <tr>
+                <td>Fixed Width/Height</td>
+                <td class="mono">width / height</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">width: 320px; height: 48px;</td>
+              </tr>
+              <tr>
+                <td>Corner Radius</td>
+                <td class="mono">border-radius</td>
+                <td class="mono">--radius-*</td>
+                <td class="mono">border-radius: var(--radius-lg); /* 10px */</td>
+              </tr>
+              <tr>
+                <td>Independent Corners</td>
+                <td class="mono">border-radius (per corner)</td>
+                <td class="mono">--radius-*</td>
+                <td class="mono">border-radius: 10px 10px 0 0;</td>
+              </tr>
+              <tr>
+                <td>Drop Shadow</td>
+                <td class="mono">box-shadow</td>
+                <td class="mono">--shadow-*</td>
+                <td class="mono">box-shadow: var(--shadow-md);</td>
+              </tr>
+              <tr>
+                <td>Inner Shadow</td>
+                <td class="mono">box-shadow (inset)</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);</td>
+              </tr>
+              <tr>
+                <td>Opacity</td>
+                <td class="mono">opacity</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">opacity: 0.5;</td>
+              </tr>
+              <tr>
+                <td>Stroke (Inside)</td>
+                <td class="mono">border</td>
+                <td class="mono">--border-primary</td>
+                <td class="mono">border: 1px solid var(--border-primary);</td>
+              </tr>
+              <tr>
+                <td>Stroke (Outside)</td>
+                <td class="mono">outline</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">outline: 1px solid var(--border-primary);</td>
+              </tr>
+              <tr>
+                <td>Blend Mode</td>
+                <td class="mono">mix-blend-mode</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">mix-blend-mode: multiply;</td>
+              </tr>
+              <tr>
+                <td>Background Blur</td>
+                <td class="mono">backdrop-filter</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">backdrop-filter: blur(12px);</td>
+              </tr>
+              <tr>
+                <td>Clip Content</td>
+                <td class="mono">overflow: hidden</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">overflow: hidden;</td>
+              </tr>
+              <tr>
+                <td>Align Top-Left</td>
+                <td class="mono">align-items / justify-content</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">align-items: flex-start; justify-content: flex-start;</td>
+              </tr>
+              <tr>
+                <td>Align Center</td>
+                <td class="mono">align-items / justify-content</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">align-items: center; justify-content: center;</td>
+              </tr>
+              <tr>
+                <td>Space Between</td>
+                <td class="mono">justify-content</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">justify-content: space-between;</td>
+              </tr>
+              <tr>
+                <td>Absolute Position</td>
+                <td class="mono">position: absolute</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">position: absolute; top: 0; right: 0;</td>
+              </tr>
+              <tr>
+                <td>Text / Auto (resize)</td>
+                <td class="mono">width: auto / 100%</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">width: auto; /* or 100% for fill */</td>
+              </tr>
+              <tr>
+                <td>Min/Max Width</td>
+                <td class="mono">min-width / max-width</td>
+                <td style="color:var(--text-secondary);">--</td>
+                <td class="mono">min-width: 120px; max-width: 560px;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 4: COMPONENT IMPLEMENTATION GUIDE
+           ============================================================ -->
+      <section id="implementation" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Component Implementation Guide</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Step-by-step instructions for building 3 key components from the Figma spec. Each guide includes the Figma preview, token mapping, and final code.</p>
+
+        <!-- BUTTON Implementation -->
+        <div style="margin-bottom:40px;">
+          <h3 style="font-size:18px; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; background:var(--brand); color:#fff; font-size:13px; font-weight:700;">1</span>
+            Button Component
+          </h3>
+
+          <div style="display:grid; grid-template-columns:280px 1fr; gap:24px; margin-bottom:16px;">
+            <!-- Preview -->
+            <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:32px; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; background:var(--bg-secondary);">
+              <button style="display:inline-flex; align-items:center; gap:8px; padding:8px 16px; height:40px; background:var(--brand); color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; font-family:var(--font-family); cursor:pointer; transition:background 0.15s;" onmouseover="this.style.background='#1a0fbc'" onmouseout="this.style.background='var(--brand)'">Primary</button>
+              <button style="display:inline-flex; align-items:center; gap:8px; padding:8px 16px; height:40px; background:transparent; color:var(--text-primary); border:1px solid var(--border-primary); border-radius:8px; font-size:14px; font-weight:600; font-family:var(--font-family); cursor:pointer;">Secondary</button>
+              <button style="display:inline-flex; align-items:center; gap:8px; padding:8px 16px; height:40px; background:var(--error-500); color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; font-family:var(--font-family); cursor:pointer;">Destructive</button>
+              <button style="display:inline-flex; align-items:center; gap:8px; padding:8px 16px; height:40px; background:var(--brand); color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; font-family:var(--font-family); cursor:pointer; opacity:0.5; pointer-events:none;">Disabled</button>
+            </div>
+            <!-- Steps -->
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-number">1</div>
+                  <span style="font-size:13px; font-weight:600;">Start with the base element</span>
+                </div>
+                <div class="step-body">
+                  <div class="code-wrapper">
+                    <pre><code>&lt;button class="btn btn-primary"&gt;Button Text&lt;/button&gt;</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-number">2</div>
+                  <span style="font-size:13px; font-weight:600;">Apply design tokens via CSS</span>
+                </div>
+                <div class="step-body">
+                  <div class="code-wrapper">
+                    <pre><code>.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);        /* 8px icon gap */
+  height: 40px;
+  padding: var(--space-2) var(--space-4);  /* 8px 16px */
+  border: none;
+  border-radius: var(--radius-md);  /* 8px */
+  font-family: var(--font-family);
+  font-size: var(--text-base);      /* 14px */
+  font-weight: var(--font-semibold); /* 600 */
+  line-height: var(--leading-base);  /* 24px */
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--brand);     /* #1F12DE */
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--brand-hover); /* #1a0fbc */
+}
+.btn-primary:focus-visible {
+  box-shadow: 0 0 0 4px var(--brand-light);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-number">3</div>
+                  <span style="font-size:13px; font-weight:600;">Add variant classes for all states</span>
+                </div>
+                <div class="step-body">
+                  <div class="code-wrapper">
+                    <pre><code>.btn-secondary {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+}
+.btn-secondary:hover {
+  background: var(--bg-secondary);
+}
+
+.btn-destructive {
+  background: var(--error-500);
+  color: #fff;
+}
+.btn-destructive:hover {
+  background: var(--error-700);
+}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD Implementation -->
+        <div style="margin-bottom:40px;">
+          <h3 style="font-size:18px; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; background:var(--brand); color:#fff; font-size:13px; font-weight:700;">2</span>
+            Card Component
+          </h3>
+
+          <div style="display:grid; grid-template-columns:280px 1fr; gap:24px; margin-bottom:16px;">
+            <!-- Preview -->
+            <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:24px; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; background:var(--bg-secondary);">
+              <div style="width:100%; padding:20px; border:1px solid var(--border-primary); border-radius:10px; background:var(--bg-primary); box-shadow:var(--shadow-sm);">
+                <h4 style="font-size:15px; font-weight:600; margin-bottom:4px;">Card Title</h4>
+                <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">Description text here.</p>
+                <div style="display:flex; gap:8px;">
+                  <span style="padding:4px 8px; background:var(--success-50); color:var(--success-700); border-radius:var(--radius-full); font-size:11px; font-weight:500;">Active</span>
+                </div>
+              </div>
+            </div>
+            <!-- Steps -->
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-number">1</div>
+                  <span style="font-size:13px; font-weight:600;">Container structure mirrors Figma Auto Layout</span>
+                </div>
+                <div class="step-body">
+                  <div class="code-wrapper">
+                    <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-header"&gt;
+    &lt;h3 class="card-title"&gt;Title&lt;/h3&gt;
+    &lt;p class="card-desc"&gt;Description&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card-body"&gt;
+    &lt;!-- Content --&gt;
+  &lt;/div&gt;
+  &lt;div class="card-footer"&gt;
+    &lt;!-- Actions --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-number">2</div>
+                  <span style="font-size:13px; font-weight:600;">Map Auto Layout to flexbox with tokens</span>
+                </div>
+                <div class="step-body">
+                  <div class="code-wrapper">
+                    <pre><code>.card {
+  display: flex;
+  flex-direction: column;  /* Figma: Vertical Auto Layout */
+  gap: var(--space-4);     /* Figma: Item Spacing = 16 */
+  padding: var(--space-6); /* Figma: Padding = 24 */
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);  /* 10px */
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);   /* 4px between title &amp; desc */
+}
+
+.card-footer {
+  display: flex;
+  gap: var(--space-3);   /* 12px between buttons */
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 640px) {
+  .card { padding: var(--space-4); }
+}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INPUT Implementation -->
+        <div style="margin-bottom:40px;">
+          <h3 style="font-size:18px; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; background:var(--brand); color:#fff; font-size:13px; font-weight:700;">3</span>
+            Input Component
+          </h3>
+
+          <div style="display:grid; grid-template-columns:280px 1fr; gap:24px; margin-bottom:16px;">
+            <!-- Preview -->
+            <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:24px; display:flex; flex-direction:column; gap:16px; background:var(--bg-secondary);">
+              <!-- Default state -->
+              <div>
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:6px;">Default</label>
+                <input type="text" placeholder="Enter text..." style="width:100%; padding:8px 12px; height:40px; border:1px solid var(--border-primary); border-radius:8px; font-size:14px; font-family:var(--font-family); background:var(--bg-primary); color:var(--text-primary); outline:none;" />
+              </div>
+              <!-- Error state -->
+              <div>
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:6px;">Error</label>
+                <input type="text" value="invalid" style="width:100%; padding:8px 12px; height:40px; border:1px solid var(--error-500); border-radius:8px; font-size:14px; font-family:var(--font-family); background:var(--bg-primary); color:var(--text-primary); outline:none; box-shadow:0 0 0 4px rgba(240,68,56,0.1);" />
+                <p style="margin-top:6px; font-size:12px; color:var(--error-500);">This field is required.</p>
+              </div>
+            </div>
+            <!-- Steps -->
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-number">1</div>
+                  <span style="font-size:13px; font-weight:600;">Label-Input-Helper pattern</span>
+                </div>
+                <div class="step-body">
+                  <div class="code-wrapper">
+                    <pre><code>&lt;div class="form-group"&gt;
+  &lt;label for="email" class="form-label"&gt;Email&lt;/label&gt;
+  &lt;div class="input-wrapper"&gt;
+    &lt;svg class="input-icon"&gt;...&lt;/svg&gt;
+    &lt;input id="email" type="email" class="form-input"
+           placeholder="you@example.com" /&gt;
+  &lt;/div&gt;
+  &lt;p class="form-helper"&gt;Helper text&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-number">2</div>
+                  <span style="font-size:13px; font-weight:600;">Styles with focus and error states</span>
+                </div>
+                <div class="step-body">
+                  <div class="code-wrapper">
+                    <pre><code>.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: var(--text-base);    /* 14px */
+  font-weight: var(--font-medium); /* 500 */
+  margin-bottom: var(--space-1h);  /* 6px */
+  color: var(--text-primary);
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; height: 20px;
+  color: var(--gray-400);
+}
+
+.form-input {
+  width: 100%;
+  height: 40px;
+  padding: var(--space-2) var(--space-3);  /* 8px 12px */
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);  /* 8px */
+  font-size: var(--text-base);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  outline: none;
+  transition: all 0.15s ease;
+}
+.form-input.has-icon {
+  padding-left: 40px;  /* 12px + 20px icon + 8px gap */
+}
+.form-input:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px var(--brand-light);
+}
+.form-input.error {
+  border-color: var(--error-500);
+  box-shadow: 0 0 0 4px rgba(240, 68, 56, 0.1);
+}
+
+.form-helper {
+  font-size: var(--text-sm);  /* 12px */
+  margin-top: var(--space-1h); /* 6px */
+  color: var(--text-secondary);
+}
+.form-helper.error {
+  color: var(--error-500);
+}</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 5: TOKEN MAPPING REFERENCE
+           ============================================================ -->
+      <section id="token-mapping" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Token Mapping Reference</h2>
+        <p class="section-desc" style="margin-bottom:16px;">Complete 1:1 mapping between Figma Variables, CSS Custom Properties, Tailwind classes, and SCSS variables. Use the search to filter.</p>
+        <div style="margin-bottom:16px;">
+          <input id="token-search" type="text" placeholder="Search tokens (e.g. brand, spacing, radius)..." oninput="filterTokenTable()" style="
+            width:400px; padding:8px 14px; border:1px solid var(--border-primary); border-radius:var(--radius-md);
+            font-size:13px; font-family:var(--font-family); background:var(--bg-primary); color:var(--text-primary); outline:none;
+          " />
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="ds-table" id="token-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Figma Variable</th>
+                <th>CSS Custom Property</th>
+                <th>Tailwind Class</th>
+                <th>SCSS Variable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- COLOR TOKENS -->
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--brand); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/brand</td>
+                <td class="mono">--brand</td>
+                <td class="mono">bg-[#1F12DE]</td>
+                <td class="mono">$brand</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--brand-hover); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/brand-hover</td>
+                <td class="mono">--brand-hover</td>
+                <td class="mono">hover:bg-[#1a0fbc]</td>
+                <td class="mono">$brand-hover</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gray-50); border:1px solid var(--gray-200); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/gray/50</td>
+                <td class="mono">--gray-50</td>
+                <td class="mono">bg-gray-50</td>
+                <td class="mono">$gray-50</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gray-100); border:1px solid var(--gray-200); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/gray/100</td>
+                <td class="mono">--gray-100</td>
+                <td class="mono">bg-gray-100</td>
+                <td class="mono">$gray-100</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gray-200); border:1px solid var(--gray-300); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/gray/200</td>
+                <td class="mono">--gray-200</td>
+                <td class="mono">border-gray-200</td>
+                <td class="mono">$gray-200</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gray-500); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/gray/500</td>
+                <td class="mono">--gray-500</td>
+                <td class="mono">text-gray-500</td>
+                <td class="mono">$gray-500</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gray-700); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/gray/700</td>
+                <td class="mono">--gray-700</td>
+                <td class="mono">text-gray-700</td>
+                <td class="mono">$gray-700</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gray-900); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/gray/900</td>
+                <td class="mono">--gray-900</td>
+                <td class="mono">text-gray-900</td>
+                <td class="mono">$gray-900</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--success-500); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/success/500</td>
+                <td class="mono">--success-500</td>
+                <td class="mono">text-green-500</td>
+                <td class="mono">$success-500</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--error-500); margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/error/500</td>
+                <td class="mono">--error-500</td>
+                <td class="mono">text-red-500</td>
+                <td class="mono">$error-500</td>
+              </tr>
+              <tr>
+                <td><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#B54708; margin-right:6px; vertical-align:middle;"></span>Color</td>
+                <td class="mono">color/warning/700</td>
+                <td class="mono">--warning-700</td>
+                <td class="mono">text-amber-700</td>
+                <td class="mono">$warning-700</td>
+              </tr>
+
+              <!-- TYPOGRAPHY TOKENS -->
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontFamily</td>
+                <td class="mono">--font-family</td>
+                <td class="mono">font-sans</td>
+                <td class="mono">$font-family</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontSize/xs</td>
+                <td class="mono">--text-xs</td>
+                <td class="mono">text-[10px]</td>
+                <td class="mono">$text-xs</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontSize/sm</td>
+                <td class="mono">--text-sm</td>
+                <td class="mono">text-xs</td>
+                <td class="mono">$text-sm</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontSize/base</td>
+                <td class="mono">--text-base</td>
+                <td class="mono">text-sm</td>
+                <td class="mono">$text-base</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontSize/md</td>
+                <td class="mono">--text-md</td>
+                <td class="mono">text-base</td>
+                <td class="mono">$text-md</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontSize/lg</td>
+                <td class="mono">--text-lg</td>
+                <td class="mono">text-lg</td>
+                <td class="mono">$text-lg</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontSize/2xl</td>
+                <td class="mono">--text-2xl</td>
+                <td class="mono">text-2xl</td>
+                <td class="mono">$text-2xl</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontWeight/regular</td>
+                <td class="mono">--font-regular</td>
+                <td class="mono">font-normal</td>
+                <td class="mono">$font-regular</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontWeight/medium</td>
+                <td class="mono">--font-medium</td>
+                <td class="mono">font-medium</td>
+                <td class="mono">$font-medium</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Typography</td>
+                <td class="mono">typography/fontWeight/semibold</td>
+                <td class="mono">--font-semibold</td>
+                <td class="mono">font-semibold</td>
+                <td class="mono">$font-semibold</td>
+              </tr>
+
+              <!-- SPACING TOKENS -->
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/1</td>
+                <td class="mono">--space-1</td>
+                <td class="mono">p-1 / gap-1</td>
+                <td class="mono">$space-1</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/1.5</td>
+                <td class="mono">--space-1h</td>
+                <td class="mono">p-1.5 / gap-1.5</td>
+                <td class="mono">$space-1h</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/2</td>
+                <td class="mono">--space-2</td>
+                <td class="mono">p-2 / gap-2</td>
+                <td class="mono">$space-2</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/3</td>
+                <td class="mono">--space-3</td>
+                <td class="mono">p-3 / gap-3</td>
+                <td class="mono">$space-3</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/4</td>
+                <td class="mono">--space-4</td>
+                <td class="mono">p-4 / gap-4</td>
+                <td class="mono">$space-4</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/5</td>
+                <td class="mono">--space-5</td>
+                <td class="mono">p-5 / gap-5</td>
+                <td class="mono">$space-5</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/6</td>
+                <td class="mono">--space-6</td>
+                <td class="mono">p-6 / gap-6</td>
+                <td class="mono">$space-6</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Spacing</td>
+                <td class="mono">spacing/8</td>
+                <td class="mono">--space-8</td>
+                <td class="mono">p-8 / gap-8</td>
+                <td class="mono">$space-8</td>
+              </tr>
+
+              <!-- BORDER RADIUS TOKENS -->
+              <tr>
+                <td style="color:var(--text-secondary);">Radius</td>
+                <td class="mono">borderRadius/sm</td>
+                <td class="mono">--radius-sm</td>
+                <td class="mono">rounded</td>
+                <td class="mono">$radius-sm</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Radius</td>
+                <td class="mono">borderRadius/md</td>
+                <td class="mono">--radius-md</td>
+                <td class="mono">rounded-lg</td>
+                <td class="mono">$radius-md</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Radius</td>
+                <td class="mono">borderRadius/lg</td>
+                <td class="mono">--radius-lg</td>
+                <td class="mono">rounded-[10px]</td>
+                <td class="mono">$radius-lg</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Radius</td>
+                <td class="mono">borderRadius/xl</td>
+                <td class="mono">--radius-xl</td>
+                <td class="mono">rounded-[14px]</td>
+                <td class="mono">$radius-xl</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Radius</td>
+                <td class="mono">borderRadius/full</td>
+                <td class="mono">--radius-full</td>
+                <td class="mono">rounded-full</td>
+                <td class="mono">$radius-full</td>
+              </tr>
+
+              <!-- SHADOW TOKENS -->
+              <tr>
+                <td style="color:var(--text-secondary);">Effects</td>
+                <td class="mono">boxShadow/xs</td>
+                <td class="mono">--shadow-xs</td>
+                <td class="mono">shadow-sm</td>
+                <td class="mono">$shadow-xs</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Effects</td>
+                <td class="mono">boxShadow/sm</td>
+                <td class="mono">--shadow-sm</td>
+                <td class="mono">shadow</td>
+                <td class="mono">$shadow-sm</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Effects</td>
+                <td class="mono">boxShadow/md</td>
+                <td class="mono">--shadow-md</td>
+                <td class="mono">shadow-md</td>
+                <td class="mono">$shadow-md</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Effects</td>
+                <td class="mono">boxShadow/lg</td>
+                <td class="mono">--shadow-lg</td>
+                <td class="mono">shadow-lg</td>
+                <td class="mono">$shadow-lg</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Effects</td>
+                <td class="mono">boxShadow/xl</td>
+                <td class="mono">--shadow-xl</td>
+                <td class="mono">shadow-xl</td>
+                <td class="mono">$shadow-xl</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Effects</td>
+                <td class="mono">boxShadow/2xl</td>
+                <td class="mono">--shadow-2xl</td>
+                <td class="mono">shadow-2xl</td>
+                <td class="mono">$shadow-2xl</td>
+              </tr>
+
+              <!-- DARK MODE TOKENS -->
+              <tr>
+                <td style="color:var(--text-secondary);">Dark</td>
+                <td class="mono">dark/bg-primary</td>
+                <td class="mono">--bg-primary (dark)</td>
+                <td class="mono">dark:bg-[#0C111D]</td>
+                <td class="mono">$dark-bg-primary</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Dark</td>
+                <td class="mono">dark/bg-secondary</td>
+                <td class="mono">--bg-secondary (dark)</td>
+                <td class="mono">dark:bg-[#161B26]</td>
+                <td class="mono">$dark-bg-secondary</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Dark</td>
+                <td class="mono">dark/text-primary</td>
+                <td class="mono">--text-primary (dark)</td>
+                <td class="mono">dark:text-[#F5F5F6]</td>
+                <td class="mono">$dark-text-primary</td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-secondary);">Dark</td>
+                <td class="mono">dark/border-primary</td>
+                <td class="mono">--border-primary (dark)</td>
+                <td class="mono">dark:border-[#333741]</td>
+                <td class="mono">$dark-border-primary</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           FIGMA INSTALLATION GUIDE
+           ========================================================= -->
+      <section id="figma-install" style="margin-top:64px; scroll-margin-top:80px;" class="fade-in">
+
+        <!-- Section Header -->
+        <div style="margin-bottom:40px;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:4px 12px; background:var(--brand-light); border-radius:var(--radius-full); margin-bottom:16px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-1"/><polygon points="12 15 17 21 7 21 12 15"/></svg>
+            <span style="font-size:12px; font-weight:600; color:var(--brand);">Figma Integration</span>
+          </div>
+          <h2 style="font-size:28px; font-weight:700; margin-bottom:8px; letter-spacing:-0.02em;">Install Design System in Figma</h2>
+          <p style="font-size:16px; color:var(--text-secondary); max-width:680px; line-height:1.6;">
+            Follow this step-by-step guide to import all design tokens into Figma as editable variables.
+            This enables your design team to use the exact same tokens in their Figma files.
+          </p>
+        </div>
+
+        <!-- What You'll Get -->
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:48px;">
+          <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); padding:20px; text-align:center;">
+            <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,#ECFDF3,#A6F4C5); display:flex; align-items:center; justify-content:center; margin:0 auto 12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#17B26A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </div>
+            <div style="font-size:20px; font-weight:700; color:var(--text-primary);">38</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Color tokens</div>
+          </div>
+          <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); padding:20px; text-align:center;">
+            <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,#EFF8FF,#B2DDFF); display:flex; align-items:center; justify-content:center; margin:0 auto 12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2970FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+            </div>
+            <div style="font-size:20px; font-weight:700; color:var(--text-primary);">7</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Type scales</div>
+          </div>
+          <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); padding:20px; text-align:center;">
+            <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,#FFFAEB,#FEDF89); display:flex; align-items:center; justify-content:center; margin:0 auto 12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B54708" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </div>
+            <div style="font-size:20px; font-weight:700; color:var(--text-primary);">9</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Spacing values</div>
+          </div>
+          <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); padding:20px; text-align:center;">
+            <div style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,#F4F3FF,#D9D6FE); display:flex; align-items:center; justify-content:center; margin:0 auto 12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <div style="font-size:20px; font-weight:700; color:var(--text-primary);">6</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Shadow elevations</div>
+          </div>
+        </div>
+
+        <!-- Prerequisites -->
+        <div style="background:linear-gradient(135deg, rgba(31,18,222,0.04), rgba(41,112,255,0.04)); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-xl); padding:24px 28px; margin-bottom:40px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span style="font-size:14px; font-weight:600; color:var(--brand);">Prerequisites</span>
+          </div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--text-secondary); line-height:1.5;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>A <strong style="color:var(--text-primary);">Figma account</strong> (Free, Professional, or Enterprise)</span>
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--text-secondary); line-height:1.5;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>The <strong style="color:var(--text-primary);">Tokens Studio for Figma</strong> plugin installed (free version works)</span>
+            </li>
+            <li style="display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--text-secondary); line-height:1.5;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>The <strong style="color:var(--text-primary);">tokens.json</strong> file from this design system (<a href="tokens.json" download style="color:var(--brand); text-decoration:underline; text-underline-offset:3px;">download here</a>)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- STEP 1 -->
+        <div style="margin-bottom:48px;">
+          <div style="display:flex; align-items:flex-start; gap:20px;">
+            <!-- Step Number -->
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex-shrink:0; box-shadow:0 0 0 4px var(--brand-light);">1</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px; font-weight:700; margin-bottom:8px;">Install Tokens Studio Plugin</h3>
+              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+                Tokens Studio (formerly Figma Tokens) is the industry-standard plugin for managing design tokens in Figma.
+              </p>
+
+              <!-- Visual: Figma Plugin Search mockup -->
+              <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); overflow:hidden; margin-bottom:16px;">
+                <!-- Figma-like toolbar -->
+                <div style="background:var(--gray-900); padding:10px 16px; display:flex; align-items:center; gap:12px;">
+                  <div style="display:flex; gap:6px;">
+                    <div style="width:12px; height:12px; border-radius:50%; background:#FF5F56;"></div>
+                    <div style="width:12px; height:12px; border-radius:50%; background:#FFBD2E;"></div>
+                    <div style="width:12px; height:12px; border-radius:50%; background:#27C93F;"></div>
+                  </div>
+                  <span style="font-size:12px; color:rgba(255,255,255,0.5);">Figma</span>
+                </div>
+                <!-- Plugin search mockup -->
+                <div style="padding:24px;">
+                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px;">
+                    <span style="font-size:13px; color:var(--text-secondary);">Menu &rarr;</span>
+                    <span style="font-size:13px; color:var(--text-secondary);">Plugins &rarr;</span>
+                    <span style="font-size:13px; font-weight:600; color:var(--text-primary);">Search plugins...</span>
+                  </div>
+                  <!-- Search bar -->
+                  <div style="background:var(--bg-primary); border:2px solid var(--brand); border-radius:var(--radius-md); padding:10px 14px; display:flex; align-items:center; gap:10px; margin-bottom:20px; box-shadow:0 0 0 3px var(--brand-light);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <span style="font-size:14px; color:var(--text-primary);">Tokens Studio</span>
+                    <span style="width:2px; height:18px; background:var(--brand); animation:blink 1s infinite;"></span>
+                  </div>
+                  <!-- Search result -->
+                  <div style="background:var(--bg-primary); border:1px solid var(--brand); border-radius:var(--radius-lg); padding:16px; display:flex; align-items:center; gap:16px; box-shadow:0 0 0 2px var(--brand-light);">
+                    <!-- Plugin icon -->
+                    <div style="width:48px; height:48px; border-radius:10px; background:linear-gradient(135deg,#1F12DE,#7C3AED); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                      <span style="font-size:20px; font-weight:800; color:#fff;">T</span>
+                    </div>
+                    <div style="flex:1;">
+                      <div style="font-size:14px; font-weight:600; color:var(--text-primary);">Tokens Studio for Figma</div>
+                      <div style="font-size:12px; color:var(--text-secondary);">Design tokens management &middot; 500k+ users</div>
+                    </div>
+                    <button style="padding:8px 20px; background:var(--brand); color:#fff; border:none; border-radius:var(--radius-lg); font-size:13px; font-weight:600; cursor:pointer;">Install</button>
+                  </div>
+                </div>
+              </div>
+              <style>@keyframes blink { 0%,50% { opacity:1; } 51%,100% { opacity:0; } }
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+
+              <div style="display:flex; gap:8px; align-items:flex-start;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                  In Figma: <strong style="color:var(--text-primary);">Menu</strong> (hamburger icon top-left) &rarr; <strong style="color:var(--text-primary);">Plugins</strong> &rarr; <strong style="color:var(--text-primary);">Search "Tokens Studio"</strong> &rarr; Click <strong style="color:var(--text-primary);">Install</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector line -->
+        <div style="width:2px; height:24px; background:var(--border-primary); margin:0 0 0 23px;"></div>
+
+        <!-- STEP 2 -->
+        <div style="margin-bottom:48px;">
+          <div style="display:flex; align-items:flex-start; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex-shrink:0; box-shadow:0 0 0 4px var(--brand-light);">2</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px; font-weight:700; margin-bottom:8px;">Download the Token File</h3>
+              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+                Download our <code style="background:var(--bg-tertiary); padding:2px 6px; border-radius:4px; font-size:13px;">tokens.json</code> file which contains all design tokens in Tokens Studio format.
+              </p>
+
+              <!-- Download card -->
+              <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); padding:20px; display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                <div style="width:52px; height:52px; border-radius:12px; background:linear-gradient(135deg,var(--brand-light),rgba(41,112,255,0.1)); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-size:14px; font-weight:600; color:var(--text-primary);">tokens.json</div>
+                  <div style="font-size:12px; color:var(--text-secondary);">17 KB &middot; 434 lines &middot; Tokens Studio format</div>
+                </div>
+                <a href="tokens.json" download="openreel-tokens.json" style="padding:10px 24px; background:var(--brand); color:#fff; border:none; border-radius:var(--radius-lg); font-size:13px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:background 0.15s;" onmouseover="this.style.background='var(--brand-hover)'" onmouseout="this.style.background='var(--brand)'">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download
+                </a>
+              </div>
+
+              <!-- File contents preview -->
+              <div style="background:#1e1e2e; border-radius:var(--radius-lg); padding:16px 20px; margin-bottom:16px; overflow:hidden;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                  <span style="font-size:12px; color:rgba(255,255,255,0.4); font-family:'SF Mono',monospace;">tokens.json preview</span>
+                  <div style="display:flex; gap:6px;">
+                    <div style="width:8px; height:8px; border-radius:50%; background:#FEDF89;"></div>
+                    <div style="width:8px; height:8px; border-radius:50%; background:#A6F4C5;"></div>
+                  </div>
+                </div>
+                <pre style="font-family:'SF Mono','Fira Code',monospace; font-size:12px; line-height:1.7; color:#cdd6f4; margin:0; overflow-x:auto;"><code>{
+  <span style="color:#f38ba8;">"openreel"</span>: {
+    <span style="color:#f9e2af;">"color"</span>: {
+      <span style="color:#a6e3a1;">"brand"</span>: { <span style="color:#89b4fa;">"value"</span>: <span style="color:#fab387;">"#1F12DE"</span>, <span style="color:#89b4fa;">"type"</span>: <span style="color:#fab387;">"color"</span> },
+      <span style="color:#a6e3a1;">"gray"</span>: {
+        <span style="color:#a6e3a1;">"50"</span>:  { <span style="color:#89b4fa;">"value"</span>: <span style="color:#fab387;">"#F9FAFB"</span>, <span style="color:#89b4fa;">"type"</span>: <span style="color:#fab387;">"color"</span> },
+        <span style="color:#a6e3a1;">"100"</span>: { <span style="color:#89b4fa;">"value"</span>: <span style="color:#fab387;">"#F2F4F7"</span>, <span style="color:#89b4fa;">"type"</span>: <span style="color:#fab387;">"color"</span> },
+        <span style="color:#a6e3a1;">"900"</span>: { <span style="color:#89b4fa;">"value"</span>: <span style="color:#fab387;">"#101828"</span>, <span style="color:#89b4fa;">"type"</span>: <span style="color:#fab387;">"color"</span> }
+      },
+      <span style="color:#585b70;">// ... 38 color tokens total</span>
+    },
+    <span style="color:#f9e2af;">"spacing"</span>: { <span style="color:#585b70;">/* 4px → 32px scale */</span> },
+    <span style="color:#f9e2af;">"borderRadius"</span>: { <span style="color:#585b70;">/* sm → full */</span> },
+    <span style="color:#f9e2af;">"boxShadow"</span>: { <span style="color:#585b70;">/* xs → 2xl */</span> }
+  }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector line -->
+        <div style="width:2px; height:24px; background:var(--border-primary); margin:0 0 0 23px;"></div>
+
+        <!-- STEP 3 -->
+        <div style="margin-bottom:48px;">
+          <div style="display:flex; align-items:flex-start; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex-shrink:0; box-shadow:0 0 0 4px var(--brand-light);">3</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px; font-weight:700; margin-bottom:8px;">Open the Plugin & Load Tokens</h3>
+              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+                Open any Figma file, run the Tokens Studio plugin, and import the token file.
+              </p>
+
+              <!-- Visual: Plugin panel mockup -->
+              <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); overflow:hidden; margin-bottom:20px;">
+                <!-- Figma-like plugin panel header -->
+                <div style="background:var(--gray-900); padding:10px 16px; display:flex; align-items:center; justify-content:space-between;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:20px; height:20px; border-radius:4px; background:linear-gradient(135deg,#1F12DE,#7C3AED); display:flex; align-items:center; justify-content:center;">
+                      <span style="font-size:10px; font-weight:800; color:#fff;">T</span>
+                    </div>
+                    <span style="font-size:13px; font-weight:600; color:#fff;">Tokens Studio</span>
+                  </div>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                </div>
+                <!-- Plugin content -->
+                <div style="padding:20px;">
+                  <!-- Step indicators inside plugin -->
+                  <div style="display:flex; flex-direction:column; gap:16px;">
+                    <!-- Step A -->
+                    <div style="display:flex; align-items:center; gap:12px;">
+                      <div style="width:28px; height:28px; border-radius:50%; background:#A6F4C5; color:#067647; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0;">A</div>
+                      <div style="flex:1;">
+                        <div style="font-size:13px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Click the Settings icon (gear)</div>
+                        <div style="font-size:12px; color:var(--text-secondary);">Bottom-left corner of the plugin panel</div>
+                      </div>
+                      <div style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--bg-tertiary); border:1px solid var(--border-primary); display:flex; align-items:center; justify-content:center;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                      </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div style="height:1px; background:var(--border-primary); margin-left:40px;"></div>
+
+                    <!-- Step B -->
+                    <div style="display:flex; align-items:center; gap:12px;">
+                      <div style="width:28px; height:28px; border-radius:50%; background:#B2DDFF; color:#175CD3; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0;">B</div>
+                      <div style="flex:1;">
+                        <div style="font-size:13px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Select "Load from file" under Token Storage</div>
+                        <div style="font-size:12px; color:var(--text-secondary);">Choose "Local document" or "URL" as your sync provider</div>
+                      </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div style="height:1px; background:var(--border-primary); margin-left:40px;"></div>
+
+                    <!-- Step C -->
+                    <div style="display:flex; align-items:center; gap:12px;">
+                      <div style="width:28px; height:28px; border-radius:50%; background:#FEDF89; color:#B54708; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0;">C</div>
+                      <div style="flex:1;">
+                        <div style="font-size:13px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Import the tokens.json file</div>
+                        <div style="font-size:12px; color:var(--text-secondary);">Click "Load" and select the downloaded <code style="background:var(--bg-tertiary); padding:1px 4px; border-radius:3px; font-size:11px;">openreel-tokens.json</code></div>
+                      </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div style="height:1px; background:var(--border-primary); margin-left:40px;"></div>
+
+                    <!-- Step D -->
+                    <div style="display:flex; align-items:center; gap:12px;">
+                      <div style="width:28px; height:28px; border-radius:50%; background:#D1FAE0; color:#027A48; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0;">D</div>
+                      <div style="flex:1;">
+                        <div style="font-size:13px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">Enable the "openreel" token set</div>
+                        <div style="font-size:12px; color:var(--text-secondary);">Check the checkbox next to "openreel" in the left panel</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector line -->
+        <div style="width:2px; height:24px; background:var(--border-primary); margin:0 0 0 23px;"></div>
+
+        <!-- STEP 4 -->
+        <div style="margin-bottom:48px;">
+          <div style="display:flex; align-items:flex-start; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex-shrink:0; box-shadow:0 0 0 4px var(--brand-light);">4</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px; font-weight:700; margin-bottom:8px;">Apply Tokens to Your Design</h3>
+              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+                Once loaded, you'll see all tokens organized by category. Select any element in Figma and apply tokens from the right panel.
+              </p>
+
+              <!-- Visual: Token categories in plugin -->
+              <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); overflow:hidden; margin-bottom:20px;">
+                <div style="background:var(--gray-900); padding:8px 16px; display:flex; align-items:center; gap:8px;">
+                  <div style="width:16px; height:16px; border-radius:3px; background:linear-gradient(135deg,#1F12DE,#7C3AED); display:flex; align-items:center; justify-content:center;">
+                    <span style="font-size:8px; font-weight:800; color:#fff;">T</span>
+                  </div>
+                  <span style="font-size:12px; color:rgba(255,255,255,0.7);">Token sets &rarr; openreel</span>
+                </div>
+                <div style="padding:16px; display:grid; grid-template-columns:repeat(2,1fr); gap:12px;">
+                  <!-- Color category -->
+                  <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:14px; transition:all 0.15s;" onmouseover="this.style.borderColor='var(--brand)';this.style.boxShadow='0 0 0 2px var(--brand-light)'" onmouseout="this.style.borderColor='var(--border-primary)';this.style.boxShadow='none'">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                      <div style="display:flex; gap:3px;">
+                        <div style="width:12px; height:12px; border-radius:3px; background:#1F12DE;"></div>
+                        <div style="width:12px; height:12px; border-radius:3px; background:#667085;"></div>
+                        <div style="width:12px; height:12px; border-radius:3px; background:#17B26A;"></div>
+                      </div>
+                      <span style="font-size:13px; font-weight:600; color:var(--text-primary);">Colors</span>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-secondary);">brand, gray, blue, success, error, warning</div>
+                    <div style="font-size:11px; color:var(--brand); margin-top:6px; font-weight:500;">38 tokens</div>
+                  </div>
+                  <!-- Typography category -->
+                  <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:14px; transition:all 0.15s;" onmouseover="this.style.borderColor='var(--brand)';this.style.boxShadow='0 0 0 2px var(--brand-light)'" onmouseout="this.style.borderColor='var(--border-primary)';this.style.boxShadow='none'">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+                      <span style="font-size:13px; font-weight:600; color:var(--text-primary);">Typography</span>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-secondary);">fontFamily, fontSize, fontWeight, lineHeight</div>
+                    <div style="font-size:11px; color:var(--brand); margin-top:6px; font-weight:500;">16 tokens</div>
+                  </div>
+                  <!-- Spacing category -->
+                  <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:14px; transition:all 0.15s;" onmouseover="this.style.borderColor='var(--brand)';this.style.boxShadow='0 0 0 2px var(--brand-light)'" onmouseout="this.style.borderColor='var(--border-primary)';this.style.boxShadow='none'">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M21 18H7"/></svg>
+                      <span style="font-size:13px; font-weight:600; color:var(--text-primary);">Spacing</span>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-secondary);">4px, 6px, 8px, 10px, 12px, 16px, 20px, 24px, 32px</div>
+                    <div style="font-size:11px; color:var(--brand); margin-top:6px; font-weight:500;">9 tokens</div>
+                  </div>
+                  <!-- Effects category -->
+                  <div style="border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:14px; transition:all 0.15s;" onmouseover="this.style.borderColor='var(--brand)';this.style.boxShadow='0 0 0 2px var(--brand-light)'" onmouseout="this.style.borderColor='var(--border-primary)';this.style.boxShadow='none'">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                      <span style="font-size:13px; font-weight:600; color:var(--text-primary);">Effects & Radius</span>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-secondary);">boxShadow (6), borderRadius (5), borderWidth</div>
+                    <div style="font-size:11px; color:var(--brand); margin-top:6px; font-weight:500;">12 tokens</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- How to apply visual -->
+              <div style="background:linear-gradient(135deg,rgba(23,178,106,0.04),rgba(6,118,71,0.04)); border:1px solid rgba(23,178,106,0.2); border-radius:var(--radius-xl); padding:20px; display:flex; gap:16px; align-items:flex-start;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                <div>
+                  <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px;">How to apply tokens</div>
+                  <ol style="list-style:decimal; padding-left:18px; display:flex; flex-direction:column; gap:6px; font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    <li>Select any element on the canvas (text, frame, shape)</li>
+                    <li>In the Tokens Studio panel, find the token category (e.g., Colors)</li>
+                    <li>Right-click a token → choose where to apply it (Fill, Stroke, Border Radius, etc.)</li>
+                    <li>The element instantly updates with the token value</li>
+                    <li>If you later change the token value, <strong>all applied elements update automatically</strong></li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector line -->
+        <div style="width:2px; height:24px; background:var(--border-primary); margin:0 0 0 23px;"></div>
+
+        <!-- STEP 5 -->
+        <div style="margin-bottom:48px;">
+          <div style="display:flex; align-items:flex-start; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex-shrink:0; box-shadow:0 0 0 4px var(--brand-light);">5</div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px; font-weight:700; margin-bottom:8px;">Generate Figma Styles & Variables</h3>
+              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+                Convert your tokens into native Figma Styles and Variables for team-wide use.
+              </p>
+
+              <!-- Visual: Generate flow -->
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px;">
+                <!-- From -->
+                <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); padding:20px; text-align:center;">
+                  <div style="width:40px; height:40px; border-radius:10px; background:var(--bg-tertiary); display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
+                  <div style="font-size:13px; font-weight:600; color:var(--text-primary);">tokens.json</div>
+                  <div style="font-size:11px; color:var(--text-secondary);">Your token file</div>
+                </div>
+                <!-- Arrow -->
+                <div style="display:flex; align-items:center; justify-content:center;">
+                  <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                    <span style="font-size:11px; color:var(--brand); font-weight:600;">Create Styles</span>
+                  </div>
+                </div>
+                <!-- To -->
+                <div style="background:var(--bg-secondary); border:1px solid var(--success-500); border-radius:var(--radius-xl); padding:20px; text-align:center; box-shadow:0 0 0 2px rgba(23,178,106,0.1);">
+                  <div style="width:40px; height:40px; border-radius:10px; background:rgba(23,178,106,0.1); display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  </div>
+                  <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Figma Styles</div>
+                  <div style="font-size:11px; color:var(--text-secondary);">Native & shareable</div>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:16px 20px;">
+                <div style="font-size:13px; font-weight:600; color:var(--text-primary); margin-bottom:10px;">In the Tokens Studio settings panel:</div>
+                <ol style="list-style:decimal; padding-left:18px; display:flex; flex-direction:column; gap:8px; font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                  <li>Click <strong style="color:var(--text-primary);">"Export to Figma"</strong> (or the ↑ arrow icon)</li>
+                  <li>Choose <strong style="color:var(--text-primary);">"Create Styles"</strong> and/or <strong style="color:var(--text-primary);">"Create Variables"</strong></li>
+                  <li>Select which token categories to export (all recommended)</li>
+                  <li>Click <strong style="color:var(--text-primary);">"Export"</strong> — styles appear in your local styles panel</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector line -->
+        <div style="width:2px; height:24px; background:var(--border-primary); margin:0 0 0 23px;"></div>
+
+        <!-- STEP 6 -->
+        <div style="margin-bottom:48px;">
+          <div style="display:flex; align-items:flex-start; gap:20px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:var(--success-500); color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 0 4px rgba(23,178,106,0.15);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div style="flex:1;">
+              <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:var(--success-500);">Done! You're All Set</h3>
+              <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+                Your Figma file now has all OpenReel design tokens as native variables. Your team can publish this as a shared library.
+              </p>
+
+              <!-- What you now have -->
+              <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:24px;">
+                <div style="background:linear-gradient(135deg,rgba(23,178,106,0.04),rgba(6,118,71,0.04)); border:1px solid rgba(23,178,106,0.2); border-radius:var(--radius-lg); padding:14px; display:flex; align-items:center; gap:10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span style="font-size:13px; color:var(--text-primary);">Color styles + variables</span>
+                </div>
+                <div style="background:linear-gradient(135deg,rgba(23,178,106,0.04),rgba(6,118,71,0.04)); border:1px solid rgba(23,178,106,0.2); border-radius:var(--radius-lg); padding:14px; display:flex; align-items:center; gap:10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span style="font-size:13px; color:var(--text-primary);">Typography tokens</span>
+                </div>
+                <div style="background:linear-gradient(135deg,rgba(23,178,106,0.04),rgba(6,118,71,0.04)); border:1px solid rgba(23,178,106,0.2); border-radius:var(--radius-lg); padding:14px; display:flex; align-items:center; gap:10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span style="font-size:13px; color:var(--text-primary);">Spacing & radius variables</span>
+                </div>
+                <div style="background:linear-gradient(135deg,rgba(23,178,106,0.04),rgba(6,118,71,0.04)); border:1px solid rgba(23,178,106,0.2); border-radius:var(--radius-lg); padding:14px; display:flex; align-items:center; gap:10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span style="font-size:13px; color:var(--text-primary);">Shadow effect styles</span>
+                </div>
+                <div style="background:linear-gradient(135deg,rgba(23,178,106,0.04),rgba(6,118,71,0.04)); border:1px solid rgba(23,178,106,0.2); border-radius:var(--radius-lg); padding:14px; display:flex; align-items:center; gap:10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span style="font-size:13px; color:var(--text-primary);">Dark mode token set</span>
+                </div>
+                <div style="background:linear-gradient(135deg,rgba(23,178,106,0.04),rgba(6,118,71,0.04)); border:1px solid rgba(23,178,106,0.2); border-radius:var(--radius-lg); padding:14px; display:flex; align-items:center; gap:10px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span style="font-size:13px; color:var(--text-primary);">Component composition tokens</span>
+                </div>
+              </div>
+
+              <!-- Pro tips -->
+              <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-xl); padding:20px;">
+                <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:14px; display:flex; align-items:center; gap:8px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--warning-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  Pro Tips
+                </div>
+                <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+                  <li style="display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    <span style="color:var(--brand); font-weight:700; flex-shrink:0;">1.</span>
+                    <span><strong style="color:var(--text-primary);">Publish as a team library</strong> — Go to the Assets panel → click "Publish" → your team gets all tokens as shared styles across all files.</span>
+                  </li>
+                  <li style="display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    <span style="color:var(--brand); font-weight:700; flex-shrink:0;">2.</span>
+                    <span><strong style="color:var(--text-primary);">Sync with Git</strong> — Tokens Studio supports GitHub, GitLab, and Bitbucket sync. Push token changes from Figma → auto-update your CSS/code.</span>
+                  </li>
+                  <li style="display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    <span style="color:var(--brand); font-weight:700; flex-shrink:0;">3.</span>
+                    <span><strong style="color:var(--text-primary);">Dark mode switching</strong> — Enable both "openreel" and "dark" token sets → toggle between them to preview light/dark designs.</span>
+                  </li>
+                  <li style="display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                    <span style="color:var(--brand); font-weight:700; flex-shrink:0;">4.</span>
+                    <span><strong style="color:var(--text-primary);">Keep in sync</strong> — When tokens change in code, re-export <code style="background:var(--bg-tertiary); padding:1px 4px; border-radius:3px; font-size:11px;">tokens.json</code> and re-import in Figma. All applied tokens update automatically.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div style="margin-top:56px; padding-top:40px; border-top:1px solid var(--border-primary);">
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:24px;">Frequently Asked Questions</h3>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:18px 20px;">
+              <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px;">Can I edit tokens directly in Figma?</div>
+              <div style="font-size:13px; color:var(--text-secondary); line-height:1.6;">Yes! Once imported, you can modify any token value in the Tokens Studio panel. Changes apply to all elements using that token. You can then export the updated tokens back to JSON.</div>
+            </div>
+            <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:18px 20px;">
+              <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px;">Do I need a paid Tokens Studio plan?</div>
+              <div style="font-size:13px; color:var(--text-secondary); line-height:1.6;">No — the free version handles local JSON import/export perfectly. Paid plans add Git sync, multi-file tokens, and team collaboration features.</div>
+            </div>
+            <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:18px 20px;">
+              <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px;">What happens when I update the design system?</div>
+              <div style="font-size:13px; color:var(--text-secondary); line-height:1.6;">Download the latest <code style="background:var(--bg-tertiary); padding:1px 4px; border-radius:3px; font-size:11px;">tokens.json</code>, re-import it in Tokens Studio, and click "Export to Figma" again. All styles update in place — no need to re-apply them.</div>
+            </div>
+            <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:18px 20px;">
+              <div style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px;">Can I share this with my team?</div>
+              <div style="font-size:13px; color:var(--text-secondary); line-height:1.6;">Absolutely. After generating Figma styles, go to the Assets panel and click "Publish." Your entire team can then use these tokens across all their Figma files via the shared library.</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scroll-based sidebar active state -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('.sidebar-link');
+      const sections = [];
+      links.forEach(link => {
+        const id = link.getAttribute('href');
+        if (id && id.startsWith('#')) {
+          const el = document.querySelector(id);
+          if (el) sections.push({ el, link });
+        }
+      });
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const match = sections.find(s => s.el === entry.target);
+          if (match && entry.isIntersecting) {
+            links.forEach(l => l.classList.remove('active'));
+            match.link.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+      sections.forEach(s => observer.observe(s.el));
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "openreel-ds": {
+      "command": "node",
+      "args": ["/Users/sergio/Downloads/openreel-design-system/mcp/index.js"]
+    }
+  }
+}

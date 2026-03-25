@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theme Builder — OpenReel Design System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter + extras for font picker -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       BASE TOKENS
+       ========================================================= */
+    :root {
+      --brand: #1F12DE;
+      --brand-hover: #1a0fbc;
+      --brand-light: rgba(31,18,222,0.1);
+
+      --gray-25: #FCFCFD;
+      --gray-50: #F9FAFB;
+      --gray-100: #F2F4F7;
+      --gray-200: #EAECF0;
+      --gray-300: #E4E7EC;
+      --gray-400: #98A2B3;
+      --gray-500: #667085;
+      --gray-600: #475467;
+      --gray-700: #344054;
+      --gray-900: #101828;
+
+      --success-50: #ECFDF3; --success-100: #D1FAE0; --success-200: #A6F4C5;
+      --success-500: #17B26A; --success-600: #079455; --success-700: #067647;
+
+      --error-50: #FEF3F2; --error-100: #FEE4E2; --error-200: #FECDCA;
+      --error-500: #F04438; --error-600: #D92D20; --error-700: #B42318;
+
+      --warning-50: #FFFAEB; --warning-100: #FEDF89; --warning-200: #FEC84B;
+      --warning-500: #F79009; --warning-600: #DC6803; --warning-700: #B54708;
+
+      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      --text-xs: 10px; --text-sm: 12px; --text-base: 14px;
+      --text-md: 16px; --text-lg: 18px; --text-xl: 20px; --text-2xl: 24px;
+      --font-regular: 400; --font-medium: 500; --font-semibold: 600;
+
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 10px;
+      --radius-xl: 14px; --radius-full: 9999px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+
+      --shadow-xs:  0px 1px 2px rgba(16,24,40,0.05);
+      --shadow-sm:  0px 1px 3px rgba(16,24,40,0.1), 0px 1px 2px rgba(16,24,40,0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16,24,40,0.1), 0px 2px 4px -2px rgba(16,24,40,0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16,24,40,0.08), 0px 4px 6px -2px rgba(16,24,40,0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16,24,40,0.08), 0px 8px 8px -4px rgba(16,24,40,0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16,24,40,0.18);
+
+      /* Dark mode defaults */
+      --bg-primary: #0C111D;
+      --bg-secondary: #161B26;
+      --bg-tertiary: #1F242F;
+      --text-primary: #F5F5F6;
+      --text-secondary: #94969C;
+      --border-primary: #333741;
+
+      /* Theme builder specific */
+      --tb-brand-50: #EDEDFE;
+      --tb-brand-100: #D4D1FD;
+      --tb-brand-200: #AEA9FC;
+      --tb-brand-300: #8078F8;
+      --tb-brand-400: #5B4FF3;
+      --tb-brand-500: #1F12DE;
+      --tb-brand-600: #1A0FBD;
+      --tb-brand-700: #150C9B;
+      --tb-brand-800: #10097A;
+      --tb-brand-900: #0B0658;
+
+      --tb-success-50: #ECFDF3; --tb-success-100: #D1FAE0;
+      --tb-success-200: #A6F4C5; --tb-success-300: #6CE9A6;
+      --tb-success-400: #32D583; --tb-success-500: #17B26A;
+      --tb-success-600: #12945A; --tb-success-700: #0D7649;
+      --tb-success-800: #095C39; --tb-success-900: #064729;
+
+      --tb-error-50: #FEF3F2; --tb-error-100: #FEE4E2;
+      --tb-error-200: #FECDCA; --tb-error-300: #FDA29B;
+      --tb-error-400: #F97066; --tb-error-500: #F04438;
+      --tb-error-600: #CC3A30; --tb-error-700: #A83027;
+      --tb-error-800: #85261F; --tb-error-900: #601B16;
+
+      --tb-warning-50: #FFFAEB; --tb-warning-100: #FEDF89;
+      --tb-warning-200: #FEC84B; --tb-warning-300: #FDB022;
+      --tb-warning-400: #F79009; --tb-warning-500: #DC6803;
+      --tb-warning-600: #BB5803; --tb-warning-700: #9A4802;
+      --tb-warning-800: #7A3902; --tb-warning-900: #592901;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--text-base);
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #333741; border-radius: 9999px; }
+
+    /* Panel scrollbar */
+    .panel-scroll::-webkit-scrollbar { width: 4px; }
+    .panel-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 9999px; }
+
+    /* Smooth transitions on preview */
+    #preview-panel *, #preview-panel {
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Control label */
+    .ctrl-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .ctrl-group {
+      margin-bottom: 20px;
+    }
+
+    /* Color picker row */
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .color-row label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #ccc;
+      min-width: 100px;
+    }
+
+    .color-row input[type="color"] {
+      width: 32px;
+      height: 32px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+      padding: 0;
+      -webkit-appearance: none;
+    }
+
+    .color-row input[type="color"]::-webkit-color-swatch-wrapper { padding: 2px; }
+    .color-row input[type="color"]::-webkit-color-swatch { border-radius: 4px; border: none; }
+
+    .color-row input[type="text"] {
+      width: 82px;
+      padding: 5px 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      color: #ddd;
+      font-size: 12px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .color-row input[type="text"]:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px rgba(31,18,222,0.2);
+    }
+
+    /* Shade swatches row */
+    .shade-row {
+      display: flex;
+      gap: 2px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    .shade-swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .shade-swatch:hover::after {
+      content: attr(data-shade);
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+
+    /* Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: 2px solid #fff;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Select dropdown */
+    .ctrl-select {
+      width: 100%;
+      padding: 7px 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      color: #ddd;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .ctrl-select:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px rgba(31,18,222,0.2);
+    }
+
+    .ctrl-select option { background: #1a1f2e; color: #ddd; }
+
+    /* Section divider */
+    .ctrl-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 20px 0;
+    }
+
+    /* Preset chips */
+    .preset-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ccc;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-chip:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    .preset-chip.active {
+      background: rgba(31,18,222,0.15);
+      border-color: rgba(31,18,222,0.4);
+      color: #fff;
+    }
+
+    .preset-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+    }
+
+    /* Export buttons */
+    .export-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: #ccc;
+      transition: all 0.15s ease;
+    }
+
+    .export-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .export-btn.primary {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    .export-btn.primary:hover {
+      filter: brightness(1.15);
+    }
+
+    /* Export modal */
+    .export-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .export-modal.show { display: flex; }
+
+    .export-modal-content {
+      background: #161B26;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      width: 700px;
+      max-height: 80vh;
+      overflow: hidden;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+    }
+
+    .export-code {
+      background: #0C111D;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #a5b4c6;
+      max-height: 400px;
+      overflow: auto;
+      white-space: pre;
+      tab-size: 2;
+    }
+
+    /* Tab buttons in export */
+    .export-tab {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .export-tab:hover { color: rgba(255,255,255,0.8); }
+    .export-tab.active { color: #fff; border-bottom-color: var(--brand); }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      background: #17B26A;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 300;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+</head>
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN LAYOUT: Left Controls + Right Preview
+       ============================================================ -->
+  <div id="main-content" style="display:flex; margin-top:64px; height:calc(100vh - 64px);">
+
+    <!-- LEFT PANEL — Controls -->
+    <div id="controls-panel" class="panel-scroll" style="
+      width: 360px;
+      min-width: 360px;
+      background: var(--bg-secondary);
+      border-right: 1px solid rgba(255,255,255,0.08);
+      overflow-y: auto;
+      padding: 20px;
+    ">
+
+      <!-- PRESET THEMES -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Preset Themes</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;" id="presets-container">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <div class="ctrl-divider"></div>
+
+      <!-- COLOR CONTROLS -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Colors</div>
+
+        <!-- Brand Primary -->
+        <div class="color-row">
+          <label>Brand Primary</label>
+          <input type="color" id="color-brand" value="#1F12DE" onchange="updateColor('brand', this.value)" oninput="updateColor('brand', this.value)" />
+          <input type="text" id="hex-brand" value="#1F12DE" onchange="updateColorFromHex('brand', this.value)" />
+        </div>
+        <div class="shade-row" id="shades-brand"></div>
+
+        <!-- Brand Hover -->
+        <div class="color-row">
+          <label>Brand Hover</label>
+          <input type="color" id="color-brand-hover" value="#1a0fbc" onchange="updateSingleColor('brand-hover', this.value)" oninput="updateSingleColor('brand-hover', this.value)" />
+          <input type="text" id="hex-brand-hover" value="#1a0fbc" onchange="updateSingleColorFromHex('brand-hover', this.value)" />
+          <button onclick="autoCalcHover()" style="font-size:10px; padding:3px 8px; border-radius:4px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:var(--gray-400); cursor:pointer;" title="Auto-calculate from brand">Auto</button>
+        </div>
+
+        <!-- Success -->
+        <div class="color-row">
+          <label>Success</label>
+          <input type="color" id="color-success" value="#17B26A" onchange="updateColor('success', this.value)" oninput="updateColor('success', this.value)" />
+          <input type="text" id="hex-success" value="#17B26A" onchange="updateColorFromHex('success', this.value)" />
+        </div>
+        <div class="shade-row" id="shades-success"></div>
+
+        <!-- Error -->
+        <div class="color-row">
+          <label>Error</label>
+          <input type="color" id="color-error" value="#F04438" onchange="updateColor('error', this.value)" oninput="updateColor('error', this.value)" />
+          <input type="text" id="hex-error" value="#F04438" onchange="updateColorFromHex('error', this.value)" />
+        </div>
+        <div class="shade-row" id="shades-error"></div>
+
+        <!-- Warning -->
+        <div class="color-row">
+          <label>Warning</label>
+          <input type="color" id="color-warning" value="#B54708" onchange="updateColor('warning', this.value)" oninput="updateColor('warning', this.value)" />
+          <input type="text" id="hex-warning" value="#B54708" onchange="updateColorFromHex('warning', this.value)" />
+        </div>
+        <div class="shade-row" id="shades-warning"></div>
+
+        <!-- Gray Base -->
+        <div class="color-row">
+          <label>Gray Base</label>
+          <input type="color" id="color-gray" value="#667085" onchange="updateGrayScale(this.value)" oninput="updateGrayScale(this.value)" />
+          <input type="text" id="hex-gray" value="#667085" onchange="updateGrayScaleFromHex(this.value)" />
+        </div>
+        <div class="shade-row" id="shades-gray"></div>
+      </div>
+
+      <div class="ctrl-divider"></div>
+
+      <!-- TYPOGRAPHY CONTROLS -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Typography</div>
+
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Font Family</label>
+          <select class="ctrl-select" id="font-family" onchange="updateFontFamily(this.value)">
+            <option value="'Inter', system-ui, sans-serif" selected>Inter</option>
+            <option value="'Roboto', system-ui, sans-serif">Roboto</option>
+            <option value="'Plus Jakarta Sans', system-ui, sans-serif">Plus Jakarta Sans</option>
+            <option value="'DM Sans', system-ui, sans-serif">DM Sans</option>
+            <option value="'Outfit', system-ui, sans-serif">Outfit</option>
+            <option value="'Poppins', system-ui, sans-serif">Poppins</option>
+            <option value="'Manrope', system-ui, sans-serif">Manrope</option>
+            <option value="'Geist', system-ui, sans-serif">Geist</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Base Font Size: <span id="font-size-val">14px</span></label>
+          <input type="range" id="font-size" min="12" max="18" value="14" oninput="updateFontSize(this.value)" />
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Scale Ratio</label>
+          <select class="ctrl-select" id="scale-ratio" onchange="updateScaleRatio(this.value)">
+            <option value="1.2" selected>Minor Third (1.2)</option>
+            <option value="1.25">Major Third (1.25)</option>
+            <option value="1.333">Perfect Fourth (1.333)</option>
+          </select>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1;">
+            <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Body Weight</label>
+            <select class="ctrl-select" id="body-weight" onchange="updateBodyWeight(this.value)">
+              <option value="400" selected>Regular (400)</option>
+              <option value="500">Medium (500)</option>
+            </select>
+          </div>
+          <div style="flex:1;">
+            <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Heading Weight</label>
+            <select class="ctrl-select" id="heading-weight" onchange="updateHeadingWeight(this.value)">
+              <option value="600" selected>Semibold (600)</option>
+              <option value="700">Bold (700)</option>
+              <option value="500">Medium (500)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="ctrl-divider"></div>
+
+      <!-- SHAPE CONTROLS -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Shape</div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Border Radius (md): <span id="radius-val">8px</span></label>
+          <input type="range" id="radius-md" min="0" max="24" value="8" oninput="updateRadius(this.value)" />
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div id="shape-card-preview" style="
+            width:80px; height:56px; background:var(--brand);
+            border-radius:var(--radius-md); transition: all 0.2s;
+          "></div>
+          <div id="shape-btn-preview" style="
+            padding:8px 20px; background:var(--brand); color:#fff;
+            border-radius:var(--radius-md); font-size:13px; font-weight:500;
+            transition: all 0.2s;
+          ">Button</div>
+        </div>
+      </div>
+
+      <div class="ctrl-divider"></div>
+
+      <!-- SHADOW CONTROLS -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Shadows</div>
+        <div style="margin-bottom:8px;">
+          <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Shadow Intensity: <span id="shadow-val">100%</span></label>
+          <input type="range" id="shadow-intensity" min="0" max="200" value="100" oninput="updateShadows(this.value)" />
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-end;">
+          <div style="width:48px; height:48px; background:var(--bg-tertiary); border-radius:8px; box-shadow:var(--shadow-sm);" title="sm"></div>
+          <div style="width:48px; height:48px; background:var(--bg-tertiary); border-radius:8px; box-shadow:var(--shadow-md);" title="md"></div>
+          <div style="width:48px; height:48px; background:var(--bg-tertiary); border-radius:8px; box-shadow:var(--shadow-lg);" title="lg"></div>
+          <div style="width:48px; height:48px; background:var(--bg-tertiary); border-radius:8px; box-shadow:var(--shadow-xl);" title="xl"></div>
+        </div>
+      </div>
+
+      <div class="ctrl-divider"></div>
+
+      <!-- SPACING CONTROLS -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Spacing</div>
+        <div style="margin-bottom:8px;">
+          <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Base Unit: <span id="spacing-val">4px</span></label>
+          <input type="range" id="spacing-base" min="2" max="8" value="4" oninput="updateSpacing(this.value)" />
+        </div>
+        <div style="display:flex; gap:4px; align-items:flex-end;">
+          <div style="width:20px; background:rgba(31,18,222,0.3); border-radius:2px;" id="space-vis-1"></div>
+          <div style="width:20px; background:rgba(31,18,222,0.3); border-radius:2px;" id="space-vis-2"></div>
+          <div style="width:20px; background:rgba(31,18,222,0.3); border-radius:2px;" id="space-vis-3"></div>
+          <div style="width:20px; background:rgba(31,18,222,0.3); border-radius:2px;" id="space-vis-4"></div>
+          <div style="width:20px; background:rgba(31,18,222,0.3); border-radius:2px;" id="space-vis-6"></div>
+          <div style="width:20px; background:rgba(31,18,222,0.3); border-radius:2px;" id="space-vis-8"></div>
+        </div>
+      </div>
+
+      <div class="ctrl-divider"></div>
+
+      <!-- EXPORT BUTTONS -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Export Theme</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="export-btn primary" onclick="openExport('css')">CSS Variables</button>
+          <button class="export-btn" onclick="openExport('scss')">SCSS</button>
+          <button class="export-btn" onclick="openExport('json')">JSON</button>
+          <button class="export-btn" onclick="openExport('tailwind')">Tailwind Config</button>
+          <button class="export-btn" onclick="openExport('tokens-studio')">Tokens Studio</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL — Live Preview -->
+    <div id="preview-panel" class="panel-scroll" style="
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+      background: var(--bg-primary);
+    ">
+
+      <!-- 1. Header Bar Preview -->
+      <div style="
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--radius-lg);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        box-shadow: var(--shadow-sm);
+      ">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:32px; height:32px; border-radius:var(--radius-md); background:var(--brand); display:flex; align-items:center; justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+          </div>
+          <span style="font-size:15px; font-weight:var(--font-semibold); color:var(--text-primary);">Dashboard</span>
+        </div>
+        <div style="display:flex; gap:20px; align-items:center;">
+          <span style="font-size:13px; color:var(--text-secondary); cursor:pointer;">Projects</span>
+          <span style="font-size:13px; color:var(--text-secondary); cursor:pointer;">Sessions</span>
+          <span style="font-size:13px; color:var(--text-secondary); cursor:pointer;">Settings</span>
+          <div style="width:32px; height:32px; border-radius:var(--radius-full); background:var(--brand); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:#fff;">SD</div>
+        </div>
+      </div>
+
+      <!-- 2. Stat Cards Row -->
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px;">
+        <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-sm);">
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">Total Sessions</div>
+          <div style="font-size:24px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:4px;">2,847</div>
+          <div style="font-size:12px; color:var(--tb-success-500); display:flex; align-items:center; gap:4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l5-5 5 5M7 7l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            +12.5%
+          </div>
+        </div>
+        <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-sm);">
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">Active Users</div>
+          <div style="font-size:24px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:4px;">1,423</div>
+          <div style="font-size:12px; color:var(--tb-success-500); display:flex; align-items:center; gap:4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l5-5 5 5M7 7l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            +8.2%
+          </div>
+        </div>
+        <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-sm);">
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">Storage Used</div>
+          <div style="font-size:24px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:4px;">842 GB</div>
+          <div style="font-size:12px; color:var(--tb-warning-500); display:flex; align-items:center; gap:4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14" stroke-linecap="round"/></svg>
+            +2.1%
+          </div>
+        </div>
+        <div style="background:var(--bg-secondary); border:1px solid var(--border-primary); border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-sm);">
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">Error Rate</div>
+          <div style="font-size:24px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:4px;">0.12%</div>
+          <div style="font-size:12px; color:var(--tb-error-500); display:flex; align-items:center; gap:4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7l5 5 5-5M7 17l5-5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            +0.03%
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Button Group -->
+      <div style="
+        background:var(--bg-secondary); border:1px solid var(--border-primary);
+        border-radius:var(--radius-lg); padding:24px;
+        margin-bottom:24px; box-shadow:var(--shadow-sm);
+      ">
+        <div style="font-size:14px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:16px;">Buttons</div>
+
+        <!-- Large -->
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+          <button style="padding:10px 20px; background:var(--brand); color:#fff; border:none; border-radius:var(--radius-md); font-size:14px; font-weight:500; cursor:pointer; font-family:inherit; box-shadow:var(--shadow-xs);">Primary</button>
+          <button style="padding:10px 20px; background:transparent; color:var(--text-primary); border:1px solid var(--border-primary); border-radius:var(--radius-md); font-size:14px; font-weight:500; cursor:pointer; font-family:inherit;">Secondary</button>
+          <button style="padding:10px 20px; background:transparent; color:var(--text-secondary); border:none; border-radius:var(--radius-md); font-size:14px; font-weight:500; cursor:pointer; font-family:inherit;">Tertiary</button>
+          <button style="padding:10px 20px; background:var(--tb-error-500); color:#fff; border:none; border-radius:var(--radius-md); font-size:14px; font-weight:500; cursor:pointer; font-family:inherit; box-shadow:var(--shadow-xs);">Danger</button>
+          <button style="padding:10px 20px; background:var(--tb-success-500); color:#fff; border:none; border-radius:var(--radius-md); font-size:14px; font-weight:500; cursor:pointer; font-family:inherit; box-shadow:var(--shadow-xs);">Success</button>
+        </div>
+
+        <!-- Small -->
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <button style="padding:6px 14px; background:var(--brand); color:#fff; border:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; cursor:pointer; font-family:inherit;">Primary SM</button>
+          <button style="padding:6px 14px; background:transparent; color:var(--text-primary); border:1px solid var(--border-primary); border-radius:var(--radius-sm); font-size:12px; font-weight:500; cursor:pointer; font-family:inherit;">Secondary SM</button>
+          <button style="padding:6px 14px; background:var(--tb-error-500); color:#fff; border:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; cursor:pointer; font-family:inherit;">Danger SM</button>
+          <button style="padding:6px 14px; background:var(--tb-success-500); color:#fff; border:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; cursor:pointer; font-family:inherit;">Success SM</button>
+        </div>
+      </div>
+
+      <!-- 4. Form Section -->
+      <div style="
+        background:var(--bg-secondary); border:1px solid var(--border-primary);
+        border-radius:var(--radius-lg); padding:24px;
+        margin-bottom:24px; box-shadow:var(--shadow-sm);
+      ">
+        <div style="font-size:14px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:16px;">Form Elements</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <!-- Text Input -->
+          <div>
+            <label style="font-size:12px; font-weight:500; color:var(--text-secondary); display:block; margin-bottom:6px;">Email Address</label>
+            <input type="text" placeholder="you@example.com" style="
+              width:100%; padding:9px 12px;
+              background:var(--bg-primary); border:1px solid var(--border-primary);
+              border-radius:var(--radius-md); color:var(--text-primary);
+              font-size:14px; font-family:inherit; outline:none;
+            " onfocus="this.style.borderColor='var(--brand)';this.style.boxShadow='0 0 0 3px var(--brand-light)'" onblur="this.style.borderColor='var(--border-primary)';this.style.boxShadow='none'" />
+          </div>
+
+          <!-- Select -->
+          <div>
+            <label style="font-size:12px; font-weight:500; color:var(--text-secondary); display:block; margin-bottom:6px;">Role</label>
+            <select style="
+              width:100%; padding:9px 12px;
+              background:var(--bg-primary); border:1px solid var(--border-primary);
+              border-radius:var(--radius-md); color:var(--text-primary);
+              font-size:14px; font-family:inherit; cursor:pointer;
+            ">
+              <option>Director</option>
+              <option>Producer</option>
+              <option>Editor</option>
+            </select>
+          </div>
+
+          <!-- Textarea -->
+          <div style="grid-column:span 2;">
+            <label style="font-size:12px; font-weight:500; color:var(--text-secondary); display:block; margin-bottom:6px;">Description</label>
+            <textarea placeholder="Write a brief description..." rows="3" style="
+              width:100%; padding:9px 12px;
+              background:var(--bg-primary); border:1px solid var(--border-primary);
+              border-radius:var(--radius-md); color:var(--text-primary);
+              font-size:14px; font-family:inherit; outline:none; resize:vertical;
+            " onfocus="this.style.borderColor='var(--brand)';this.style.boxShadow='0 0 0 3px var(--brand-light)'" onblur="this.style.borderColor='var(--border-primary)';this.style.boxShadow='none'"></textarea>
+          </div>
+
+          <!-- Checkbox + Toggle -->
+          <div style="display:flex; align-items:center; gap:20px; grid-column:span 2;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; color:var(--text-primary);">
+              <input type="checkbox" checked style="width:16px; height:16px; accent-color:var(--brand); cursor:pointer;" />
+              Remember me
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; color:var(--text-primary);">
+              <div id="toggle-preview" onclick="toggleToggle(this)" style="
+                width:40px; height:22px; border-radius:11px;
+                background:var(--brand); cursor:pointer;
+                position:relative; transition: background 0.2s;
+              ">
+                <div style="
+                  width:18px; height:18px; border-radius:50%;
+                  background:#fff; position:absolute; top:2px; left:20px;
+                  transition: left 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+                "></div>
+              </div>
+              Enable notifications
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Badge Collection -->
+      <div style="
+        background:var(--bg-secondary); border:1px solid var(--border-primary);
+        border-radius:var(--radius-lg); padding:24px;
+        margin-bottom:24px; box-shadow:var(--shadow-sm);
+      ">
+        <div style="font-size:14px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:16px;">Badges</div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--tb-brand-50); color:var(--tb-brand-700); border:1px solid var(--tb-brand-200);">Brand</span>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--tb-success-50); color:var(--tb-success-700); border:1px solid var(--tb-success-200);">Success</span>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--tb-error-50); color:var(--tb-error-700); border:1px solid var(--tb-error-200);">Error</span>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--tb-warning-50); color:var(--tb-warning-700); border:1px solid var(--tb-warning-200);">Warning</span>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--gray-100); color:var(--gray-700); border:1px solid var(--gray-200);">Neutral</span>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--brand); color:#fff;">Solid Brand</span>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--tb-success-500); color:#fff;">Solid Success</span>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:12px; font-weight:500; background:var(--tb-error-500); color:#fff;">Solid Error</span>
+        </div>
+      </div>
+
+      <!-- 6. Session Card -->
+      <div style="
+        background:var(--bg-secondary); border:1px solid var(--border-primary);
+        border-radius:var(--radius-lg); padding:24px;
+        margin-bottom:24px; box-shadow:var(--shadow-md);
+      ">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+          <div>
+            <div style="font-size:16px; font-weight:var(--font-semibold); color:var(--text-primary); margin-bottom:4px;">Product Launch Interview</div>
+            <div style="font-size:13px; color:var(--text-secondary);">Recorded live session with marketing team for the Q4 product announcement video.</div>
+          </div>
+          <span style="padding:3px 10px; border-radius:var(--radius-full); font-size:11px; font-weight:600; background:var(--tb-success-50); color:var(--tb-success-700); border:1px solid var(--tb-success-200); white-space:nowrap;">Completed</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding-top:12px; border-top:1px solid var(--border-primary);">
+          <div style="width:28px; height:28px; border-radius:var(--radius-full); background:var(--brand); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#fff;">JD</div>
+          <span style="font-size:13px; color:var(--text-primary);">Jane Doe</span>
+          <span style="font-size:12px; color:var(--text-secondary);">Mar 11, 2026</span>
+          <span style="font-size:12px; color:var(--text-secondary); margin-left:auto;">48 min</span>
+        </div>
+      </div>
+
+      <!-- 7. Table -->
+      <div style="
+        background:var(--bg-secondary); border:1px solid var(--border-primary);
+        border-radius:var(--radius-lg); overflow:hidden;
+        margin-bottom:24px; box-shadow:var(--shadow-sm);
+      ">
+        <div style="padding:16px 20px; border-bottom:1px solid var(--border-primary);">
+          <div style="font-size:14px; font-weight:var(--font-semibold); color:var(--text-primary);">Recent Sessions</div>
+        </div>
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-primary);">
+              <th style="text-align:left; padding:10px 20px; font-weight:500; color:var(--text-secondary); font-size:12px;">Name</th>
+              <th style="text-align:left; padding:10px 20px; font-weight:500; color:var(--text-secondary); font-size:12px;">Duration</th>
+              <th style="text-align:left; padding:10px 20px; font-weight:500; color:var(--text-secondary); font-size:12px;">Status</th>
+              <th style="text-align:left; padding:10px 20px; font-weight:500; color:var(--text-secondary); font-size:12px;">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border-primary);">
+              <td style="padding:10px 20px; color:var(--text-primary);">CEO Keynote</td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">1h 12m</td>
+              <td style="padding:10px 20px;"><span style="padding:2px 8px; border-radius:var(--radius-full); font-size:11px; font-weight:500; background:var(--tb-success-50); color:var(--tb-success-700);">Live</span></td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">Mar 11</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-primary);">
+              <td style="padding:10px 20px; color:var(--text-primary);">Design Review</td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">34m</td>
+              <td style="padding:10px 20px;"><span style="padding:2px 8px; border-radius:var(--radius-full); font-size:11px; font-weight:500; background:var(--tb-brand-50); color:var(--tb-brand-700);">Processing</span></td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">Mar 10</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-primary);">
+              <td style="padding:10px 20px; color:var(--text-primary);">Product Demo</td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">52m</td>
+              <td style="padding:10px 20px;"><span style="padding:2px 8px; border-radius:var(--radius-full); font-size:11px; font-weight:500; background:var(--tb-success-50); color:var(--tb-success-700);">Complete</span></td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">Mar 9</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-primary);">
+              <td style="padding:10px 20px; color:var(--text-primary);">Team Standup</td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">15m</td>
+              <td style="padding:10px 20px;"><span style="padding:2px 8px; border-radius:var(--radius-full); font-size:11px; font-weight:500; background:var(--tb-error-50); color:var(--tb-error-700);">Failed</span></td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">Mar 8</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 20px; color:var(--text-primary);">Client Call</td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">1h 5m</td>
+              <td style="padding:10px 20px;"><span style="padding:2px 8px; border-radius:var(--radius-full); font-size:11px; font-weight:500; background:var(--tb-warning-50); color:var(--tb-warning-700);">Pending</span></td>
+              <td style="padding:10px 20px; color:var(--text-secondary);">Mar 7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 8. Alerts / Toasts -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;">
+        <!-- Success Alert -->
+        <div style="
+          padding:14px 16px; border-radius:var(--radius-md);
+          background:var(--tb-success-50); border:1px solid var(--tb-success-200);
+          display:flex; gap:10px; align-items:flex-start;
+        ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tb-success-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div>
+            <div style="font-size:13px; font-weight:600; color:var(--tb-success-700); margin-bottom:2px;">Session uploaded</div>
+            <div style="font-size:12px; color:var(--tb-success-600);">Your recording has been processed successfully.</div>
+          </div>
+        </div>
+
+        <!-- Error Alert -->
+        <div style="
+          padding:14px 16px; border-radius:var(--radius-md);
+          background:var(--tb-error-50); border:1px solid var(--tb-error-200);
+          display:flex; gap:10px; align-items:flex-start;
+        ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tb-error-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <div>
+            <div style="font-size:13px; font-weight:600; color:var(--tb-error-700); margin-bottom:2px;">Upload failed</div>
+            <div style="font-size:12px; color:var(--tb-error-600);">Connection timed out. Please try again.</div>
+          </div>
+        </div>
+
+        <!-- Warning Alert -->
+        <div style="
+          padding:14px 16px; border-radius:var(--radius-md);
+          background:var(--tb-warning-50); border:1px solid var(--tb-warning-200);
+          display:flex; gap:10px; align-items:flex-start;
+        ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tb-warning-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <div style="font-size:13px; font-weight:600; color:var(--tb-warning-700); margin-bottom:2px;">Storage running low</div>
+            <div style="font-size:12px; color:var(--tb-warning-600);">You have used 90% of your storage quota.</div>
+          </div>
+        </div>
+
+        <!-- Info Alert -->
+        <div style="
+          padding:14px 16px; border-radius:var(--radius-md);
+          background:var(--tb-brand-50); border:1px solid var(--tb-brand-200);
+          display:flex; gap:10px; align-items:flex-start;
+        ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tb-brand-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <div>
+            <div style="font-size:13px; font-weight:600; color:var(--tb-brand-700); margin-bottom:2px;">New feature available</div>
+            <div style="font-size:12px; color:var(--tb-brand-600);">Multi-camera sync is now in beta. Try it out!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Modal Preview -->
+      <div style="
+        background:rgba(0,0,0,0.25);
+        border-radius:var(--radius-xl);
+        padding:40px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin-bottom:24px;
+      ">
+        <div style="
+          background:var(--bg-secondary);
+          border:1px solid var(--border-primary);
+          border-radius:var(--radius-xl);
+          padding:24px;
+          width:380px;
+          box-shadow:var(--shadow-2xl);
+        ">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <div style="font-size:16px; font-weight:var(--font-semibold); color:var(--text-primary);">Delete Session</div>
+            <div style="width:28px; height:28px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--text-secondary);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+          </div>
+          <div style="font-size:13px; color:var(--text-secondary); margin-bottom:20px; line-height:1.6;">
+            Are you sure you want to delete this recording session? This action cannot be undone.
+          </div>
+          <div style="display:flex; gap:10px; justify-content:flex-end;">
+            <button style="padding:8px 16px; background:transparent; color:var(--text-primary); border:1px solid var(--border-primary); border-radius:var(--radius-md); font-size:13px; font-weight:500; cursor:pointer; font-family:inherit;">Cancel</button>
+            <button style="padding:8px 16px; background:var(--tb-error-500); color:#fff; border:none; border-radius:var(--radius-md); font-size:13px; font-weight:500; cursor:pointer; font-family:inherit;">Delete</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end preview panel -->
+  </div>
+
+  <!-- ============================================================
+       EXPORT MODAL
+       ============================================================ -->
+  <div class="export-modal" id="export-modal" onclick="if(event.target===this)closeExport()">
+    <div class="export-modal-content">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.08);">
+        <div style="display:flex; gap:0;" id="export-tabs">
+          <button class="export-tab active" data-format="css" onclick="switchExportTab('css')">CSS Variables</button>
+          <button class="export-tab" data-format="scss" onclick="switchExportTab('scss')">SCSS</button>
+          <button class="export-tab" data-format="json" onclick="switchExportTab('json')">JSON</button>
+          <button class="export-tab" data-format="tailwind" onclick="switchExportTab('tailwind')">Tailwind</button>
+          <button class="export-tab" data-format="tokens-studio" onclick="switchExportTab('tokens-studio')">Tokens Studio</button>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="export-btn" onclick="copyExport()" id="copy-btn">Copy</button>
+          <button class="export-btn primary" onclick="downloadExport()" id="download-btn">Download</button>
+          <button onclick="closeExport()" style="width:28px; height:28px; border:none; background:rgba(255,255,255,0.06); border-radius:6px; color:#aaa; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div style="padding:20px;">
+        <div class="export-code" id="export-code"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    /* =========================================================
+       STATE
+       ========================================================= */
+    const state = {
+      brand: '#1F12DE',
+      brandHover: '#1a0fbc',
+      success: '#17B26A',
+      error: '#F04438',
+      warning: '#B54708',
+      grayBase: '#667085',
+      fontFamily: "'Inter', system-ui, sans-serif",
+      fontSize: 14,
+      scaleRatio: 1.2,
+      bodyWeight: 400,
+      headingWeight: 600,
+      radiusMd: 8,
+      shadowIntensity: 100,
+      spacingBase: 4,
+      activePreset: 'openreel',
+      isDark: true
+    };
+
+    // Generated scales cache
+    const scales = {
+      brand: [],
+      success: [],
+      error: [],
+      warning: [],
+      gray: []
+    };
+
+    /* =========================================================
+       COLOR UTILITIES
+       ========================================================= */
+    function hexToHSL(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      const r = parseInt(hex.substring(0, 2), 16) / 255;
+      const g = parseInt(hex.substring(2, 4), 16) / 255;
+      const b = parseInt(hex.substring(4, 6), 16) / 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+          case g: h = ((b - r) / d + 2) / 6; break;
+          case b: h = ((r - g) / d + 4) / 6; break;
+        }
+      }
+      return { h: h * 360, s: s * 100, l: l * 100 };
+    }
+
+    function hslToHex(h, s, l) {
+      h = ((h % 360) + 360) % 360;
+      s = Math.max(0, Math.min(100, s));
+      l = Math.max(0, Math.min(100, l));
+      const sN = s / 100, lN = l / 100;
+      const c = (1 - Math.abs(2 * lN - 1)) * sN;
+      const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+      const m = lN - c / 2;
+      let r, g, b;
+      if (h < 60) { r = c; g = x; b = 0; }
+      else if (h < 120) { r = x; g = c; b = 0; }
+      else if (h < 180) { r = 0; g = c; b = x; }
+      else if (h < 240) { r = 0; g = x; b = c; }
+      else if (h < 300) { r = x; g = 0; b = c; }
+      else { r = c; g = 0; b = x; }
+      const toHex = v => {
+        const hex = Math.round((v + m) * 255).toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+      };
+      return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+    }
+
+    function generateShadeScale(hex) {
+      const { h, s, l } = hexToHSL(hex);
+      return [
+        { shade: 50,  color: hslToHex(h, s * 0.9, 97) },
+        { shade: 100, color: hslToHex(h, s * 0.9, 93) },
+        { shade: 200, color: hslToHex(h, s * 0.85, 86) },
+        { shade: 300, color: hslToHex(h, s * 0.8, 74) },
+        { shade: 400, color: hslToHex(h, s * 0.75, 60) },
+        { shade: 500, color: hslToHex(h, s, l) },
+        { shade: 600, color: hslToHex(h, s * 1.05, l * 0.85) },
+        { shade: 700, color: hslToHex(h, s * 1.1, l * 0.7) },
+        { shade: 800, color: hslToHex(h, s * 1.15, l * 0.55) },
+        { shade: 900, color: hslToHex(h, s * 1.2, l * 0.4) },
+      ];
+    }
+
+    function generateGrayScale(hex) {
+      const { h, s } = hexToHSL(hex);
+      return [
+        { shade: 25,  color: hslToHex(h, s * 0.15, 99) },
+        { shade: 50,  color: hslToHex(h, s * 0.15, 98) },
+        { shade: 100, color: hslToHex(h, s * 0.12, 95) },
+        { shade: 200, color: hslToHex(h, s * 0.12, 92) },
+        { shade: 300, color: hslToHex(h, s * 0.1, 89) },
+        { shade: 400, color: hslToHex(h, s * 0.3, 63) },
+        { shade: 500, color: hslToHex(h, s * 0.4, 46) },
+        { shade: 600, color: hslToHex(h, s * 0.5, 34) },
+        { shade: 700, color: hslToHex(h, s * 0.6, 25) },
+        { shade: 900, color: hslToHex(h, s * 0.7, 10) },
+      ];
+    }
+
+    function darkenHex(hex, percent) {
+      const { h, s, l } = hexToHSL(hex);
+      return hslToHex(h, s, l * (1 - percent / 100));
+    }
+
+    /* =========================================================
+       SHADE RENDERING
+       ========================================================= */
+    function renderShades(containerId, scaleArray) {
+      const c = document.getElementById(containerId);
+      c.innerHTML = '';
+      scaleArray.forEach(({ shade, color }) => {
+        const d = document.createElement('div');
+        d.className = 'shade-swatch';
+        d.style.background = color;
+        d.setAttribute('data-shade', shade);
+        d.title = `${shade}: ${color}`;
+        c.appendChild(d);
+      });
+    }
+
+    /* =========================================================
+       UPDATE FUNCTIONS
+       ========================================================= */
+    function setCSS(prop, val) {
+      document.documentElement.style.setProperty(prop, val);
+    }
+
+    function updateColor(name, hex) {
+      hex = hex.toUpperCase();
+      state[name] = hex;
+      document.getElementById('color-' + name).value = hex;
+      document.getElementById('hex-' + name).value = hex;
+
+      const scale = name === 'gray' ? [] : generateShadeScale(hex);
+      if (name !== 'gray') {
+        scales[name] = scale;
+        renderShades('shades-' + name, scale);
+        // Apply base
+        setCSS('--' + name === 'brand' ? '--brand' : `--${name}-500`, hex);
+        if (name === 'brand') {
+          setCSS('--brand', hex);
+          setCSS('--brand-light', hex + '1A');
+          // Auto-calculate hover if not manually overridden
+          const hoverHex = darkenHex(hex, 15);
+          state.brandHover = hoverHex;
+          document.getElementById('color-brand-hover').value = hoverHex;
+          document.getElementById('hex-brand-hover').value = hoverHex;
+          setCSS('--brand-hover', hoverHex);
+        }
+        // Apply all shade tokens
+        scale.forEach(({ shade, color }) => {
+          const prefix = name === 'brand' ? '--tb-brand' : `--tb-${name}`;
+          setCSS(`${prefix}-${shade}`, color);
+          // Also set the standard tokens
+          if (name !== 'brand') {
+            setCSS(`--${name}-${shade}`, color);
+          }
+        });
+      }
+
+      state.activePreset = null;
+      updatePresetHighlight();
+    }
+
+    function updateColorFromHex(name, hex) {
+      if (/^#?[0-9a-fA-F]{6}$/.test(hex.replace('#', ''))) {
+        if (!hex.startsWith('#')) hex = '#' + hex;
+        updateColor(name, hex);
+      }
+    }
+
+    function updateGrayScale(hex) {
+      hex = hex.toUpperCase();
+      state.grayBase = hex;
+      document.getElementById('color-gray').value = hex;
+      document.getElementById('hex-gray').value = hex;
+      const scale = generateGrayScale(hex);
+      scales.gray = scale;
+      renderShades('shades-gray', scale);
+      scale.forEach(({ shade, color }) => {
+        setCSS(`--gray-${shade}`, color);
+      });
+      state.activePreset = null;
+      updatePresetHighlight();
+    }
+
+    function updateGrayScaleFromHex(hex) {
+      if (/^#?[0-9a-fA-F]{6}$/.test(hex.replace('#', ''))) {
+        if (!hex.startsWith('#')) hex = '#' + hex;
+        updateGrayScale(hex);
+      }
+    }
+
+    function updateSingleColor(name, hex) {
+      hex = hex.toUpperCase();
+      if (name === 'brand-hover') {
+        state.brandHover = hex;
+        setCSS('--brand-hover', hex);
+      }
+      document.getElementById('color-' + name).value = hex;
+      document.getElementById('hex-' + name).value = hex;
+    }
+
+    function updateSingleColorFromHex(name, hex) {
+      if (/^#?[0-9a-fA-F]{6}$/.test(hex.replace('#', ''))) {
+        if (!hex.startsWith('#')) hex = '#' + hex;
+        updateSingleColor(name, hex);
+      }
+    }
+
+    function autoCalcHover() {
+      const hoverHex = darkenHex(state.brand, 15);
+      updateSingleColor('brand-hover', hoverHex);
+    }
+
+    function updateFontFamily(val) {
+      state.fontFamily = val;
+      setCSS('--font-family', val);
+      document.getElementById('preview-panel').style.fontFamily = val;
+      state.activePreset = null;
+      updatePresetHighlight();
+    }
+
+    function updateFontSize(val) {
+      val = parseInt(val);
+      state.fontSize = val;
+      document.getElementById('font-size-val').textContent = val + 'px';
+      setCSS('--text-base', val + 'px');
+      // Scale all sizes using ratio
+      const r = state.scaleRatio;
+      setCSS('--text-xs', Math.round(val / (r * r)) + 'px');
+      setCSS('--text-sm', Math.round(val / r) + 'px');
+      setCSS('--text-md', Math.round(val * r) + 'px');
+      setCSS('--text-lg', Math.round(val * r * r) + 'px');
+      setCSS('--text-xl', Math.round(val * r * r * r) + 'px');
+      setCSS('--text-2xl', Math.round(val * r * r * r * r) + 'px');
+    }
+
+    function updateScaleRatio(val) {
+      state.scaleRatio = parseFloat(val);
+      updateFontSize(state.fontSize);
+    }
+
+    function updateBodyWeight(val) {
+      state.bodyWeight = parseInt(val);
+      setCSS('--font-regular', val);
+    }
+
+    function updateHeadingWeight(val) {
+      state.headingWeight = parseInt(val);
+      setCSS('--font-semibold', val);
+    }
+
+    function updateRadius(val) {
+      val = parseInt(val);
+      state.radiusMd = val;
+      document.getElementById('radius-val').textContent = val + 'px';
+      setCSS('--radius-sm', Math.max(0, Math.round(val * 0.5)) + 'px');
+      setCSS('--radius-md', val + 'px');
+      setCSS('--radius-lg', Math.round(val * 1.25) + 'px');
+      setCSS('--radius-xl', Math.round(val * 1.75) + 'px');
+      // Update shape previews
+      document.getElementById('shape-card-preview').style.borderRadius = val + 'px';
+      document.getElementById('shape-btn-preview').style.borderRadius = val + 'px';
+    }
+
+    function updateShadows(val) {
+      val = parseInt(val);
+      state.shadowIntensity = val;
+      document.getElementById('shadow-val').textContent = val + '%';
+      const m = val / 100;
+      setCSS('--shadow-xs', `0px 1px 2px rgba(16,24,40,${(0.05*m).toFixed(3)})`);
+      setCSS('--shadow-sm', `0px 1px 3px rgba(16,24,40,${(0.1*m).toFixed(3)}), 0px 1px 2px rgba(16,24,40,${(0.06*m).toFixed(3)})`);
+      setCSS('--shadow-md', `0px 4px 8px -2px rgba(16,24,40,${(0.1*m).toFixed(3)}), 0px 2px 4px -2px rgba(16,24,40,${(0.06*m).toFixed(3)})`);
+      setCSS('--shadow-lg', `0px 12px 16px -4px rgba(16,24,40,${(0.08*m).toFixed(3)}), 0px 4px 6px -2px rgba(16,24,40,${(0.03*m).toFixed(3)})`);
+      setCSS('--shadow-xl', `0px 20px 24px -4px rgba(16,24,40,${(0.08*m).toFixed(3)}), 0px 8px 8px -4px rgba(16,24,40,${(0.03*m).toFixed(3)})`);
+      setCSS('--shadow-2xl', `0px 24px 48px -12px rgba(16,24,40,${(0.18*m).toFixed(3)})`);
+    }
+
+    function updateSpacing(val) {
+      val = parseInt(val);
+      state.spacingBase = val;
+      document.getElementById('spacing-val').textContent = val + 'px';
+      setCSS('--space-1', val + 'px');
+      setCSS('--space-1h', Math.round(val * 1.5) + 'px');
+      setCSS('--space-2', (val * 2) + 'px');
+      setCSS('--space-2h', Math.round(val * 2.5) + 'px');
+      setCSS('--space-3', (val * 3) + 'px');
+      setCSS('--space-4', (val * 4) + 'px');
+      setCSS('--space-5', (val * 5) + 'px');
+      setCSS('--space-6', (val * 6) + 'px');
+      setCSS('--space-8', (val * 8) + 'px');
+      // Visualize
+      [1, 2, 3, 4, 6, 8].forEach(n => {
+        const el = document.getElementById('space-vis-' + n);
+        if (el) el.style.height = (val * n) + 'px';
+      });
+    }
+
+    /* =========================================================
+       DARK MODE TOGGLE (Preview)
+       ========================================================= */
+    function toggleDarkMode() {
+      state.isDark = !state.isDark;
+      if (state.isDark) {
+        setCSS('--bg-primary', '#0C111D');
+        setCSS('--bg-secondary', '#161B26');
+        setCSS('--bg-tertiary', '#1F242F');
+        setCSS('--text-primary', '#F5F5F6');
+        setCSS('--text-secondary', '#94969C');
+        setCSS('--border-primary', '#333741');
+        document.getElementById('dm-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+      } else {
+        setCSS('--bg-primary', '#FFFFFF');
+        setCSS('--bg-secondary', scales.gray.find(s => s.shade === 50)?.color || '#F9FAFB');
+        setCSS('--bg-tertiary', scales.gray.find(s => s.shade === 100)?.color || '#F2F4F7');
+        setCSS('--text-primary', scales.gray.find(s => s.shade === 900)?.color || '#101828');
+        setCSS('--text-secondary', scales.gray.find(s => s.shade === 500)?.color || '#667085');
+        setCSS('--border-primary', scales.gray.find(s => s.shade === 200)?.color || '#EAECF0');
+        document.getElementById('dm-icon').innerHTML = '<circle cx="12" cy="12" r="5" stroke-width="2"/><path stroke-linecap="round" stroke-width="2" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+      }
+    }
+
+    /* =========================================================
+       TOGGLE WIDGET (Preview interactive)
+       ========================================================= */
+    function toggleToggle(el) {
+      const thumb = el.firstElementChild;
+      if (thumb.style.left === '2px') {
+        thumb.style.left = '20px';
+        el.style.background = 'var(--brand)';
+      } else {
+        thumb.style.left = '2px';
+        el.style.background = 'var(--gray-300)';
+      }
+    }
+
+    /* =========================================================
+       PRESETS
+       ========================================================= */
+    const PRESETS = {
+      openreel:  { name: 'OpenReel',  brand: '#1F12DE', success: '#17B26A', error: '#F04438', warning: '#B54708', gray: '#667085', radius: 8, shadow: 100 },
+      ocean:     { name: 'Ocean',     brand: '#0891B2', success: '#10B981', error: '#EF4444', warning: '#D97706', gray: '#6B7280', radius: 8, shadow: 100 },
+      forest:    { name: 'Forest',    brand: '#059669', success: '#22C55E', error: '#DC2626', warning: '#CA8A04', gray: '#6B7280', radius: 10, shadow: 80 },
+      sunset:    { name: 'Sunset',    brand: '#EA580C', success: '#16A34A', error: '#E11D48', warning: '#D97706', gray: '#78716C', radius: 8, shadow: 120 },
+      royal:     { name: 'Royal',     brand: '#7C3AED', success: '#22C55E', error: '#EF4444', warning: '#F59E0B', gray: '#6B7280', radius: 10, shadow: 100 },
+      rose:      { name: 'Rose',      brand: '#E11D48', success: '#10B981', error: '#F43F5E', warning: '#F59E0B', gray: '#71717A', radius: 12, shadow: 100 },
+      slate:     { name: 'Slate',     brand: '#475569', success: '#16A34A', error: '#DC2626', warning: '#CA8A04', gray: '#64748B', radius: 6, shadow: 80 },
+      midnight:  { name: 'Midnight',  brand: '#1E1B4B', success: '#059669', error: '#BE123C', warning: '#A16207', gray: '#4B5563', radius: 8, shadow: 140 },
+    };
+
+    function loadPreset(key) {
+      const p = PRESETS[key];
+      if (!p) return;
+      state.activePreset = key;
+
+      // Update colors
+      updateColor('brand', p.brand);
+      updateColor('success', p.success);
+      updateColor('error', p.error);
+      updateColor('warning', p.warning);
+      updateGrayScale(p.gray);
+
+      // Update shape
+      document.getElementById('radius-md').value = p.radius;
+      updateRadius(p.radius);
+
+      // Update shadow
+      document.getElementById('shadow-intensity').value = p.shadow;
+      updateShadows(p.shadow);
+
+      state.activePreset = key;
+      updatePresetHighlight();
+    }
+
+    function updatePresetHighlight() {
+      document.querySelectorAll('.preset-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.preset === state.activePreset);
+      });
+    }
+
+    function renderPresets() {
+      const container = document.getElementById('presets-container');
+      Object.entries(PRESETS).forEach(([key, p]) => {
+        const chip = document.createElement('button');
+        chip.className = 'preset-chip' + (key === 'openreel' ? ' active' : '');
+        chip.dataset.preset = key;
+        chip.innerHTML = `<span class="preset-dot" style="background:${p.brand}"></span>${p.name}`;
+        chip.onclick = () => loadPreset(key);
+        container.appendChild(chip);
+      });
+    }
+
+    /* =========================================================
+       EXPORT
+       ========================================================= */
+    let currentExportFormat = 'css';
+
+    function openExport(format) {
+      currentExportFormat = format;
+      document.querySelectorAll('.export-tab').forEach(t => t.classList.toggle('active', t.dataset.format === format));
+      document.getElementById('export-code').textContent = generateExport(format);
+      document.getElementById('export-modal').classList.add('show');
+    }
+
+    function closeExport() {
+      document.getElementById('export-modal').classList.remove('show');
+    }
+
+    function switchExportTab(format) {
+      currentExportFormat = format;
+      document.querySelectorAll('.export-tab').forEach(t => t.classList.toggle('active', t.dataset.format === format));
+      document.getElementById('export-code').textContent = generateExport(format);
+    }
+
+    function copyExport() {
+      const code = generateExport(currentExportFormat);
+      navigator.clipboard.writeText(code).then(() => {
+        showToast('Copied to clipboard!');
+      });
+    }
+
+    function downloadExport() {
+      const code = generateExport(currentExportFormat);
+      const ext = { css: 'css', scss: 'scss', json: 'json', tailwind: 'js', 'tokens-studio': 'json' }[currentExportFormat];
+      const filename = `openreel-theme.${ext}`;
+      const blob = new Blob([code], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast(`Downloaded ${filename}`);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function generateExport(format) {
+      const brandScale = scales.brand || generateShadeScale(state.brand);
+      const successScale = scales.success || generateShadeScale(state.success);
+      const errorScale = scales.error || generateShadeScale(state.error);
+      const warningScale = scales.warning || generateShadeScale(state.warning);
+      const grayScale = scales.gray || generateGrayScale(state.grayBase);
+
+      const b = state.spacingBase;
+      const rm = state.radiusMd;
+      const sm = state.shadowIntensity / 100;
+
+      if (format === 'css') {
+        return `:root {
+  /* ---- Brand ---- */
+  --brand: ${state.brand};
+  --brand-hover: ${state.brandHover};
+  --brand-light: ${state.brand}1A;
+${brandScale.map(s => `  --brand-${s.shade}: ${s.color};`).join('\n')}
+
+  /* ---- Success ---- */
+${successScale.map(s => `  --success-${s.shade}: ${s.color};`).join('\n')}
+
+  /* ---- Error ---- */
+${errorScale.map(s => `  --error-${s.shade}: ${s.color};`).join('\n')}
+
+  /* ---- Warning ---- */
+${warningScale.map(s => `  --warning-${s.shade}: ${s.color};`).join('\n')}
+
+  /* ---- Gray ---- */
+${grayScale.map(s => `  --gray-${s.shade}: ${s.color};`).join('\n')}
+
+  /* ---- Typography ---- */
+  --font-family: ${state.fontFamily};
+  --text-xs: ${Math.round(state.fontSize / (state.scaleRatio * state.scaleRatio))}px;
+  --text-sm: ${Math.round(state.fontSize / state.scaleRatio)}px;
+  --text-base: ${state.fontSize}px;
+  --text-md: ${Math.round(state.fontSize * state.scaleRatio)}px;
+  --text-lg: ${Math.round(state.fontSize * state.scaleRatio ** 2)}px;
+  --text-xl: ${Math.round(state.fontSize * state.scaleRatio ** 3)}px;
+  --text-2xl: ${Math.round(state.fontSize * state.scaleRatio ** 4)}px;
+  --font-regular: ${state.bodyWeight};
+  --font-medium: 500;
+  --font-semibold: ${state.headingWeight};
+
+  /* ---- Border Radius ---- */
+  --radius-sm: ${Math.max(0, Math.round(rm * 0.5))}px;
+  --radius-md: ${rm}px;
+  --radius-lg: ${Math.round(rm * 1.25)}px;
+  --radius-xl: ${Math.round(rm * 1.75)}px;
+  --radius-full: 9999px;
+
+  /* ---- Spacing ---- */
+  --space-1: ${b}px;
+  --space-1h: ${Math.round(b * 1.5)}px;
+  --space-2: ${b * 2}px;
+  --space-2h: ${Math.round(b * 2.5)}px;
+  --space-3: ${b * 3}px;
+  --space-4: ${b * 4}px;
+  --space-5: ${b * 5}px;
+  --space-6: ${b * 6}px;
+  --space-8: ${b * 8}px;
+
+  /* ---- Shadows ---- */
+  --shadow-xs: 0px 1px 2px rgba(16,24,40,${(0.05*sm).toFixed(3)});
+  --shadow-sm: 0px 1px 3px rgba(16,24,40,${(0.1*sm).toFixed(3)}), 0px 1px 2px rgba(16,24,40,${(0.06*sm).toFixed(3)});
+  --shadow-md: 0px 4px 8px -2px rgba(16,24,40,${(0.1*sm).toFixed(3)}), 0px 2px 4px -2px rgba(16,24,40,${(0.06*sm).toFixed(3)});
+  --shadow-lg: 0px 12px 16px -4px rgba(16,24,40,${(0.08*sm).toFixed(3)}), 0px 4px 6px -2px rgba(16,24,40,${(0.03*sm).toFixed(3)});
+  --shadow-xl: 0px 20px 24px -4px rgba(16,24,40,${(0.08*sm).toFixed(3)}), 0px 8px 8px -4px rgba(16,24,40,${(0.03*sm).toFixed(3)});
+  --shadow-2xl: 0px 24px 48px -12px rgba(16,24,40,${(0.18*sm).toFixed(3)});
+}
+
+/* ---- Dark mode ---- */
+html.dark {
+  --bg-primary: #0C111D;
+  --bg-secondary: #161B26;
+  --bg-tertiary: #1F242F;
+  --text-primary: #F5F5F6;
+  --text-secondary: #94969C;
+  --border-primary: #333741;
+}
+
+html:not(.dark) {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: var(--gray-50);
+  --bg-tertiary: var(--gray-100);
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-500);
+  --border-primary: var(--gray-200);
+}`;
+      }
+
+      if (format === 'scss') {
+        return `// ---- Brand ----
+$brand: ${state.brand};
+$brand-hover: ${state.brandHover};
+$brand-light: rgba($brand, 0.1);
+${brandScale.map(s => `$brand-${s.shade}: ${s.color};`).join('\n')}
+
+// ---- Success ----
+${successScale.map(s => `$success-${s.shade}: ${s.color};`).join('\n')}
+
+// ---- Error ----
+${errorScale.map(s => `$error-${s.shade}: ${s.color};`).join('\n')}
+
+// ---- Warning ----
+${warningScale.map(s => `$warning-${s.shade}: ${s.color};`).join('\n')}
+
+// ---- Gray ----
+${grayScale.map(s => `$gray-${s.shade}: ${s.color};`).join('\n')}
+
+// ---- Typography ----
+$font-family: ${state.fontFamily};
+$text-xs: ${Math.round(state.fontSize / (state.scaleRatio * state.scaleRatio))}px;
+$text-sm: ${Math.round(state.fontSize / state.scaleRatio)}px;
+$text-base: ${state.fontSize}px;
+$text-md: ${Math.round(state.fontSize * state.scaleRatio)}px;
+$text-lg: ${Math.round(state.fontSize * state.scaleRatio ** 2)}px;
+$text-xl: ${Math.round(state.fontSize * state.scaleRatio ** 3)}px;
+$text-2xl: ${Math.round(state.fontSize * state.scaleRatio ** 4)}px;
+$font-regular: ${state.bodyWeight};
+$font-medium: 500;
+$font-semibold: ${state.headingWeight};
+
+// ---- Border Radius ----
+$radius-sm: ${Math.max(0, Math.round(rm * 0.5))}px;
+$radius-md: ${rm}px;
+$radius-lg: ${Math.round(rm * 1.25)}px;
+$radius-xl: ${Math.round(rm * 1.75)}px;
+$radius-full: 9999px;
+
+// ---- Spacing ----
+$space-1: ${b}px;
+$space-2: ${b * 2}px;
+$space-3: ${b * 3}px;
+$space-4: ${b * 4}px;
+$space-5: ${b * 5}px;
+$space-6: ${b * 6}px;
+$space-8: ${b * 8}px;
+
+// ---- Shadows ----
+$shadow-xs: 0px 1px 2px rgba(16,24,40,${(0.05*sm).toFixed(3)});
+$shadow-sm: 0px 1px 3px rgba(16,24,40,${(0.1*sm).toFixed(3)}), 0px 1px 2px rgba(16,24,40,${(0.06*sm).toFixed(3)});
+$shadow-md: 0px 4px 8px -2px rgba(16,24,40,${(0.1*sm).toFixed(3)}), 0px 2px 4px -2px rgba(16,24,40,${(0.06*sm).toFixed(3)});
+$shadow-lg: 0px 12px 16px -4px rgba(16,24,40,${(0.08*sm).toFixed(3)}), 0px 4px 6px -2px rgba(16,24,40,${(0.03*sm).toFixed(3)});
+$shadow-xl: 0px 20px 24px -4px rgba(16,24,40,${(0.08*sm).toFixed(3)}), 0px 8px 8px -4px rgba(16,24,40,${(0.03*sm).toFixed(3)});
+$shadow-2xl: 0px 24px 48px -12px rgba(16,24,40,${(0.18*sm).toFixed(3)});`;
+      }
+
+      if (format === 'json') {
+        const obj = {
+          brand: {
+            primary: state.brand,
+            hover: state.brandHover,
+            ...Object.fromEntries(brandScale.map(s => [s.shade, s.color]))
+          },
+          success: Object.fromEntries(successScale.map(s => [s.shade, s.color])),
+          error: Object.fromEntries(errorScale.map(s => [s.shade, s.color])),
+          warning: Object.fromEntries(warningScale.map(s => [s.shade, s.color])),
+          gray: Object.fromEntries(grayScale.map(s => [s.shade, s.color])),
+          typography: {
+            fontFamily: state.fontFamily,
+            baseFontSize: state.fontSize + 'px',
+            scaleRatio: state.scaleRatio,
+            bodyWeight: state.bodyWeight,
+            headingWeight: state.headingWeight,
+            sizes: {
+              xs: Math.round(state.fontSize / (state.scaleRatio * state.scaleRatio)) + 'px',
+              sm: Math.round(state.fontSize / state.scaleRatio) + 'px',
+              base: state.fontSize + 'px',
+              md: Math.round(state.fontSize * state.scaleRatio) + 'px',
+              lg: Math.round(state.fontSize * state.scaleRatio ** 2) + 'px',
+              xl: Math.round(state.fontSize * state.scaleRatio ** 3) + 'px',
+              '2xl': Math.round(state.fontSize * state.scaleRatio ** 4) + 'px'
+            }
+          },
+          borderRadius: {
+            sm: Math.max(0, Math.round(rm * 0.5)) + 'px',
+            md: rm + 'px',
+            lg: Math.round(rm * 1.25) + 'px',
+            xl: Math.round(rm * 1.75) + 'px',
+            full: '9999px'
+          },
+          spacing: {
+            1: b + 'px',
+            2: (b * 2) + 'px',
+            3: (b * 3) + 'px',
+            4: (b * 4) + 'px',
+            5: (b * 5) + 'px',
+            6: (b * 6) + 'px',
+            8: (b * 8) + 'px'
+          },
+          shadowIntensity: state.shadowIntensity + '%'
+        };
+        return JSON.stringify(obj, null, 2);
+      }
+
+      if (format === 'tailwind') {
+        return `// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          DEFAULT: '${state.brand}',
+          hover: '${state.brandHover}',
+${brandScale.map(s => `          ${s.shade}: '${s.color}',`).join('\n')}
+        },
+        success: {
+${successScale.map(s => `          ${s.shade}: '${s.color}',`).join('\n')}
+        },
+        error: {
+${errorScale.map(s => `          ${s.shade}: '${s.color}',`).join('\n')}
+        },
+        warning: {
+${warningScale.map(s => `          ${s.shade}: '${s.color}',`).join('\n')}
+        },
+        gray: {
+${grayScale.map(s => `          ${s.shade}: '${s.color}',`).join('\n')}
+        },
+      },
+      fontFamily: {
+        sans: [${state.fontFamily}],
+      },
+      fontSize: {
+        xs: '${Math.round(state.fontSize / (state.scaleRatio * state.scaleRatio))}px',
+        sm: '${Math.round(state.fontSize / state.scaleRatio)}px',
+        base: '${state.fontSize}px',
+        md: '${Math.round(state.fontSize * state.scaleRatio)}px',
+        lg: '${Math.round(state.fontSize * state.scaleRatio ** 2)}px',
+        xl: '${Math.round(state.fontSize * state.scaleRatio ** 3)}px',
+        '2xl': '${Math.round(state.fontSize * state.scaleRatio ** 4)}px',
+      },
+      borderRadius: {
+        sm: '${Math.max(0, Math.round(rm * 0.5))}px',
+        md: '${rm}px',
+        lg: '${Math.round(rm * 1.25)}px',
+        xl: '${Math.round(rm * 1.75)}px',
+      },
+      spacing: {
+        1: '${b}px',
+        2: '${b * 2}px',
+        3: '${b * 3}px',
+        4: '${b * 4}px',
+        5: '${b * 5}px',
+        6: '${b * 6}px',
+        8: '${b * 8}px',
+      },
+      boxShadow: {
+        xs: '0px 1px 2px rgba(16,24,40,${(0.05*sm).toFixed(3)})',
+        sm: '0px 1px 3px rgba(16,24,40,${(0.1*sm).toFixed(3)}), 0px 1px 2px rgba(16,24,40,${(0.06*sm).toFixed(3)})',
+        md: '0px 4px 8px -2px rgba(16,24,40,${(0.1*sm).toFixed(3)}), 0px 2px 4px -2px rgba(16,24,40,${(0.06*sm).toFixed(3)})',
+        lg: '0px 12px 16px -4px rgba(16,24,40,${(0.08*sm).toFixed(3)}), 0px 4px 6px -2px rgba(16,24,40,${(0.03*sm).toFixed(3)})',
+        xl: '0px 20px 24px -4px rgba(16,24,40,${(0.08*sm).toFixed(3)}), 0px 8px 8px -4px rgba(16,24,40,${(0.03*sm).toFixed(3)})',
+        '2xl': '0px 24px 48px -12px rgba(16,24,40,${(0.18*sm).toFixed(3)})',
+      },
+    },
+  },
+};`;
+      }
+
+      if (format === 'tokens-studio') {
+        const ts = {
+          "openreel-theme": {
+            "brand": {
+              "primary": { "value": state.brand, "type": "color" },
+              "hover": { "value": state.brandHover, "type": "color" },
+              ...Object.fromEntries(brandScale.map(s => [s.shade, { "value": s.color, "type": "color" }]))
+            },
+            "success": Object.fromEntries(successScale.map(s => [s.shade, { "value": s.color, "type": "color" }])),
+            "error": Object.fromEntries(errorScale.map(s => [s.shade, { "value": s.color, "type": "color" }])),
+            "warning": Object.fromEntries(warningScale.map(s => [s.shade, { "value": s.color, "type": "color" }])),
+            "gray": Object.fromEntries(grayScale.map(s => [s.shade, { "value": s.color, "type": "color" }])),
+            "fontFamilies": {
+              "sans": { "value": state.fontFamily, "type": "fontFamilies" }
+            },
+            "fontSize": {
+              "xs": { "value": Math.round(state.fontSize / (state.scaleRatio * state.scaleRatio)) + '', "type": "fontSizes" },
+              "sm": { "value": Math.round(state.fontSize / state.scaleRatio) + '', "type": "fontSizes" },
+              "base": { "value": state.fontSize + '', "type": "fontSizes" },
+              "md": { "value": Math.round(state.fontSize * state.scaleRatio) + '', "type": "fontSizes" },
+              "lg": { "value": Math.round(state.fontSize * state.scaleRatio ** 2) + '', "type": "fontSizes" },
+              "xl": { "value": Math.round(state.fontSize * state.scaleRatio ** 3) + '', "type": "fontSizes" },
+              "2xl": { "value": Math.round(state.fontSize * state.scaleRatio ** 4) + '', "type": "fontSizes" }
+            },
+            "fontWeights": {
+              "regular": { "value": state.bodyWeight + '', "type": "fontWeights" },
+              "medium": { "value": "500", "type": "fontWeights" },
+              "semibold": { "value": state.headingWeight + '', "type": "fontWeights" }
+            },
+            "borderRadius": {
+              "sm": { "value": Math.max(0, Math.round(rm * 0.5)) + '', "type": "borderRadius" },
+              "md": { "value": rm + '', "type": "borderRadius" },
+              "lg": { "value": Math.round(rm * 1.25) + '', "type": "borderRadius" },
+              "xl": { "value": Math.round(rm * 1.75) + '', "type": "borderRadius" },
+              "full": { "value": "9999", "type": "borderRadius" }
+            },
+            "spacing": {
+              "1": { "value": b + '', "type": "spacing" },
+              "2": { "value": (b * 2) + '', "type": "spacing" },
+              "3": { "value": (b * 3) + '', "type": "spacing" },
+              "4": { "value": (b * 4) + '', "type": "spacing" },
+              "5": { "value": (b * 5) + '', "type": "spacing" },
+              "6": { "value": (b * 6) + '', "type": "spacing" },
+              "8": { "value": (b * 8) + '', "type": "spacing" }
+            }
+          }
+        };
+        return JSON.stringify(ts, null, 2);
+      }
+
+      return '// Unknown format';
+    }
+
+    /* =========================================================
+       INIT
+       ========================================================= */
+    function init() {
+      // Render presets
+      renderPresets();
+
+      // Generate initial scales
+      scales.brand = generateShadeScale(state.brand);
+      scales.success = generateShadeScale(state.success);
+      scales.error = generateShadeScale(state.error);
+      scales.warning = generateShadeScale(state.warning);
+      scales.gray = generateGrayScale(state.grayBase);
+
+      // Render shade rows
+      renderShades('shades-brand', scales.brand);
+      renderShades('shades-success', scales.success);
+      renderShades('shades-error', scales.error);
+      renderShades('shades-warning', scales.warning);
+      renderShades('shades-gray', scales.gray);
+
+      // Apply initial shade tokens to CSS
+      ['brand', 'success', 'error', 'warning'].forEach(name => {
+        scales[name].forEach(({ shade, color }) => {
+          setCSS(`--tb-${name}-${shade}`, color);
+          if (name !== 'brand') {
+            setCSS(`--${name}-${shade}`, color);
+          }
+        });
+      });
+      scales.gray.forEach(({ shade, color }) => {
+        setCSS(`--gray-${shade}`, color);
+      });
+
+      // Init spacing visualization
+      updateSpacing(state.spacingBase);
+    }
+
+    init();
+  </script>
+
+</body>
+</html>

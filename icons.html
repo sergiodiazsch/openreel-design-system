@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Icons &amp; Tools - OpenReel Design System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --brand:        #1F12DE;
+      --brand-hover:  #1a0fbc;
+      --brand-light:  rgba(31, 18, 222, 0.1);
+
+      --blue-50:   #EFF8FF;
+      --blue-100:  #B2DDFF;
+      --blue-500:  #2970FF;
+      --blue-600:  #175CD3;
+      --blue-light:#53B1FD;
+
+      --gray-25:   #FCFCFD;
+      --gray-50:   #F9FAFB;
+      --gray-100:  #F2F4F7;
+      --gray-200:  #EAECF0;
+      --gray-300:  #E4E7EC;
+      --gray-400:  #98A2B3;
+      --gray-500:  #667085;
+      --gray-600:  #475467;
+      --gray-700:  #344054;
+      --gray-900:  #101828;
+
+      --success-50:  #ECFDF3;
+      --success-100: #D1FAE0;
+      --success-200: #A6F4C5;
+      --success-500: #17B26A;
+      --success-700: #067647;
+      --success-800: #027A48;
+
+      --error-50:  #FEF3F2;
+      --error-100: #FEE4E2;
+      --error-500: #F04438;
+      --error-700: #B42318;
+
+      --warning-50:  #FFFAEB;
+      --warning-100: #FEDF89;
+      --warning-700: #B54708;
+
+      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   10px;
+      --radius-xl:   14px;
+      --radius-full: 9999px;
+
+      --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    }
+
+    /* Light mode */
+    html:not(.dark) {
+      --bg-page:      #F9FAFB;
+      --bg-card:      #FFFFFF;
+      --bg-preview:   #FFFFFF;
+      --bg-controls:  #F9FAFB;
+      --border-color: #EAECF0;
+      --text-primary: #101828;
+      --text-secondary: #667085;
+      --text-tertiary: #98A2B3;
+    }
+
+    /* Dark mode */
+    html.dark {
+      --bg-page:      #0C111D;
+      --bg-card:      #161B26;
+      --bg-preview:   #1F242F;
+      --bg-controls:  #161B26;
+      --border-color: #333741;
+      --text-primary: #F5F5F6;
+      --text-secondary: #94969C;
+      --text-tertiary: #61646C;
+    }
+
+    /* =========================================================
+       BASE STYLES
+       ========================================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 14px;
+      line-height: 24px;
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
+
+    /* ---- Header ---- */
+    .dm-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dm-toggle:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- Tab navigation ---- */
+    .tab-btn {
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      font-family: var(--font-family);
+    }
+    .tab-btn:hover {
+      color: var(--text-primary);
+    }
+    .tab-btn.active {
+      color: var(--brand);
+      border-bottom-color: var(--brand);
+      font-weight: 600;
+    }
+    html.dark .tab-btn.active {
+      color: #818cf8;
+      border-bottom-color: #818cf8;
+    }
+
+    /* ---- Icon card ---- */
+    .icon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 8px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .icon-card:hover {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--brand-light);
+      transform: translateY(-2px);
+    }
+    html.dark .icon-card:hover {
+      border-color: #818cf8;
+      box-shadow: 0 0 0 3px rgba(129,140,248,0.15);
+    }
+    .icon-card svg {
+      color: var(--text-primary);
+      transition: color 0.2s ease;
+    }
+    .icon-card .icon-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.3;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ---- Code wrapper ---- */
+    .code-wrapper {
+      position: relative;
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .code-wrapper pre {
+      margin: 0;
+      padding: 20px 24px;
+      overflow-x: auto;
+      max-height: 420px;
+    }
+    .code-wrapper code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+    .code-wrapper .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-family);
+    }
+    .code-wrapper .copy-btn:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- Category filter pill ---- */
+    .cat-pill {
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      font-family: var(--font-family);
+    }
+    .cat-pill:hover {
+      color: var(--text-primary);
+      border-color: var(--gray-400);
+    }
+    .cat-pill.active {
+      color: #fff;
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    html.dark .cat-pill.active {
+      background: #818cf8;
+      border-color: #818cf8;
+      color: #fff;
+    }
+
+    /* ---- Size selector ---- */
+    .size-btn {
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-family);
+    }
+    .size-btn.active {
+      color: var(--brand);
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+    html.dark .size-btn.active {
+      color: #818cf8;
+      border-color: #818cf8;
+      background: rgba(129,140,248,0.1);
+    }
+
+    /* ---- Toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--gray-900);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-xl);
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ---- Palette swatch ---- */
+    .palette-swatch {
+      flex: 1;
+      min-width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      position: relative;
+    }
+    .palette-swatch:hover {
+      transform: scale(1.08);
+      z-index: 2;
+      box-shadow: var(--shadow-lg);
+    }
+    .palette-swatch .swatch-label {
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+    .palette-swatch .swatch-hex {
+      font-size: 10px;
+      font-family: 'SF Mono', monospace;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    /* ---- Contrast result badge ---- */
+    .contrast-result {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .contrast-pass {
+      background: var(--success-50);
+      color: var(--success-700);
+    }
+    .contrast-fail {
+      background: var(--error-50);
+      color: var(--error-700);
+    }
+    html.dark .contrast-pass {
+      background: rgba(6,118,71,0.15);
+      color: #75E0A7;
+    }
+    html.dark .contrast-fail {
+      background: rgba(180,35,24,0.15);
+      color: #FDA29B;
+    }
+
+    /* ---- Format tab ---- */
+    .format-tab {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-family);
+    }
+    .format-tab:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+    .format-tab:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .format-tab:not(:first-child) { border-left: none; }
+    .format-tab.active {
+      color: #fff;
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    .format-tab + .format-tab.active { border-left: 1px solid var(--brand); }
+    html.dark .format-tab.active {
+      background: #818cf8;
+      border-color: #818cf8;
+    }
+    html.dark .format-tab + .format-tab.active { border-left-color: #818cf8; }
+
+    /* Header link styling */
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .contrast-grid { grid-template-columns: 1fr !important; }
+      .palette-swatch { min-width: 60px; height: 64px; }
+      .header-nav { display: none !important; }
+    }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
+  
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+</head>
+
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
+  <main id="main-content" style="padding-top:88px; padding-bottom:60px; max-width:1280px; margin:0 auto; padding-left:24px; padding-right:24px;">
+
+    <!-- Page Title -->
+    <div style="margin-bottom:32px;">
+      <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em; margin-bottom:8px;">
+        Icons &amp; Design Tools
+      </h1>
+      <p style="font-size:15px; color:var(--text-secondary); max-width:640px;">
+        A complete icon library with 70+ SVG icons, design token exports, palette generator, and accessibility contrast checker.
+      </p>
+    </div>
+
+    <!-- ---- Tab Bar ---- -->
+    <div style="display:flex; gap:0; border-bottom:1px solid var(--border-color); margin-bottom:32px; overflow-x:auto;">
+      <button class="tab-btn active" data-tab="icons" onclick="switchTab('icons', this)">Icons</button>
+      <button class="tab-btn" data-tab="tokens" onclick="switchTab('tokens', this)">Token Export</button>
+      <button class="tab-btn" data-tab="palette" onclick="switchTab('palette', this)">Color Tools</button>
+      <button class="tab-btn" data-tab="contrast" onclick="switchTab('contrast', this)">Contrast Checker</button>
+      <button class="tab-btn" data-tab="shadows" onclick="switchTab('shadows', this)">Shadows</button>
+      <button class="tab-btn" data-tab="typography" onclick="switchTab('typography', this)">Typography</button>
+    </div>
+
+    <!-- =========================================================
+         SECTION 1: ICON LIBRARY
+         ========================================================= -->
+    <section id="tab-icons">
+      <!-- Controls row -->
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:20px;">
+        <!-- Search -->
+        <div style="position:relative; flex:1; min-width:200px; max-width:360px;">
+          <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-tertiary); pointer-events:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="icon-search" type="text" placeholder="Search icons..." oninput="filterIcons()" style="
+            width:100%; padding:9px 12px 9px 36px;
+            border:1px solid var(--border-color); border-radius:var(--radius-md);
+            background:var(--bg-card); color:var(--text-primary);
+            font-size:13px; font-family:var(--font-family);
+            outline:none; transition: border-color 0.2s, box-shadow 0.2s;
+          " onfocus="this.style.borderColor='var(--brand)'; this.style.boxShadow='0 0 0 3px var(--brand-light)'" onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'" />
+        </div>
+
+        <!-- Size selector -->
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:12px; color:var(--text-tertiary); margin-right:4px;">Size:</span>
+          <button class="size-btn" onclick="setIconSize(16, this)">16</button>
+          <button class="size-btn" onclick="setIconSize(20, this)">20</button>
+          <button class="size-btn active" onclick="setIconSize(24, this)">24</button>
+          <button class="size-btn" onclick="setIconSize(32, this)">32</button>
+          <button class="size-btn" onclick="setIconSize(40, this)">40</button>
+        </div>
+      </div>
+
+      <!-- Category filters -->
+      <div id="cat-filters" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;">
+        <button class="cat-pill active" onclick="filterByCategory('all', this)">All</button>
+        <button class="cat-pill" onclick="filterByCategory('navigation', this)">Navigation</button>
+        <button class="cat-pill" onclick="filterByCategory('actions', this)">Actions</button>
+        <button class="cat-pill" onclick="filterByCategory('media', this)">Media</button>
+        <button class="cat-pill" onclick="filterByCategory('files', this)">Files</button>
+        <button class="cat-pill" onclick="filterByCategory('communication', this)">Communication</button>
+        <button class="cat-pill" onclick="filterByCategory('interface', this)">Interface</button>
+        <button class="cat-pill" onclick="filterByCategory('status', this)">Status</button>
+      </div>
+
+      <!-- Icon count -->
+      <p id="icon-count" style="font-size:12px; color:var(--text-tertiary); margin-bottom:16px;"></p>
+
+      <!-- Icon Grid -->
+      <div id="icon-grid" style="
+        display:grid;
+        grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+        gap: 12px;
+      "></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2: TOKEN EXPORT
+         ========================================================= -->
+    <section id="tab-tokens" style="display:none;">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-size:20px; font-weight:600; margin-bottom:6px;">Design Token Export</h2>
+        <p style="font-size:14px; color:var(--text-secondary);">Copy or download the complete OpenReel design tokens in your preferred format.</p>
+      </div>
+
+      <!-- Format tabs -->
+      <div style="display:inline-flex; margin-bottom:20px;">
+        <button class="format-tab active" onclick="switchFormat('css', this)">CSS Variables</button>
+        <button class="format-tab" onclick="switchFormat('scss', this)">SCSS</button>
+        <button class="format-tab" onclick="switchFormat('json', this)">JSON</button>
+        <button class="format-tab" onclick="switchFormat('tailwind', this)">Tailwind Config</button>
+      </div>
+
+      <!-- Download button -->
+      <div style="margin-bottom:16px;">
+        <button id="download-btn" onclick="downloadTokens()" style="
+          display:inline-flex; align-items:center; gap:8px;
+          padding:10px 20px; font-size:13px; font-weight:600;
+          color:#fff; background:var(--brand); border:none;
+          border-radius:var(--radius-md); cursor:pointer;
+          font-family:var(--font-family);
+          transition:background 0.2s;
+        " onmouseover="this.style.background='var(--brand-hover)'" onmouseout="this.style.background='var(--brand)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download File
+        </button>
+      </div>
+
+      <!-- Code block -->
+      <div class="code-wrapper">
+        <button class="copy-btn" onclick="copyTokenCode()">Copy</button>
+        <pre><code id="token-code"></code></pre>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: COLOR PALETTE GENERATOR
+         ========================================================= -->
+    <section id="tab-palette" style="display:none;">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-size:20px; font-weight:600; margin-bottom:6px;">Color Palette Generator</h2>
+        <p style="font-size:14px; color:var(--text-secondary);">Enter a hex color to generate a complete 10-step shade scale.</p>
+      </div>
+
+      <!-- Input -->
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:32px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:8px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:6px 12px;">
+          <input id="palette-picker" type="color" value="#1F12DE" oninput="document.getElementById('palette-hex').value=this.value;" style="width:32px; height:32px; border:none; cursor:pointer; background:none; padding:0;" />
+          <input id="palette-hex" type="text" value="#1F12DE" maxlength="7" style="
+            width:90px; padding:6px 8px; border:1px solid var(--border-color);
+            border-radius:var(--radius-sm); background:var(--bg-card);
+            color:var(--text-primary); font-family:'SF Mono','Fira Code',monospace;
+            font-size:13px; outline:none;
+          " />
+        </div>
+        <button onclick="generatePalette(document.getElementById('palette-hex').value)" style="
+          padding:10px 18px; font-size:13px; font-weight:600;
+          color:#fff; background:var(--brand); border:none;
+          border-radius:var(--radius-md); cursor:pointer;
+          font-family:var(--font-family);
+          transition:background 0.2s;
+        " onmouseover="this.style.background='var(--brand-hover)'" onmouseout="this.style.background='var(--brand)'">Generate</button>
+        <button onclick="copyFullPalette()" style="
+          padding:10px 18px; font-size:13px; font-weight:500;
+          color:var(--text-secondary); background:var(--bg-card);
+          border:1px solid var(--border-color);
+          border-radius:var(--radius-md); cursor:pointer;
+          font-family:var(--font-family);
+          transition:all 0.2s;
+        ">Copy All</button>
+      </div>
+
+      <!-- Palette display -->
+      <div id="palette-grid" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px;"></div>
+
+      <!-- Palette as CSS -->
+      <div id="palette-code-wrapper" style="display:none;">
+        <h3 style="font-size:14px; font-weight:600; margin-bottom:12px;">CSS Variables</h3>
+        <div class="code-wrapper">
+          <button class="copy-btn" onclick="copyPaletteCSS()">Copy</button>
+          <pre><code id="palette-css"></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: CONTRAST CHECKER
+         ========================================================= -->
+    <section id="tab-contrast" style="display:none;">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-size:20px; font-weight:600; margin-bottom:6px;">Contrast Checker</h2>
+        <p style="font-size:14px; color:var(--text-secondary);">Check color contrast ratios for WCAG AA and AAA compliance.</p>
+      </div>
+
+      <div class="contrast-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:860px;">
+        <!-- Inputs column -->
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <!-- Foreground -->
+          <div>
+            <label style="display:block; font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">Foreground (Text)</label>
+            <div style="display:flex; align-items:center; gap:8px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:8px 12px;">
+              <input id="contrast-fg-picker" type="color" value="#1F12DE" oninput="document.getElementById('contrast-fg').value=this.value; checkContrast();" style="width:36px; height:36px; border:none; cursor:pointer; background:none; padding:0;" />
+              <input id="contrast-fg" type="text" value="#1F12DE" maxlength="7" style="
+                width:90px; padding:6px 8px; border:1px solid var(--border-color);
+                border-radius:var(--radius-sm); background:var(--bg-card);
+                color:var(--text-primary); font-family:'SF Mono','Fira Code',monospace;
+                font-size:13px; outline:none;
+              " oninput="if(/^#[0-9a-fA-F]{6}$/.test(this.value)){document.getElementById('contrast-fg-picker').value=this.value; checkContrast();}" />
+            </div>
+          </div>
+          <!-- Background -->
+          <div>
+            <label style="display:block; font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">Background</label>
+            <div style="display:flex; align-items:center; gap:8px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:8px 12px;">
+              <input id="contrast-bg-picker" type="color" value="#FFFFFF" oninput="document.getElementById('contrast-bg').value=this.value; checkContrast();" style="width:36px; height:36px; border:none; cursor:pointer; background:none; padding:0;" />
+              <input id="contrast-bg" type="text" value="#FFFFFF" maxlength="7" style="
+                width:90px; padding:6px 8px; border:1px solid var(--border-color);
+                border-radius:var(--radius-sm); background:var(--bg-card);
+                color:var(--text-primary); font-family:'SF Mono','Fira Code',monospace;
+                font-size:13px; outline:none;
+              " oninput="if(/^#[0-9a-fA-F]{6}$/.test(this.value)){document.getElementById('contrast-bg-picker').value=this.value; checkContrast();}" />
+            </div>
+          </div>
+          <!-- Swap button -->
+          <button onclick="swapContrastColors()" style="
+            display:inline-flex; align-items:center; gap:6px;
+            padding:9px 16px; font-size:13px; font-weight:500;
+            color:var(--text-secondary); background:var(--bg-card);
+            border:1px solid var(--border-color);
+            border-radius:var(--radius-md); cursor:pointer;
+            font-family:var(--font-family);
+            transition:all 0.2s; align-self:flex-start;
+          ">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            Swap Colors
+          </button>
+        </div>
+
+        <!-- Results column -->
+        <div>
+          <!-- Preview -->
+          <div id="contrast-preview" style="
+            border-radius:var(--radius-lg); padding:24px; margin-bottom:24px;
+            border:1px solid var(--border-color); background:#FFFFFF; color:#1F12DE;
+          ">
+            <p style="font-size:24px; font-weight:700; margin-bottom:6px;">Large Text</p>
+            <p style="font-size:16px; font-weight:400; margin-bottom:6px;">Normal body text (16px)</p>
+            <p style="font-size:12px; font-weight:400;">Small text sample (12px)</p>
+          </div>
+
+          <!-- Ratio display -->
+          <div style="text-align:center; margin-bottom:24px;">
+            <div style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px;">Contrast Ratio</div>
+            <div id="contrast-ratio" style="font-size:40px; font-weight:700; color:var(--text-primary); letter-spacing:-0.02em;">4.64:1</div>
+          </div>
+
+          <!-- WCAG Results grid -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:14px; text-align:center;">
+              <div style="font-size:11px; font-weight:600; color:var(--text-tertiary); margin-bottom:8px;">AA Normal</div>
+              <div id="wcag-aa-normal" class="contrast-result contrast-pass">Pass</div>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:14px; text-align:center;">
+              <div style="font-size:11px; font-weight:600; color:var(--text-tertiary); margin-bottom:8px;">AA Large</div>
+              <div id="wcag-aa-large" class="contrast-result contrast-pass">Pass</div>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:14px; text-align:center;">
+              <div style="font-size:11px; font-weight:600; color:var(--text-tertiary); margin-bottom:8px;">AAA Normal</div>
+              <div id="wcag-aaa-normal" class="contrast-result contrast-fail">Fail</div>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:14px; text-align:center;">
+              <div style="font-size:11px; font-weight:600; color:var(--text-tertiary); margin-bottom:8px;">AAA Large</div>
+              <div id="wcag-aaa-large" class="contrast-result contrast-pass">Pass</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: SHADOW PLAYGROUND
+         ========================================================= -->
+    <section id="tab-shadows" style="display:none;">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-size:20px; font-weight:600; margin-bottom:6px;">Shadow Playground</h2>
+        <p style="font-size:14px; color:var(--text-secondary);">Visually build and customize box-shadow values with live preview.</p>
+      </div>
+
+      <!-- Preset shadows -->
+      <div style="margin-bottom:24px;">
+        <label style="display:block; font-size:12px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:10px;">Design System Presets</label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="cat-pill" onclick="loadShadowPreset('xs')">XS</button>
+          <button class="cat-pill" onclick="loadShadowPreset('sm')">SM</button>
+          <button class="cat-pill" onclick="loadShadowPreset('md')">MD</button>
+          <button class="cat-pill" onclick="loadShadowPreset('lg')">LG</button>
+          <button class="cat-pill" onclick="loadShadowPreset('xl')">XL</button>
+          <button class="cat-pill" onclick="loadShadowPreset('2xl')">2XL</button>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:960px;">
+        <!-- Controls column -->
+        <div>
+          <div id="shadow-layers-container">
+            <!-- Shadow layer 0 rendered by JS -->
+          </div>
+
+          <div style="display:flex; gap:8px; margin-top:16px;">
+            <button onclick="addShadowLayer()" style="
+              display:inline-flex; align-items:center; gap:6px;
+              padding:9px 16px; font-size:13px; font-weight:600;
+              color:#fff; background:var(--brand); border:none;
+              border-radius:var(--radius-md); cursor:pointer;
+              font-family:var(--font-family); transition:background 0.2s;
+            " onmouseover="this.style.background='var(--brand-hover)'" onmouseout="this.style.background='var(--brand)'">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Layer
+            </button>
+            <button onclick="resetShadowLayers()" style="
+              padding:9px 16px; font-size:13px; font-weight:500;
+              color:var(--text-secondary); background:var(--bg-card);
+              border:1px solid var(--border-color);
+              border-radius:var(--radius-md); cursor:pointer;
+              font-family:var(--font-family); transition:all 0.2s;
+            ">Reset</button>
+          </div>
+        </div>
+
+        <!-- Preview + Output column -->
+        <div>
+          <!-- Live preview card -->
+          <div style="margin-bottom:24px;">
+            <label style="display:block; font-size:12px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:10px;">Live Preview</label>
+            <div style="padding:48px; background:var(--bg-preview); border:1px solid var(--border-color); border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center;">
+              <div id="shadow-preview-box" style="
+                width:180px; height:120px; border-radius:var(--radius-lg);
+                background:var(--bg-card); border:1px solid var(--border-color);
+                transition: box-shadow 0.15s ease;
+              "></div>
+            </div>
+          </div>
+
+          <!-- CSS Output -->
+          <label style="display:block; font-size:12px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:10px;">CSS Output</label>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyShadowCSS()">Copy</button>
+            <pre><code id="shadow-css-output">box-shadow: 0px 4px 8px rgba(16, 24, 40, 0.1);</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 6: TYPOGRAPHY TESTER
+         ========================================================= -->
+    <section id="tab-typography" style="display:none;">
+      <div style="margin-bottom:24px;">
+        <h2 style="font-size:20px; font-weight:600; margin-bottom:6px;">Typography Tester</h2>
+        <p style="font-size:14px; color:var(--text-secondary);">Preview custom text across all type scale sizes with adjustable properties.</p>
+      </div>
+
+      <!-- Text input -->
+      <div style="margin-bottom:24px;">
+        <input id="typo-text-input" type="text" value="The quick brown fox jumps over the lazy dog" oninput="renderTypography()" style="
+          width:100%; max-width:640px; padding:12px 16px;
+          border:1px solid var(--border-color); border-radius:var(--radius-md);
+          background:var(--bg-card); color:var(--text-primary);
+          font-size:15px; font-family:var(--font-family);
+          outline:none; transition: border-color 0.2s, box-shadow 0.2s;
+        " onfocus="this.style.borderColor='var(--brand)'; this.style.boxShadow='0 0 0 3px var(--brand-light)'" onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'" />
+      </div>
+
+      <!-- Controls row -->
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-bottom:28px; padding:16px 20px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg);">
+        <!-- Font weight -->
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em;">Weight</label>
+          <select id="typo-weight" onchange="renderTypography()" style="
+            padding:6px 28px 6px 10px; font-size:13px; font-family:var(--font-family);
+            color:var(--text-primary); background:var(--bg-card);
+            border:1px solid var(--border-color); border-radius:var(--radius-sm);
+            cursor:pointer; outline:none;
+            -webkit-appearance:none; appearance:none;
+            background-image:url('data:image/svg+xml,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%2398A2B3%27 stroke-width=%272%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27m6 9 6 6 6-6%27/%3E%3C/svg%3E');
+            background-repeat:no-repeat; background-position:right 8px center;
+          ">
+            <option value="400">400 (Regular)</option>
+            <option value="500">500 (Medium)</option>
+            <option value="600">600 (Semibold)</option>
+          </select>
+        </div>
+
+        <!-- Line height -->
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em;">Line Height</label>
+          <select id="typo-lineheight" onchange="renderTypography()" style="
+            padding:6px 28px 6px 10px; font-size:13px; font-family:var(--font-family);
+            color:var(--text-primary); background:var(--bg-card);
+            border:1px solid var(--border-color); border-radius:var(--radius-sm);
+            cursor:pointer; outline:none;
+            -webkit-appearance:none; appearance:none;
+            background-image:url('data:image/svg+xml,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%2398A2B3%27 stroke-width=%272%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27m6 9 6 6 6-6%27/%3E%3C/svg%3E');
+            background-repeat:no-repeat; background-position:right 8px center;
+          ">
+            <option value="1.2">Tight (1.2)</option>
+            <option value="1.5" selected>Normal (1.5)</option>
+            <option value="1.8">Relaxed (1.8)</option>
+          </select>
+        </div>
+
+        <!-- Letter spacing -->
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em;">Letter Spacing</label>
+          <select id="typo-spacing" onchange="renderTypography()" style="
+            padding:6px 28px 6px 10px; font-size:13px; font-family:var(--font-family);
+            color:var(--text-primary); background:var(--bg-card);
+            border:1px solid var(--border-color); border-radius:var(--radius-sm);
+            cursor:pointer; outline:none;
+            -webkit-appearance:none; appearance:none;
+            background-image:url('data:image/svg+xml,%3Csvg width=%2712%27 height=%2712%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%2398A2B3%27 stroke-width=%272%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27m6 9 6 6 6-6%27/%3E%3C/svg%3E');
+            background-repeat:no-repeat; background-position:right 8px center;
+          ">
+            <option value="-0.02em">-0.02em</option>
+            <option value="0" selected>0</option>
+            <option value="0.02em">0.02em</option>
+            <option value="0.05em">0.05em</option>
+          </select>
+        </div>
+
+        <!-- Color -->
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em;">Color</label>
+          <input id="typo-color" type="color" value="#101828" oninput="renderTypography()" style="width:36px; height:30px; border:1px solid var(--border-color); border-radius:var(--radius-sm); cursor:pointer; background:none; padding:2px;" />
+        </div>
+
+        <!-- Alignment -->
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label style="font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em;">Align</label>
+          <div style="display:flex; gap:2px;">
+            <button class="size-btn active" data-align="left" onclick="setTypoAlign('left', this)" title="Left">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+            </button>
+            <button class="size-btn" data-align="center" onclick="setTypoAlign('center', this)" title="Center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            </button>
+            <button class="size-btn" data-align="right" onclick="setTypoAlign('right', this)" title="Right">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="9" y1="12" x2="21" y2="12"/><line x1="6" y1="18" x2="21" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography scale rows -->
+      <div id="typo-scale-rows" style="display:flex; flex-direction:column; gap:0;">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17B26A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    <span id="toast-msg">Copied!</span>
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+  <script>
+    /* ===========================================================
+       DARK MODE
+       =========================================================== */
+    (function(){
+      const saved = localStorage.getItem('ds-dark-mode');
+      if (saved === 'true') document.documentElement.classList.add('dark');
+      updateDmIcon();
+    })();
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', document.documentElement.classList.contains('dark'));
+      updateDmIcon();
+    }
+
+    function updateDmIcon() {
+      const icon = document.getElementById('dm-icon');
+      if (!icon) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      icon.innerHTML = isDark
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+    }
+
+    /* ===========================================================
+       TOAST
+       =========================================================== */
+    let toastTimeout;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    /* ===========================================================
+       TAB SWITCHING
+       =========================================================== */
+    function switchTab(id, btn) {
+      document.querySelectorAll('[id^="tab-"]').forEach(s => s.style.display = 'none');
+      document.getElementById('tab-' + id).style.display = '';
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    /* ===========================================================
+       ICON DATA — 72 stroke-based SVG icons
+       =========================================================== */
+    const ICONS = [
+      // ---- Navigation (12) ----
+      { name: 'home', category: 'navigation', svg: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>' },
+      { name: 'menu', category: 'navigation', svg: '<line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>' },
+      { name: 'chevron-left', category: 'navigation', svg: '<polyline points="15 18 9 12 15 6"/>' },
+      { name: 'chevron-right', category: 'navigation', svg: '<polyline points="9 18 15 12 9 6"/>' },
+      { name: 'chevron-up', category: 'navigation', svg: '<polyline points="18 15 12 9 6 15"/>' },
+      { name: 'chevron-down', category: 'navigation', svg: '<polyline points="6 9 12 15 18 9"/>' },
+      { name: 'arrow-left', category: 'navigation', svg: '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>' },
+      { name: 'arrow-right', category: 'navigation', svg: '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>' },
+      { name: 'arrow-up', category: 'navigation', svg: '<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>' },
+      { name: 'arrow-down', category: 'navigation', svg: '<line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>' },
+      { name: 'close', category: 'navigation', svg: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>' },
+      { name: 'search', category: 'navigation', svg: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>' },
+
+      // ---- Actions (12) ----
+      { name: 'edit', category: 'actions', svg: '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>' },
+      { name: 'delete', category: 'actions', svg: '<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>' },
+      { name: 'copy', category: 'actions', svg: '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>' },
+      { name: 'download', category: 'actions', svg: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>' },
+      { name: 'upload', category: 'actions', svg: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>' },
+      { name: 'share', category: 'actions', svg: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>' },
+      { name: 'link', category: 'actions', svg: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>' },
+      { name: 'external-link', category: 'actions', svg: '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>' },
+      { name: 'plus', category: 'actions', svg: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>' },
+      { name: 'minus', category: 'actions', svg: '<line x1="5" y1="12" x2="19" y2="12"/>' },
+      { name: 'check', category: 'actions', svg: '<polyline points="20 6 9 17 4 12"/>' },
+      { name: 'refresh', category: 'actions', svg: '<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>' },
+
+      // ---- Media (10) ----
+      { name: 'play', category: 'media', svg: '<polygon points="5 3 19 12 5 21 5 3"/>' },
+      { name: 'pause', category: 'media', svg: '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>' },
+      { name: 'stop', category: 'media', svg: '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>' },
+      { name: 'record', category: 'media', svg: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/>' },
+      { name: 'video', category: 'media', svg: '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>' },
+      { name: 'camera', category: 'media', svg: '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>' },
+      { name: 'mic', category: 'media', svg: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>' },
+      { name: 'volume', category: 'media', svg: '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>' },
+      { name: 'mute', category: 'media', svg: '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>' },
+      { name: 'screen', category: 'media', svg: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
+
+      // ---- Files (8) ----
+      { name: 'file', category: 'files', svg: '<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/>' },
+      { name: 'folder', category: 'files', svg: '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>' },
+      { name: 'image', category: 'files', svg: '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>' },
+      { name: 'document', category: 'files', svg: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>' },
+      { name: 'archive', category: 'files', svg: '<polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/>' },
+      { name: 'code', category: 'files', svg: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>' },
+      { name: 'attachment', category: 'files', svg: '<path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>' },
+      { name: 'cloud', category: 'files', svg: '<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>' },
+
+      // ---- Communication (8) ----
+      { name: 'mail', category: 'communication', svg: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/>' },
+      { name: 'phone', category: 'communication', svg: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>' },
+      { name: 'chat', category: 'communication', svg: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
+      { name: 'bell', category: 'communication', svg: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>' },
+      { name: 'send', category: 'communication', svg: '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>' },
+      { name: 'at-sign', category: 'communication', svg: '<circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>' },
+      { name: 'globe', category: 'communication', svg: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>' },
+      { name: 'users', category: 'communication', svg: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+
+      // ---- Interface (10) ----
+      { name: 'settings', category: 'interface', svg: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>' },
+      { name: 'filter', category: 'interface', svg: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>' },
+      { name: 'sort', category: 'interface', svg: '<line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>' },
+      { name: 'grid', category: 'interface', svg: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>' },
+      { name: 'list', category: 'interface', svg: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
+      { name: 'eye', category: 'interface', svg: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>' },
+      { name: 'eye-off', category: 'interface', svg: '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>' },
+      { name: 'lock', category: 'interface', svg: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>' },
+      { name: 'unlock', category: 'interface', svg: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>' },
+      { name: 'calendar', category: 'interface', svg: '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' },
+
+      // ---- Status (10) ----
+      { name: 'check-circle', category: 'status', svg: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
+      { name: 'x-circle', category: 'status', svg: '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>' },
+      { name: 'alert-triangle', category: 'status', svg: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
+      { name: 'info', category: 'status', svg: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>' },
+      { name: 'clock', category: 'status', svg: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+      { name: 'star', category: 'status', svg: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>' },
+      { name: 'heart', category: 'status', svg: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>' },
+      { name: 'flag', category: 'status', svg: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>' },
+      { name: 'bookmark', category: 'status', svg: '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>' },
+      { name: 'trending-up', category: 'status', svg: '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>' },
+    ];
+
+    let currentCategory = 'all';
+    let currentSize = 24;
+
+    function buildSvg(icon, size) {
+      return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + icon.svg + '</svg>';
+    }
+
+    function renderIcons() {
+      const grid = document.getElementById('icon-grid');
+      const query = document.getElementById('icon-search').value.toLowerCase().trim();
+
+      const filtered = ICONS.filter(function(ic) {
+        const matchCat = currentCategory === 'all' || ic.category === currentCategory;
+        const matchSearch = !query || ic.name.indexOf(query) !== -1 || ic.category.indexOf(query) !== -1;
+        return matchCat && matchSearch;
+      });
+
+      document.getElementById('icon-count').textContent = filtered.length + ' icon' + (filtered.length !== 1 ? 's' : '');
+
+      grid.innerHTML = filtered.map(function(ic) {
+        return '<div class="icon-card" onclick="copyIcon(\'' + ic.name + '\')" title="Click to copy SVG">' +
+          buildSvg(ic, currentSize) +
+          '<span class="icon-name">' + ic.name + '</span>' +
+          '</div>';
+      }).join('');
+    }
+
+    function copyIcon(name) {
+      var icon = ICONS.find(function(i) { return i.name === name; });
+      if (!icon) return;
+      var svgCode = buildSvg(icon, 24);
+      navigator.clipboard.writeText(svgCode).then(function() {
+        showToast('Copied "' + name + '" SVG');
+      });
+    }
+
+    function filterIcons() { renderIcons(); }
+
+    function filterByCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderIcons();
+    }
+
+    function setIconSize(size, btn) {
+      currentSize = size;
+      document.querySelectorAll('.size-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderIcons();
+    }
+
+    /* ===========================================================
+       TOKEN EXPORT
+       =========================================================== */
+    var currentFormat = 'css';
+
+    var TOKEN_DATA = {
+      brand: { brand: '#1F12DE', 'brand-hover': '#1a0fbc', 'brand-light': 'rgba(31,18,222,0.1)' },
+      blue: { '50': '#EFF8FF', '100': '#B2DDFF', 'light': '#53B1FD', '500': '#2970FF', '600': '#175CD3' },
+      gray: { '25': '#FCFCFD', '50': '#F9FAFB', '100': '#F2F4F7', '200': '#EAECF0', '300': '#E4E7EC', '400': '#98A2B3', '500': '#667085', '600': '#475467', '700': '#344054', '900': '#101828' },
+      success: { '50': '#ECFDF3', '100': '#D1FAE0', '200': '#A6F4C5', '500': '#17B26A', '700': '#067647', '800': '#027A48' },
+      error: { '50': '#FEF3F2', '100': '#FEE4E2', '500': '#F04438', '700': '#B42318' },
+      warning: { '50': '#FFFAEB', '100': '#FEDF89', '700': '#B54708' },
+      radius: { sm: '4px', md: '8px', lg: '10px', xl: '14px', full: '9999px' },
+      shadow: {
+        xs: '0px 1px 2px rgba(16,24,40,0.05)',
+        sm: '0px 1px 3px rgba(16,24,40,0.1), 0px 1px 2px rgba(16,24,40,0.06)',
+        md: '0px 4px 8px -2px rgba(16,24,40,0.1), 0px 2px 4px -2px rgba(16,24,40,0.06)',
+        lg: '0px 12px 16px -4px rgba(16,24,40,0.08), 0px 4px 6px -2px rgba(16,24,40,0.03)',
+        xl: '0px 20px 24px -4px rgba(16,24,40,0.08), 0px 8px 8px -4px rgba(16,24,40,0.03)',
+        '2xl': '0px 24px 48px -12px rgba(16,24,40,0.18)'
+      },
+      darkMode: { 'bg-primary': '#0C111D', 'bg-secondary': '#161B26', 'bg-tertiary': '#1F242F', 'text-primary': '#F5F5F6', 'text-secondary': '#94969C', border: '#333741' }
+    };
+
+    function generateCSS() {
+      var lines = [':root {'];
+      lines.push('  /* Brand */');
+      Object.entries(TOKEN_DATA.brand).forEach(function(e) { lines.push('  --' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Blue */');
+      Object.entries(TOKEN_DATA.blue).forEach(function(e) { lines.push('  --blue-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Gray */');
+      Object.entries(TOKEN_DATA.gray).forEach(function(e) { lines.push('  --gray-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Success */');
+      Object.entries(TOKEN_DATA.success).forEach(function(e) { lines.push('  --success-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Error */');
+      Object.entries(TOKEN_DATA.error).forEach(function(e) { lines.push('  --error-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Warning */');
+      Object.entries(TOKEN_DATA.warning).forEach(function(e) { lines.push('  --warning-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Border Radius */');
+      Object.entries(TOKEN_DATA.radius).forEach(function(e) { lines.push('  --radius-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Shadows */');
+      Object.entries(TOKEN_DATA.shadow).forEach(function(e) { lines.push('  --shadow-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('  /* Font */');
+      lines.push("  --font-family: 'Inter', system-ui, -apple-system, sans-serif;");
+      lines.push('}');
+      lines.push('');
+      lines.push('/* Dark Mode */');
+      lines.push('html.dark {');
+      Object.entries(TOKEN_DATA.darkMode).forEach(function(e) { lines.push('  --' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('}');
+      return lines.join('\n');
+    }
+
+    function generateSCSS() {
+      var lines = ['// OpenReel Design Tokens \u2014 SCSS Variables', ''];
+      lines.push('// Brand');
+      Object.entries(TOKEN_DATA.brand).forEach(function(e) { lines.push('$' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Blue');
+      Object.entries(TOKEN_DATA.blue).forEach(function(e) { lines.push('$blue-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Gray');
+      Object.entries(TOKEN_DATA.gray).forEach(function(e) { lines.push('$gray-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Success');
+      Object.entries(TOKEN_DATA.success).forEach(function(e) { lines.push('$success-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Error');
+      Object.entries(TOKEN_DATA.error).forEach(function(e) { lines.push('$error-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Warning');
+      Object.entries(TOKEN_DATA.warning).forEach(function(e) { lines.push('$warning-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Border Radius');
+      Object.entries(TOKEN_DATA.radius).forEach(function(e) { lines.push('$radius-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Shadows');
+      Object.entries(TOKEN_DATA.shadow).forEach(function(e) { lines.push('$shadow-' + e[0] + ': ' + e[1] + ';'); });
+      lines.push('');
+      lines.push('// Font');
+      lines.push("$font-family: 'Inter', system-ui, -apple-system, sans-serif;");
+      lines.push('');
+      lines.push('// Dark Mode');
+      Object.entries(TOKEN_DATA.darkMode).forEach(function(e) { lines.push('$dark-' + e[0] + ': ' + e[1] + ';'); });
+      return lines.join('\n');
+    }
+
+    function generateJSON() {
+      var obj = {
+        brand: TOKEN_DATA.brand,
+        colors: {
+          blue: TOKEN_DATA.blue,
+          gray: TOKEN_DATA.gray,
+          success: TOKEN_DATA.success,
+          error: TOKEN_DATA.error,
+          warning: TOKEN_DATA.warning
+        },
+        borderRadius: TOKEN_DATA.radius,
+        boxShadow: TOKEN_DATA.shadow,
+        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        darkMode: TOKEN_DATA.darkMode
+      };
+      return JSON.stringify(obj, null, 2);
+    }
+
+    function generateTailwind() {
+      return '// tailwind.config.js\n' +
+        'module.exports = {\n' +
+        '  theme: {\n' +
+        '    extend: {\n' +
+        '      colors: {\n' +
+        '        brand: {\n' +
+        "          DEFAULT: '" + TOKEN_DATA.brand.brand + "',\n" +
+        "          hover: '" + TOKEN_DATA.brand['brand-hover'] + "',\n" +
+        "          light: '" + TOKEN_DATA.brand['brand-light'] + "',\n" +
+        '        },\n' +
+        '        blue: {\n' +
+        "          50: '" + TOKEN_DATA.blue['50'] + "',\n" +
+        "          100: '" + TOKEN_DATA.blue['100'] + "',\n" +
+        "          light: '" + TOKEN_DATA.blue['light'] + "',\n" +
+        "          500: '" + TOKEN_DATA.blue['500'] + "',\n" +
+        "          600: '" + TOKEN_DATA.blue['600'] + "',\n" +
+        '        },\n' +
+        '        gray: {\n' +
+        "          25: '" + TOKEN_DATA.gray['25'] + "',\n" +
+        "          50: '" + TOKEN_DATA.gray['50'] + "',\n" +
+        "          100: '" + TOKEN_DATA.gray['100'] + "',\n" +
+        "          200: '" + TOKEN_DATA.gray['200'] + "',\n" +
+        "          300: '" + TOKEN_DATA.gray['300'] + "',\n" +
+        "          400: '" + TOKEN_DATA.gray['400'] + "',\n" +
+        "          500: '" + TOKEN_DATA.gray['500'] + "',\n" +
+        "          600: '" + TOKEN_DATA.gray['600'] + "',\n" +
+        "          700: '" + TOKEN_DATA.gray['700'] + "',\n" +
+        "          900: '" + TOKEN_DATA.gray['900'] + "',\n" +
+        '        },\n' +
+        '        success: {\n' +
+        "          50: '" + TOKEN_DATA.success['50'] + "',\n" +
+        "          100: '" + TOKEN_DATA.success['100'] + "',\n" +
+        "          200: '" + TOKEN_DATA.success['200'] + "',\n" +
+        "          500: '" + TOKEN_DATA.success['500'] + "',\n" +
+        "          700: '" + TOKEN_DATA.success['700'] + "',\n" +
+        "          800: '" + TOKEN_DATA.success['800'] + "',\n" +
+        '        },\n' +
+        '        error: {\n' +
+        "          50: '" + TOKEN_DATA.error['50'] + "',\n" +
+        "          100: '" + TOKEN_DATA.error['100'] + "',\n" +
+        "          500: '" + TOKEN_DATA.error['500'] + "',\n" +
+        "          700: '" + TOKEN_DATA.error['700'] + "',\n" +
+        '        },\n' +
+        '        warning: {\n' +
+        "          50: '" + TOKEN_DATA.warning['50'] + "',\n" +
+        "          100: '" + TOKEN_DATA.warning['100'] + "',\n" +
+        "          700: '" + TOKEN_DATA.warning['700'] + "',\n" +
+        '        },\n' +
+        '        dark: {\n' +
+        "          'bg-primary': '" + TOKEN_DATA.darkMode['bg-primary'] + "',\n" +
+        "          'bg-secondary': '" + TOKEN_DATA.darkMode['bg-secondary'] + "',\n" +
+        "          'bg-tertiary': '" + TOKEN_DATA.darkMode['bg-tertiary'] + "',\n" +
+        "          'text-primary': '" + TOKEN_DATA.darkMode['text-primary'] + "',\n" +
+        "          'text-secondary': '" + TOKEN_DATA.darkMode['text-secondary'] + "',\n" +
+        "          border: '" + TOKEN_DATA.darkMode['border'] + "',\n" +
+        '        },\n' +
+        '      },\n' +
+        '      borderRadius: {\n' +
+        "        sm: '" + TOKEN_DATA.radius.sm + "',\n" +
+        "        md: '" + TOKEN_DATA.radius.md + "',\n" +
+        "        lg: '" + TOKEN_DATA.radius.lg + "',\n" +
+        "        xl: '" + TOKEN_DATA.radius.xl + "',\n" +
+        "        full: '" + TOKEN_DATA.radius.full + "',\n" +
+        '      },\n' +
+        '      boxShadow: {\n' +
+        "        xs: '" + TOKEN_DATA.shadow.xs + "',\n" +
+        "        sm: '" + TOKEN_DATA.shadow.sm + "',\n" +
+        "        md: '" + TOKEN_DATA.shadow.md + "',\n" +
+        "        lg: '" + TOKEN_DATA.shadow.lg + "',\n" +
+        "        xl: '" + TOKEN_DATA.shadow.xl + "',\n" +
+        "        '2xl': '" + TOKEN_DATA.shadow['2xl'] + "',\n" +
+        '      },\n' +
+        '      fontFamily: {\n' +
+        "        sans: [\"'Inter'\", 'system-ui', '-apple-system', 'sans-serif'],\n" +
+        '      },\n' +
+        '    },\n' +
+        '  },\n' +
+        '};';
+    }
+
+    var FORMAT_GENERATORS = {
+      css: generateCSS,
+      scss: generateSCSS,
+      json: generateJSON,
+      tailwind: generateTailwind,
+    };
+
+    var FORMAT_EXT = { css: 'css', scss: 'scss', json: 'json', tailwind: 'js' };
+    var FORMAT_MIME = { css: 'text/css', scss: 'text/x-scss', json: 'application/json', tailwind: 'application/javascript' };
+
+    function switchFormat(fmt, btn) {
+      currentFormat = fmt;
+      document.querySelectorAll('.format-tab').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderTokenCode();
+    }
+
+    function renderTokenCode() {
+      document.getElementById('token-code').textContent = FORMAT_GENERATORS[currentFormat]();
+    }
+
+    function copyTokenCode() {
+      var code = FORMAT_GENERATORS[currentFormat]();
+      navigator.clipboard.writeText(code).then(function() { showToast('Tokens copied!'); });
+    }
+
+    function downloadTokens() {
+      var code = FORMAT_GENERATORS[currentFormat]();
+      var fname = currentFormat === 'tailwind' ? 'tailwind.config.js' : ('tokens.' + FORMAT_EXT[currentFormat]);
+      var blob = new Blob([code], { type: FORMAT_MIME[currentFormat] });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = fname;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded ' + fname);
+    }
+
+    /* ===========================================================
+       COLOR PALETTE GENERATOR
+       =========================================================== */
+    function hexToHSL(hex) {
+      var r = parseInt(hex.slice(1,3), 16) / 255;
+      var g = parseInt(hex.slice(3,5), 16) / 255;
+      var b = parseInt(hex.slice(5,7), 16) / 255;
+      var max = Math.max(r,g,b), min = Math.min(r,g,b);
+      var h, s, l = (max + min) / 2;
+      if (max === min) {
+        h = s = 0;
+      } else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max) {
+          case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+          case g: h = ((b - r) / d + 2) / 6; break;
+          case b: h = ((r - g) / d + 4) / 6; break;
+        }
+      }
+      return [h * 360, s * 100, l * 100];
+    }
+
+    function hslToHex(h, s, l) {
+      h /= 360; s /= 100; l /= 100;
+      var r, g, b;
+      if (s === 0) {
+        r = g = b = l;
+      } else {
+        var hue2rgb = function(p, q, t) {
+          if (t < 0) t += 1;
+          if (t > 1) t -= 1;
+          if (t < 1/6) return p + (q - p) * 6 * t;
+          if (t < 1/2) return q;
+          if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+          return p;
+        };
+        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+      }
+      var toHex = function(x) {
+        var hex = Math.round(x * 255).toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+      };
+      return ('#' + toHex(r) + toHex(g) + toHex(b)).toUpperCase();
+    }
+
+    var paletteShades = [];
+
+    function generatePalette(hex) {
+      if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
+      var hsl = hexToHSL(hex);
+      var h = hsl[0], s = hsl[1];
+
+      var lightnesses = [97, 93, 85, 74, 62, 50, 42, 34, 24, 14];
+      var saturations = [
+        Math.min(100, s * 0.3),
+        Math.min(100, s * 0.5),
+        Math.min(100, s * 0.65),
+        Math.min(100, s * 0.8),
+        Math.min(100, s * 0.9),
+        s,
+        Math.min(100, s * 1.05),
+        Math.min(100, s * 1.05),
+        Math.min(100, s * 0.95),
+        Math.min(100, s * 0.85),
+      ];
+      var labels = ['50','100','200','300','400','500','600','700','800','900'];
+
+      paletteShades = labels.map(function(label, i) {
+        return {
+          label: label,
+          hex: hslToHex(h, saturations[i], lightnesses[i]),
+        };
+      });
+
+      var grid = document.getElementById('palette-grid');
+      grid.innerHTML = paletteShades.map(function(shade) {
+        var lum = relativeLuminance(shade.hex);
+        var textColor = lum > 0.4 ? '#101828' : '#FFFFFF';
+        return '<div class="palette-swatch" style="background:' + shade.hex + '; color:' + textColor + ';" onclick="navigator.clipboard.writeText(\'' + shade.hex + '\'); showToast(\'Copied ' + shade.hex + '\')">' +
+          '<span class="swatch-label">' + shade.label + '</span>' +
+          '<span class="swatch-hex">' + shade.hex + '</span>' +
+          '</div>';
+      }).join('');
+
+      // Show CSS output
+      var wrapper = document.getElementById('palette-code-wrapper');
+      wrapper.style.display = '';
+      var lines = paletteShades.map(function(s) { return '  --color-' + s.label + ': ' + s.hex + ';'; });
+      document.getElementById('palette-css').textContent = ':root {\n' + lines.join('\n') + '\n}';
+    }
+
+    function copyFullPalette() {
+      if (!paletteShades.length) return;
+      var text = paletteShades.map(function(s) { return s.label + ': ' + s.hex; }).join('\n');
+      navigator.clipboard.writeText(text).then(function() { showToast('Palette copied!'); });
+    }
+
+    function copyPaletteCSS() {
+      var code = document.getElementById('palette-css').textContent;
+      navigator.clipboard.writeText(code).then(function() { showToast('CSS copied!'); });
+    }
+
+    /* ===========================================================
+       CONTRAST CHECKER
+       =========================================================== */
+    function hexToRGB(hex) {
+      return {
+        r: parseInt(hex.slice(1,3), 16),
+        g: parseInt(hex.slice(3,5), 16),
+        b: parseInt(hex.slice(5,7), 16),
+      };
+    }
+
+    function relativeLuminance(hex) {
+      var rgb = hexToRGB(hex);
+      var vals = [rgb.r, rgb.g, rgb.b].map(function(c) {
+        c = c / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * vals[0] + 0.7152 * vals[1] + 0.0722 * vals[2];
+    }
+
+    function contrastRatio(hex1, hex2) {
+      var l1 = relativeLuminance(hex1);
+      var l2 = relativeLuminance(hex2);
+      var lighter = Math.max(l1, l2);
+      var darker = Math.min(l1, l2);
+      return (lighter + 0.05) / (darker + 0.05);
+    }
+
+    function checkContrast() {
+      var fg = document.getElementById('contrast-fg').value;
+      var bg = document.getElementById('contrast-bg').value;
+      if (!/^#[0-9a-fA-F]{6}$/.test(fg) || !/^#[0-9a-fA-F]{6}$/.test(bg)) return;
+
+      var ratio = contrastRatio(fg, bg);
+      var ratioStr = ratio.toFixed(2) + ':1';
+
+      document.getElementById('contrast-ratio').textContent = ratioStr;
+
+      // Update preview
+      var preview = document.getElementById('contrast-preview');
+      preview.style.background = bg;
+      preview.style.color = fg;
+
+      // WCAG level checks
+      var setResult = function(id, pass) {
+        var el = document.getElementById(id);
+        el.textContent = pass ? 'Pass' : 'Fail';
+        el.className = 'contrast-result ' + (pass ? 'contrast-pass' : 'contrast-fail');
+      };
+
+      setResult('wcag-aa-normal', ratio >= 4.5);   // AA normal text: 4.5:1
+      setResult('wcag-aa-large', ratio >= 3);       // AA large text: 3:1
+      setResult('wcag-aaa-normal', ratio >= 7);     // AAA normal text: 7:1
+      setResult('wcag-aaa-large', ratio >= 4.5);    // AAA large text: 4.5:1
+    }
+
+    function swapContrastColors() {
+      var fg = document.getElementById('contrast-fg');
+      var bg = document.getElementById('contrast-bg');
+      var fgPicker = document.getElementById('contrast-fg-picker');
+      var bgPicker = document.getElementById('contrast-bg-picker');
+      var tmpVal = fg.value;
+      fg.value = bg.value;
+      bg.value = tmpVal;
+      fgPicker.value = fg.value;
+      bgPicker.value = bg.value;
+      checkContrast();
+    }
+
+    /* ===========================================================
+       SHADOW PLAYGROUND
+       =========================================================== */
+    var shadowLayers = [
+      { offsetX: 0, offsetY: 4, blur: 8, spread: -2, color: '#101828', opacity: 10 }
+    ];
+
+    var SHADOW_PRESETS = {
+      xs:  [{ offsetX: 0, offsetY: 1, blur: 2, spread: 0, color: '#101828', opacity: 5 }],
+      sm:  [{ offsetX: 0, offsetY: 1, blur: 3, spread: 0, color: '#101828', opacity: 10 }, { offsetX: 0, offsetY: 1, blur: 2, spread: 0, color: '#101828', opacity: 6 }],
+      md:  [{ offsetX: 0, offsetY: 4, blur: 8, spread: -2, color: '#101828', opacity: 10 }, { offsetX: 0, offsetY: 2, blur: 4, spread: -2, color: '#101828', opacity: 6 }],
+      lg:  [{ offsetX: 0, offsetY: 12, blur: 16, spread: -4, color: '#101828', opacity: 8 }, { offsetX: 0, offsetY: 4, blur: 6, spread: -2, color: '#101828', opacity: 3 }],
+      xl:  [{ offsetX: 0, offsetY: 20, blur: 24, spread: -4, color: '#101828', opacity: 8 }, { offsetX: 0, offsetY: 8, blur: 8, spread: -4, color: '#101828', opacity: 3 }],
+      '2xl': [{ offsetX: 0, offsetY: 24, blur: 48, spread: -12, color: '#101828', opacity: 18 }]
+    };
+
+    function loadShadowPreset(name) {
+      shadowLayers = SHADOW_PRESETS[name].map(function(l) { return Object.assign({}, l); });
+      renderShadowControls();
+      updateShadowPreview();
+    }
+
+    function addShadowLayer() {
+      shadowLayers.push({ offsetX: 0, offsetY: 4, blur: 8, spread: 0, color: '#101828', opacity: 10 });
+      renderShadowControls();
+      updateShadowPreview();
+    }
+
+    function removeShadowLayer(idx) {
+      if (shadowLayers.length <= 1) return;
+      shadowLayers.splice(idx, 1);
+      renderShadowControls();
+      updateShadowPreview();
+    }
+
+    function resetShadowLayers() {
+      shadowLayers = [{ offsetX: 0, offsetY: 4, blur: 8, spread: -2, color: '#101828', opacity: 10 }];
+      renderShadowControls();
+      updateShadowPreview();
+    }
+
+    function updateShadowLayerProp(idx, prop, value) {
+      shadowLayers[idx][prop] = prop === 'color' ? value : parseFloat(value);
+      updateShadowPreview();
+    }
+
+    function buildShadowValue() {
+      return shadowLayers.map(function(l) {
+        var rgb = hexToRGB(l.color);
+        var alpha = (l.opacity / 100).toFixed(2);
+        return l.offsetX + 'px ' + l.offsetY + 'px ' + l.blur + 'px ' + l.spread + 'px rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', ' + alpha + ')';
+      }).join(', ');
+    }
+
+    function updateShadowPreview() {
+      var val = buildShadowValue();
+      document.getElementById('shadow-preview-box').style.boxShadow = val;
+      document.getElementById('shadow-css-output').textContent = 'box-shadow: ' + val + ';';
+    }
+
+    function copyShadowCSS() {
+      var text = 'box-shadow: ' + buildShadowValue() + ';';
+      navigator.clipboard.writeText(text).then(function() { showToast('Shadow CSS copied!'); });
+    }
+
+    function renderShadowControls() {
+      var container = document.getElementById('shadow-layers-container');
+      container.innerHTML = shadowLayers.map(function(l, idx) {
+        var canRemove = shadowLayers.length > 1;
+        return '<div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:16px; margin-bottom:12px;">' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">' +
+            '<span style="font-size:12px; font-weight:600; color:var(--text-primary);">Layer ' + (idx + 1) + '</span>' +
+            (canRemove ? '<button onclick="removeShadowLayer(' + idx + ')" style="padding:4px 8px; font-size:11px; color:var(--error-500); background:none; border:1px solid var(--error-500); border-radius:var(--radius-sm); cursor:pointer; font-family:var(--font-family);">Remove</button>' : '') +
+          '</div>' +
+          makeShadowSlider('Offset X', idx, 'offsetX', l.offsetX, -50, 50) +
+          makeShadowSlider('Offset Y', idx, 'offsetY', l.offsetY, -50, 50) +
+          makeShadowSlider('Blur', idx, 'blur', l.blur, 0, 100) +
+          makeShadowSlider('Spread', idx, 'spread', l.spread, -50, 50) +
+          makeShadowSlider('Opacity', idx, 'opacity', l.opacity, 0, 100) +
+          '<div style="display:flex; align-items:center; gap:8px; margin-top:8px;">' +
+            '<label style="font-size:11px; font-weight:500; color:var(--text-secondary); min-width:60px;">Color</label>' +
+            '<input type="color" value="' + l.color + '" oninput="updateShadowLayerProp(' + idx + ', \'color\', this.value); updateShadowPreview();" style="width:32px; height:28px; border:1px solid var(--border-color); border-radius:var(--radius-sm); cursor:pointer; background:none; padding:1px;" />' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function makeShadowSlider(label, idx, prop, value, min, max) {
+      return '<div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">' +
+        '<label style="font-size:11px; font-weight:500; color:var(--text-secondary); min-width:60px;">' + label + '</label>' +
+        '<input type="range" min="' + min + '" max="' + max + '" value="' + value + '" oninput="updateShadowLayerProp(' + idx + ', \'' + prop + '\', this.value); this.nextElementSibling.textContent=this.value+(\'' + prop + '\'===\'opacity\'?\'%\':\'px\');" style="flex:1; accent-color:var(--brand);" />' +
+        '<span style="font-size:11px; font-weight:500; color:var(--text-tertiary); min-width:36px; text-align:right; font-family:\'SF Mono\',monospace;">' + value + (prop === 'opacity' ? '%' : 'px') + '</span>' +
+      '</div>';
+    }
+
+    /* ===========================================================
+       TYPOGRAPHY TESTER
+       =========================================================== */
+    var typoAlign = 'left';
+
+    var TYPE_SCALE = [
+      { label: '2XL', size: '24px', weight: '600' },
+      { label: 'XL',  size: '20px', weight: '600' },
+      { label: 'LG',  size: '18px', weight: '600' },
+      { label: 'MD',  size: '16px', weight: '500' },
+      { label: 'Base', size: '14px', weight: '400' },
+      { label: 'SM',  size: '12px', weight: '400' },
+      { label: 'XS',  size: '10px', weight: '400' },
+    ];
+
+    function setTypoAlign(align, btn) {
+      typoAlign = align;
+      document.querySelectorAll('[data-align]').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderTypography();
+    }
+
+    function renderTypography() {
+      var text = document.getElementById('typo-text-input').value || 'The quick brown fox jumps over the lazy dog';
+      var weight = document.getElementById('typo-weight').value;
+      var lineHeight = document.getElementById('typo-lineheight').value;
+      var spacing = document.getElementById('typo-spacing').value;
+      var color = document.getElementById('typo-color').value;
+
+      var container = document.getElementById('typo-scale-rows');
+      container.innerHTML = TYPE_SCALE.map(function(t, idx) {
+        var effectiveWeight = weight;
+        var cssProps = 'font-size: ' + t.size + '; font-weight: ' + effectiveWeight + '; line-height: ' + lineHeight + '; letter-spacing: ' + spacing + '; color: ' + color + ';';
+        var isLast = idx === TYPE_SCALE.length - 1;
+        return '<div style="padding:20px 0; border-bottom:' + (isLast ? 'none' : '1px solid var(--border-color)') + '; display:grid; grid-template-columns:80px 1fr auto; gap:16px; align-items:center;">' +
+          '<div>' +
+            '<span style="font-size:13px; font-weight:600; color:var(--brand);">' + t.label + '</span>' +
+            '<div style="font-size:11px; color:var(--text-tertiary); margin-top:2px;">' + t.size + '/' + effectiveWeight + '</div>' +
+          '</div>' +
+          '<div style="font-family:var(--font-family); font-size:' + t.size + '; font-weight:' + effectiveWeight + '; line-height:' + lineHeight + '; letter-spacing:' + spacing + '; color:' + color + '; text-align:' + typoAlign + '; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">' +
+            escapeHtml(text) +
+          '</div>' +
+          '<button onclick="copyTypoCSS(\'' + cssProps.replace(/'/g, "\\'") + '\')" style="' +
+            'padding:5px 12px; font-size:11px; font-weight:500; color:var(--text-secondary);' +
+            'background:var(--bg-card); border:1px solid var(--border-color);' +
+            'border-radius:var(--radius-sm); cursor:pointer; font-family:var(--font-family);' +
+            'transition:all 0.15s; white-space:nowrap;' +
+          '">Copy CSS</button>' +
+        '</div>';
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function copyTypoCSS(css) {
+      navigator.clipboard.writeText(css).then(function() { showToast('Typography CSS copied!'); });
+    }
+
+    /* ===========================================================
+       INIT
+       =========================================================== */
+    renderIcons();
+    renderTokenCode();
+    generatePalette('#1F12DE');
+    checkContrast();
+    renderShadowControls();
+    updateShadowPreview();
+    renderTypography();
+  </script>
+</body>
+</html>
