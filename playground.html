@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playground - OpenReel Design System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --brand:        #1F12DE;
+      --brand-hover:  #1a0fbc;
+      --brand-light:  rgba(31, 18, 222, 0.1);
+      --brand-r: 31;
+      --brand-g: 18;
+      --brand-b: 222;
+
+      --blue-50:   #EFF8FF;
+      --blue-100:  #B2DDFF;
+      --blue-500:  #2970FF;
+      --blue-600:  #175CD3;
+      --blue-light:#53B1FD;
+
+      --gray-25:   #FCFCFD;
+      --gray-50:   #F9FAFB;
+      --gray-100:  #F2F4F7;
+      --gray-200:  #EAECF0;
+      --gray-300:  #E4E7EC;
+      --gray-400:  #98A2B3;
+      --gray-500:  #667085;
+      --gray-600:  #475467;
+      --gray-700:  #344054;
+      --gray-900:  #101828;
+
+      --success-50:  #ECFDF3;
+      --success-100: #D1FAE0;
+      --success-200: #A6F4C5;
+      --success-500: #17B26A;
+      --success-700: #067647;
+      --success-800: #027A48;
+
+      --error-50:  #FEF3F2;
+      --error-100: #FEE4E2;
+      --error-500: #F04438;
+      --error-700: #B42318;
+
+      --warning-50:  #FFFAEB;
+      --warning-100: #FEDF89;
+      --warning-700: #B54708;
+
+      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   10px;
+      --radius-xl:   14px;
+      --radius-full: 9999px;
+
+      --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    }
+
+    /* Light mode */
+    html:not(.dark) {
+      --bg-page:      #F9FAFB;
+      --bg-card:      #FFFFFF;
+      --bg-preview:   #FFFFFF;
+      --bg-controls:  #F9FAFB;
+      --bg-sidebar:   #FFFFFF;
+      --border-color: #EAECF0;
+      --text-primary: #101828;
+      --text-secondary: #667085;
+      --text-tertiary: #98A2B3;
+      --code-bg:      #101828;
+    }
+
+    /* Dark mode */
+    html.dark {
+      --bg-page:      #0C111D;
+      --bg-card:      #161B26;
+      --bg-preview:   #161B26;
+      --bg-controls:  #1F242F;
+      --bg-sidebar:   #161B26;
+      --border-color: #333741;
+      --text-primary: #F5F5F6;
+      --text-secondary: #94969C;
+      --text-tertiary: #667085;
+      --code-bg:      #0C0E14;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
+
+    /* ---- Sidebar ---- */
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-family);
+    }
+    .sidebar-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-controls);
+    }
+    .sidebar-link.active {
+      color: var(--brand);
+      background: rgba(var(--brand-r), var(--brand-g), var(--brand-b), 0.08);
+      font-weight: 600;
+    }
+    html.dark .sidebar-link.active {
+      background: rgba(var(--brand-r), var(--brand-g), var(--brand-b), 0.12);
+    }
+
+    /* ---- Controls ---- */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .control-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+    }
+    .control-select,
+    .control-input {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: var(--font-family);
+      color: var(--text-primary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .control-select:focus,
+    .control-input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(var(--brand-r), var(--brand-g), var(--brand-b), 0.15);
+    }
+    .control-select {
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2398A2B3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 32px;
+    }
+
+    .control-checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .control-checkbox-wrap input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--brand);
+      cursor: pointer;
+    }
+    .control-checkbox-wrap span {
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
+    .control-range {
+      width: 100%;
+      accent-color: var(--brand);
+    }
+
+    .control-color {
+      width: 100%;
+      height: 36px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      padding: 2px;
+      background: var(--bg-card);
+    }
+
+    /* ---- Preset Buttons ---- */
+    .preset-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: var(--font-family);
+      color: var(--text-primary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .preset-btn:hover {
+      border-color: var(--brand);
+      box-shadow: var(--shadow-sm);
+    }
+    .preset-btn.active {
+      border-color: var(--brand);
+      background: rgba(var(--brand-r), var(--brand-g), var(--brand-b), 0.08);
+    }
+    .preset-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ---- Code Output ---- */
+    .code-output {
+      position: relative;
+      background: var(--code-bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .code-output pre {
+      margin: 0;
+      padding: 20px 24px;
+      overflow-x: auto;
+      max-height: 300px;
+    }
+    .code-output code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-family);
+    }
+    .copy-btn:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- DM Toggle ---- */
+    .dm-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dm-toggle:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- Collapsible theme panel ---- */
+    .theme-panel-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-family);
+      transition: color 0.2s;
+    }
+    .theme-panel-toggle:hover { color: var(--brand); }
+    .theme-panel-toggle svg { transition: transform 0.25s ease; }
+    .theme-panel-toggle.collapsed svg { transform: rotate(-90deg); }
+
+    .theme-panel-body {
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.25s ease;
+      max-height: 200px;
+      opacity: 1;
+    }
+    .theme-panel-body.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    /* ---- Loading spinner ---- */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    .spinner-dark {
+      border-color: rgba(0,0,0,0.15);
+      border-top-color: var(--brand);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 1024px) {
+      .layout-sidebar { display: none !important; }
+      .layout-main { margin-left: 0 !important; }
+    }
+    @media (max-width: 768px) {
+      .playground-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .playground-grid .controls-panel-wrap {
+        border-left: none !important;
+        border-top: 1px solid var(--border-color);
+      }
+    }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  </style>
+</head>
+
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link active">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       LAYOUT: Sidebar + Main
+       ========================================================= -->
+  <div style="display:flex; padding-top:64px; min-height:100vh;">
+
+    <!-- SIDEBAR -->
+    <aside class="layout-sidebar" style="
+      position: fixed; top: 64px; left: 0; bottom: 0;
+      width: 240px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      padding: 20px 12px;
+      overflow-y: auto;
+      transition: background 0.25s, border-color 0.25s;
+      z-index: 40;
+    ">
+      <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-tertiary); padding:0 14px 10px; margin-bottom:4px;">
+        Components
+      </div>
+      <button class="sidebar-link active" onclick="switchFromSidebar('button', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="2"/><path d="M12 8v8"/></svg>
+        Button
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('badge', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 014.78-4.77 4 4 0 016.74 0 4 4 0 014.78 4.78 4 4 0 010 6.74 4 4 0 01-4.77 4.78 4 4 0 01-6.75 0 4 4 0 01-4.78-4.77 4 4 0 010-6.76z"/></svg>
+        Badge
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('input', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+        Input
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('card', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/></svg>
+        Card
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('avatar', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 00-16 0"/></svg>
+        Avatar
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('toggle', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="16" cy="12" r="3"/></svg>
+        Toggle
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('table', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+        Table
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('toast', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        Toast
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('modal', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h4"/></svg>
+        Modal
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('progress', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83"/></svg>
+        Progress
+      </button>
+
+      <div style="height:1px; background:var(--border-color); margin:16px 14px;"></div>
+
+      <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-tertiary); padding:0 14px 10px; margin-bottom:4px;">
+        Guides &amp; Tools
+      </div>
+      <button class="sidebar-link" onclick="switchFromSidebar('anatomy', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        Anatomy
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('migration', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+        Migration
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('writing', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Writing
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('api', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        API Tables
+      </button>
+      <button class="sidebar-link" onclick="switchFromSidebar('figma', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 117 0 3.5 3.5 0 11-7 0z"/><path d="M5 19.5A3.5 3.5 0 018.5 16H12v3.5a3.5 3.5 0 11-7 0z"/><path d="M5 12.5A3.5 3.5 0 018.5 9H12v7H8.5A3.5 3.5 0 015 12.5z"/></svg>
+        Figma Setup
+      </button>
+
+      <div style="height:1px; background:var(--border-color); margin:16px 14px;"></div>
+
+      <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-tertiary); padding:0 14px 10px; margin-bottom:4px;">
+        Resources
+      </div>
+      <a href="index.html" class="sidebar-link" style="text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to Docs
+      </a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="layout-main" style="
+      margin-left: 240px;
+      flex: 1;
+      padding: 32px 32px 60px;
+      max-width: 1200px;
+      min-width: 0;
+    ">
+
+      <!-- Page Title -->
+      <div style="margin-bottom:28px;">
+        <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em; margin-bottom:6px;">
+          Component Playground
+        </h1>
+        <p style="font-size:15px; color:var(--text-secondary); max-width:600px;">
+          Explore, customize, and preview every component in the OpenReel Design System. Tweak controls and copy the generated code.
+        </p>
+      </div>
+
+      <!-- =========================================================
+           THEME SWITCHER (collapsible)
+           ========================================================= -->
+      <div style="
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        transition: background 0.25s, border-color 0.25s;
+      ">
+        <button class="theme-panel-toggle" onclick="toggleThemePanel()" id="theme-toggle-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          Theme Presets
+          <span style="font-size:11px; font-weight:500; color:var(--text-tertiary); margin-left:4px;" id="theme-active-label">OpenReel</span>
+        </button>
+        <div class="theme-panel-body" id="theme-panel-body" style="margin-top:14px;">
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:12px; font-weight:500; color:var(--text-secondary);">Custom</span>
+              <input type="color" id="theme-color" value="#1F12DE" class="control-color" style="width:40px; height:28px;" onchange="applyThemeColor(this.value)" />
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;" id="preset-btns">
+              <button class="preset-btn active" data-name="OpenReel" onclick="selectPreset('#1F12DE', this, 'OpenReel')">
+                <span class="preset-dot" style="background:#1F12DE;"></span> OpenReel
+              </button>
+              <button class="preset-btn" data-name="Ocean" onclick="selectPreset('#0891B2', this, 'Ocean')">
+                <span class="preset-dot" style="background:#0891B2;"></span> Ocean
+              </button>
+              <button class="preset-btn" data-name="Forest" onclick="selectPreset('#059669', this, 'Forest')">
+                <span class="preset-dot" style="background:#059669;"></span> Forest
+              </button>
+              <button class="preset-btn" data-name="Sunset" onclick="selectPreset('#EA580C', this, 'Sunset')">
+                <span class="preset-dot" style="background:#EA580C;"></span> Sunset
+              </button>
+              <button class="preset-btn" data-name="Purple" onclick="selectPreset('#7C3AED', this, 'Purple')">
+                <span class="preset-dot" style="background:#7C3AED;"></span> Purple
+              </button>
+            </div>
+          </div>
+          <!-- Theme strip preview -->
+          <div style="display:flex; align-items:center; gap:10px; padding:12px 16px; background:var(--bg-controls); border:1px solid var(--border-color); border-radius:var(--radius-lg); margin-top:14px; transition:background 0.25s, border-color 0.25s;" id="theme-strip"></div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           PLAYGROUND PANEL (preview + controls grid)
+           ========================================================= -->
+      <div class="playground-grid" style="
+        display:grid;
+        grid-template-columns: 1fr 320px;
+        gap: 0;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        min-height: 460px;
+        transition: background 0.25s, border-color 0.25s;
+      ">
+        <!-- PREVIEW AREA -->
+        <div style="
+          display:flex; align-items:center; justify-content:center;
+          padding: 48px 40px;
+          background: var(--bg-preview);
+          transition: background 0.25s;
+          min-height: 460px;
+          position: relative;
+        " id="preview-area">
+          <!-- Live preview rendered here -->
+          <div style="position:absolute; top:14px; left:16px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary);">
+            Live Preview
+          </div>
+        </div>
+
+        <!-- CONTROLS PANEL -->
+        <div class="controls-panel-wrap" style="
+          border-left: 1px solid var(--border-color);
+          background: var(--bg-controls);
+          transition: background 0.25s, border-color 0.25s;
+          display: flex;
+          flex-direction: column;
+        ">
+          <div style="padding:16px 20px 12px; border-bottom:1px solid var(--border-color); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary);">
+            Controls
+          </div>
+          <div style="
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+          " id="controls-panel">
+            <!-- Controls injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           SPLIT VIEW (Light/Dark side by side)
+           ========================================================= -->
+      <div id="split-view-panel" style="
+        display:none;
+        margin-top:24px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        transition: background 0.25s, border-color 0.25s;
+      ">
+        <div style="display:grid; grid-template-columns:1fr 1fr; min-height:320px;">
+          <!-- Light half -->
+          <div style="position:relative; border-right:1px solid var(--border-color);">
+            <div style="position:absolute; top:12px; left:14px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#667085; background:rgba(255,255,255,0.85); padding:2px 8px; border-radius:4px; z-index:2;">Light</div>
+            <div id="split-light" style="
+              display:flex; align-items:center; justify-content:center;
+              padding:48px 32px;
+              background:#FFFFFF; color:#101828;
+              min-height:320px;
+            "></div>
+          </div>
+          <!-- Dark half -->
+          <div style="position:relative;">
+            <div style="position:absolute; top:12px; left:14px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#94969C; background:rgba(22,27,38,0.85); padding:2px 8px; border-radius:4px; z-index:2;">Dark</div>
+            <div id="split-dark" style="
+              display:flex; align-items:center; justify-content:center;
+              padding:48px 32px;
+              background:#0C111D; color:#F5F5F6;
+              min-height:320px;
+            "></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           COMPARE MODE (multiple instances)
+           ========================================================= -->
+      <div id="compare-panel" style="
+        display:none;
+        margin-top:24px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        transition: background 0.25s, border-color 0.25s;
+      ">
+        <div style="padding:14px 20px; border-bottom:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary);">Compare Variants</span>
+          <div style="display:flex; gap:8px;">
+            <button onclick="addCompareInstance()" style="padding:5px 12px; font-size:12px; font-weight:600; color:#fff; background:var(--brand); border:none; border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family);">Add Instance</button>
+            <button onclick="resetCompareInstances()" style="padding:5px 12px; font-size:12px; font-weight:500; color:var(--text-secondary); background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family);">Reset All</button>
+          </div>
+        </div>
+        <div id="compare-instances" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:0;">
+          <!-- Compare instances rendered by JS -->
+        </div>
+      </div>
+
+      <!-- =========================================================
+           CODE OUTPUT (multi-framework)
+           ========================================================= -->
+      <div style="margin-top:24px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <span style="font-size:13px; font-weight:600; color:var(--text-secondary);">Generated Code</span>
+          <div style="display:flex; gap:2px; background:var(--bg-controls); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:2px;" id="code-tabs">
+            <button class="code-tab active" onclick="switchCodeTab('html', this)" style="padding:5px 12px; font-size:12px; font-weight:600; border:none; border-radius:6px; cursor:pointer; font-family:var(--font-family); background:var(--bg-card); color:var(--text-primary); transition:all .15s;">HTML</button>
+            <button class="code-tab" onclick="switchCodeTab('react', this)" style="padding:5px 12px; font-size:12px; font-weight:600; border:none; border-radius:6px; cursor:pointer; font-family:var(--font-family); background:transparent; color:var(--text-tertiary); transition:all .15s;">React</button>
+            <button class="code-tab" onclick="switchCodeTab('vue', this)" style="padding:5px 12px; font-size:12px; font-weight:600; border:none; border-radius:6px; cursor:pointer; font-family:var(--font-family); background:transparent; color:var(--text-tertiary); transition:all .15s;">Vue</button>
+            <button class="code-tab" onclick="switchCodeTab('svelte', this)" style="padding:5px 12px; font-size:12px; font-weight:600; border:none; border-radius:6px; cursor:pointer; font-family:var(--font-family); background:transparent; color:var(--text-tertiary); transition:all .15s;">Svelte</button>
+          </div>
+        </div>
+        <div class="code-output">
+          <button class="copy-btn" onclick="copyCode()">Copy</button>
+          <pre><code id="code-output"></code></pre>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+  <script>
+    // -----------------------------------------------------------
+    // DARK MODE
+    // -----------------------------------------------------------
+    (function initDarkMode() {
+      const saved = localStorage.getItem('ds-dark-mode');
+      if (saved === 'true') document.documentElement.classList.add('dark');
+      updateDmIcon();
+    })();
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', document.documentElement.classList.contains('dark'));
+      updateDmIcon();
+      renderCurrentComponent();
+      renderThemeStrip();
+    }
+
+    function updateDmIcon() {
+      const icon = document.getElementById('dm-icon');
+      if (!icon) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      icon.innerHTML = isDark
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+    }
+
+    // -----------------------------------------------------------
+    // THEME COLOR
+    // -----------------------------------------------------------
+    let currentBrand = '#1F12DE';
+    let currentPresetName = 'OpenReel';
+
+    function hexToRgb(hex) {
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return { r, g, b };
+    }
+
+    function darkenHex(hex, amount) {
+      const { r, g, b } = hexToRgb(hex);
+      const d = 1 - amount;
+      return '#' + [r,g,b].map(c => Math.max(0, Math.round(c * d)).toString(16).padStart(2,'0')).join('');
+    }
+
+    function applyThemeColor(hex) {
+      currentBrand = hex;
+      const { r, g, b } = hexToRgb(hex);
+      const root = document.documentElement.style;
+      root.setProperty('--brand', hex);
+      root.setProperty('--brand-hover', darkenHex(hex, 0.15));
+      root.setProperty('--brand-light', `rgba(${r}, ${g}, ${b}, 0.1)`);
+      root.setProperty('--brand-r', r);
+      root.setProperty('--brand-g', g);
+      root.setProperty('--brand-b', b);
+      document.getElementById('theme-color').value = hex;
+      renderCurrentComponent();
+      renderThemeStrip();
+    }
+
+    function selectPreset(hex, btn, name) {
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      currentPresetName = name || 'Custom';
+      document.getElementById('theme-active-label').textContent = currentPresetName;
+      applyThemeColor(hex);
+    }
+
+    // -----------------------------------------------------------
+    // COLLAPSIBLE THEME PANEL
+    // -----------------------------------------------------------
+    function toggleThemePanel() {
+      const btn = document.getElementById('theme-toggle-btn');
+      const body = document.getElementById('theme-panel-body');
+      btn.classList.toggle('collapsed');
+      body.classList.toggle('collapsed');
+    }
+
+    // -----------------------------------------------------------
+    // THEME STRIP PREVIEW
+    // -----------------------------------------------------------
+    function renderThemeStrip() {
+      const strip = document.getElementById('theme-strip');
+      strip.innerHTML = `
+        <button style="padding:6px 14px; font-size:12px; font-weight:600; color:#fff; background:var(--brand); border:none; border-radius:6px; cursor:default; font-family:var(--font-family);">Button</button>
+        <span style="display:inline-flex; align-items:center; gap:4px; padding:3px 10px; font-size:11px; font-weight:600; background:rgba(var(--brand-r),var(--brand-g),var(--brand-b),0.12); color:var(--brand); border-radius:999px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--brand);"></span>Active
+        </span>
+        <span style="display:inline-flex; padding:6px 14px; font-size:12px; font-weight:600; color:var(--brand); border-bottom:2px solid var(--brand); cursor:default;">Tab</span>
+        <span style="width:32px;height:32px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">OR</span>
+      `;
+    }
+
+    // -----------------------------------------------------------
+    // COMPONENT STATE
+    // -----------------------------------------------------------
+    let activeComponent = 'button';
+    let activeCodeTab = 'html';
+
+    const state = {
+      button: { variant: 'primary', size: 'md', disabled: false, icon: false, loading: false, text: 'Get Started' },
+      badge:  { color: 'brand', size: 'md', dot: true, close: false, text: 'Active' },
+      input:  { type: 'text', size: 'md', label: 'Email Address', placeholder: 'Enter your email...', helper: '', error: false, disabled: false, icon: false },
+      card:   { variant: 'session', withImage: false, title: 'Design Review Q4', subtitle: 'Project', badge: true },
+      avatar: { size: 'md', shape: 'circle', initials: 'OR', status: false, statusType: 'online', group: false },
+      toggle: { size: 'md', label: 'Notifications', disabled: false, checked: true, color: 'brand' },
+      table:  { rows: 5, striped: true, bordered: false, compact: false, withCheckbox: true, withSorting: true },
+      toast:  { type: 'success', position: 'top-right', withIcon: true, withClose: true, autoDismiss: true, message: 'Changes saved successfully!' },
+      modal:  { size: 'md', withHeader: true, withFooter: true, title: 'Confirm Action', content: 'confirm' },
+      progress: { value: 65, size: 'md', color: 'brand', withLabel: true, animated: false, indeterminate: false },
+      anatomy:  { component: 'button', showMeasurements: true, showTokens: true, showCSS: false, scale: 150 },
+      migration: { framework: 'bootstrap', component: 'button' },
+      writing:  { context: 'button', tone: 'friendly', text: 'Get Started' },
+      api:      { component: 'button', filter: 'all', search: '' },
+      figma:    { step: 'install' },
+    };
+
+    // -----------------------------------------------------------
+    // SIDEBAR SWITCH
+    // -----------------------------------------------------------
+    function switchFromSidebar(name, btn) {
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      switchComponent(name);
+    }
+
+    function switchComponent(name) {
+      activeComponent = name;
+      renderControls();
+      renderCurrentComponent();
+    }
+
+    function renderCurrentComponent() {
+      renderers[activeComponent]();
+      updateCodeOutput();
+    }
+
+    // -----------------------------------------------------------
+    // CONTROLS RENDERING
+    // -----------------------------------------------------------
+    function renderControls() {
+      const panel = document.getElementById('controls-panel');
+      panel.innerHTML = controlBuilders[activeComponent]();
+      panel.querySelectorAll('select, input').forEach(el => {
+        el.addEventListener('input', () => {
+          syncStateFromControls();
+          renderCurrentComponent();
+        });
+        if (el.tagName === 'SELECT') {
+          el.addEventListener('change', () => {
+            syncStateFromControls();
+            renderCurrentComponent();
+          });
+        }
+      });
+    }
+
+    function syncStateFromControls() {
+      const s = state[activeComponent];
+      const panel = document.getElementById('controls-panel');
+      panel.querySelectorAll('[data-prop]').forEach(el => {
+        const prop = el.dataset.prop;
+        if (el.type === 'checkbox') {
+          s[prop] = el.checked;
+        } else if (el.type === 'range') {
+          s[prop] = parseInt(el.value);
+        } else {
+          s[prop] = el.value;
+        }
+      });
+    }
+
+    // -----------------------------------------------------------
+    // CONTROL BUILDERS
+    // -----------------------------------------------------------
+    const controlBuilders = {
+      button() {
+        const s = state.button;
+        return `
+          ${makeSelect('Variant', 'variant', ['primary','secondary','tertiary','danger','success'], s.variant)}
+          ${makeSelect('Size', 'size', ['sm','md','lg'], s.size)}
+          ${makeTextInput('Label', 'text', s.text)}
+          ${makeCheckbox('Disabled', 'disabled', s.disabled)}
+          ${makeCheckbox('Show Icon', 'icon', s.icon)}
+          ${makeCheckbox('Loading', 'loading', s.loading)}
+        `;
+      },
+      badge() {
+        const s = state.badge;
+        return `
+          ${makeSelect('Color', 'color', ['gray','blue','green','red','yellow','brand'], s.color)}
+          ${makeSelect('Size', 'size', ['sm','md','lg'], s.size)}
+          ${makeTextInput('Text', 'text', s.text)}
+          ${makeCheckbox('Status Dot', 'dot', s.dot)}
+          ${makeCheckbox('Close Button', 'close', s.close)}
+        `;
+      },
+      input() {
+        const s = state.input;
+        return `
+          ${makeSelect('Type', 'type', ['text','email','password','search'], s.type)}
+          ${makeSelect('Size', 'size', ['sm','md','lg'], s.size)}
+          ${makeTextInput('Label', 'label', s.label)}
+          ${makeTextInput('Placeholder', 'placeholder', s.placeholder)}
+          ${makeTextInput('Helper Text', 'helper', s.helper)}
+          ${makeCheckbox('Error State', 'error', s.error)}
+          ${makeCheckbox('Disabled', 'disabled', s.disabled)}
+          ${makeCheckbox('Leading Icon', 'icon', s.icon)}
+        `;
+      },
+      card() {
+        const s = state.card;
+        return `
+          ${makeSelect('Variant', 'variant', ['session','project','video'], s.variant)}
+          ${makeTextInput('Title', 'title', s.title)}
+          ${makeTextInput('Subtitle', 'subtitle', s.subtitle)}
+          ${makeCheckbox('With Image', 'withImage', s.withImage)}
+          ${makeCheckbox('Show Badge', 'badge', s.badge)}
+        `;
+      },
+      avatar() {
+        const s = state.avatar;
+        return `
+          ${makeSelect('Size', 'size', ['xs','sm','md','lg','xl'], s.size)}
+          ${makeSelect('Shape', 'shape', ['circle','rounded'], s.shape)}
+          ${makeTextInput('Initials', 'initials', s.initials)}
+          ${makeCheckbox('Status Indicator', 'status', s.status)}
+          ${makeSelect('Status Type', 'statusType', ['online','offline','away'], s.statusType)}
+          ${makeCheckbox('Group (Avatar Stack)', 'group', s.group)}
+        `;
+      },
+      toggle() {
+        const s = state.toggle;
+        return `
+          ${makeSelect('Size', 'size', ['sm','md','lg'], s.size)}
+          ${makeTextInput('Label', 'label', s.label)}
+          ${makeCheckbox('Checked', 'checked', s.checked)}
+          ${makeCheckbox('Disabled', 'disabled', s.disabled)}
+          ${makeSelect('Color', 'color', ['brand','success','warning','error'], s.color)}
+        `;
+      },
+      table() {
+        const s = state.table;
+        return `
+          ${makeSelect('Rows', 'rows', ['3','5','10'], String(s.rows))}
+          ${makeCheckbox('Striped', 'striped', s.striped)}
+          ${makeCheckbox('Bordered', 'bordered', s.bordered)}
+          ${makeCheckbox('Compact', 'compact', s.compact)}
+          ${makeCheckbox('With Checkbox', 'withCheckbox', s.withCheckbox)}
+          ${makeCheckbox('With Sorting', 'withSorting', s.withSorting)}
+        `;
+      },
+      toast() {
+        const s = state.toast;
+        return `
+          ${makeSelect('Type', 'type', ['success','error','warning','info'], s.type)}
+          ${makeSelect('Position', 'position', ['top-right','top-left','bottom-right','bottom-left'], s.position)}
+          ${makeCheckbox('With Icon', 'withIcon', s.withIcon)}
+          ${makeCheckbox('With Close Button', 'withClose', s.withClose)}
+          ${makeCheckbox('Auto-dismiss', 'autoDismiss', s.autoDismiss)}
+          ${makeTextInput('Message', 'message', s.message)}
+        `;
+      },
+      modal() {
+        const s = state.modal;
+        return `
+          ${makeSelect('Size', 'size', ['sm','md','lg','fullscreen'], s.size)}
+          ${makeCheckbox('With Header', 'withHeader', s.withHeader)}
+          ${makeCheckbox('With Footer', 'withFooter', s.withFooter)}
+          ${makeTextInput('Title', 'title', s.title)}
+          ${makeSelect('Content', 'content', ['confirm','form','info'], s.content)}
+        `;
+      },
+      progress() {
+        const s = state.progress;
+        return `
+          ${makeRange('Value', 'value', 0, 100, s.value)}
+          ${makeSelect('Size', 'size', ['sm','md','lg'], s.size)}
+          ${makeSelect('Color', 'color', ['brand','success','warning','error'], s.color)}
+          ${makeCheckbox('With Label', 'withLabel', s.withLabel)}
+          ${makeCheckbox('Animated', 'animated', s.animated)}
+          ${makeCheckbox('Indeterminate', 'indeterminate', s.indeterminate)}
+        `;
+      },
+      anatomy() {
+        const s = state.anatomy;
+        return `
+          ${makeSelect('Component', 'component', ['button','card','input','modal'], s.component)}
+          ${makeCheckbox('Show Measurements', 'showMeasurements', s.showMeasurements)}
+          ${makeCheckbox('Show Token Names', 'showTokens', s.showTokens)}
+          ${makeCheckbox('Show CSS Properties', 'showCSS', s.showCSS)}
+          ${makeRange('Scale', 'scale', 100, 200, s.scale)}
+        `;
+      },
+      migration() {
+        const s = state.migration;
+        return `
+          ${makeSelect('Source Framework', 'framework', ['bootstrap','materialui','chakra'], s.framework)}
+          ${makeSelect('Component', 'component', ['button','card','input','badge','alert','table'], s.component)}
+        `;
+      },
+      writing() {
+        const s = state.writing;
+        return `
+          ${makeSelect('Context', 'context', ['button','error','empty','tooltip','success','formlabel'], s.context)}
+          ${makeSelect('Tone', 'tone', ['formal','friendly','neutral'], s.tone)}
+          ${makeTextInput('Your Text', 'text', s.text)}
+        `;
+      },
+      api() {
+        const s = state.api;
+        return `
+          ${makeSelect('Component', 'component', ['button','badge','input','card','avatar','toggle','modal','toast','table','progress'], s.component)}
+          ${makeSelect('Filter', 'filter', ['all','required','optional'], s.filter)}
+          ${makeTextInput('Search Props', 'search', s.search)}
+        `;
+      },
+      figma() {
+        const s = state.figma;
+        return `
+          ${makeSelect('Setup Step', 'step', ['install','load','apply','export','publish'], s.step)}
+        `;
+      }
+    };
+
+    // -----------------------------------------------------------
+    // CONTROL HELPERS
+    // -----------------------------------------------------------
+    function makeSelect(label, prop, options, value) {
+      const opts = options.map(o =>
+        `<option value="${o}" ${o === value ? 'selected' : ''}>${o.charAt(0).toUpperCase() + o.slice(1)}</option>`
+      ).join('');
+      return `
+        <div class="control-group">
+          <label class="control-label">${label}</label>
+          <select class="control-select" data-prop="${prop}">${opts}</select>
+        </div>
+      `;
+    }
+
+    function makeTextInput(label, prop, value) {
+      return `
+        <div class="control-group">
+          <label class="control-label">${label}</label>
+          <input type="text" class="control-input" data-prop="${prop}" value="${escHtml(value)}" />
+        </div>
+      `;
+    }
+
+    function makeCheckbox(label, prop, checked) {
+      return `
+        <div class="control-group">
+          <label class="control-checkbox-wrap">
+            <input type="checkbox" data-prop="${prop}" ${checked ? 'checked' : ''} />
+            <span>${label}</span>
+          </label>
+        </div>
+      `;
+    }
+
+    function makeRange(label, prop, min, max, value) {
+      return `
+        <div class="control-group">
+          <label class="control-label">${label}: <strong id="range-val-${prop}">${value}</strong></label>
+          <input type="range" class="control-range" data-prop="${prop}" min="${min}" max="${max}" value="${value}"
+            oninput="document.getElementById('range-val-${prop}').textContent = this.value" />
+        </div>
+      `;
+    }
+
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // -----------------------------------------------------------
+    // SVG ICONS
+    // -----------------------------------------------------------
+    const icons = {
+      play: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
+      arrow: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`,
+      search: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
+      calendar: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>`,
+      video: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>`,
+      clock: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+      mail: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>`,
+      lock: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>`,
+      x: `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
+    };
+
+    function getIcon(name, size) {
+      return (icons[name] || icons.play).replace(/SIZE/g, size || 16);
+    }
+
+    // -----------------------------------------------------------
+    // COMPONENT RENDERERS
+    // -----------------------------------------------------------
+    const renderers = {
+
+      /* ----- BUTTON ----- */
+      button() {
+        const s = state.button;
+        const preview = document.getElementById('preview-area');
+
+        const sizeMap = {
+          sm: { px: '12px', py: '7px', fs: '13px', iconSize: 14, gap: '6px' },
+          md: { px: '16px', py: '9px', fs: '14px', iconSize: 16, gap: '8px' },
+          lg: { px: '22px', py: '11px', fs: '15px', iconSize: 18, gap: '8px' },
+        };
+        const sz = sizeMap[s.size];
+
+        const variantStyles = {
+          primary:   { bg: 'var(--brand)', color: '#fff', border: 'var(--brand)', hoverBg: 'var(--brand-hover)' },
+          secondary: { bg: 'var(--bg-card)', color: 'var(--text-primary)', border: 'var(--border-color)', hoverBg: 'var(--bg-controls)' },
+          tertiary:  { bg: 'transparent', color: 'var(--text-secondary)', border: 'transparent', hoverBg: 'var(--bg-controls)' },
+          danger:    { bg: 'var(--error-500)', color: '#fff', border: 'var(--error-500)', hoverBg: 'var(--error-700)' },
+          success:   { bg: 'var(--success-500)', color: '#fff', border: 'var(--success-500)', hoverBg: 'var(--success-700)' },
+        };
+        const vs = variantStyles[s.variant];
+
+        const iconHtml = s.icon && !s.loading ? getIcon('play', sz.iconSize) : '';
+        const spinnerColor = (s.variant === 'secondary' || s.variant === 'tertiary') ? 'spinner-dark' : '';
+        const loadingHtml = s.loading ? `<span class="spinner ${spinnerColor}" style="width:${sz.iconSize}px;height:${sz.iconSize}px;"></span>` : '';
+
+        const inner = [];
+        if (s.loading) inner.push(loadingHtml);
+        if (s.icon && !s.loading) inner.push(iconHtml);
+        inner.push(`<span>${escHtml(s.text)}</span>`);
+
+        const opacity = s.disabled ? '0.5' : '1';
+        const cursor = s.disabled ? 'not-allowed' : 'pointer';
+
+        setPreview(preview, `
+          <button style="
+            display:inline-flex; align-items:center; gap:${sz.gap};
+            padding:${sz.py} ${sz.px};
+            font-size:${sz.fs}; font-weight:600; font-family:var(--font-family);
+            color:${vs.color}; background:${vs.bg};
+            border:1px solid ${vs.border}; border-radius:var(--radius-md);
+            cursor:${cursor}; opacity:${opacity};
+            transition:all 0.2s ease;
+            box-shadow: var(--shadow-xs);
+            line-height:1.4;
+          " ${s.disabled ? 'disabled' : ''}
+            onmouseover="if(!this.disabled){this.style.background='${vs.hoverBg}'}"
+            onmouseout="if(!this.disabled){this.style.background='${vs.bg}'}"
+          >${inner.join('')}</button>
+        `);
+      },
+
+      /* ----- BADGE ----- */
+      badge() {
+        const s = state.badge;
+        const preview = document.getElementById('preview-area');
+        const isDark = document.documentElement.classList.contains('dark');
+
+        const colorMap = {
+          gray:   { bg: isDark ? 'rgba(148,150,156,0.12)' : 'var(--gray-100)',     color: isDark ? '#94969C' : 'var(--gray-700)',    dot: 'var(--gray-400)' },
+          blue:   { bg: isDark ? 'rgba(41,112,255,0.12)' : 'var(--blue-50)',        color: isDark ? '#53B1FD' : 'var(--blue-600)',     dot: 'var(--blue-500)' },
+          green:  { bg: isDark ? 'rgba(23,178,106,0.12)' : 'var(--success-50)',     color: isDark ? '#A6F4C5' : 'var(--success-700)',  dot: 'var(--success-500)' },
+          red:    { bg: isDark ? 'rgba(240,68,56,0.12)' : 'var(--error-50)',        color: isDark ? '#FEE4E2' : 'var(--error-700)',    dot: 'var(--error-500)' },
+          yellow: { bg: isDark ? 'rgba(181,71,8,0.12)' : 'var(--warning-50)',       color: isDark ? '#FEDF89' : 'var(--warning-700)',  dot: 'var(--warning-700)' },
+          brand:  { bg: `rgba(var(--brand-r),var(--brand-g),var(--brand-b),0.1)`, color: 'var(--brand)', dot: 'var(--brand)' },
+        };
+        const c = colorMap[s.color];
+
+        const sizeMap = {
+          sm: { py: '2px', px: '8px',  fs: '11px' },
+          md: { py: '3px', px: '10px', fs: '12px' },
+          lg: { py: '4px', px: '14px', fs: '13px' },
+        };
+        const sz = sizeMap[s.size];
+
+        const label = s.text || s.color.charAt(0).toUpperCase() + s.color.slice(1);
+        const dotHtml = s.dot ? `<span style="width:6px;height:6px;border-radius:50%;background:${c.dot};flex-shrink:0;"></span>` : '';
+        const closeHtml = s.close ? `<button style="display:flex;align-items:center;justify-content:center;width:14px;height:14px;background:none;border:none;cursor:pointer;color:${c.color};padding:0;margin-left:2px;opacity:0.7;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">${getIcon('x', 12)}</button>` : '';
+
+        setPreview(preview, `
+          <span style="
+            display:inline-flex; align-items:center; gap:5px;
+            padding:${sz.py} ${sz.px}; font-size:${sz.fs}; font-weight:600;
+            border-radius:var(--radius-full);
+            background:${c.bg}; color:${c.color};
+            line-height:1.4;
+          ">${dotHtml}${escHtml(label)}${closeHtml}</span>
+        `);
+      },
+
+      /* ----- INPUT ----- */
+      input() {
+        const s = state.input;
+        const preview = document.getElementById('preview-area');
+
+        const sizeMap = {
+          sm: { py: '7px',  px: '12px', fs: '13px', iconPl: '34px' },
+          md: { py: '10px', px: '14px', fs: '14px', iconPl: '40px' },
+          lg: { py: '12px', px: '16px', fs: '15px', iconPl: '44px' },
+        };
+        const sz = sizeMap[s.size];
+
+        const borderColor = s.error ? 'var(--error-500)' : 'var(--border-color)';
+        const focusShadow = s.error
+          ? '0 0 0 3px rgba(240,68,56,0.15)'
+          : '0 0 0 3px rgba(var(--brand-r),var(--brand-g),var(--brand-b),0.15)';
+        const opacity = s.disabled ? '0.5' : '1';
+
+        const typeIcons = { text: 'arrow', email: 'mail', password: 'lock', search: 'search' };
+        const iconName = typeIcons[s.type] || 'search';
+
+        let labelHtml = '';
+        if (s.label) {
+          labelHtml = `<label style="display:block;font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:6px;">${escHtml(s.label)}</label>`;
+        }
+
+        const inputType = s.type === 'search' ? 'text' : s.type;
+        const paddingLeft = s.icon ? sz.iconPl : sz.px;
+
+        const baseStyle = `
+          width:340px; padding:${sz.py} ${sz.px}; padding-left:${paddingLeft};
+          font-size:${sz.fs}; font-family:var(--font-family);
+          color:var(--text-primary); background:var(--bg-card);
+          border:1px solid ${borderColor}; border-radius:var(--radius-md);
+          outline:none; opacity:${opacity};
+          transition:border-color 0.2s, box-shadow 0.2s;
+        `;
+
+        const iconEl = s.icon ? `<span style="position:absolute;left:${sz.px};top:50%;transform:translateY(-50%);color:var(--text-tertiary);display:flex;">${getIcon(iconName, 16)}</span>` : '';
+
+        let inputEl = `
+          <div style="position:relative;width:340px;">
+            ${iconEl}
+            <input type="${inputType}" style="${baseStyle}"
+              placeholder="${escHtml(s.placeholder)}" ${s.disabled ? 'disabled' : ''}
+              onfocus="this.style.borderColor='${s.error ? 'var(--error-500)' : 'var(--brand)'}'; this.style.boxShadow='${focusShadow}'"
+              onblur="this.style.borderColor='${borderColor}'; this.style.boxShadow='none'" />
+          </div>`;
+
+        let helperHtml = '';
+        if (s.error) {
+          helperHtml = `<span style="font-size:12px;color:var(--error-500);margin-top:4px;display:block;">This field is required.</span>`;
+        } else if (s.helper) {
+          helperHtml = `<span style="font-size:12px;color:var(--text-tertiary);margin-top:4px;display:block;">${escHtml(s.helper)}</span>`;
+        }
+
+        setPreview(preview, `<div style="width:340px;">${labelHtml}${inputEl}${helperHtml}</div>`);
+      },
+
+      /* ----- CARD ----- */
+      card() {
+        const s = state.card;
+        const preview = document.getElementById('preview-area');
+        const isDark = document.documentElement.classList.contains('dark');
+
+        const typeIcons = { session: 'calendar', project: 'video', video: 'play' };
+        const statusColors = {
+          session:  { bg: `rgba(var(--brand-r),var(--brand-g),var(--brand-b),0.1)`, color: 'var(--brand)', dot: 'var(--brand)', label: 'Active' },
+          project:  { bg: isDark ? 'rgba(23,178,106,0.1)' : 'var(--success-50)', color: isDark ? '#A6F4C5' : 'var(--success-700)', dot: 'var(--success-500)', label: 'In Progress' },
+          video:    { bg: isDark ? 'rgba(41,112,255,0.1)' : 'var(--blue-50)', color: isDark ? '#53B1FD' : 'var(--blue-600)', dot: 'var(--blue-500)', label: 'Uploaded' },
+        };
+        const sc = statusColors[s.variant];
+
+        const imageHtml = s.withImage ? `
+          <div style="
+            width:100%; height:160px; border-radius:var(--radius-md); margin-bottom:14px;
+            background: linear-gradient(135deg, rgba(var(--brand-r),var(--brand-g),var(--brand-b),0.15), rgba(var(--brand-r),var(--brand-g),var(--brand-b),0.05));
+            display:flex; align-items:center; justify-content:center; color:var(--brand); opacity:0.5;
+          ">${getIcon(typeIcons[s.variant], 40)}</div>
+        ` : '';
+
+        const badgeHtml = s.badge ? `
+          <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;
+            font-size:11px;font-weight:600;border-radius:999px;white-space:nowrap;
+            background:${sc.bg};color:${sc.color};">
+            <span style="width:6px;height:6px;border-radius:50%;background:${sc.dot};"></span>
+            ${sc.label}
+          </span>
+        ` : '';
+
+        setPreview(preview, `
+          <div style="
+            width:360px; padding:20px;
+            background:var(--bg-card); border:1px solid var(--border-color);
+            border-radius:var(--radius-xl); box-shadow:var(--shadow-md);
+            transition:all 0.25s;
+          ">
+            ${imageHtml}
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+              <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+                <div style="width:36px;height:36px;border-radius:var(--radius-md);flex-shrink:0;
+                  background:rgba(var(--brand-r),var(--brand-g),var(--brand-b),0.1);
+                  display:flex;align-items:center;justify-content:center;color:var(--brand);">
+                  ${getIcon(typeIcons[s.variant], 18)}
+                </div>
+                <div style="min-width:0;">
+                  <div style="font-size:14px;font-weight:600;color:var(--text-primary);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml(s.title)}</div>
+                  <div style="font-size:12px;color:var(--text-tertiary);margin-top:2px;">${escHtml(s.subtitle)}</div>
+                </div>
+              </div>
+              ${badgeHtml}
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-color);">
+              <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-tertiary);">
+                ${getIcon('clock', 13)} 2h 45m
+              </span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-tertiary);">
+                ${getIcon('video', 13)} 4 clips
+              </span>
+            </div>
+          </div>
+        `);
+      },
+
+      /* ----- AVATAR ----- */
+      avatar() {
+        const s = state.avatar;
+        const preview = document.getElementById('preview-area');
+
+        const sizeMap = { xs: 24, sm: 32, md: 40, lg: 48, xl: 64 };
+        const sz = sizeMap[s.size];
+        const fs = Math.round(sz * 0.35);
+        const borderRadius = s.shape === 'circle' ? '50%' : `${Math.round(sz * 0.2)}px`;
+
+        const statusColorMap = { online: 'var(--success-500)', offline: 'var(--gray-400)', away: 'var(--warning-700)' };
+        const statusDot = s.status ? `
+          <span style="position:absolute;bottom:${s.shape === 'circle' ? '0' : '-1px'};right:${s.shape === 'circle' ? '0' : '-1px'};
+            width:${Math.max(8, Math.round(sz*0.25))}px;height:${Math.max(8, Math.round(sz*0.25))}px;
+            border-radius:50%;background:${statusColorMap[s.statusType]};
+            border:2px solid var(--bg-card);"></span>` : '';
+
+        const avatarColors = ['var(--brand)','#2970FF','#17B26A','#F04438','#B54708','#7C3AED'];
+        const avatarInitials = [s.initials || 'OR','SD','MR','KL','JW','TP'];
+
+        if (s.group) {
+          const count = 4;
+          let html = '<div style="display:flex;align-items:center;">';
+          for (let i = 0; i < count; i++) {
+            const ml = i > 0 ? `-${Math.round(sz * 0.22)}px` : '0';
+            html += `
+              <div style="
+                position:relative; width:${sz}px; height:${sz}px; border-radius:${borderRadius};
+                background:${avatarColors[i]}; display:flex; align-items:center; justify-content:center;
+                font-size:${fs}px; font-weight:600; color:#fff;
+                border:2px solid var(--bg-card);
+                margin-left:${ml}; z-index:${count - i};
+              ">${escHtml(avatarInitials[i])}</div>`;
+          }
+          html += `
+            <div style="
+              width:${sz}px; height:${sz}px; border-radius:${borderRadius};
+              background:var(--bg-controls); display:flex; align-items:center; justify-content:center;
+              font-size:${Math.round(fs * 0.85)}px; font-weight:600; color:var(--text-secondary);
+              border:2px solid var(--bg-card);
+              margin-left:-${Math.round(sz * 0.22)}px; z-index:0;
+            ">+3</div>
+          `;
+          html += '</div>';
+          setPreview(preview, html);
+        } else {
+          setPreview(preview, `
+            <div style="
+              position:relative; width:${sz}px; height:${sz}px; border-radius:${borderRadius};
+              background:var(--brand); display:flex; align-items:center; justify-content:center;
+              font-size:${fs}px; font-weight:600; color:#fff;
+            ">${escHtml(s.initials || 'OR')}${statusDot}</div>
+          `);
+        }
+      },
+
+      /* ----- TOGGLE / SWITCH ----- */
+      toggle() {
+        const s = state.toggle;
+        const preview = document.getElementById('preview-area');
+        const sizeMap = { sm: { w: 36, h: 20, dot: 14, tx: 16 }, md: { w: 44, h: 24, dot: 18, tx: 20 }, lg: { w: 56, h: 30, dot: 24, tx: 26 } };
+        const sz = sizeMap[s.size];
+        const colorMap = { brand: 'var(--brand)', success: 'var(--success-500)', warning: 'var(--warning-700)', error: 'var(--error-500)' };
+        const bg = s.checked ? colorMap[s.color] : 'var(--gray-300)';
+        const dotLeft = s.checked ? `${sz.tx}px` : '3px';
+        const opacity = s.disabled ? '0.5' : '1';
+        const cursor = s.disabled ? 'not-allowed' : 'pointer';
+
+        setPreview(preview, `
+          <label style="display:inline-flex;align-items:center;gap:10px;cursor:${cursor};opacity:${opacity};font-family:var(--font-family);">
+            <div style="position:relative;width:${sz.w}px;height:${sz.h}px;background:${bg};border-radius:${sz.h}px;transition:background .2s;cursor:inherit;">
+              <div style="position:absolute;top:3px;left:${dotLeft};width:${sz.dot}px;height:${sz.dot}px;background:#fff;border-radius:50%;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.15);"></div>
+            </div>
+            <span style="font-size:14px;font-weight:500;color:var(--text-primary);">${escHtml(s.label)}</span>
+          </label>
+        `);
+      },
+
+      /* ----- TABLE ----- */
+      table() {
+        const s = state.table;
+        const preview = document.getElementById('preview-area');
+        const rowCount = parseInt(s.rows);
+        const data = [
+          ['Q4 Brand Review','Completed','45 min','Mar 10'],
+          ['Product Demo v3','Active','1h 20m','Mar 9'],
+          ['Team Onboarding','Upcoming','--','Mar 15'],
+          ['Sales Kickoff','Draft','--','Mar 8'],
+          ['Investor Pitch','Completed','30 min','Mar 7'],
+          ['Interview Series','Active','2h 10m','Mar 6'],
+          ['Tutorial Recording','Completed','1h 5m','Mar 5'],
+          ['BTS Footage','Draft','--','Mar 4'],
+          ['Webinar Prep','Upcoming','--','Mar 3'],
+          ['Final Cut Review','Completed','55 min','Mar 2'],
+        ];
+        const rows = data.slice(0, rowCount);
+        const pad = s.compact ? '6px 10px' : '10px 14px';
+        const fs = s.compact ? '12px' : '13px';
+        const border = s.bordered ? '1px solid var(--border-color)' : 'none';
+        const sortIcon = s.withSorting ? ' <span style="color:var(--text-tertiary);font-size:10px;">&#9650;&#9660;</span>' : '';
+
+        let thead = '<tr>';
+        if (s.withCheckbox) thead += `<th style="padding:${pad};width:40px;border-bottom:1px solid var(--border-color);background:var(--bg-controls);font-size:${fs};font-weight:600;color:var(--text-secondary);"><input type="checkbox" style="accent-color:var(--brand);width:15px;height:15px;cursor:pointer;"></th>`;
+        thead += `<th style="padding:${pad};text-align:left;border-bottom:1px solid var(--border-color);background:var(--bg-controls);font-size:${fs};font-weight:600;color:var(--text-secondary);">Name${sortIcon}</th>`;
+        thead += `<th style="padding:${pad};text-align:left;border-bottom:1px solid var(--border-color);background:var(--bg-controls);font-size:${fs};font-weight:600;color:var(--text-secondary);">Status</th>`;
+        thead += `<th style="padding:${pad};text-align:left;border-bottom:1px solid var(--border-color);background:var(--bg-controls);font-size:${fs};font-weight:600;color:var(--text-secondary);">Duration${sortIcon}</th>`;
+        thead += `<th style="padding:${pad};text-align:left;border-bottom:1px solid var(--border-color);background:var(--bg-controls);font-size:${fs};font-weight:600;color:var(--text-secondary);">Date</th>`;
+        thead += '</tr>';
+
+        let tbody = '';
+        rows.forEach((r, i) => {
+          const bg = s.striped && i % 2 === 1 ? 'background:var(--bg-controls);' : '';
+          tbody += `<tr style="${bg}">`;
+          if (s.withCheckbox) tbody += `<td style="padding:${pad};border-bottom:1px solid var(--border-color);font-size:${fs};${s.bordered?'border-right:'+border+';':''}"><input type="checkbox" style="accent-color:var(--brand);width:15px;height:15px;cursor:pointer;"></td>`;
+          tbody += `<td style="padding:${pad};border-bottom:1px solid var(--border-color);font-size:${fs};font-weight:500;color:var(--text-primary);">${r[0]}</td>`;
+          tbody += `<td style="padding:${pad};border-bottom:1px solid var(--border-color);font-size:${fs};color:var(--text-secondary);">${r[1]}</td>`;
+          tbody += `<td style="padding:${pad};border-bottom:1px solid var(--border-color);font-size:${fs};color:var(--text-secondary);">${r[2]}</td>`;
+          tbody += `<td style="padding:${pad};border-bottom:1px solid var(--border-color);font-size:${fs};color:var(--text-secondary);">${r[3]}</td>`;
+          tbody += '</tr>';
+        });
+
+        setPreview(preview, `
+          <div style="width:100%;max-width:600px;border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;">
+            <table style="width:100%;border-collapse:collapse;font-family:var(--font-family);">
+              <thead>${thead}</thead>
+              <tbody>${tbody}</tbody>
+            </table>
+          </div>
+        `);
+      },
+
+      /* ----- TOAST ----- */
+      toast() {
+        const s = state.toast;
+        const preview = document.getElementById('preview-area');
+        const colors = {
+          success: { bg: 'var(--success-50)', border: 'var(--success-200)', color: 'var(--success-700)', icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
+          error:   { bg: 'var(--error-50)', border: 'var(--error-100)', color: 'var(--error-700)', icon: '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>' },
+          warning: { bg: 'var(--warning-50)', border: 'var(--warning-100)', color: 'var(--warning-700)', icon: '<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
+          info:    { bg: 'var(--blue-50)', border: 'var(--blue-100)', color: 'var(--blue-600)', icon: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>' },
+        };
+        const c = colors[s.type];
+        const posMap = { 'top-right': 'top:12px;right:12px;', 'top-left': 'top:12px;left:12px;', 'bottom-right': 'bottom:12px;right:12px;', 'bottom-left': 'bottom:12px;left:12px;' };
+        const posStyle = posMap[s.position];
+
+        const iconHtml = s.withIcon ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${c.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">${c.icon}</svg>` : '';
+        const closeHtml = s.withClose ? `<button style="display:flex;align-items:center;justify-content:center;width:20px;height:20px;background:none;border:none;cursor:pointer;color:var(--text-tertiary);flex-shrink:0;margin-left:auto;">${getIcon('x', 14)}</button>` : '';
+        const dismissHtml = s.autoDismiss ? '<div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:' + c.color + ';border-radius:0 0 var(--radius-md) var(--radius-md);opacity:.3;animation:shrink 5s linear forwards;"></div>' : '';
+
+        setPreview(preview, `
+          <div style="position:relative;width:100%;height:200px;background:var(--bg-controls);border-radius:var(--radius-lg);border:1px dashed var(--border-color);">
+            <div style="position:absolute;${posStyle}display:flex;align-items:flex-start;gap:10px;padding:12px 16px;
+              background:${c.bg};border:1px solid ${c.border};border-radius:var(--radius-md);
+              font-family:var(--font-family);font-size:13px;color:${c.color};font-weight:500;
+              max-width:340px;box-shadow:var(--shadow-md);overflow:hidden;">
+              ${iconHtml}
+              <span style="line-height:1.4;">${escHtml(s.message)}</span>
+              ${closeHtml}
+              ${dismissHtml}
+            </div>
+          </div>
+        `);
+      },
+
+      /* ----- MODAL ----- */
+      modal() {
+        const s = state.modal;
+        const preview = document.getElementById('preview-area');
+        const sizeMap = { sm: '360px', md: '480px', lg: '640px', fullscreen: '100%' };
+        const w = sizeMap[s.size];
+        const isFs = s.size === 'fullscreen';
+        const radius = isFs ? '0' : 'var(--radius-xl)';
+        const h = isFs ? '100%' : 'auto';
+
+        const headerHtml = s.withHeader ? `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border-color);">
+            <span style="font-size:16px;font-weight:600;color:var(--text-primary);">${escHtml(s.title)}</span>
+            <button style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border:none;background:none;cursor:pointer;color:var(--text-tertiary);border-radius:var(--radius-md);">${getIcon('x', 16)}</button>
+          </div>
+        ` : '';
+
+        const contentMap = {
+          confirm: `<div style="padding:20px;font-size:14px;color:var(--text-secondary);line-height:1.6;">Are you sure you want to proceed? This action cannot be undone.</div>`,
+          form: `<div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+            <div><label style="display:block;font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:6px;">Name</label><input style="width:100%;padding:9px 14px;font-size:14px;font-family:var(--font-family);border:1px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);background:var(--bg-card);" placeholder="Enter name" readonly></div>
+            <div><label style="display:block;font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:6px;">Email</label><input style="width:100%;padding:9px 14px;font-size:14px;font-family:var(--font-family);border:1px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);background:var(--bg-card);" placeholder="Enter email" readonly></div>
+          </div>`,
+          info: `<div style="padding:20px;font-size:14px;color:var(--text-secondary);line-height:1.6;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span style="font-weight:600;color:var(--text-primary);">Information</span></div>
+            Your recording session has been saved. All participants have been notified via email.
+          </div>`,
+        };
+
+        const footerHtml = s.withFooter ? `
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--border-color);">
+            <button style="padding:8px 16px;font-size:13px;font-weight:500;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);cursor:pointer;font-family:var(--font-family);">Cancel</button>
+            <button style="padding:8px 16px;font-size:13px;font-weight:600;color:#fff;background:var(--brand);border:none;border-radius:var(--radius-md);cursor:pointer;font-family:var(--font-family);">Confirm</button>
+          </div>
+        ` : '';
+
+        setPreview(preview, `
+          <div style="position:relative;width:100%;height:300px;display:flex;align-items:center;justify-content:center;background:rgba(16,24,40,.4);border-radius:var(--radius-lg);">
+            <div style="width:${w};max-width:calc(100% - 32px);height:${h};background:var(--bg-card);border-radius:${radius};box-shadow:var(--shadow-2xl);overflow:hidden;display:flex;flex-direction:column;font-family:var(--font-family);">
+              ${headerHtml}
+              ${contentMap[s.content]}
+              ${footerHtml}
+            </div>
+          </div>
+        `);
+      },
+
+      /* ----- PROGRESS ----- */
+      progress() {
+        const s = state.progress;
+        const preview = document.getElementById('preview-area');
+        const sizeMap = { sm: 4, md: 8, lg: 14 };
+        const h = sizeMap[s.size];
+        const colorMap = { brand: 'var(--brand)', success: 'var(--success-500)', warning: 'var(--warning-700)', error: 'var(--error-500)' };
+        const barColor = colorMap[s.color];
+        const val = s.indeterminate ? 30 : parseInt(s.value);
+        const animStyle = s.animated && !s.indeterminate ? 'background-image:linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);background-size:1rem 1rem;animation:progress-stripes 1s linear infinite;' : '';
+        const indeterminateStyle = s.indeterminate ? 'animation:indeterminate 1.5s ease infinite;position:absolute;' : '';
+
+        const labelHtml = s.withLabel && !s.indeterminate ? `<div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;font-weight:500;"><span style="color:var(--text-primary);">Progress</span><span style="color:var(--text-secondary);">${val}%</span></div>` : '';
+        const labelHtmlIndet = s.withLabel && s.indeterminate ? `<div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;font-weight:500;"><span style="color:var(--text-primary);">Loading...</span></div>` : '';
+
+        setPreview(preview, `
+          <div style="width:320px;font-family:var(--font-family);">
+            ${labelHtml}${labelHtmlIndet}
+            <div style="position:relative;width:100%;height:${h}px;background:var(--bg-controls);border-radius:${h}px;overflow:hidden;">
+              <div style="width:${val}%;height:100%;background:${barColor};border-radius:${h}px;transition:width .3s ease;${animStyle}${indeterminateStyle}"></div>
+            </div>
+          </div>
+          <style>
+            @keyframes progress-stripes { 0% { background-position: 1rem 0; } 100% { background-position: 0 0; } }
+            @keyframes indeterminate { 0% { left:-30%;width:30%; } 50% { left:50%;width:40%; } 100% { left:100%;width:30%; } }
+          
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+        `);
+      },
+
+      /* ----- ANATOMY DIAGRAMS ----- */
+      anatomy() {
+        const s = state.anatomy;
+        const preview = document.getElementById('preview-area');
+        const scale = (parseInt(s.scale) || 150) / 100;
+        const showM = s.showMeasurements;
+        const showT = s.showTokens;
+        const showC = s.showCSS;
+
+        function mLabel(val, token, cssProp) {
+          let parts = [];
+          if (showM) parts.push(val);
+          if (showT) parts.push(token);
+          if (showC) parts.push(cssProp);
+          return parts.join(' ');
+        }
+
+        function mLine(dir, top, left, size, color, label) {
+          const isH = dir === 'h';
+          const w = isH ? size : '2px';
+          const h = isH ? '2px' : size;
+          return '<div style="position:absolute;top:'+top+';left:'+left+';width:'+w+';height:'+h+';border-top:'+(isH?'2px dashed '+color:'none')+';border-left:'+(isH?'none':'2px dashed '+color)+';z-index:10;"></div>' +
+            '<div style="position:absolute;top:calc('+top+' + '+(isH?'-16px':'0px')+');left:calc('+left+' + '+(isH?'0px':'8px')+');font-size:10px;font-weight:600;color:'+color+';white-space:nowrap;font-family:monospace;z-index:11;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">'+label+'</div>';
+        }
+
+        let html = '';
+        if (s.component === 'button') {
+          html = '<div style="position:relative;display:inline-block;transform:scale('+scale+');transform-origin:center;">' +
+            '<button style="display:inline-flex;align-items:center;gap:8px;padding:9px 16px;font-size:14px;font-weight:600;font-family:var(--font-family);color:#fff;background:var(--brand);border:1px solid var(--brand);border-radius:10px;cursor:pointer;box-shadow:var(--shadow-xs);line-height:1.4;height:40px;">' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>' +
+              '<span>Get Started</span>' +
+            '</button>' +
+            (showM || showT || showC ?
+              mLine('h','50%','2px','16px','#E04438', mLabel('16px','--space-4','padding-inline')) +
+              mLine('h','50%','calc(100% - 18px)','16px','#E04438', mLabel('16px','--space-4','padding-inline')) +
+              mLine('v','2px','50%','9px','#E04438', mLabel('9px','--space-2','padding-block')) +
+              mLine('h','50%','calc(50% - 20px)','8px','#2970FF', mLabel('8px','--space-2','gap')) +
+              '<div style="position:absolute;bottom:-28px;left:0;font-size:10px;font-weight:600;color:#17B26A;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('14px','--text-sm','font-size') + '</div>' +
+              '<div style="position:absolute;bottom:-44px;left:0;font-size:10px;font-weight:600;color:#17B26A;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('600','--font-semibold','font-weight') + '</div>' +
+              '<div style="position:absolute;top:-24px;right:0;font-size:10px;font-weight:600;color:#7C3AED;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('10px','--radius-lg','border-radius') + '</div>' +
+              '<div style="position:absolute;top:-24px;left:0;font-size:10px;font-weight:600;color:#2970FF;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('40px','--size-10','height') + '</div>' +
+              '<div style="position:absolute;bottom:-60px;left:0;font-size:10px;font-weight:600;color:#B54708;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('#1F12DE','--brand','background-color') + '</div>'
+            : '') +
+          '</div>';
+        } else if (s.component === 'card') {
+          html = '<div style="position:relative;display:inline-block;transform:scale('+scale+');transform-origin:center;">' +
+            '<div style="width:280px;padding:16px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:14px;box-shadow:var(--shadow-md);font-family:var(--font-family);">' +
+              '<div style="font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:12px;">Design Review</div>' +
+              '<div style="font-size:12px;color:var(--text-tertiary);">Project description goes here</div>' +
+            '</div>' +
+            (showM || showT || showC ?
+              mLine('h','14px','2px','16px','#E04438', mLabel('16px','--space-4','padding')) +
+              mLine('v','36px','50%','12px','#2970FF', mLabel('12px','--space-3','gap')) +
+              '<div style="position:absolute;top:-24px;right:0;font-size:10px;font-weight:600;color:#7C3AED;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('14px','--radius-xl','border-radius') + '</div>' +
+              '<div style="position:absolute;bottom:-24px;left:0;font-size:10px;font-weight:600;color:#17B26A;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('14px / 12px','--text-sm / --text-xs','font-size') + '</div>' +
+              '<div style="position:absolute;bottom:-40px;left:0;font-size:10px;font-weight:600;color:#B54708;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('shadow-md','--shadow-md','box-shadow') + '</div>'
+            : '') +
+          '</div>';
+        } else if (s.component === 'input') {
+          html = '<div style="position:relative;display:inline-block;transform:scale('+scale+');transform-origin:center;">' +
+            '<div style="font-family:var(--font-family);">' +
+              '<label style="display:block;font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:6px;">Email Address</label>' +
+              '<div style="position:relative;">' +
+                '<input style="width:240px;padding:10px 12px;font-size:14px;font-family:var(--font-family);border:1px solid var(--border-color);border-radius:8px;color:var(--text-primary);background:var(--bg-card);height:40px;" placeholder="Enter email..." readonly />' +
+              '</div>' +
+              '<span style="font-size:11px;color:var(--text-tertiary);margin-top:4px;display:block;">Helper text here</span>' +
+            '</div>' +
+            (showM || showT || showC ?
+              mLine('h','42px','2px','12px','#E04438', mLabel('12px','--space-3','padding-inline')) +
+              '<div style="position:absolute;top:0;right:-110px;font-size:10px;font-weight:600;color:#2970FF;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('40px','--size-10','height') + '</div>' +
+              '<div style="position:absolute;top:10px;right:-110px;font-size:10px;font-weight:600;color:#E04438;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('6px','--space-1.5','label-gap') + '</div>' +
+              '<div style="position:absolute;bottom:8px;right:-110px;font-size:10px;font-weight:600;color:#E04438;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('4px','--space-1','helper-gap') + '</div>' +
+              '<div style="position:absolute;top:-24px;right:0;font-size:10px;font-weight:600;color:#7C3AED;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('8px','--radius-md','border-radius') + '</div>' +
+              '<div style="position:absolute;top:-24px;left:0;font-size:10px;font-weight:600;color:#B54708;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('1px','--border-width','border-width') + '</div>'
+            : '') +
+          '</div>';
+        } else if (s.component === 'modal') {
+          html = '<div style="position:relative;display:inline-block;transform:scale('+Math.min(scale, 1.4)+');transform-origin:center;">' +
+            '<div style="width:320px;background:var(--bg-card);border-radius:14px;box-shadow:var(--shadow-2xl);overflow:hidden;font-family:var(--font-family);">' +
+              '<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border-color);">' +
+                '<span style="font-size:16px;font-weight:600;color:var(--text-primary);">Modal Title</span>' +
+                '<span style="color:var(--text-tertiary);">' + getIcon('x', 16) + '</span>' +
+              '</div>' +
+              '<div style="padding:24px;font-size:14px;color:var(--text-secondary);line-height:1.6;">Modal body content goes here with details.</div>' +
+              '<div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 24px;border-top:1px solid var(--border-color);">' +
+                '<button style="padding:8px 16px;font-size:13px;font-weight:500;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;cursor:pointer;font-family:var(--font-family);">Cancel</button>' +
+                '<button style="padding:8px 16px;font-size:13px;font-weight:600;color:#fff;background:var(--brand);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-family);">Confirm</button>' +
+              '</div>' +
+            '</div>' +
+            (showM || showT || showC ?
+              mLine('h','20px','4px','24px','#E04438', mLabel('24px','--space-6','padding')) +
+              '<div style="position:absolute;top:-24px;right:0;font-size:10px;font-weight:600;color:#7C3AED;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('14px','--radius-xl','border-radius') + '</div>' +
+              '<div style="position:absolute;top:-24px;left:0;font-size:10px;font-weight:600;color:#2970FF;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('320px','--size-modal-md','max-width') + '</div>' +
+              '<div style="position:absolute;bottom:-24px;left:0;font-size:10px;font-weight:600;color:#B54708;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('0.4','--overlay-opacity','overlay-opacity') + '</div>' +
+              '<div style="position:absolute;bottom:-40px;left:0;font-size:10px;font-weight:600;color:#17B26A;white-space:nowrap;font-family:monospace;background:var(--bg-card);padding:1px 4px;border-radius:3px;box-shadow:var(--shadow-xs);">' + mLabel('shadow-2xl','--shadow-2xl','box-shadow') + '</div>'
+            : '') +
+          '</div>';
+        }
+
+        setPreview(preview, '<div style="display:flex;align-items:center;justify-content:center;min-height:260px;padding:60px 40px;">' + html + '</div>');
+      },
+
+      /* ----- MIGRATION GUIDE ----- */
+      migration() {
+        const s = state.migration;
+        const preview = document.getElementById('preview-area');
+
+        const data = {
+          bootstrap: {
+            button: {
+              before: '&lt;button class="btn btn-primary btn-lg"&gt;\n  Click Me\n&lt;/button&gt;',
+              after:  '&lt;button class="or-btn or-btn-primary or-btn-lg"&gt;\n  Click Me\n&lt;/button&gt;',
+              mappings: [['btn','or-btn'],['btn-primary','or-btn-primary'],['btn-secondary','or-btn-secondary'],['btn-lg','or-btn-lg'],['btn-sm','or-btn-sm'],['btn-danger','or-btn-danger']]
+            },
+            card: {
+              before: '&lt;div class="card"&gt;\n  &lt;div class="card-body"&gt;\n    &lt;h5 class="card-title"&gt;Title&lt;/h5&gt;\n    &lt;p class="card-text"&gt;Text&lt;/p&gt;\n  &lt;/div&gt;\n&lt;/div&gt;',
+              after:  '&lt;div class="or-card"&gt;\n  &lt;div class="or-card-body"&gt;\n    &lt;h5 class="or-card-title"&gt;Title&lt;/h5&gt;\n    &lt;p class="or-card-text"&gt;Text&lt;/p&gt;\n  &lt;/div&gt;\n&lt;/div&gt;',
+              mappings: [['card','or-card'],['card-body','or-card-body'],['card-title','or-card-title'],['card-text','or-card-text'],['card-header','or-card-header']]
+            },
+            input: {
+              before: '&lt;div class="form-group"&gt;\n  &lt;label class="form-label"&gt;Email&lt;/label&gt;\n  &lt;input class="form-control" /&gt;\n&lt;/div&gt;',
+              after:  '&lt;div class="or-field"&gt;\n  &lt;label class="or-label"&gt;Email&lt;/label&gt;\n  &lt;input class="or-input" /&gt;\n&lt;/div&gt;',
+              mappings: [['form-group','or-field'],['form-label','or-label'],['form-control','or-input'],['form-control-lg','or-input-lg'],['is-invalid','or-input-error']]
+            },
+            badge: {
+              before: '&lt;span class="badge bg-primary"&gt;New&lt;/span&gt;',
+              after:  '&lt;span class="or-badge or-badge-brand"&gt;New&lt;/span&gt;',
+              mappings: [['badge','or-badge'],['bg-primary','or-badge-brand'],['bg-success','or-badge-green'],['bg-danger','or-badge-red'],['bg-warning','or-badge-yellow']]
+            },
+            alert: {
+              before: '&lt;div class="alert alert-success"&gt;\n  Changes saved!\n&lt;/div&gt;',
+              after:  '&lt;div class="or-toast or-toast-success"&gt;\n  Changes saved!\n&lt;/div&gt;',
+              mappings: [['alert','or-toast'],['alert-success','or-toast-success'],['alert-danger','or-toast-error'],['alert-warning','or-toast-warning'],['alert-info','or-toast-info']]
+            },
+            table: {
+              before: '&lt;table class="table table-striped"&gt;\n  &lt;thead&gt;...&lt;/thead&gt;\n  &lt;tbody&gt;...&lt;/tbody&gt;\n&lt;/table&gt;',
+              after:  '&lt;table class="or-table or-table-striped"&gt;\n  &lt;thead&gt;...&lt;/thead&gt;\n  &lt;tbody&gt;...&lt;/tbody&gt;\n&lt;/table&gt;',
+              mappings: [['table','or-table'],['table-striped','or-table-striped'],['table-bordered','or-table-bordered'],['table-sm','or-table-compact'],['table-hover','or-table-hover']]
+            }
+          },
+          materialui: {
+            button: {
+              before: '&lt;Button variant="contained" size="large"&gt;\n  Click Me\n&lt;/Button&gt;',
+              after:  '&lt;OrButton variant="primary" size="lg"&gt;\n  Click Me\n&lt;/OrButton&gt;',
+              mappings: [['variant="contained"','variant="primary"'],['variant="outlined"','variant="secondary"'],['variant="text"','variant="tertiary"'],['size="large"','size="lg"'],['size="small"','size="sm"'],['color="error"','variant="danger"']]
+            },
+            card: {
+              before: '&lt;Card&gt;\n  &lt;CardContent&gt;\n    &lt;Typography variant="h5"&gt;Title&lt;/Typography&gt;\n    &lt;Typography&gt;Text&lt;/Typography&gt;\n  &lt;/CardContent&gt;\n&lt;/Card&gt;',
+              after:  '&lt;OrCard title="Title"&gt;\n  Text\n&lt;/OrCard&gt;',
+              mappings: [['Card','OrCard'],['CardContent','(built-in)'],['CardHeader','title prop'],['CardActions','footer slot'],['Typography','(built-in styles)']]
+            },
+            input: {
+              before: '&lt;TextField\n  label="Email"\n  variant="outlined"\n  helperText="Enter email"\n/&gt;',
+              after:  '&lt;OrInput\n  label="Email"\n  placeholder="Enter email"\n  helper="Enter email"\n/&gt;',
+              mappings: [['TextField','OrInput'],['variant="outlined"','(default)'],['helperText','helper'],['error','error'],['InputProps','icon / iconPosition']]
+            },
+            badge: {
+              before: '&lt;Badge badgeContent={4} color="primary"&gt;\n  &lt;MailIcon /&gt;\n&lt;/Badge&gt;',
+              after:  '&lt;OrBadge color="brand" label="4" /&gt;',
+              mappings: [['Badge','OrBadge'],['badgeContent','label'],['color="primary"','color="brand"'],['color="error"','color="red"'],['variant="dot"','dot']]
+            },
+            alert: {
+              before: '&lt;Alert severity="success"&gt;\n  Changes saved!\n&lt;/Alert&gt;',
+              after:  '&lt;OrToast type="success"&gt;\n  Changes saved!\n&lt;/OrToast&gt;',
+              mappings: [['Alert','OrToast'],['severity="success"','type="success"'],['severity="error"','type="error"'],['severity="warning"','type="warning"'],['severity="info"','type="info"']]
+            },
+            table: {
+              before: '&lt;TableContainer&gt;\n  &lt;Table size="small"&gt;\n    &lt;TableHead&gt;...&lt;/TableHead&gt;\n    &lt;TableBody&gt;...&lt;/TableBody&gt;\n  &lt;/Table&gt;\n&lt;/TableContainer&gt;',
+              after:  '&lt;OrTable compact&gt;\n  &lt;thead&gt;...&lt;/thead&gt;\n  &lt;tbody&gt;...&lt;/tbody&gt;\n&lt;/OrTable&gt;',
+              mappings: [['Table','OrTable'],['size="small"','compact'],['TableSortLabel','sortable'],['Checkbox (in rows)','selectable'],['TablePagination','pagination']]
+            }
+          },
+          chakra: {
+            button: {
+              before: '&lt;Button colorScheme="blue" size="lg"&gt;\n  Click Me\n&lt;/Button&gt;',
+              after:  '&lt;OrButton variant="primary" size="lg"&gt;\n  Click Me\n&lt;/OrButton&gt;',
+              mappings: [['colorScheme="blue"','variant="primary"'],['variant="outline"','variant="secondary"'],['variant="ghost"','variant="tertiary"'],['size="lg"','size="lg"'],['size="sm"','size="sm"'],['isLoading','loading']]
+            },
+            card: {
+              before: '&lt;Card&gt;\n  &lt;CardHeader&gt;Title&lt;/CardHeader&gt;\n  &lt;CardBody&gt;Text&lt;/CardBody&gt;\n&lt;/Card&gt;',
+              after:  '&lt;OrCard title="Title"&gt;\n  Text\n&lt;/OrCard&gt;',
+              mappings: [['Card','OrCard'],['CardHeader','title prop'],['CardBody','(default slot)'],['CardFooter','footer slot'],['variant="elevated"','(default)']]
+            },
+            input: {
+              before: '&lt;FormControl&gt;\n  &lt;FormLabel&gt;Email&lt;/FormLabel&gt;\n  &lt;Input placeholder="Enter email" /&gt;\n  &lt;FormHelperText&gt;Help&lt;/FormHelperText&gt;\n&lt;/FormControl&gt;',
+              after:  '&lt;OrInput\n  label="Email"\n  placeholder="Enter email"\n  helper="Help"\n/&gt;',
+              mappings: [['FormControl','(built-in)'],['FormLabel','label prop'],['Input','OrInput'],['FormHelperText','helper prop'],['isInvalid','error']]
+            },
+            badge: {
+              before: '&lt;Badge colorScheme="green"&gt;Active&lt;/Badge&gt;',
+              after:  '&lt;OrBadge color="green" label="Active" /&gt;',
+              mappings: [['Badge','OrBadge'],['colorScheme="green"','color="green"'],['colorScheme="red"','color="red"'],['variant="solid"','(default)'],['variant="outline"','variant="outline"']]
+            },
+            alert: {
+              before: '&lt;Alert status="success"&gt;\n  &lt;AlertIcon /&gt;\n  Changes saved!\n&lt;/Alert&gt;',
+              after:  '&lt;OrToast type="success" withIcon&gt;\n  Changes saved!\n&lt;/OrToast&gt;',
+              mappings: [['Alert','OrToast'],['status="success"','type="success"'],['AlertIcon','withIcon'],['status="error"','type="error"'],['AlertTitle','(built-in)']]
+            },
+            table: {
+              before: '&lt;TableContainer&gt;\n  &lt;Table variant="striped"&gt;\n    &lt;Thead&gt;...&lt;/Thead&gt;\n    &lt;Tbody&gt;...&lt;/Tbody&gt;\n  &lt;/Table&gt;\n&lt;/TableContainer&gt;',
+              after:  '&lt;OrTable striped&gt;\n  &lt;thead&gt;...&lt;/thead&gt;\n  &lt;tbody&gt;...&lt;/tbody&gt;\n&lt;/OrTable&gt;',
+              mappings: [['Table','OrTable'],['variant="striped"','striped'],['size="sm"','compact'],['Thead/Tbody','thead/tbody'],['Th/Td','th/td']]
+            }
+          }
+        };
+
+        const fwNames = { bootstrap: 'Bootstrap', materialui: 'Material UI', chakra: 'Chakra UI' };
+        const fw = data[s.framework];
+        const comp = fw ? fw[s.component] : null;
+
+        if (!comp) {
+          setPreview(preview, '<div style="padding:40px;color:var(--text-tertiary);font-family:var(--font-family);text-align:center;">Select a framework and component above.</div>');
+          return;
+        }
+
+        const fwLabel = fwNames[s.framework] || s.framework;
+
+        let mappingRows = comp.mappings.map(function(m, i) {
+          const bg = i % 2 === 0 ? 'var(--bg-card)' : 'var(--bg-controls)';
+          return '<tr style="background:' + bg + ';">' +
+            '<td style="padding:6px 12px;font-size:12px;font-family:monospace;color:var(--error-500);border-bottom:1px solid var(--border-color);">' + escHtml(m[0]) + '</td>' +
+            '<td style="padding:6px 12px;font-size:14px;color:var(--text-tertiary);text-align:center;border-bottom:1px solid var(--border-color);">&#8594;</td>' +
+            '<td style="padding:6px 12px;font-size:12px;font-family:monospace;color:var(--success-500);border-bottom:1px solid var(--border-color);">' + escHtml(m[1]) + '</td>' +
+          '</tr>';
+        }).join('');
+
+        setPreview(preview, `
+          <div style="width:100%;max-width:700px;font-family:var(--font-family);padding:16px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+              <div>
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--error-500);margin-bottom:8px;">Before (${fwLabel})</div>
+                <pre style="padding:14px;background:var(--code-bg);color:#E5E7EB;border-radius:var(--radius-md);font-size:12px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;margin:0;">${comp.before}</pre>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--success-500);margin-bottom:8px;">After (OpenReel)</div>
+                <pre style="padding:14px;background:var(--code-bg);color:#E5E7EB;border-radius:var(--radius-md);font-size:12px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;margin:0;">${comp.after}</pre>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-tertiary);margin-bottom:8px;">Class / Prop Mapping</div>
+            <div style="border:1px solid var(--border-color);border-radius:var(--radius-md);overflow:hidden;">
+              <table style="width:100%;border-collapse:collapse;">
+                <thead>
+                  <tr style="background:var(--bg-controls);">
+                    <th style="padding:8px 12px;font-size:11px;font-weight:600;text-align:left;color:var(--text-secondary);border-bottom:1px solid var(--border-color);">${fwLabel}</th>
+                    <th style="padding:8px 12px;font-size:11px;font-weight:600;text-align:center;color:var(--text-secondary);border-bottom:1px solid var(--border-color);width:40px;"></th>
+                    <th style="padding:8px 12px;font-size:11px;font-weight:600;text-align:left;color:var(--text-secondary);border-bottom:1px solid var(--border-color);">OpenReel</th>
+                  </tr>
+                </thead>
+                <tbody>${mappingRows}</tbody>
+              </table>
+            </div>
+          </div>
+        `);
+      },
+
+      /* ----- WRITING GUIDE ----- */
+      writing() {
+        const s = state.writing;
+        const preview = document.getElementById('preview-area');
+
+        const contextConfig = {
+          button:    { limit: 20, label: 'Button Label', dos: ['Use action verbs (Save, Submit, Continue)', 'Keep under 20 characters', 'Be specific about the action'], donts: ['Don\'t use "Click here"', 'Don\'t use "Submit" for everything', 'Avoid vague labels like "OK"'] },
+          error:     { limit: 80, label: 'Error Message', dos: ['Explain what went wrong clearly', 'Suggest how to fix it', 'Be specific, not generic'], donts: ['Don\'t blame the user', 'Don\'t use technical jargon', 'Avoid "Something went wrong"'] },
+          empty:     { limit: 120, label: 'Empty State', dos: ['Explain what will appear here', 'Suggest an action to get started', 'Keep it encouraging'], donts: ['Don\'t just say "Nothing here"', 'Don\'t leave it completely blank', 'Avoid negative language'] },
+          tooltip:   { limit: 60, label: 'Tooltip', dos: ['Keep it brief and scannable', 'Provide useful extra context', 'Use sentence case'], donts: ['Don\'t repeat the label', 'Don\'t use it for critical info', 'Avoid long paragraphs'] },
+          success:   { limit: 60, label: 'Success Message', dos: ['Confirm what just happened', 'Be specific about the result', 'Keep it brief'], donts: ['Don\'t be overly enthusiastic', 'Avoid generic "Success!"', 'Don\'t use exclamation marks excessively'] },
+          formlabel: { limit: 30, label: 'Form Label', dos: ['Use nouns, not instructions', 'Keep it to 1-3 words', 'Be descriptive but concise'], donts: ['Don\'t use colons at the end', 'Don\'t phrase as questions', 'Avoid abbreviations'] }
+        };
+
+        const cfg = contextConfig[s.context];
+        const text = s.text || '';
+        const charCount = text.length;
+        const pct = charCount / cfg.limit;
+        const countColor = pct <= 0.7 ? 'var(--success-500)' : pct <= 1 ? 'var(--warning-700)' : 'var(--error-500)';
+        const countBg = pct <= 0.7 ? 'var(--success-50)' : pct <= 1 ? 'var(--warning-50)' : 'var(--error-50)';
+
+        // Word choice checker
+        const badWords = { 'click here': 'Use a descriptive label', 'please': 'Be direct instead', 'sorry': 'State what happened', 'simple': 'Avoid subjective terms', 'obviously': 'Don\'t assume knowledge', 'just': 'Be direct' };
+        let warnings = [];
+        const textLower = text.toLowerCase();
+        for (const [word, suggestion] of Object.entries(badWords)) {
+          if (textLower.includes(word)) {
+            warnings.push('<div style="display:flex;align-items:flex-start;gap:6px;padding:6px 10px;background:var(--warning-50);border-radius:var(--radius-sm);font-size:11px;color:var(--warning-700);"><strong>"' + escHtml(word) + '"</strong> &mdash; ' + suggestion + '</div>');
+          }
+        }
+        const warningHtml = warnings.length > 0 ? '<div style="display:flex;flex-direction:column;gap:4px;margin-top:12px;">' + warnings.join('') + '</div>' : '';
+
+        // Live preview based on context
+        let livePreview = '';
+        if (s.context === 'button') {
+          livePreview = '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">' +
+            '<button style="padding:9px 16px;font-size:14px;font-weight:600;font-family:var(--font-family);color:#fff;background:var(--brand);border:1px solid var(--brand);border-radius:var(--radius-md);cursor:pointer;">' + escHtml(text || 'Label') + '</button>' +
+            '<button style="padding:9px 16px;font-size:14px;font-weight:600;font-family:var(--font-family);color:var(--text-primary);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);cursor:pointer;">' + escHtml(text || 'Label') + '</button>' +
+            '<button style="padding:9px 16px;font-size:14px;font-weight:500;font-family:var(--font-family);color:var(--text-secondary);background:transparent;border:1px solid transparent;border-radius:var(--radius-md);cursor:pointer;">' + escHtml(text || 'Label') + '</button>' +
+          '</div>';
+        } else if (s.context === 'error') {
+          livePreview = '<div style="margin-top:16px;display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius-md);font-size:13px;color:var(--error-700);font-weight:500;max-width:400px;">' +
+            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--error-500)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>' +
+            '<span style="line-height:1.4;">' + escHtml(text || 'Error message') + '</span></div>';
+        } else if (s.context === 'empty') {
+          livePreview = '<div style="margin-top:16px;text-align:center;padding:32px 24px;background:var(--bg-controls);border:2px dashed var(--border-color);border-radius:var(--radius-lg);max-width:360px;">' +
+            '<div style="width:48px;height:48px;border-radius:12px;background:var(--brand-light);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:var(--brand);">' + getIcon('video', 24) + '</div>' +
+            '<div style="font-size:14px;color:var(--text-secondary);line-height:1.5;">' + escHtml(text || 'Empty state text') + '</div></div>';
+        } else if (s.context === 'tooltip') {
+          livePreview = '<div style="margin-top:16px;position:relative;display:inline-block;">' +
+            '<button style="padding:9px 16px;font-size:14px;font-weight:600;font-family:var(--font-family);color:#fff;background:var(--brand);border:none;border-radius:var(--radius-md);cursor:pointer;">Hover Target</button>' +
+            '<div style="position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--gray-900);color:#fff;padding:6px 10px;border-radius:var(--radius-sm);font-size:12px;white-space:nowrap;box-shadow:var(--shadow-md);">' + escHtml(text || 'Tooltip text') +
+            '<div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gray-900);"></div></div></div>';
+        } else if (s.context === 'success') {
+          livePreview = '<div style="margin-top:16px;display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--success-50);border:1px solid var(--success-200);border-radius:var(--radius-md);font-size:13px;color:var(--success-700);font-weight:500;max-width:400px;">' +
+            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' +
+            '<span style="line-height:1.4;">' + escHtml(text || 'Success message') + '</span></div>';
+        } else if (s.context === 'formlabel') {
+          livePreview = '<div style="margin-top:16px;width:300px;">' +
+            '<label style="display:block;font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:6px;">' + escHtml(text || 'Label') + '</label>' +
+            '<input style="width:100%;padding:9px 14px;font-size:14px;font-family:var(--font-family);border:1px solid var(--border-color);border-radius:var(--radius-md);color:var(--text-primary);background:var(--bg-card);" placeholder="Enter value..." readonly /></div>';
+        }
+
+        const dosHtml = cfg.dos.map(function(d) { return '<div style="display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--success-700);line-height:1.4;"><span style="color:var(--success-500);font-weight:700;flex-shrink:0;">&#10003;</span>' + d + '</div>'; }).join('');
+        const dontsHtml = cfg.donts.map(function(d) { return '<div style="display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--error-700);line-height:1.4;"><span style="color:var(--error-500);font-weight:700;flex-shrink:0;">&#10007;</span>' + d + '</div>'; }).join('');
+
+        setPreview(preview, `
+          <div style="width:100%;max-width:640px;font-family:var(--font-family);padding:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <span style="font-size:12px;font-weight:600;color:var(--text-secondary);">Context: ${cfg.label}</span>
+              <span style="font-size:12px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full);background:${countBg};color:${countColor};">${charCount} / ${cfg.limit} chars</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div style="padding:12px;background:var(--success-50);border-radius:var(--radius-md);">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--success-700);margin-bottom:8px;">Do</div>
+                <div style="display:flex;flex-direction:column;gap:6px;">${dosHtml}</div>
+              </div>
+              <div style="padding:12px;background:var(--error-50);border-radius:var(--radius-md);">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--error-700);margin-bottom:8px;">Don't</div>
+                <div style="display:flex;flex-direction:column;gap:6px;">${dontsHtml}</div>
+              </div>
+            </div>
+
+            ${warningHtml}
+            ${livePreview}
+          </div>
+        `);
+      },
+
+      /* ----- COMPONENT API TABLES ----- */
+      api() {
+        const s = state.api;
+        const preview = document.getElementById('preview-area');
+
+        const apiData = {
+          button: [
+            ['variant','string ("primary"|"secondary"|"tertiary"|"danger"|"success")','"primary"','no','Visual style variant'],
+            ['size','string ("sm"|"md"|"lg")','"md"','no','Button size'],
+            ['disabled','boolean','false','no','Disable the button'],
+            ['loading','boolean','false','no','Show loading spinner'],
+            ['icon','string','undefined','no','Icon name to show before label'],
+            ['iconPosition','string ("left"|"right")','"left"','no','Icon placement'],
+            ['fullWidth','boolean','false','no','Stretch to container width'],
+            ['type','string ("button"|"submit"|"reset")','"button"','no','HTML button type'],
+            ['onClick','function','undefined','no','Click handler callback'],
+          ],
+          badge: [
+            ['color','string ("gray"|"blue"|"green"|"red"|"yellow"|"brand")','"brand"','no','Badge color theme'],
+            ['size','string ("sm"|"md"|"lg")','"md"','no','Badge size'],
+            ['dot','boolean','false','no','Show status dot indicator'],
+            ['closable','boolean','false','no','Show close/dismiss button'],
+            ['label','string','""','yes','Badge text content'],
+            ['variant','string ("solid"|"outline")','"solid"','no','Badge fill style'],
+          ],
+          input: [
+            ['type','string ("text"|"email"|"password"|"search")','"text"','no','HTML input type'],
+            ['size','string ("sm"|"md"|"lg")','"md"','no','Input field size'],
+            ['label','string','undefined','no','Label text above input'],
+            ['placeholder','string','""','no','Placeholder text'],
+            ['helperText','string','undefined','no','Helper text below input'],
+            ['error','boolean','false','no','Show error state'],
+            ['errorMessage','string','""','no','Error message text'],
+            ['disabled','boolean','false','no','Disable the input'],
+            ['required','boolean','false','no','Mark as required field'],
+            ['icon','string','undefined','no','Leading icon name'],
+            ['iconPosition','string ("left"|"right")','"left"','no','Icon placement'],
+            ['maxLength','number','undefined','no','Maximum character count'],
+          ],
+          card: [
+            ['variant','string ("session"|"project"|"video")','"session"','no','Card type variant'],
+            ['title','string','""','yes','Card heading text'],
+            ['subtitle','string','""','no','Secondary text below title'],
+            ['badge','boolean','false','no','Show status badge'],
+            ['image','string','undefined','no','Image URL for card header'],
+            ['onClick','function','undefined','no','Click handler for card'],
+            ['href','string','undefined','no','Link URL (makes card a link)'],
+            ['metadata','object','undefined','no','Footer metadata key-value pairs'],
+          ],
+          avatar: [
+            ['size','string ("xs"|"sm"|"md"|"lg"|"xl")','"md"','no','Avatar size'],
+            ['shape','string ("circle"|"rounded")','"circle"','no','Avatar shape'],
+            ['initials','string','""','no','Initials to display'],
+            ['src','string','undefined','no','Image source URL'],
+            ['alt','string','""','no','Image alt text'],
+            ['status','boolean','false','no','Show status indicator'],
+            ['statusType','string ("online"|"offline"|"away")','"online"','no','Status indicator type'],
+          ],
+          toggle: [
+            ['size','string ("sm"|"md"|"lg")','"md"','no','Toggle switch size'],
+            ['checked','boolean','false','no','Toggle state'],
+            ['disabled','boolean','false','no','Disable the toggle'],
+            ['label','string','""','no','Label text beside toggle'],
+            ['color','string ("brand"|"success"|"warning"|"error")','"brand"','no','Active state color'],
+            ['onChange','function','undefined','no','Change handler callback'],
+          ],
+          modal: [
+            ['size','string ("sm"|"md"|"lg"|"fullscreen")','"md"','no','Modal dialog size'],
+            ['open','boolean','false','yes','Controls modal visibility'],
+            ['onClose','function','undefined','yes','Close handler callback'],
+            ['title','string','""','no','Modal header title'],
+            ['showHeader','boolean','true','no','Show modal header bar'],
+            ['showFooter','boolean','true','no','Show modal footer bar'],
+            ['closable','boolean','true','no','Show close button in header'],
+          ],
+          toast: [
+            ['type','string ("success"|"error"|"warning"|"info")','"info"','no','Toast visual type'],
+            ['message','string','""','yes','Toast message content'],
+            ['position','string ("top-right"|"top-left"|"bottom-right"|"bottom-left")','"top-right"','no','Screen position'],
+            ['icon','boolean','true','no','Show type icon'],
+            ['closable','boolean','true','no','Show dismiss button'],
+            ['duration','number','5000','no','Auto-dismiss duration (ms)'],
+            ['onDismiss','function','undefined','no','Dismiss handler callback'],
+          ],
+          table: [
+            ['data','array','[]','yes','Array of row objects'],
+            ['columns','array','[]','yes','Column definition array'],
+            ['striped','boolean','false','no','Alternating row backgrounds'],
+            ['bordered','boolean','false','no','Show cell borders'],
+            ['compact','boolean','false','no','Reduce cell padding'],
+            ['selectable','boolean','false','no','Show row checkboxes'],
+            ['sortable','boolean','false','no','Enable column sorting'],
+            ['pagination','boolean','false','no','Show pagination controls'],
+          ],
+          progress: [
+            ['value','number','0','no','Progress percentage (0-100)'],
+            ['size','string ("sm"|"md"|"lg")','"md"','no','Bar height size'],
+            ['color','string ("brand"|"success"|"warning"|"error")','"brand"','no','Bar fill color'],
+            ['label','boolean','false','no','Show percentage label'],
+            ['animated','boolean','false','no','Animated stripe pattern'],
+            ['indeterminate','boolean','false','no','Indeterminate loading mode'],
+            ['max','number','100','no','Maximum value'],
+          ],
+        };
+
+        const props = apiData[s.component] || [];
+        let filtered = props;
+        if (s.filter === 'required') filtered = props.filter(function(p) { return p[3] === 'yes'; });
+        if (s.filter === 'optional') filtered = props.filter(function(p) { return p[3] === 'no'; });
+        if (s.search) {
+          const q = s.search.toLowerCase();
+          filtered = filtered.filter(function(p) { return p[0].toLowerCase().includes(q) || p[4].toLowerCase().includes(q); });
+        }
+
+        const compName = s.component.charAt(0).toUpperCase() + s.component.slice(1);
+        let rows = filtered.map(function(p, i) {
+          const bg = i % 2 === 0 ? 'var(--bg-card)' : 'var(--bg-controls)';
+          const reqBadge = p[3] === 'yes' ? '<span style="display:inline-block;padding:1px 6px;font-size:10px;font-weight:600;border-radius:var(--radius-full);background:var(--error-50);color:var(--error-500);">Required</span>' : '<span style="color:var(--text-tertiary);font-size:11px;">Optional</span>';
+          return '<tr style="background:' + bg + ';">' +
+            '<td style="padding:8px 12px;font-size:12px;font-family:monospace;font-weight:600;color:var(--brand);border-bottom:1px solid var(--border-color);white-space:nowrap;">' + p[0] + '</td>' +
+            '<td style="padding:8px 12px;font-size:11px;font-family:monospace;color:var(--text-secondary);border-bottom:1px solid var(--border-color);max-width:200px;">' + escHtml(p[1]) + '</td>' +
+            '<td style="padding:8px 12px;font-size:11px;font-family:monospace;color:var(--text-tertiary);border-bottom:1px solid var(--border-color);white-space:nowrap;">' + escHtml(p[2]) + '</td>' +
+            '<td style="padding:8px 12px;font-size:11px;border-bottom:1px solid var(--border-color);text-align:center;">' + reqBadge + '</td>' +
+            '<td style="padding:8px 12px;font-size:12px;color:var(--text-secondary);border-bottom:1px solid var(--border-color);line-height:1.4;">' + p[4] + '</td>' +
+          '</tr>';
+        }).join('');
+
+        if (filtered.length === 0) {
+          rows = '<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--text-tertiary);font-size:13px;">No props match your criteria.</td></tr>';
+        }
+
+        setPreview(preview, `
+          <div style="width:100%;max-width:760px;font-family:var(--font-family);padding:8px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+              <span style="font-size:16px;font-weight:700;color:var(--text-primary);">&lt;${compName} /&gt;</span>
+              <span style="font-size:12px;color:var(--text-tertiary);">${filtered.length} prop${filtered.length !== 1 ? 's' : ''}</span>
+            </div>
+            <div style="border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;overflow-x:auto;">
+              <table style="width:100%;border-collapse:collapse;font-family:var(--font-family);min-width:600px;">
+                <thead>
+                  <tr style="background:var(--bg-controls);">
+                    <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:left;color:var(--text-secondary);border-bottom:1px solid var(--border-color);text-transform:uppercase;letter-spacing:0.04em;">Prop</th>
+                    <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:left;color:var(--text-secondary);border-bottom:1px solid var(--border-color);text-transform:uppercase;letter-spacing:0.04em;">Type</th>
+                    <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:left;color:var(--text-secondary);border-bottom:1px solid var(--border-color);text-transform:uppercase;letter-spacing:0.04em;">Default</th>
+                    <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:center;color:var(--text-secondary);border-bottom:1px solid var(--border-color);text-transform:uppercase;letter-spacing:0.04em;">Required</th>
+                    <th style="padding:10px 12px;font-size:11px;font-weight:600;text-align:left;color:var(--text-secondary);border-bottom:1px solid var(--border-color);text-transform:uppercase;letter-spacing:0.04em;">Description</th>
+                  </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+            </div>
+          </div>
+        `);
+      },
+
+      /* ----- FIGMA PLUGIN SETUP ----- */
+      figma() {
+        const s = state.figma;
+        const preview = document.getElementById('preview-area');
+
+        const steps = ['install','load','apply','export','publish'];
+        const stepIdx = steps.indexOf(s.step) + 1;
+        const totalSteps = steps.length;
+        const pct = (stepIdx / totalSteps) * 100;
+
+        const stepData = {
+          install: {
+            title: '1. Install the OpenReel Figma Plugin',
+            instructions: [
+              'Open Figma and go to <strong>Plugins &rarr; Browse Plugins</strong> in the top menu.',
+              'Search for <strong>"OpenReel Design Tokens"</strong> in the plugin marketplace.',
+              'Click <strong>Install</strong> to add it to your workspace.',
+              'The plugin will appear under <strong>Plugins &rarr; Installed</strong>.'
+            ],
+            tip: 'Make sure you are on Figma Desktop or Figma in a supported browser. The plugin requires Figma plan Professional or higher for team libraries.',
+            tokens: { Colors: 42, Typography: 18, Spacing: 12, Shadows: 6, Radii: 5 }
+          },
+          load: {
+            title: '2. Load Design Tokens',
+            instructions: [
+              'Open the plugin: <strong>Plugins &rarr; OpenReel Design Tokens</strong>.',
+              'Click <strong>Import Tokens</strong> in the plugin panel.',
+              'Select your token source: <strong>JSON file</strong> or <strong>URL endpoint</strong>.',
+              'Review the token preview and click <strong>Load</strong>.',
+              'Tokens will appear grouped by category in the plugin sidebar.'
+            ],
+            tip: 'You can paste the URL from your design system (e.g., tokens.openreel.design/v2.json) or drag a local tokens.json file directly into the plugin.',
+            tokens: { Colors: 42, Typography: 18, Spacing: 12, Shadows: 6, Radii: 5 }
+          },
+          apply: {
+            title: '3. Apply Tokens to Components',
+            instructions: [
+              'Select a frame or component in your Figma canvas.',
+              'In the plugin panel, expand a token category (e.g., <strong>Colors</strong>).',
+              'Click a token to apply it. Choose the target property: <strong>Fill, Stroke, Text</strong>, or <strong>Effect</strong>.',
+              'Applied tokens show a <strong>linked icon</strong> next to the property in the panel.',
+              'Tokens stay linked; changing the token value updates all instances.'
+            ],
+            tip: 'Use the "Apply All" button to batch-apply tokens to nested layers. This works best with Auto Layout frames that match your component structure.',
+            tokens: { Colors: 42, Typography: 18, Spacing: 12, Shadows: 6, Radii: 5 }
+          },
+          export: {
+            title: '4. Export Styles',
+            instructions: [
+              'Go to the plugin <strong>Export</strong> tab.',
+              'Select the export format: <strong>CSS Variables</strong>, <strong>JSON</strong>, <strong>SCSS</strong>, or <strong>Tailwind config</strong>.',
+              'Choose which categories to include in the export.',
+              'Click <strong>Export</strong> to download or copy to clipboard.',
+              'Integrate the exported file into your project build.'
+            ],
+            tip: 'The CSS Variables format is recommended for web projects. It generates a :root block with all tokens as custom properties, matching the playground tokens exactly.',
+            tokens: { 'CSS Vars': 83, 'JSON keys': 83, 'SCSS vars': 83, 'TW entries': 83 }
+          },
+          publish: {
+            title: '5. Publish to Team Library',
+            instructions: [
+              'Open the <strong>Assets</strong> panel in Figma (left sidebar).',
+              'Click the <strong>book icon</strong> to open the library settings.',
+              'Click <strong>Publish changes</strong> for your design system file.',
+              'Add a version note describing the token updates.',
+              'Team members will see an update notification in their files.'
+            ],
+            tip: 'After publishing, other files using this library will show an "Updates available" badge. Each team member can choose when to accept the update.',
+            tokens: { Components: 10, Styles: 83, Variables: 42 }
+          }
+        };
+
+        const sd = stepData[s.step];
+
+        const progressDots = steps.map(function(step, i) {
+          const active = i < stepIdx;
+          const current = i === stepIdx - 1;
+          const bg = active ? 'var(--brand)' : 'var(--bg-controls)';
+          const border = current ? '2px solid var(--brand)' : active ? '2px solid var(--brand)' : '2px solid var(--border-color)';
+          const size = current ? '14px' : '10px';
+          return '<div style="width:' + size + ';height:' + size + ';border-radius:50%;background:' + bg + ';border:' + border + ';flex-shrink:0;transition:all .2s;"></div>';
+        }).join('<div style="flex:1;height:2px;background:' + (stepIdx > 1 ? 'var(--brand)' : 'var(--border-color)') + ';"></div>');
+
+        const instructionsHtml = sd.instructions.map(function(inst, i) {
+          return '<div style="display:flex;gap:10px;align-items:flex-start;">' +
+            '<div style="width:22px;height:22px;border-radius:50%;background:var(--brand-light);color:var(--brand);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">' + (i + 1) + '</div>' +
+            '<div style="font-size:13px;color:var(--text-secondary);line-height:1.5;padding-top:2px;">' + inst + '</div></div>';
+        }).join('');
+
+        let tokenList = Object.entries(sd.tokens).map(function(entry) {
+          return '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border-color);">' +
+            '<span style="font-size:12px;color:var(--text-secondary);">' + entry[0] + '</span>' +
+            '<span style="font-size:12px;font-weight:700;color:var(--brand);">' + entry[1] + '</span></div>';
+        }).join('');
+
+        setPreview(preview, `
+          <div style="width:100%;max-width:620px;font-family:var(--font-family);padding:16px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 4px;">
+              ${progressDots}
+            </div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);margin-bottom:6px;">Step ${stepIdx} of ${totalSteps}</div>
+            <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">${sd.title}</div>
+
+            <div style="display:grid;grid-template-columns:1fr 180px;gap:20px;">
+              <div>
+                <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+                  ${instructionsHtml}
+                </div>
+
+                <div style="padding:12px 16px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);display:flex;align-items:flex-start;gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-600)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                  <span style="font-size:12px;color:var(--blue-600);line-height:1.5;">${sd.tip}</span>
+                </div>
+              </div>
+
+              <div>
+                <div style="padding:14px;background:var(--bg-controls);border:1px solid var(--border-color);border-radius:var(--radius-md);">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-tertiary);margin-bottom:8px;">Token Summary</div>
+                  ${tokenList}
+                </div>
+              </div>
+            </div>
+          </div>
+        `);
+      },
+    };
+
+    // Helper to set preview content while keeping the "Live Preview" label
+    function setPreview(el, html) {
+      el.innerHTML = `
+        <div style="position:absolute; top:14px; left:16px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary);">
+          Live Preview
+        </div>
+        ${html}
+      `;
+    }
+
+    // -----------------------------------------------------------
+    // CODE TAB SWITCHING
+    // -----------------------------------------------------------
+    function switchCodeTab(tab, btn) {
+      activeCodeTab = tab;
+      document.querySelectorAll('#code-tabs .code-tab').forEach(b => {
+        b.style.background = 'transparent';
+        b.style.color = 'var(--text-tertiary)';
+        b.classList.remove('active');
+      });
+      if (btn) {
+        btn.style.background = 'var(--bg-card)';
+        btn.style.color = 'var(--text-primary)';
+        btn.classList.add('active');
+      }
+      updateCodeOutput();
+    }
+
+    // -----------------------------------------------------------
+    // CODE OUTPUT (multi-framework)
+    // -----------------------------------------------------------
+    function updateCodeOutput() {
+      const codeEl = document.getElementById('code-output');
+      const previewHtml = document.getElementById('preview-area').innerHTML;
+      // Strip out the "Live Preview" label div and <style> blocks
+      let cleaned = previewHtml.replace(/<div style="position:absolute[^>]*>[\s\S]*?Live Preview[\s\S]*?<\/div>/, '').trim();
+      cleaned = cleaned.replace(/<style>[\s\S]*?<\/style>/g, '').trim();
+      const formatted = formatHtml(cleaned);
+
+      if (activeCodeTab === 'html') {
+        codeEl.textContent = formatted;
+      } else if (activeCodeTab === 'react') {
+        codeEl.textContent = generateReact(formatted);
+      } else if (activeCodeTab === 'vue') {
+        codeEl.textContent = generateVue(formatted);
+      } else if (activeCodeTab === 'svelte') {
+        codeEl.textContent = generateSvelte(formatted);
+      }
+    }
+
+    function generateReact(html) {
+      const s = state[activeComponent];
+      const name = activeComponent.charAt(0).toUpperCase() + activeComponent.slice(1);
+      const propsArr = [];
+      for (const [k, v] of Object.entries(s)) {
+        if (typeof v === 'boolean') { if (v) propsArr.push(k); }
+        else if (typeof v === 'number') propsArr.push(`${k}={${v}}`);
+        else propsArr.push(`${k}="${v}"`);
+      }
+      const propsStr = propsArr.length ? ' ' + propsArr.join(' ') : '';
+      return `import { ${name} } from '@openreel/ui';\n\nexport default function Example() {\n  return (\n    <${name}${propsStr} />\n  );\n}\n\n{/* Generated HTML: */}\n{/* ${html.split('\n')[0]} */}`;
+    }
+
+    function generateVue(html) {
+      const s = state[activeComponent];
+      const name = activeComponent.charAt(0).toUpperCase() + activeComponent.slice(1);
+      const propsArr = [];
+      for (const [k, v] of Object.entries(s)) {
+        if (typeof v === 'boolean') { if (v) propsArr.push(`:${k}="true"`); }
+        else if (typeof v === 'number') propsArr.push(`:${k}="${v}"`);
+        else propsArr.push(`${k}="${v}"`);
+      }
+      const propsStr = propsArr.length ? '\n    ' + propsArr.join('\n    ') : '';
+      var sc = '<' + 'script setup>';
+      var sce = '</' + 'script>';
+      return '<template>\n  <Or' + name + propsStr + '\n  />\n</template>\n\n' + sc + '\nimport { Or' + name + ' } from \'@openreel/ui-vue\';\n' + sce;
+    }
+
+    function generateSvelte(html) {
+      const s = state[activeComponent];
+      const name = activeComponent.charAt(0).toUpperCase() + activeComponent.slice(1);
+      const propsArr = [];
+      for (const [k, v] of Object.entries(s)) {
+        if (typeof v === 'boolean') { if (v) propsArr.push(k); }
+        else if (typeof v === 'number') propsArr.push(`${k}={${v}}`);
+        else propsArr.push(`${k}="${v}"`);
+      }
+      const propsStr = propsArr.length ? ' ' + propsArr.join(' ') : '';
+      var sc = '<' + 'script>';
+      var sce = '</' + 'script>';
+      return sc + '\n  import { ' + name + ' } from \'@openreel/ui-svelte\';\n' + sce + '\n\n<' + name + propsStr + ' />';
+    }
+
+    function formatHtml(html) {
+      let result = '';
+      let indent = 0;
+      const lines = html
+        .replace(/></g, '>\n<')
+        .replace(/\s+/g, ' ')
+        .split('\n');
+
+      for (let line of lines) {
+        line = line.trim();
+        if (!line) continue;
+
+        if (line.match(/^<\//) && indent > 0) indent--;
+
+        result += '  '.repeat(indent) + line + '\n';
+
+        if (line.match(/^<[^\/!]/) && !line.match(/\/>$/) && !line.match(/^<(br|hr|img|input|meta|link)/i)) {
+          if (!line.match(/<\/[^>]+>$/)) {
+            indent++;
+          }
+        }
+      }
+      return result.trim();
+    }
+
+    function copyCode() {
+      const code = document.getElementById('code-output').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('.code-output .copy-btn');
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.style.color = '#fff';
+        setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1500);
+      });
+    }
+
+    // -----------------------------------------------------------
+    // SPLIT VIEW (Light / Dark side-by-side)
+    // -----------------------------------------------------------
+    let splitViewActive = false;
+
+    function toggleSplitView() {
+      splitViewActive = !splitViewActive;
+      const panel = document.getElementById('split-view-panel');
+      const btn = document.getElementById('split-view-btn');
+      panel.style.display = splitViewActive ? '' : 'none';
+      btn.style.background = splitViewActive ? 'rgba(255,255,255,0.2)' : '';
+      btn.style.borderColor = splitViewActive ? 'rgba(255,255,255,0.3)' : '';
+      if (splitViewActive) {
+        // If compare is on, turn it off
+        if (compareActive) toggleCompareMode();
+        updateSplitView();
+      }
+    }
+
+    function updateSplitView() {
+      if (!splitViewActive) return;
+      const previewArea = document.getElementById('preview-area');
+      // Get the inner HTML from the preview (skip the label)
+      const previewContent = previewArea.innerHTML;
+      // Extract just the component (everything after the label div)
+      const labelEnd = previewContent.indexOf('</div>');
+      const componentHtml = labelEnd !== -1 ? previewContent.substring(labelEnd + 6) : previewContent;
+
+      document.getElementById('split-light').innerHTML = componentHtml;
+      document.getElementById('split-dark').innerHTML = componentHtml;
+    }
+
+    // Patch renderCurrentComponent to also update split view
+    const _origRenderCurrent = renderCurrentComponent;
+    renderCurrentComponent = function() {
+      _origRenderCurrent();
+      updateSplitView();
+      updateCompareInstances();
+    };
+
+    // -----------------------------------------------------------
+    // COMPARE MODE
+    // -----------------------------------------------------------
+    let compareActive = false;
+    let compareInstances = [];
+
+    function getDefaultCompareState() {
+      const s = state[activeComponent];
+      const copy = {};
+      for (const k in s) copy[k] = s[k];
+      return copy;
+    }
+
+    function toggleCompareMode() {
+      compareActive = !compareActive;
+      const panel = document.getElementById('compare-panel');
+      const btn = document.getElementById('compare-btn');
+      panel.style.display = compareActive ? '' : 'none';
+      btn.style.background = compareActive ? 'rgba(255,255,255,0.2)' : '';
+      btn.style.borderColor = compareActive ? 'rgba(255,255,255,0.3)' : '';
+      if (compareActive) {
+        // If split is on, turn it off
+        if (splitViewActive) toggleSplitView();
+        // Init with 2 instances
+        compareInstances = [getDefaultCompareState(), getDefaultCompareState()];
+        // Vary second instance for useful comparison
+        if (activeComponent === 'button') {
+          compareInstances[1].variant = 'secondary';
+        }
+        renderCompareInstances();
+      }
+    }
+
+    function addCompareInstance() {
+      if (compareInstances.length >= 3) return;
+      const inst = getDefaultCompareState();
+      if (activeComponent === 'button' && compareInstances.length === 2) {
+        inst.variant = 'danger';
+      }
+      compareInstances.push(inst);
+      renderCompareInstances();
+    }
+
+    function resetCompareInstances() {
+      compareInstances = compareInstances.map(() => getDefaultCompareState());
+      renderCompareInstances();
+    }
+
+    function renderCompareInstances() {
+      const container = document.getElementById('compare-instances');
+      container.style.gridTemplateColumns = `repeat(${compareInstances.length}, 1fr)`;
+      container.innerHTML = compareInstances.map((inst, idx) => {
+        return `<div style="border-right:${idx < compareInstances.length - 1 ? '1px solid var(--border-color)' : 'none'}; display:flex; flex-direction:column;">
+          <div style="padding:10px 16px; border-bottom:1px solid var(--border-color); font-size:11px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; display:flex; justify-content:space-between; align-items:center;">
+            Instance ${idx + 1}
+            ${compareInstances.length > 2 ? '<button onclick="removeCompareInstance(' + idx + ')" style="font-size:10px; color:var(--error-500); background:none; border:none; cursor:pointer; font-family:var(--font-family);">Remove</button>' : ''}
+          </div>
+          <div style="padding:12px 16px; border-bottom:1px solid var(--border-color); display:flex; flex-direction:column; gap:8px; font-size:12px;" id="compare-controls-${idx}">
+            ${buildCompareControls(inst, idx)}
+          </div>
+          <div style="display:flex; align-items:center; justify-content:center; padding:32px 20px; background:var(--bg-preview); min-height:200px; flex:1;" id="compare-preview-${idx}">
+          </div>
+        </div>`;
+      }).join('');
+
+      // Wire up control events
+      compareInstances.forEach((inst, idx) => {
+        const panel = document.getElementById(`compare-controls-${idx}`);
+        if (!panel) return;
+        panel.querySelectorAll('select, input').forEach(el => {
+          el.addEventListener('input', () => syncCompareState(idx));
+          if (el.tagName === 'SELECT') el.addEventListener('change', () => syncCompareState(idx));
+        });
+      });
+
+      updateCompareInstances();
+    }
+
+    function buildCompareControls(inst, idx) {
+      const comp = activeComponent;
+      const s = inst;
+      let html = '';
+      if (comp === 'button') {
+        html += makeCompareSelect('Variant', 'variant', ['primary','secondary','tertiary','danger','success'], s.variant, idx);
+        html += makeCompareSelect('Size', 'size', ['sm','md','lg'], s.size, idx);
+      } else if (comp === 'badge') {
+        html += makeCompareSelect('Color', 'color', ['gray','blue','green','red','yellow','brand'], s.color, idx);
+        html += makeCompareSelect('Size', 'size', ['sm','md','lg'], s.size, idx);
+      } else if (comp === 'input') {
+        html += makeCompareSelect('Type', 'type', ['text','email','password','search'], s.type, idx);
+        html += makeCompareSelect('Size', 'size', ['sm','md','lg'], s.size, idx);
+      } else if (comp === 'avatar') {
+        html += makeCompareSelect('Size', 'size', ['xs','sm','md','lg','xl'], s.size, idx);
+        html += makeCompareSelect('Shape', 'shape', ['circle','rounded'], s.shape, idx);
+      } else if (comp === 'toggle') {
+        html += makeCompareSelect('Size', 'size', ['sm','md','lg'], s.size, idx);
+        html += makeCompareSelect('Color', 'color', ['brand','success','warning','error'], s.color, idx);
+      } else {
+        // For other components, show variant/size if they exist
+        if (s.variant) html += makeCompareSelect('Variant', 'variant', Object.keys(state[comp]).includes('variant') ? ['session','project','video'] : [], s.variant, idx);
+        if (s.size) html += makeCompareSelect('Size', 'size', ['sm','md','lg'], s.size, idx);
+      }
+      return html;
+    }
+
+    function makeCompareSelect(label, prop, options, val, idx) {
+      const opts = options.map(o => `<option value="${o}" ${o === val ? 'selected' : ''}>${o}</option>`).join('');
+      return `<div style="display:flex; align-items:center; gap:6px;">
+        <label style="font-size:10px; font-weight:600; color:var(--text-tertiary); text-transform:uppercase; min-width:50px;">${label}</label>
+        <select data-idx="${idx}" data-prop="${prop}" style="flex:1; padding:4px 8px; font-size:11px; font-family:var(--font-family); color:var(--text-primary); background:var(--bg-card); border:1px solid var(--border-color); border-radius:4px; outline:none;">${opts}</select>
+      </div>`;
+    }
+
+    function syncCompareState(idx) {
+      const panel = document.getElementById(`compare-controls-${idx}`);
+      if (!panel) return;
+      panel.querySelectorAll('[data-prop]').forEach(el => {
+        const prop = el.dataset.prop;
+        if (el.type === 'checkbox') compareInstances[idx][prop] = el.checked;
+        else compareInstances[idx][prop] = el.value;
+      });
+      updateCompareInstances();
+    }
+
+    function removeCompareInstance(idx) {
+      if (compareInstances.length <= 2) return;
+      compareInstances.splice(idx, 1);
+      renderCompareInstances();
+    }
+
+    function updateCompareInstances() {
+      if (!compareActive) return;
+      compareInstances.forEach((inst, idx) => {
+        const el = document.getElementById(`compare-preview-${idx}`);
+        if (!el) return;
+
+        // Temporarily swap state, render, capture HTML, restore
+        const origState = Object.assign({}, state[activeComponent]);
+        Object.assign(state[activeComponent], inst);
+
+        // Render to main preview temporarily to capture
+        renderers[activeComponent]();
+        const previewArea = document.getElementById('preview-area');
+        const previewContent = previewArea.innerHTML;
+        const labelEnd = previewContent.indexOf('</div>');
+        const componentHtml = labelEnd !== -1 ? previewContent.substring(labelEnd + 6) : previewContent;
+        el.innerHTML = componentHtml;
+
+        // Restore original state
+        Object.assign(state[activeComponent], origState);
+      });
+
+      // Re-render the main preview with actual state
+      renderers[activeComponent]();
+    }
+
+    // -----------------------------------------------------------
+    // INIT
+    // -----------------------------------------------------------
+    renderThemeStrip();
+    switchComponent('button');
+  </script>
+</body>
+</html>

@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animations - OpenReel Design System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --brand:        #1F12DE;
+      --brand-hover:  #1a0fbc;
+      --brand-light:  rgba(31, 18, 222, 0.1);
+
+      --blue-50:   #EFF8FF;
+      --blue-100:  #B2DDFF;
+      --blue-500:  #2970FF;
+      --blue-600:  #175CD3;
+      --blue-light:#53B1FD;
+
+      --gray-25:   #FCFCFD;
+      --gray-50:   #F9FAFB;
+      --gray-100:  #F2F4F7;
+      --gray-200:  #EAECF0;
+      --gray-300:  #E4E7EC;
+      --gray-400:  #98A2B3;
+      --gray-500:  #667085;
+      --gray-600:  #475467;
+      --gray-700:  #344054;
+      --gray-900:  #101828;
+
+      --success-50:  #ECFDF3;
+      --success-500: #17B26A;
+      --success-700: #067647;
+
+      --error-50:  #FEF3F2;
+      --error-500: #F04438;
+      --error-700: #B42318;
+
+      --warning-50:  #FFFAEB;
+      --warning-700: #B54708;
+
+      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   10px;
+      --radius-xl:   14px;
+      --radius-full: 9999px;
+
+      --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    }
+
+    /* Light mode */
+    html:not(.dark) {
+      --bg-page:      #F9FAFB;
+      --bg-card:      #FFFFFF;
+      --bg-preview:   #FFFFFF;
+      --bg-controls:  #F9FAFB;
+      --border-color: #EAECF0;
+      --text-primary: #101828;
+      --text-secondary: #667085;
+      --text-tertiary: #98A2B3;
+    }
+
+    /* Dark mode */
+    html.dark {
+      --bg-page:      #0C111D;
+      --bg-card:      #161B26;
+      --bg-preview:   #1F242F;
+      --bg-controls:  #161B26;
+      --border-color: #333741;
+      --text-primary: #F5F5F6;
+      --text-secondary: #94969C;
+      --text-tertiary: #61646C;
+    }
+
+    /* =========================================================
+       BASE STYLES
+       ========================================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 14px;
+      line-height: 24px;
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
+
+    /* ---- Header ---- */
+    .dm-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dm-toggle:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- Sidebar ---- */
+    .sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 220px;
+      height: calc(100vh - 64px);
+      padding: 20px 16px;
+      overflow-y: auto;
+      border-right: 1px solid var(--border-color);
+      background: var(--bg-card);
+      z-index: 40;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    .sidebar-link {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 7px 12px;
+      border-radius: var(--radius-md);
+      transition: all 0.15s ease;
+      margin-bottom: 2px;
+    }
+    .sidebar-link:hover {
+      color: var(--text-primary);
+      background: var(--brand-light);
+    }
+    html.dark .sidebar-link:hover {
+      background: rgba(129,140,248,0.1);
+    }
+    .sidebar-link.active-section {
+      color: var(--brand);
+      background: var(--brand-light);
+      font-weight: 600;
+    }
+    html.dark .sidebar-link.active-section {
+      color: #818cf8;
+      background: rgba(129,140,248,0.12);
+    }
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      padding: 16px 12px 6px;
+    }
+
+    /* ---- Demo Card ---- */
+    .demo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    .demo-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .demo-preview {
+      width: 100%;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-preview);
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-element {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--brand), var(--blue-500));
+      box-shadow: 0 4px 12px rgba(31, 18, 222, 0.3);
+    }
+    .demo-body {
+      padding: 16px;
+    }
+    .demo-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .demo-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .demo-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    /* ---- Buttons ---- */
+    .btn-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-family);
+      color: #fff;
+      background: var(--brand);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-play:hover { background: var(--brand-hover); }
+    .btn-play:active { transform: scale(0.96); }
+
+    .btn-play-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-family);
+      color: var(--brand);
+      background: var(--brand-light);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-play-all:hover {
+      background: rgba(31,18,222,0.15);
+    }
+    html.dark .btn-play-all {
+      color: #818cf8;
+      background: rgba(129,140,248,0.1);
+    }
+    html.dark .btn-play-all:hover {
+      background: rgba(129,140,248,0.18);
+    }
+
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: var(--font-family);
+      color: var(--text-secondary);
+      background: var(--bg-controls);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-copy:hover {
+      color: var(--text-primary);
+      border-color: var(--brand);
+    }
+
+    /* ---- Code block ---- */
+    .code-block {
+      position: relative;
+      background: var(--gray-900);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .code-block pre {
+      margin: 0;
+      padding: 12px 14px;
+      overflow-x: auto;
+      max-height: 180px;
+    }
+    .code-block code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+    .code-block .cb-copy {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 500;
+      font-family: var(--font-family);
+      color: #94a3b8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .code-block .cb-copy:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* ---- Range input ---- */
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 4px;
+      background: var(--gray-200);
+      border-radius: 2px;
+      outline: none;
+    }
+    html.dark input[type="range"] {
+      background: #333741;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--brand);
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    html.dark input[type="range"]::-webkit-slider-thumb {
+      background: #818cf8;
+    }
+    input[type="range"]:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    /* ---- Select ---- */
+    .easing-select {
+      font-family: var(--font-family);
+      font-size: 11px;
+      padding: 4px 8px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      outline: none;
+    }
+    .easing-select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px var(--brand-light);
+    }
+    .easing-select:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    /* ---- Section heading ---- */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section-heading h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-heading .count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 22px;
+      padding: 0 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand);
+      background: var(--brand-light);
+      border-radius: var(--radius-full);
+      margin-left: 8px;
+    }
+    html.dark .section-heading .count-badge {
+      color: #818cf8;
+      background: rgba(129,140,248,0.12);
+    }
+
+    /* ---- Toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 100;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ---- Motion tokens table ---- */
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .token-table th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .token-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-name {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--brand);
+      background: var(--brand-light);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+    html.dark .token-name {
+      color: #818cf8;
+      background: rgba(129,140,248,0.12);
+    }
+
+    /* ---- Easing curve visualization ---- */
+    .easing-curve-box {
+      width: 80px;
+      height: 60px;
+      position: relative;
+    }
+
+    /* ---- Interactive demos ---- */
+    .micro-demo {
+      min-height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-preview);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Button press micro */
+    .mi-button {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font-family);
+      color: #fff;
+      background: var(--brand);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .mi-button:hover { background: var(--brand-hover); box-shadow: var(--shadow-md); }
+    .mi-button:active { transform: scale(0.95); transition-duration: 0.08s; }
+
+    /* Card hover lift */
+    .mi-card {
+      width: 160px;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .mi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .mi-card .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: var(--brand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+    }
+    html.dark .mi-card .card-icon { background: rgba(129,140,248,0.12); }
+
+    /* Toggle switch */
+    .toggle-track {
+      width: 48px;
+      height: 26px;
+      border-radius: 13px;
+      background: var(--gray-300);
+      position: relative;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+    html.dark .toggle-track { background: #333741; }
+    .toggle-track.on { background: var(--brand); }
+    html.dark .toggle-track.on { background: #818cf8; }
+    .toggle-knob {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .toggle-track.on .toggle-knob { transform: translateX(22px); }
+
+    /* Checkbox */
+    .mi-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    html.dark .mi-checkbox { border-color: #333741; }
+    .mi-checkbox.checked {
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    html.dark .mi-checkbox.checked {
+      background: #818cf8;
+      border-color: #818cf8;
+    }
+    .mi-checkbox svg {
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .mi-checkbox.checked svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Ripple effect container */
+    .ripple-box {
+      width: 140px;
+      height: 60px;
+      background: var(--brand);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      user-select: none;
+    }
+    .ripple-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      transform: scale(0);
+      animation: ripple-anim 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes ripple-anim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Icon rotate */
+    .mi-icon-rotate {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--brand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--brand);
+    }
+    html.dark .mi-icon-rotate {
+      background: rgba(129,140,248,0.12);
+      color: #818cf8;
+    }
+    .mi-icon-rotate:hover svg {
+      transform: rotate(180deg);
+    }
+    .mi-icon-rotate svg {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Accordion */
+    .mi-accordion {
+      width: 220px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-card);
+    }
+    .mi-accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      user-select: none;
+    }
+    .mi-accordion-header svg {
+      transition: transform 0.3s ease;
+    }
+    .mi-accordion.open .mi-accordion-header svg {
+      transform: rotate(180deg);
+    }
+    .mi-accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .mi-accordion.open .mi-accordion-body {
+      max-height: 120px;
+    }
+    .mi-accordion-content {
+      padding: 0 14px 14px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Notification bell */
+    .mi-bell {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--brand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--brand);
+    }
+    html.dark .mi-bell {
+      background: rgba(129,140,248,0.12);
+      color: #818cf8;
+    }
+    .mi-bell .bell-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--error-500);
+      transform: scale(0);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .mi-bell.ringing .bell-badge { transform: scale(1); }
+    .mi-bell.ringing svg {
+      animation: bell-shake 0.5s ease;
+    }
+    @keyframes bell-shake {
+      0%, 100% { transform: rotate(0); }
+      15% { transform: rotate(12deg); }
+      30% { transform: rotate(-10deg); }
+      45% { transform: rotate(8deg); }
+      60% { transform: rotate(-6deg); }
+      75% { transform: rotate(3deg); }
+    }
+
+    /* ---- Page transition demos ---- */
+    .transition-viewport {
+      width: 100%;
+      height: 160px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-preview);
+    }
+    .transition-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .transition-slide.view-a {
+      background: linear-gradient(135deg, var(--brand), var(--blue-500));
+      color: #fff;
+    }
+    .transition-slide.view-b {
+      background: linear-gradient(135deg, var(--success-500), #10b981);
+      color: #fff;
+    }
+
+    /* ---- Loading pattern containers ---- */
+    .loading-preview {
+      width: 100%;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-preview);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Spinner */
+    .anim-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--gray-200);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    html.dark .anim-spinner {
+      border-color: #333741;
+      border-top-color: #818cf8;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Bouncing dots */
+    .anim-dots { display: flex; gap: 6px; }
+    .anim-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--brand);
+      animation: dot-bounce 1.2s ease-in-out infinite;
+    }
+    html.dark .anim-dots span { background: #818cf8; }
+    .anim-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .anim-dots span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes dot-bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-12px); }
+    }
+
+    /* Skeleton shimmer */
+    .anim-skeleton {
+      width: 160px;
+      height: 16px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+    html.dark .anim-skeleton {
+      background: linear-gradient(90deg, #1F242F 25%, #2a2f3d 50%, #1F242F 75%);
+      background-size: 200% 100%;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* Progress bar */
+    .anim-progress-track {
+      width: 160px;
+      height: 8px;
+      border-radius: 4px;
+      background: var(--gray-200);
+      overflow: hidden;
+    }
+    html.dark .anim-progress-track { background: #333741; }
+    .anim-progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--brand),
+        var(--brand) 6px,
+        rgba(31,18,222,0.7) 6px,
+        rgba(31,18,222,0.7) 12px
+      );
+      animation: progress-fill 2s ease-in-out infinite;
+      background-size: 200% 100%;
+    }
+    html.dark .anim-progress-fill {
+      background: repeating-linear-gradient(
+        -45deg,
+        #818cf8,
+        #818cf8 6px,
+        rgba(129,140,248,0.7) 6px,
+        rgba(129,140,248,0.7) 12px
+      );
+    }
+    @keyframes progress-fill {
+      0% { width: 0%; }
+      50% { width: 80%; }
+      100% { width: 100%; }
+    }
+
+    /* Pulse ring */
+    .anim-pulse-ring {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--brand);
+      position: relative;
+    }
+    html.dark .anim-pulse-ring { background: #818cf8; }
+    .anim-pulse-ring::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 3px solid var(--brand);
+      opacity: 0;
+      animation: pulse-ring-anim 1.5s ease-out infinite;
+    }
+    html.dark .anim-pulse-ring::before { border-color: #818cf8; }
+    @keyframes pulse-ring-anim {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    /* Bar loader */
+    .anim-bars { display: flex; gap: 4px; align-items: flex-end; height: 32px; }
+    .anim-bars span {
+      width: 6px;
+      border-radius: 2px;
+      background: var(--brand);
+      animation: bar-anim 1s ease-in-out infinite;
+    }
+    html.dark .anim-bars span { background: #818cf8; }
+    .anim-bars span:nth-child(1) { animation-delay: 0s; }
+    .anim-bars span:nth-child(2) { animation-delay: 0.15s; }
+    .anim-bars span:nth-child(3) { animation-delay: 0.3s; }
+    .anim-bars span:nth-child(4) { animation-delay: 0.45s; }
+    @keyframes bar-anim {
+      0%, 100% { height: 10px; }
+      50% { height: 32px; }
+    }
+
+    /* ---- Reduced motion ---- */
+    .reduced-motion-active .demo-element,
+    .reduced-motion-active .anim-spinner,
+    .reduced-motion-active .anim-dots span,
+    .reduced-motion-active .anim-skeleton,
+    .reduced-motion-active .anim-progress-fill,
+    .reduced-motion-active .anim-pulse-ring::before,
+    .reduced-motion-active .anim-bars span {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* ---- Keyframe definitions for entrance/exit/attention animations ---- */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    @keyframes slideInUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes fadeOutDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }
+    @keyframes scaleOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.8); } }
+    @keyframes slideOutRight { from { transform: translateX(0); } to { transform: translateX(100%); } }
+
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-16px); }
+      50% { transform: translateY(-8px); }
+      70% { transform: translateY(-12px); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-3deg); }
+      75% { transform: rotate(3deg); }
+    }
+    @keyframes ping {
+      0% { transform: scale(1); opacity: 1; }
+      75%, 100% { transform: scale(2); opacity: 0; }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.15); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.1); }
+      60% { transform: scale(1); }
+    }
+
+    /* Page transition keyframes */
+    @keyframes crossfadeOut { to { opacity: 0; } }
+    @keyframes crossfadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideReplaceOut { to { transform: translateX(-100%); } }
+    @keyframes slideReplaceIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    @keyframes zoomOut { to { transform: scale(1.2); opacity: 0; } }
+    @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes morphOut { to { border-radius: 50%; transform: scale(0.5); opacity: 0; } }
+    @keyframes morphIn { from { border-radius: 50%; transform: scale(0.5); opacity: 0; } to { border-radius: 0; transform: scale(1); opacity: 1; } }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main-content { margin-left: 0 !important; }
+      .header-nav { display: none !important; }
+    }
+    @media (max-width: 640px) {
+      .grid-cols-responsive { grid-template-columns: 1fr !important; }
+    }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+</head>
+
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       SIDEBAR
+       ========================================================= -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Animations</div>
+    <a href="#entrance" class="sidebar-link active-section">Entrance</a>
+    <a href="#exit" class="sidebar-link">Exit</a>
+    <a href="#attention" class="sidebar-link">Attention Seekers</a>
+    <a href="#loading" class="sidebar-link">Loading Patterns</a>
+    <a href="#micro" class="sidebar-link">Micro-interactions</a>
+    <a href="#transitions" class="sidebar-link">Page Transitions</a>
+    <div class="sidebar-label">Reference</div>
+    <a href="#tokens" class="sidebar-link">Motion Tokens</a>
+    <a href="#reduced-motion" class="sidebar-link">Reduced Motion</a>
+  </nav>
+
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
+  <main id="main-content" class="main-content" style="padding-top:88px; padding-bottom:80px; margin-left:220px; padding-left:32px; padding-right:32px; max-width:1200px;">
+
+    <!-- Page Title -->
+    <div style="margin-bottom:36px;">
+      <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em; margin-bottom:8px;">
+        Animations &amp; Micro-interactions
+      </h1>
+      <p style="font-size:15px; color:var(--text-secondary); max-width:640px;">
+        A curated library of animations, loading patterns, and micro-interactions for the OpenReel Design System. Click play to preview, tweak duration and easing, and copy the CSS.
+      </p>
+      <!-- Reduced motion toggle -->
+      <div style="display:flex; align-items:center; gap:10px; margin-top:16px; padding:10px 16px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); width:fit-content;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--warning-700);"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span style="font-size:12px; font-weight:500;">Simulate prefers-reduced-motion</span>
+        <div class="toggle-track" id="reduced-motion-toggle" onclick="toggleReducedMotion()" style="margin-left:8px;">
+          <div class="toggle-knob"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         SECTION 1: ENTRANCE ANIMATIONS
+         ========================================================= -->
+    <section id="entrance" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Entrance Animations <span class="count-badge">8</span></h2>
+        <button class="btn-play-all" onclick="playAllInSection('entrance')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Play All
+        </button>
+      </div>
+      <div class="grid-cols-responsive" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;" id="entrance-grid">
+        <!-- Cards injected by JS -->
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 2: EXIT ANIMATIONS
+         ========================================================= -->
+    <section id="exit" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Exit Animations <span class="count-badge">4</span></h2>
+        <button class="btn-play-all" onclick="playAllInSection('exit')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Play All
+        </button>
+      </div>
+      <div class="grid-cols-responsive" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;" id="exit-grid">
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 3: ATTENTION SEEKERS
+         ========================================================= -->
+    <section id="attention" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Attention Seekers <span class="count-badge">6</span></h2>
+        <button class="btn-play-all" onclick="playAllInSection('attention')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Play All
+        </button>
+      </div>
+      <div class="grid-cols-responsive" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;" id="attention-grid">
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 4: LOADING PATTERNS
+         ========================================================= -->
+    <section id="loading" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Loading Patterns <span class="count-badge">6</span></h2>
+      </div>
+      <div class="grid-cols-responsive" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;" id="loading-grid">
+        <!-- Spinner -->
+        <div class="demo-card">
+          <div class="loading-preview"><div class="anim-spinner"></div></div>
+          <div class="demo-body">
+            <div class="demo-name">Spinner</div>
+            <div class="demo-desc">Rotating circle with gap</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--gray-200);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <!-- Dots -->
+        <div class="demo-card">
+          <div class="loading-preview">
+            <div class="anim-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Bouncing Dots</div>
+            <div class="demo-desc">Three dots with staggered bounce</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--brand);
+  animation: dot-bounce 1.2s ease-in-out infinite;
+}
+.dots span:nth-child(2) { animation-delay: 0.15s; }
+.dots span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dot-bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-12px); }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <!-- Skeleton -->
+        <div class="demo-card">
+          <div class="loading-preview"><div class="anim-skeleton"></div></div>
+          <div class="demo-body">
+            <div class="demo-name">Skeleton Shimmer</div>
+            <div class="demo-desc">Gradient sweep left to right</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.skeleton {
+  background: linear-gradient(
+    90deg, #eee 25%, #f5f5f5 50%, #eee 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <!-- Progress Bar -->
+        <div class="demo-card">
+          <div class="loading-preview">
+            <div class="anim-progress-track"><div class="anim-progress-fill"></div></div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Progress Bar</div>
+            <div class="demo-desc">Animated fill with stripe pattern</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.progress-fill {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--brand),
+    var(--brand) 6px,
+    rgba(31,18,222,0.7) 6px,
+    rgba(31,18,222,0.7) 12px
+  );
+  animation: progress-fill 2s ease-in-out infinite;
+}
+@keyframes progress-fill {
+  0% { width: 0%; }
+  50% { width: 80%; }
+  100% { width: 100%; }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <!-- Pulse Ring -->
+        <div class="demo-card">
+          <div class="loading-preview"><div class="anim-pulse-ring"></div></div>
+          <div class="demo-body">
+            <div class="demo-name">Pulse Ring</div>
+            <div class="demo-desc">Expanding ring effect</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.pulse-ring {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--brand);
+  position: relative;
+}
+.pulse-ring::before {
+  content: '';
+  position: absolute; inset: -8px;
+  border-radius: 50%;
+  border: 3px solid var(--brand);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <!-- Bar Loader -->
+        <div class="demo-card">
+          <div class="loading-preview">
+            <div class="anim-bars"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Bar Loader</div>
+            <div class="demo-desc">Staggered height bars</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.bars span {
+  width: 6px; border-radius: 2px;
+  background: var(--brand);
+  animation: bar-anim 1s ease-in-out infinite;
+}
+.bars span:nth-child(2) { animation-delay: 0.15s; }
+.bars span:nth-child(3) { animation-delay: 0.3s; }
+.bars span:nth-child(4) { animation-delay: 0.45s; }
+@keyframes bar-anim {
+  0%, 100% { height: 10px; }
+  50% { height: 32px; }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 5: MICRO-INTERACTIONS
+         ========================================================= -->
+    <section id="micro" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Micro-interactions <span class="count-badge">8</span></h2>
+      </div>
+      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:20px;">
+        Hover, click, and interact with the demos below to see the animations in action.
+      </p>
+      <div class="grid-cols-responsive" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px;">
+
+        <!-- Button Press -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <button class="mi-button">Click Me</button>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Button Press</div>
+            <div class="demo-desc">scale(0.95) on active state</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>button:active {
+  transform: scale(0.95);
+  transition-duration: 0.08s;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Hover Lift -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <div class="mi-card">
+              <div class="card-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+              </div>
+              <div style="font-size:13px; font-weight:600;">Hover me</div>
+              <div style="font-size:11px; color:var(--text-secondary); margin-top:4px;">Card content</div>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Card Hover Lift</div>
+            <div class="demo-desc">translateY(-4px) + shadow increase</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.card {
+  transition: all 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toggle Switch -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="toggle-track" onclick="this.classList.toggle('on')">
+                <div class="toggle-knob"></div>
+              </div>
+              <span style="font-size:13px; font-weight:500;">Toggle me</span>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Toggle Switch</div>
+            <div class="demo-desc">Animated slide with color change</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.toggle-track {
+  width: 48px; height: 26px;
+  border-radius: 13px;
+  background: var(--gray-300);
+  transition: background 0.25s ease;
+}
+.toggle-track.on { background: var(--brand); }
+.toggle-knob {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.25s
+    cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toggle-track.on .toggle-knob {
+  transform: translateX(22px);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="mi-checkbox" onclick="this.classList.toggle('checked')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span style="font-size:13px; font-weight:500;">Check me</span>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Checkbox Check</div>
+            <div class="demo-desc">SVG path draw with spring easing</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.checkbox.checked {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+.checkbox svg {
+  opacity: 0; transform: scale(0);
+  transition: all 0.2s
+    cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.checkbox.checked svg {
+  opacity: 1; transform: scale(1);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ripple Effect -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <div class="ripple-box" onclick="createRipple(event)">
+              Click anywhere
+            </div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Ripple Effect</div>
+            <div class="demo-desc">Material-style ripple on click</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.ripple-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transform: scale(0);
+  animation: ripple 0.6s ease-out forwards;
+}
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Icon Rotate -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <div class="mi-icon-rotate">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+                <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+              </svg>
+            </div>
+            <span style="font-size:12px; color:var(--text-secondary); margin-left:12px;">Hover the icon</span>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Icon Rotate</div>
+            <div class="demo-desc">180deg rotation on hover</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.icon-rotate:hover svg {
+  transform: rotate(180deg);
+}
+.icon-rotate svg {
+  transition: transform 0.4s
+    cubic-bezier(0.34, 1.56, 0.64, 1);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <div class="mi-accordion" onclick="this.classList.toggle('open')">
+              <div class="mi-accordion-header">
+                <span>Expand me</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="mi-accordion-body">
+                <div class="mi-accordion-content">
+                  This content reveals with a smooth height transition and the chevron rotates 180 degrees.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Accordion Expand</div>
+            <div class="demo-desc">Height animation with chevron rotation</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.accordion.open .accordion-body {
+  max-height: 120px;
+}
+.accordion.open .chevron {
+  transform: rotate(180deg);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Bell -->
+        <div class="demo-card">
+          <div class="micro-demo">
+            <div class="mi-bell" id="bell-demo" onclick="ringBell()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>
+              </svg>
+              <div class="bell-badge"></div>
+            </div>
+            <span style="font-size:12px; color:var(--text-secondary); margin-left:12px;">Click the bell</span>
+          </div>
+          <div class="demo-body">
+            <div class="demo-name">Notification Bell</div>
+            <div class="demo-desc">Shake animation with badge pop</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.bell.ringing svg {
+  animation: bell-shake 0.5s ease;
+}
+.bell .badge {
+  transform: scale(0);
+  transition: transform 0.3s
+    cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.bell.ringing .badge {
+  transform: scale(1);
+}
+@keyframes bell-shake {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(12deg); }
+  30% { transform: rotate(-10deg); }
+  45% { transform: rotate(8deg); }
+  60% { transform: rotate(-6deg); }
+  75% { transform: rotate(3deg); }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 6: PAGE TRANSITIONS
+         ========================================================= -->
+    <section id="transitions" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Page Transitions <span class="count-badge">4</span></h2>
+      </div>
+      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:20px;">
+        Click play to preview each transition in the demo viewport.
+      </p>
+      <div class="grid-cols-responsive" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px;">
+
+        <!-- Crossfade -->
+        <div class="demo-card">
+          <div style="padding:16px;">
+            <div class="transition-viewport" id="tv-crossfade">
+              <div class="transition-slide view-a" style="z-index:2;">View A</div>
+              <div class="transition-slide view-b" style="z-index:1;">View B</div>
+            </div>
+          </div>
+          <div class="demo-body" style="border-top:1px solid var(--border-color); padding-top:16px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <div class="demo-name">Crossfade</div>
+              <button class="btn-play" onclick="playTransition('crossfade')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Play
+              </button>
+            </div>
+            <div class="demo-desc">Opacity swap between two views</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>/* Outgoing */
+.view-exit {
+  animation: crossfadeOut 0.3s ease forwards;
+}
+/* Incoming */
+.view-enter {
+  animation: crossfadeIn 0.3s ease forwards;
+}
+@keyframes crossfadeOut { to { opacity: 0; } }
+@keyframes crossfadeIn { from { opacity: 0; } }</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide Replace -->
+        <div class="demo-card">
+          <div style="padding:16px;">
+            <div class="transition-viewport" id="tv-slide">
+              <div class="transition-slide view-a" style="z-index:2;">View A</div>
+              <div class="transition-slide view-b" style="z-index:1;">View B</div>
+            </div>
+          </div>
+          <div class="demo-body" style="border-top:1px solid var(--border-color); padding-top:16px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <div class="demo-name">Slide Replace</div>
+              <button class="btn-play" onclick="playTransition('slide')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Play
+              </button>
+            </div>
+            <div class="demo-desc">Slide out left, new from right</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.view-exit {
+  animation: slideReplaceOut 0.4s ease forwards;
+}
+.view-enter {
+  animation: slideReplaceIn 0.4s ease forwards;
+}
+@keyframes slideReplaceOut {
+  to { transform: translateX(-100%); }
+}
+@keyframes slideReplaceIn {
+  from { transform: translateX(100%); }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zoom Through -->
+        <div class="demo-card">
+          <div style="padding:16px;">
+            <div class="transition-viewport" id="tv-zoom">
+              <div class="transition-slide view-a" style="z-index:2;">View A</div>
+              <div class="transition-slide view-b" style="z-index:1;">View B</div>
+            </div>
+          </div>
+          <div class="demo-body" style="border-top:1px solid var(--border-color); padding-top:16px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <div class="demo-name">Zoom Through</div>
+              <button class="btn-play" onclick="playTransition('zoom')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Play
+              </button>
+            </div>
+            <div class="demo-desc">Scale up + fade, new from small</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.view-exit {
+  animation: zoomOut 0.4s ease forwards;
+}
+.view-enter {
+  animation: zoomIn 0.4s ease forwards;
+}
+@keyframes zoomOut {
+  to { transform: scale(1.2); opacity: 0; }
+}
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Morph -->
+        <div class="demo-card">
+          <div style="padding:16px;">
+            <div class="transition-viewport" id="tv-morph">
+              <div class="transition-slide view-a" style="z-index:2;">View A</div>
+              <div class="transition-slide view-b" style="z-index:1;">View B</div>
+            </div>
+          </div>
+          <div class="demo-body" style="border-top:1px solid var(--border-color); padding-top:16px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+              <div class="demo-name">Morph</div>
+              <button class="btn-play" onclick="playTransition('morph')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Play
+              </button>
+            </div>
+            <div class="demo-desc">Shared element transition simulation</div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>.view-exit {
+  animation: morphOut 0.5s ease forwards;
+}
+.view-enter {
+  animation: morphIn 0.5s ease forwards;
+}
+@keyframes morphOut {
+  to { border-radius: 50%;
+       transform: scale(0.5); opacity: 0; }
+}
+@keyframes morphIn {
+  from { border-radius: 50%;
+         transform: scale(0.5); opacity: 0; }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 7: MOTION TOKENS
+         ========================================================= -->
+    <section id="tokens" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Motion Tokens</h2>
+      </div>
+      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:24px;">
+        Standardized duration and easing tokens used across all animations.
+      </p>
+
+      <!-- Duration tokens -->
+      <div style="margin-bottom:32px;">
+        <h3 style="font-size:16px; font-weight:600; margin-bottom:14px;">Duration Tokens</h3>
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); overflow:hidden;">
+          <table class="token-table">
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Value</th>
+                <th>Use Case</th>
+                <th style="width:200px;">Preview</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="token-name">--duration-instant</span></td>
+                <td>75ms</td>
+                <td style="color:var(--text-secondary); font-size:12px;">Instant feedback, opacity toggles</td>
+                <td><div style="height:4px; border-radius:2px; background:var(--gray-200); overflow:hidden;"><div class="dur-bar" data-dur="75" style="height:100%; width:0; background:var(--brand); border-radius:2px;"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="token-name">--duration-fast</span></td>
+                <td>150ms</td>
+                <td style="color:var(--text-secondary); font-size:12px;">Button states, small transitions</td>
+                <td><div style="height:4px; border-radius:2px; background:var(--gray-200); overflow:hidden;"><div class="dur-bar" data-dur="150" style="height:100%; width:0; background:var(--brand); border-radius:2px;"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="token-name">--duration-normal</span></td>
+                <td>200ms</td>
+                <td style="color:var(--text-secondary); font-size:12px;">Default for most transitions</td>
+                <td><div style="height:4px; border-radius:2px; background:var(--gray-200); overflow:hidden;"><div class="dur-bar" data-dur="200" style="height:100%; width:0; background:var(--brand); border-radius:2px;"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="token-name">--duration-smooth</span></td>
+                <td>300ms</td>
+                <td style="color:var(--text-secondary); font-size:12px;">Expanding panels, modals</td>
+                <td><div style="height:4px; border-radius:2px; background:var(--gray-200); overflow:hidden;"><div class="dur-bar" data-dur="300" style="height:100%; width:0; background:var(--brand); border-radius:2px;"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="token-name">--duration-slow</span></td>
+                <td>500ms</td>
+                <td style="color:var(--text-secondary); font-size:12px;">Page transitions, complex reveals</td>
+                <td><div style="height:4px; border-radius:2px; background:var(--gray-200); overflow:hidden;"><div class="dur-bar" data-dur="500" style="height:100%; width:0; background:var(--brand); border-radius:2px;"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="token-name">--duration-dramatic</span></td>
+                <td>1000ms</td>
+                <td style="color:var(--text-secondary); font-size:12px;">Hero animations, onboarding</td>
+                <td><div style="height:4px; border-radius:2px; background:var(--gray-200); overflow:hidden;"><div class="dur-bar" data-dur="1000" style="height:100%; width:0; background:var(--brand); border-radius:2px;"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn-play-all" onclick="playDurationBars()" style="margin-top:12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Animate Bars
+        </button>
+      </div>
+
+      <!-- Easing tokens -->
+      <div style="margin-bottom:32px;">
+        <h3 style="font-size:16px; font-weight:600; margin-bottom:14px;">Easing Tokens</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px;">
+
+          <!-- ease-out -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span class="token-name">ease-out</span>
+              <span style="font-size:11px; color:var(--text-tertiary);">Default</span>
+            </div>
+            <div class="easing-curve-box">
+              <svg viewBox="0 0 80 60" width="80" height="60">
+                <line x1="0" y1="60" x2="80" y2="0" stroke="var(--gray-200)" stroke-width="0.5" stroke-dasharray="2"/>
+                <path d="M0,60 C0,30 40,0 80,0" fill="none" stroke="var(--brand)" stroke-width="2"/>
+                <circle cx="0" cy="60" r="3" fill="var(--brand)"/>
+                <circle cx="80" cy="0" r="3" fill="var(--brand)"/>
+              </svg>
+            </div>
+            <div style="font-size:11px; color:var(--text-secondary); margin-top:8px;">Best for elements entering the screen</div>
+          </div>
+
+          <!-- ease-in-out -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span class="token-name">ease-in-out</span>
+              <span style="font-size:11px; color:var(--text-tertiary);">Movement</span>
+            </div>
+            <div class="easing-curve-box">
+              <svg viewBox="0 0 80 60" width="80" height="60">
+                <line x1="0" y1="60" x2="80" y2="0" stroke="var(--gray-200)" stroke-width="0.5" stroke-dasharray="2"/>
+                <path d="M0,60 C30,60 50,0 80,0" fill="none" stroke="var(--brand)" stroke-width="2"/>
+                <circle cx="0" cy="60" r="3" fill="var(--brand)"/>
+                <circle cx="80" cy="0" r="3" fill="var(--brand)"/>
+              </svg>
+            </div>
+            <div style="font-size:11px; color:var(--text-secondary); margin-top:8px;">Best for movement between positions</div>
+          </div>
+
+          <!-- spring -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span class="token-name">cubic-bezier(0.34,1.56,0.64,1)</span>
+            </div>
+            <div class="easing-curve-box">
+              <svg viewBox="0 0 80 70" width="80" height="70">
+                <line x1="0" y1="60" x2="80" y2="0" stroke="var(--gray-200)" stroke-width="0.5" stroke-dasharray="2"/>
+                <line x1="0" y1="0" x2="80" y2="0" stroke="var(--gray-300)" stroke-width="0.5" stroke-dasharray="1"/>
+                <path d="M0,60 C27,-34 51,0 80,0" fill="none" stroke="var(--brand)" stroke-width="2"/>
+                <circle cx="0" cy="60" r="3" fill="var(--brand)"/>
+                <circle cx="80" cy="0" r="3" fill="var(--brand)"/>
+              </svg>
+            </div>
+            <div style="font-size:11px; color:var(--text-secondary); margin-top:8px;">Spring/bounce for playful interactions</div>
+          </div>
+
+          <!-- linear -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span class="token-name">linear</span>
+              <span style="font-size:11px; color:var(--text-tertiary);">Looping</span>
+            </div>
+            <div class="easing-curve-box">
+              <svg viewBox="0 0 80 60" width="80" height="60">
+                <path d="M0,60 L80,0" fill="none" stroke="var(--brand)" stroke-width="2"/>
+                <circle cx="0" cy="60" r="3" fill="var(--brand)"/>
+                <circle cx="80" cy="0" r="3" fill="var(--brand)"/>
+              </svg>
+            </div>
+            <div style="font-size:11px; color:var(--text-secondary); margin-top:8px;">Best for continuous loops (spinners)</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION 8: REDUCED MOTION
+         ========================================================= -->
+    <section id="reduced-motion" style="margin-bottom:48px;">
+      <div class="section-heading">
+        <h2>Reduced Motion</h2>
+      </div>
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:24px;">
+        <div style="display:flex; gap:12px; margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--warning-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div>
+            <h3 style="font-size:15px; font-weight:600; margin-bottom:6px;">Respecting User Preferences</h3>
+            <p style="font-size:13px; color:var(--text-secondary); line-height:1.6;">
+              Some users have vestibular disorders or motion sensitivities. Always wrap non-essential animations in a <code style="background:var(--bg-preview); padding:1px 6px; border-radius:3px; font-size:12px;">prefers-reduced-motion</code> media query.
+            </p>
+          </div>
+        </div>
+        <div class="code-block" style="margin-top:16px;">
+          <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+          <pre><code>/* Remove non-essential animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Or target specific animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in { animation: none; opacity: 1; }
+  .animate-bounce  { animation: none; }
+  .animate-pulse   { animation: none; }
+}</code></pre>
+        </div>
+        <div style="margin-top:20px; padding:16px; background:var(--bg-preview); border-radius:var(--radius-md);">
+          <h4 style="font-size:13px; font-weight:600; margin-bottom:8px;">Guidelines</h4>
+          <ul style="font-size:12px; color:var(--text-secondary); line-height:1.8; padding-left:18px;">
+            <li><strong>Essential animations</strong> (loading spinners, progress bars) can remain but should be simplified.</li>
+            <li><strong>Decorative animations</strong> (entrance effects, hover lifts) should be disabled entirely.</li>
+            <li><strong>Transitions</strong> should use opacity cross-fades instead of spatial movement.</li>
+            <li>Use the toggle at the top of this page to preview how your UI behaves with reduced motion.</li>
+            <li>Test with your OS accessibility settings: macOS System Settings > Accessibility > Display > Reduce Motion.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+  <script>
+    /* ===========================================================
+       DATA: Animation definitions
+       =========================================================== */
+    const ANIMATIONS = {
+      entrance: [
+        { name: 'Fade In',        keyframe: 'fadeIn',       desc: 'opacity 0 to 1',                     css: `@keyframes fadeIn {\n  from { opacity: 0; }\n  to   { opacity: 1; }\n}\n.animate-fade-in {\n  animation: fadeIn 0.3s ease-out forwards;\n}` },
+        { name: 'Fade In Up',     keyframe: 'fadeInUp',     desc: 'opacity + translateY(20px to 0)',     css: `@keyframes fadeInUp {\n  from { opacity: 0; transform: translateY(20px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n.animate-fade-in-up {\n  animation: fadeInUp 0.3s ease-out forwards;\n}` },
+        { name: 'Fade In Down',   keyframe: 'fadeInDown',   desc: 'opacity + translateY(-20px to 0)',    css: `@keyframes fadeInDown {\n  from { opacity: 0; transform: translateY(-20px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n.animate-fade-in-down {\n  animation: fadeInDown 0.3s ease-out forwards;\n}` },
+        { name: 'Fade In Left',   keyframe: 'fadeInLeft',   desc: 'opacity + translateX(-20px to 0)',    css: `@keyframes fadeInLeft {\n  from { opacity: 0; transform: translateX(-20px); }\n  to   { opacity: 1; transform: translateX(0); }\n}\n.animate-fade-in-left {\n  animation: fadeInLeft 0.3s ease-out forwards;\n}` },
+        { name: 'Fade In Right',  keyframe: 'fadeInRight',  desc: 'opacity + translateX(20px to 0)',     css: `@keyframes fadeInRight {\n  from { opacity: 0; transform: translateX(20px); }\n  to   { opacity: 1; transform: translateX(0); }\n}\n.animate-fade-in-right {\n  animation: fadeInRight 0.3s ease-out forwards;\n}` },
+        { name: 'Scale In',       keyframe: 'scaleIn',      desc: 'opacity + scale(0.8 to 1)',           css: `@keyframes scaleIn {\n  from { opacity: 0; transform: scale(0.8); }\n  to   { opacity: 1; transform: scale(1); }\n}\n.animate-scale-in {\n  animation: scaleIn 0.3s ease-out forwards;\n}` },
+        { name: 'Slide In Up',    keyframe: 'slideInUp',    desc: 'translateY(100% to 0)',               css: `@keyframes slideInUp {\n  from { transform: translateY(100%); }\n  to   { transform: translateY(0); }\n}\n.animate-slide-in-up {\n  animation: slideInUp 0.3s ease-out forwards;\n}` },
+        { name: 'Slide In Right', keyframe: 'slideInRight', desc: 'translateX(100% to 0)',               css: `@keyframes slideInRight {\n  from { transform: translateX(100%); }\n  to   { transform: translateX(0); }\n}\n.animate-slide-in-right {\n  animation: slideInRight 0.3s ease-out forwards;\n}` },
+      ],
+      exit: [
+        { name: 'Fade Out',       keyframe: 'fadeOut',       desc: 'opacity 1 to 0',                     css: `@keyframes fadeOut {\n  from { opacity: 1; }\n  to   { opacity: 0; }\n}\n.animate-fade-out {\n  animation: fadeOut 0.3s ease-in forwards;\n}` },
+        { name: 'Fade Out Down',  keyframe: 'fadeOutDown',   desc: 'opacity + translateY(0 to 20px)',     css: `@keyframes fadeOutDown {\n  from { opacity: 1; transform: translateY(0); }\n  to   { opacity: 0; transform: translateY(20px); }\n}\n.animate-fade-out-down {\n  animation: fadeOutDown 0.3s ease-in forwards;\n}` },
+        { name: 'Scale Out',      keyframe: 'scaleOut',      desc: 'opacity + scale(1 to 0.8)',           css: `@keyframes scaleOut {\n  from { opacity: 1; transform: scale(1); }\n  to   { opacity: 0; transform: scale(0.8); }\n}\n.animate-scale-out {\n  animation: scaleOut 0.3s ease-in forwards;\n}` },
+        { name: 'Slide Out Right',keyframe: 'slideOutRight', desc: 'translateX(0 to 100%)',               css: `@keyframes slideOutRight {\n  from { transform: translateX(0); }\n  to   { transform: translateX(100%); }\n}\n.animate-slide-out-right {\n  animation: slideOutRight 0.3s ease-in forwards;\n}` },
+      ],
+      attention: [
+        { name: 'Pulse',     keyframe: 'pulse',     desc: 'scale(1 to 1.05 to 1) loop',         loop: true, css: `@keyframes pulse {\n  0%, 100% { transform: scale(1); }\n  50% { transform: scale(1.05); }\n}\n.animate-pulse {\n  animation: pulse 1s ease-in-out infinite;\n}` },
+        { name: 'Bounce',    keyframe: 'bounce',    desc: 'translateY bounce pattern',           loop: true, css: `@keyframes bounce {\n  0%, 100% { transform: translateY(0); }\n  30% { transform: translateY(-16px); }\n  50% { transform: translateY(-8px); }\n  70% { transform: translateY(-12px); }\n}\n.animate-bounce {\n  animation: bounce 1s ease-in-out infinite;\n}` },
+        { name: 'Shake',     keyframe: 'shake',     desc: 'translateX(-5px to 5px) rapid',       loop: false, css: `@keyframes shake {\n  0%, 100% { transform: translateX(0); }\n  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }\n  20%, 40%, 60%, 80% { transform: translateX(5px); }\n}\n.animate-shake {\n  animation: shake 0.5s ease;\n}` },
+        { name: 'Wiggle',    keyframe: 'wiggle',    desc: 'rotate(-3deg to 3deg)',               loop: true, css: `@keyframes wiggle {\n  0%, 100% { transform: rotate(0deg); }\n  25% { transform: rotate(-3deg); }\n  75% { transform: rotate(3deg); }\n}\n.animate-wiggle {\n  animation: wiggle 0.5s ease-in-out infinite;\n}` },
+        { name: 'Ping',      keyframe: 'ping',      desc: 'scale + opacity ring (like Tailwind)', loop: true, css: `@keyframes ping {\n  0% { transform: scale(1); opacity: 1; }\n  75%, 100% { transform: scale(2); opacity: 0; }\n}\n.animate-ping {\n  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;\n}`, special: 'ping' },
+        { name: 'Heartbeat', keyframe: 'heartbeat', desc: 'scale(1 to 1.15 to 1 to 1.1 to 1)',  loop: true, css: `@keyframes heartbeat {\n  0%, 100% { transform: scale(1); }\n  15% { transform: scale(1.15); }\n  30% { transform: scale(1); }\n  45% { transform: scale(1.1); }\n  60% { transform: scale(1); }\n}\n.animate-heartbeat {\n  animation: heartbeat 1.2s ease-in-out infinite;\n}` },
+      ]
+    };
+
+    /* ===========================================================
+       RENDER: Build animation demo cards
+       =========================================================== */
+    function buildDemoCard(anim, sectionKey, idx) {
+      const id = `${sectionKey}-${idx}`;
+      const isExit = sectionKey === 'exit';
+      const isLoop = anim.loop;
+
+      let previewInner = '';
+      if (anim.special === 'ping') {
+        previewInner = `
+          <div style="position:relative; width:56px; height:56px; display:flex; align-items:center; justify-content:center;">
+            <div id="el-${id}" style="position:absolute; inset:0; border-radius:50%; background:rgba(31,18,222,0.4); opacity:0;"></div>
+            <div style="width:24px; height:24px; border-radius:50%; background:var(--brand); position:relative; z-index:1;"></div>
+          </div>`;
+      } else {
+        previewInner = `<div class="demo-element" id="el-${id}"></div>`;
+      }
+
+      return `
+        <div class="demo-card" data-section="${sectionKey}">
+          <div class="demo-preview">${previewInner}</div>
+          <div class="demo-body">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+              <div class="demo-name">${anim.name}</div>
+              <button class="btn-play" onclick="playAnim('${id}', '${anim.keyframe}', ${isExit}, ${!!isLoop})">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Play
+              </button>
+            </div>
+            <div class="demo-desc">${anim.desc}</div>
+            <div class="demo-controls">
+              <label style="font-size:11px; color:var(--text-tertiary); display:flex; align-items:center; gap:6px;">
+                <span>Duration</span>
+                <input type="range" min="50" max="2000" value="300" step="50" style="width:80px;" id="dur-${id}" oninput="this.nextElementSibling.textContent=this.value+'ms'">
+                <span style="font-size:10px; min-width:40px;">300ms</span>
+              </label>
+              <select class="easing-select" id="ease-${id}">
+                <option value="ease-out" selected>ease-out</option>
+                <option value="ease-in-out">ease-in-out</option>
+                <option value="cubic-bezier(0.34, 1.56, 0.64, 1)">spring</option>
+                <option value="linear">linear</option>
+                <option value="ease-in">ease-in</option>
+              </select>
+            </div>
+            <div class="code-block">
+              <button class="cb-copy" onclick="copyCode(this)">Copy</button>
+              <pre><code>${escapeHtml(anim.css)}</code></pre>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Render all sections
+    ['entrance', 'exit', 'attention'].forEach(key => {
+      const grid = document.getElementById(`${key}-grid`);
+      if (!grid) return;
+      grid.innerHTML = ANIMATIONS[key].map((a, i) => buildDemoCard(a, key, i)).join('');
+    });
+
+    /* ===========================================================
+       PLAY: Trigger animations
+       =========================================================== */
+    const activeTimers = {};
+
+    function playAnim(id, keyframe, isExit, isLoop) {
+      const el = document.getElementById(`el-${id}`);
+      if (!el) return;
+      const dur = document.getElementById(`dur-${id}`).value;
+      const ease = document.getElementById(`ease-${id}`).value;
+
+      // Clear any existing
+      if (activeTimers[id]) clearTimeout(activeTimers[id]);
+      el.style.animation = 'none';
+      el.offsetHeight; // force reflow
+
+      const iterCount = isLoop ? '3' : '1';
+      el.style.animation = `${keyframe} ${dur}ms ${ease} ${isLoop ? '' : 'forwards'} ${iterCount}`;
+
+      // Reset after animation ends
+      const totalDur = isLoop ? parseInt(dur) * 3 : parseInt(dur);
+      activeTimers[id] = setTimeout(() => {
+        el.style.animation = 'none';
+        el.offsetHeight;
+        // Reset exit animations to visible
+        if (isExit) {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }
+      }, totalDur + 50);
+    }
+
+    function playAllInSection(sectionKey) {
+      const anims = ANIMATIONS[sectionKey];
+      if (!anims) return;
+      anims.forEach((a, i) => {
+        const id = `${sectionKey}-${i}`;
+        const isExit = sectionKey === 'exit';
+        setTimeout(() => {
+          playAnim(id, a.keyframe, isExit, !!a.loop);
+        }, i * 100);
+      });
+    }
+
+    /* ===========================================================
+       RIPPLE EFFECT
+       =========================================================== */
+    function createRipple(e) {
+      const box = e.currentTarget;
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const circle = document.createElement('span');
+      circle.className = 'ripple-circle';
+      const size = Math.max(rect.width, rect.height);
+      circle.style.width = circle.style.height = size + 'px';
+      circle.style.left = (x - size / 2) + 'px';
+      circle.style.top = (y - size / 2) + 'px';
+      box.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+    }
+
+    /* ===========================================================
+       NOTIFICATION BELL
+       =========================================================== */
+    function ringBell() {
+      const bell = document.getElementById('bell-demo');
+      bell.classList.remove('ringing');
+      bell.offsetHeight;
+      bell.classList.add('ringing');
+      setTimeout(() => bell.classList.remove('ringing'), 2000);
+    }
+
+    /* ===========================================================
+       PAGE TRANSITIONS
+       =========================================================== */
+    const transitionState = {};
+
+    function playTransition(type) {
+      const vp = document.getElementById(`tv-${type}`);
+      if (!vp) return;
+      const slides = vp.querySelectorAll('.transition-slide');
+      const a = slides[0], b = slides[1];
+
+      // Determine current state
+      const showingA = !transitionState[type];
+      transitionState[type] = showingA;
+
+      // Reset
+      a.style.animation = 'none';
+      b.style.animation = 'none';
+      a.offsetHeight;
+
+      const dur = '0.4s';
+      const ease = 'ease';
+
+      const keyMap = {
+        crossfade: { out: 'crossfadeOut', in: 'crossfadeIn' },
+        slide:     { out: 'slideReplaceOut', in: 'slideReplaceIn' },
+        zoom:      { out: 'zoomOut', in: 'zoomIn' },
+        morph:     { out: 'morphOut', in: 'morphIn' },
+      };
+
+      const keys = keyMap[type];
+      if (showingA) {
+        // A exits, B enters
+        a.style.zIndex = 2;
+        b.style.zIndex = 1;
+        a.style.animation = `${keys.out} ${dur} ${ease} forwards`;
+        b.style.animation = `${keys.in} ${dur} ${ease} forwards`;
+      } else {
+        // B exits, A enters
+        b.style.zIndex = 2;
+        a.style.zIndex = 1;
+        b.style.animation = `${keys.out} ${dur} ${ease} forwards`;
+        a.style.animation = `${keys.in} ${dur} ${ease} forwards`;
+      }
+    }
+
+    /* ===========================================================
+       DURATION BAR ANIMATION
+       =========================================================== */
+    function playDurationBars() {
+      document.querySelectorAll('.dur-bar').forEach(bar => {
+        const dur = parseInt(bar.dataset.dur);
+        bar.style.transition = 'none';
+        bar.style.width = '0';
+        bar.offsetHeight;
+        bar.style.transition = `width ${dur}ms ease-out`;
+        bar.style.width = '100%';
+        // Reset after
+        setTimeout(() => {
+          bar.style.transition = `width 300ms ease`;
+          bar.style.width = '0';
+        }, dur + 500);
+      });
+    }
+
+    /* ===========================================================
+       COPY CODE
+       =========================================================== */
+    function copyCode(btn) {
+      const code = btn.parentElement.querySelector('code');
+      if (!code) return;
+      navigator.clipboard.writeText(code.textContent).then(() => {
+        showToast('Copied to clipboard');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 1500);
+      });
+    }
+
+    /* ===========================================================
+       DARK MODE
+       =========================================================== */
+    (function(){
+      const saved = localStorage.getItem('ds-dark-mode');
+      if (saved === 'true') document.documentElement.classList.add('dark');
+      updateDmIcon();
+    })();
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', document.documentElement.classList.contains('dark'));
+      updateDmIcon();
+    }
+
+    function updateDmIcon() {
+      const icon = document.getElementById('dm-icon');
+      if (!icon) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      icon.innerHTML = isDark
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+    }
+
+    /* ===========================================================
+       TOAST
+       =========================================================== */
+    let toastTimeout;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    /* ===========================================================
+       REDUCED MOTION TOGGLE
+       =========================================================== */
+    function toggleReducedMotion() {
+      const toggle = document.getElementById('reduced-motion-toggle');
+      toggle.classList.toggle('on');
+      document.body.classList.toggle('reduced-motion-active');
+    }
+
+    /* ===========================================================
+       SIDEBAR SCROLL SPY
+       =========================================================== */
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('section[id]');
+
+    function updateSidebar() {
+      let current = '';
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 120) current = sec.id;
+      });
+      sidebarLinks.forEach(link => {
+        link.classList.toggle('active-section', link.getAttribute('href') === '#' + current);
+      });
+    }
+
+    // Smooth scroll for sidebar
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    window.addEventListener('scroll', updateSidebar, { passive: true });
+    updateSidebar();
+
+    /* ===========================================================
+       INITIAL DURATION BAR DEMO (auto-play once)
+       =========================================================== */
+    setTimeout(playDurationBars, 800);
+  </script>
+</body>
+</html>

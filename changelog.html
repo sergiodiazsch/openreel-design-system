@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog - OpenReel Design System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --brand:        #1F12DE;
+      --brand-hover:  #1a0fbc;
+      --brand-light:  rgba(31, 18, 222, 0.1);
+
+      --blue-50:   #EFF8FF;
+      --blue-100:  #B2DDFF;
+      --blue-500:  #2970FF;
+      --blue-600:  #175CD3;
+      --blue-light:#53B1FD;
+
+      --gray-25:   #FCFCFD;
+      --gray-50:   #F9FAFB;
+      --gray-100:  #F2F4F7;
+      --gray-200:  #EAECF0;
+      --gray-300:  #E4E7EC;
+      --gray-400:  #98A2B3;
+      --gray-500:  #667085;
+      --gray-600:  #475467;
+      --gray-700:  #344054;
+      --gray-900:  #101828;
+
+      --success-50:  #ECFDF3;
+      --success-100: #D1FAE0;
+      --success-200: #A6F4C5;
+      --success-500: #17B26A;
+      --success-700: #067647;
+      --success-800: #027A48;
+
+      --error-50:  #FEF3F2;
+      --error-100: #FEE4E2;
+      --error-500: #F04438;
+      --error-700: #B42318;
+
+      --warning-50:  #FFFAEB;
+      --warning-100: #FEDF89;
+      --warning-700: #B54708;
+
+      --font-family:  'Inter', system-ui, -apple-system, sans-serif;
+
+      --text-xs:   10px;
+      --text-sm:   12px;
+      --text-base: 14px;
+      --text-md:   16px;
+      --text-lg:   18px;
+      --text-xl:   20px;
+      --text-2xl:  24px;
+
+      --font-regular:  400;
+      --font-medium:   500;
+      --font-semibold: 600;
+
+      --leading-xs:  16px;
+      --leading-sm:  20px;
+      --leading-base:24px;
+      --leading-lg:  28px;
+      --leading-xl:  32px;
+
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   10px;
+      --radius-xl:   14px;
+      --radius-full: 9999px;
+
+      --space-1:  4px;
+      --space-1h: 6px;
+      --space-2:  8px;
+      --space-2h: 10px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-5:  20px;
+      --space-6:  24px;
+      --space-8:  32px;
+
+      --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    }
+
+    html.dark {
+      --bg-primary:   #0C111D;
+      --bg-secondary: #161B26;
+      --bg-tertiary:  #1F242F;
+      --text-primary:   #F5F5F6;
+      --text-secondary: #94969C;
+      --border-primary: #333741;
+    }
+
+    html:not(.dark) {
+      --bg-primary:   #FFFFFF;
+      --bg-secondary: var(--gray-50);
+      --bg-tertiary:  var(--gray-100);
+      --text-primary:   var(--gray-900);
+      --text-secondary: var(--gray-500);
+      --border-primary: var(--gray-200);
+    }
+
+    /* =========================================================
+       BASE STYLES
+       ========================================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--text-base);
+      line-height: var(--leading-base);
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
+
+    /* ---- Header ---- */
+    .dm-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dm-toggle:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- Status badges ---- */
+    .status-stable {
+      background: var(--success-50);
+      color: var(--success-700);
+      border: 1px solid var(--success-200);
+    }
+    html.dark .status-stable {
+      background: rgba(23,178,106,0.12);
+      color: #4ade80;
+      border-color: rgba(23,178,106,0.25);
+    }
+    .status-beta {
+      background: var(--blue-50);
+      color: var(--blue-600);
+      border: 1px solid var(--blue-100);
+    }
+    html.dark .status-beta {
+      background: rgba(41,112,255,0.12);
+      color: #60a5fa;
+      border-color: rgba(41,112,255,0.25);
+    }
+    .status-alpha {
+      background: var(--warning-50);
+      color: var(--warning-700);
+      border: 1px solid var(--warning-100);
+    }
+    html.dark .status-alpha {
+      background: rgba(181,71,8,0.12);
+      color: #fbbf24;
+      border-color: rgba(181,71,8,0.25);
+    }
+    .status-planned {
+      background: var(--gray-100);
+      color: var(--gray-600);
+      border: 1px solid var(--gray-200);
+    }
+    html.dark .status-planned {
+      background: rgba(255,255,255,0.06);
+      color: var(--text-secondary);
+      border-color: var(--border-primary);
+    }
+    .status-deprecated {
+      background: var(--error-50);
+      color: var(--error-700);
+      border: 1px solid var(--error-100);
+    }
+    html.dark .status-deprecated {
+      background: rgba(240,68,56,0.12);
+      color: #f87171;
+      border-color: rgba(240,68,56,0.25);
+    }
+
+    /* ---- Change type badges ---- */
+    .change-added {
+      background: var(--success-50);
+      color: var(--success-700);
+    }
+    html.dark .change-added {
+      background: rgba(23,178,106,0.15);
+      color: #4ade80;
+    }
+    .change-changed {
+      background: var(--blue-50);
+      color: var(--blue-600);
+    }
+    html.dark .change-changed {
+      background: rgba(41,112,255,0.15);
+      color: #60a5fa;
+    }
+    .change-fixed {
+      background: var(--warning-50);
+      color: var(--warning-700);
+    }
+    html.dark .change-fixed {
+      background: rgba(181,71,8,0.15);
+      color: #fbbf24;
+    }
+    .change-removed {
+      background: var(--error-50);
+      color: var(--error-700);
+    }
+    html.dark .change-removed {
+      background: rgba(240,68,56,0.15);
+      color: #f87171;
+    }
+    .change-deprecated {
+      background: #FFF7ED;
+      color: #C2410C;
+    }
+    html.dark .change-deprecated {
+      background: rgba(194,65,12,0.15);
+      color: #fb923c;
+    }
+
+    /* ---- Component table ---- */
+    .comp-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    .comp-table th {
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-primary);
+      cursor: pointer;
+      user-select: none;
+      position: sticky;
+      top: 0;
+      background: var(--bg-primary);
+      z-index: 2;
+    }
+    .comp-table th:hover {
+      color: var(--text-primary);
+    }
+    .comp-table th .sort-arrow {
+      display: inline-block;
+      margin-left: 4px;
+      opacity: 0.3;
+      transition: opacity 0.2s;
+    }
+    .comp-table th.sorted .sort-arrow {
+      opacity: 1;
+    }
+    .comp-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-primary);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    .comp-table tbody tr {
+      transition: background 0.15s;
+    }
+    .comp-table tbody tr:hover {
+      background: var(--bg-secondary);
+    }
+
+    /* ---- Timeline ---- */
+    .timeline-line {
+      position: absolute;
+      left: 23px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-primary);
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 16px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: 3px solid var(--bg-primary);
+      z-index: 1;
+    }
+    .timeline-entry {
+      position: relative;
+      padding-left: 52px;
+      padding-bottom: 40px;
+    }
+
+    /* ---- Cards & sections ---- */
+    .section-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    /* ---- Filter pills ---- */
+    .filter-pill {
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-primary);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .filter-pill:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .filter-pill.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+    html.dark .filter-pill.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    /* ---- Search input ---- */
+    .search-input {
+      padding: 8px 12px 8px 36px;
+      font-size: 13px;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      width: 240px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--brand-light);
+    }
+    .search-input:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+    .search-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    /* ---- Principle cards ---- */
+    .principle-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: all 0.25s ease;
+    }
+    .principle-card:hover {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 1px var(--brand), var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .principle-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--brand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    html.dark .principle-icon {
+      background: rgba(31,18,222,0.2);
+    }
+
+    /* ---- Roadmap cards ---- */
+    .roadmap-col {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      min-width: 260px;
+    }
+    .roadmap-item {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .roadmap-item:hover {
+      border-color: var(--brand);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ---- Collapse animation ---- */
+    .changelog-body {
+      max-height: 2000px;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 1;
+    }
+    .changelog-body.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    /* ---- Stat card ---- */
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .stat-card:hover {
+      border-color: var(--brand);
+    }
+
+    /* ---- Fade in ---- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeInUp 0.4s ease forwards;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .header-nav { display: none !important; }
+      .comp-table { font-size: 12px; }
+      .comp-table th, .comp-table td { padding: 8px 10px; }
+      .filter-bar { flex-wrap: wrap; }
+      .search-input { width: 100%; }
+      .roadmap-grid { grid-template-columns: 1fr !important; }
+      .principles-grid { grid-template-columns: 1fr !important; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  /* focus-visible for inline-styled select that suppresses the default outline */
+  #cat-filter:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+</head>
+
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
+  <main id="main-content" style="padding-top:88px; padding-bottom:80px; max-width:1280px; margin:0 auto; padding-left:24px; padding-right:24px;">
+
+    <!-- ===================== PAGE HEADER ===================== -->
+    <div style="margin-bottom:40px;" class="fade-in">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em;">Changelog &amp; Status</h1>
+        <span style="
+          font-size:11px; font-weight:600; letter-spacing:0.04em;
+          padding:3px 10px; border-radius:var(--radius-full);
+          background:var(--brand); color:#fff;
+        ">v1.0.0</span>
+      </div>
+      <p style="color:var(--text-secondary); font-size:15px; max-width:680px; line-height:1.6;">
+        Track every component's readiness, explore the full version history, and see what's coming next for the OpenReel Design System.
+      </p>
+    </div>
+
+    <!-- ===================== DESIGN PRINCIPLES ===================== -->
+    <section style="margin-bottom:56px;" class="fade-in">
+      <h2 style="font-size:20px; font-weight:700; margin-bottom:20px; letter-spacing:-0.01em;">Design Principles</h2>
+      <div class="principles-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+
+        <div class="principle-card">
+          <div class="principle-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><circle cx="12" cy="8" r="0.5" fill="var(--brand)"/>
+            </svg>
+          </div>
+          <h3 style="font-size:15px; font-weight:600; margin-bottom:6px;">Clarity</h3>
+          <p style="font-size:13px; color:var(--text-secondary); line-height:1.55;">Every element should have a clear purpose. If it doesn't communicate or help the user, remove it.</p>
+        </div>
+
+        <div class="principle-card">
+          <div class="principle-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </div>
+          <h3 style="font-size:15px; font-weight:600; margin-bottom:6px;">Consistency</h3>
+          <p style="font-size:13px; color:var(--text-secondary); line-height:1.55;">Same problems get same solutions. Consistent patterns reduce cognitive load and build user trust.</p>
+        </div>
+
+        <div class="principle-card">
+          <div class="principle-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h3 style="font-size:15px; font-weight:600; margin-bottom:6px;">Efficiency</h3>
+          <p style="font-size:13px; color:var(--text-secondary); line-height:1.55;">Minimize steps to complete tasks. Respect users' time with smart defaults and streamlined flows.</p>
+        </div>
+
+        <div class="principle-card">
+          <div class="principle-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 style="font-size:15px; font-weight:600; margin-bottom:6px;">Accessibility</h3>
+          <p style="font-size:13px; color:var(--text-secondary); line-height:1.55;">Usable by everyone, always. WCAG 2.1 AA compliance is the baseline, not the aspiration.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== COMPONENT STATUS BOARD ===================== -->
+    <section style="margin-bottom:56px;" class="fade-in">
+      <h2 style="font-size:20px; font-weight:700; margin-bottom:20px; letter-spacing:-0.01em;">Component Status Board</h2>
+
+      <!-- Stats summary -->
+      <div id="stats-grid" class="stats-grid" style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:24px;"></div>
+
+      <!-- Filters -->
+      <div class="filter-bar" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:20px;">
+        <!-- Search -->
+        <div style="position:relative;">
+          <svg style="position:absolute; left:10px; top:50%; transform:translateY(-50%);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="comp-search" class="search-input" placeholder="Search components..." oninput="filterComponents()" />
+        </div>
+
+        <div style="width:1px; height:28px; background:var(--border-primary);"></div>
+
+        <!-- Status filters -->
+        <span style="font-size:12px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Status:</span>
+        <button class="filter-pill active" data-filter="status" data-value="all" onclick="setStatusFilter('all',this)">All</button>
+        <button class="filter-pill" data-filter="status" data-value="Stable" onclick="setStatusFilter('Stable',this)">Stable</button>
+        <button class="filter-pill" data-filter="status" data-value="Beta" onclick="setStatusFilter('Beta',this)">Beta</button>
+        <button class="filter-pill" data-filter="status" data-value="Alpha" onclick="setStatusFilter('Alpha',this)">Alpha</button>
+        <button class="filter-pill" data-filter="status" data-value="Planned" onclick="setStatusFilter('Planned',this)">Planned</button>
+
+        <div style="width:1px; height:28px; background:var(--border-primary);"></div>
+
+        <!-- Category filter -->
+        <span style="font-size:12px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Category:</span>
+        <select id="cat-filter" onchange="filterComponents()" style="
+          padding:6px 28px 6px 12px; font-size:13px; font-weight:500; border-radius:var(--radius-full);
+          border:1px solid var(--border-primary); background:var(--bg-primary); color:var(--text-primary);
+          cursor:pointer; appearance:none;
+          background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23667085%22 stroke-width=%222%22><path d=%22M6 9l6 6 6-6%22/></svg>');
+          background-repeat:no-repeat; background-position:right 8px center;
+        ">
+          <option value="all">All Categories</option>
+          <option value="Actions">Actions</option>
+          <option value="Data Display">Data Display</option>
+          <option value="Feedback">Feedback</option>
+          <option value="Forms">Forms</option>
+          <option value="Layout">Layout</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Media">Media</option>
+          <option value="Navigation">Navigation</option>
+          <option value="Overlay">Overlay</option>
+        </select>
+      </div>
+
+      <!-- Component table -->
+      <div class="section-card" style="overflow-x:auto;">
+        <table class="comp-table" id="comp-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)" data-col="0">Component <span class="sort-arrow">&#9650;</span></th>
+              <th onclick="sortTable(1)" data-col="1">Status <span class="sort-arrow">&#9650;</span></th>
+              <th onclick="sortTable(2)" data-col="2">Version <span class="sort-arrow">&#9650;</span></th>
+              <th onclick="sortTable(3)" data-col="3">Last Updated <span class="sort-arrow">&#9650;</span></th>
+              <th onclick="sortTable(4)" data-col="4">Category <span class="sort-arrow">&#9650;</span></th>
+            </tr>
+          </thead>
+          <tbody id="comp-tbody"></tbody>
+        </table>
+        <div id="no-results" style="display:none; padding:40px; text-align:center; color:var(--text-secondary); font-size:14px;">
+          No components match your filters.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VERSION HISTORY ===================== -->
+    <section style="margin-bottom:56px;" class="fade-in">
+      <h2 style="font-size:20px; font-weight:700; margin-bottom:28px; letter-spacing:-0.01em;">Version History</h2>
+
+      <div style="position:relative;">
+        <div class="timeline-line"></div>
+
+        <!-- v1.0.0 -->
+        <div class="timeline-entry" id="v1.0.0">
+          <div class="timeline-dot" style="top:4px;"></div>
+          <div class="section-card" style="padding:24px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; cursor:pointer;" onclick="toggleChangelog('v100')">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span style="font-size:18px; font-weight:700;">v1.0.0</span>
+                <span style="font-size:12px; color:var(--text-secondary);">March 11, 2026</span>
+                <span style="
+                  font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+                  padding:2px 8px; border-radius:var(--radius-full);
+                  background:var(--brand); color:#fff;
+                ">Latest</span>
+              </div>
+              <svg id="chevron-v100" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s;">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <p style="font-size:15px; font-weight:600; color:var(--brand); margin-bottom:16px;">Initial Release</p>
+            <div class="changelog-body" id="body-v100">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">35 stable components, production-ready</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Complete token system (colors, typography, spacing, shadows, radius)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Dark mode support across all components</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Accessibility guidelines (WCAG 2.1 AA compliance)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Responsive design guidelines and breakpoints</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Motion tokens and animation library with 40+ presets</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Interactive playground with live code editing</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Icon library with 78 custom SVG icons</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Token export in CSS, SCSS, JSON, and Tailwind formats</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">8 page templates (Dashboard, Settings, Auth, etc.)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v0.9.0 -->
+        <div class="timeline-entry" id="v0.9.0">
+          <div class="timeline-dot" style="top:4px; background:var(--blue-500);"></div>
+          <div class="section-card" style="padding:24px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; cursor:pointer;" onclick="toggleChangelog('v090')">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span style="font-size:18px; font-weight:700;">v0.9.0</span>
+                <span style="font-size:12px; color:var(--text-secondary);">February 28, 2026</span>
+              </div>
+              <svg id="chevron-v090" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s;">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <p style="font-size:15px; font-weight:600; color:var(--blue-500); margin-bottom:16px;">Beta Release</p>
+            <div class="changelog-body" id="body-v090">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Accordion component (beta)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Command Palette component (beta)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Form patterns documentation</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-changed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Changed</span>
+                  <span style="font-size:13px;">Button hover states refined for better visual feedback</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-changed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Changed</span>
+                  <span style="font-size:13px;">Card shadow tokens updated for more depth</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-fixed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Fixed</span>
+                  <span style="font-size:13px;">Badge text alignment on small sizes</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-fixed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Fixed</span>
+                  <span style="font-size:13px;">Modal focus trap behavior on nested modals</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v0.8.0 -->
+        <div class="timeline-entry" id="v0.8.0">
+          <div class="timeline-dot" style="top:4px; background:var(--warning-700);"></div>
+          <div class="section-card" style="padding:24px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; cursor:pointer;" onclick="toggleChangelog('v080')">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span style="font-size:18px; font-weight:700;">v0.8.0</span>
+                <span style="font-size:12px; color:var(--text-secondary);">February 15, 2026</span>
+              </div>
+              <svg id="chevron-v080" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s;">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <p style="font-size:15px; font-weight:600; color:var(--warning-700); margin-bottom:16px;">Alpha Components</p>
+            <div class="changelog-body" id="body-v080">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Date Picker component (beta)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Color Picker component (beta)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Kanban Board component (beta)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Design principles page</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-changed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Changed</span>
+                  <span style="font-size:13px;">Gray scale adjusted for better contrast ratios</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-fixed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Fixed</span>
+                  <span style="font-size:13px;">Input focus ring color in dark mode</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v0.7.0 -->
+        <div class="timeline-entry" id="v0.7.0" style="padding-bottom:0;">
+          <div class="timeline-dot" style="top:4px; background:var(--gray-400);"></div>
+          <div class="section-card" style="padding:24px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; cursor:pointer;" onclick="toggleChangelog('v070')">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span style="font-size:18px; font-weight:700;">v0.7.0</span>
+                <span style="font-size:12px; color:var(--text-secondary);">February 1, 2026</span>
+              </div>
+              <svg id="chevron-v070" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s;">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <p style="font-size:15px; font-weight:600; color:var(--gray-500); margin-bottom:16px;">Foundation</p>
+            <div class="changelog-body" id="body-v070">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Core token system (colors, spacing, shadows, radii)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Typography scale and Inter font integration</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Full color palette with success, error, warning, and blue variants</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">First 20 core components (Button, Input, Card, Modal, etc.)</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:8px;">
+                  <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                  <span style="font-size:13px;">Basic documentation structure</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== ROADMAP ===================== -->
+    <section class="fade-in">
+      <h2 style="font-size:20px; font-weight:700; margin-bottom:20px; letter-spacing:-0.01em;">Roadmap</h2>
+      <div class="roadmap-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+
+        <!-- Q2 2026 -->
+        <div class="roadmap-col">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+            <div style="width:8px; height:8px; border-radius:50%; background:var(--brand);"></div>
+            <span style="font-size:14px; font-weight:700;">Q2 2026</span>
+          </div>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">New Components</p>
+          <div class="roadmap-item">
+            <div style="font-weight:600; margin-bottom:4px;">Timeline</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Visual timeline for events and milestones</div>
+          </div>
+          <div class="roadmap-item">
+            <div style="font-weight:600; margin-bottom:4px;">Gantt Chart</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Project scheduling with dependencies</div>
+          </div>
+          <div class="roadmap-item">
+            <div style="font-weight:600; margin-bottom:4px;">Calendar</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Date selection and event management</div>
+          </div>
+        </div>
+
+        <!-- Q3 2026 -->
+        <div class="roadmap-col">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+            <div style="width:8px; height:8px; border-radius:50%; background:var(--blue-500);"></div>
+            <span style="font-size:14px; font-weight:700;">Q3 2026</span>
+          </div>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">Framework Libraries</p>
+          <div class="roadmap-item">
+            <div style="font-weight:600; margin-bottom:4px;">React Component Library</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Full component library as React/TypeScript package</div>
+          </div>
+          <div class="roadmap-item">
+            <div style="font-weight:600; margin-bottom:4px;">Vue Component Library</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Vue 3 compatible component library</div>
+          </div>
+        </div>
+
+        <!-- Q4 2026 -->
+        <div class="roadmap-col">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+            <div style="width:8px; height:8px; border-radius:50%; background:var(--success-500);"></div>
+            <span style="font-size:14px; font-weight:700;">Q4 2026</span>
+          </div>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">Tooling</p>
+          <div class="roadmap-item">
+            <div style="font-weight:600; margin-bottom:4px;">Figma Plugin</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Sync tokens and components with Figma</div>
+          </div>
+          <div class="roadmap-item">
+            <div style="font-weight:600; margin-bottom:4px;">Design Lint Tool</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Automated checks for design consistency</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+  <script>
+    /* ===========================================================
+       Component Data
+       =========================================================== */
+    const components = [
+      { name: 'Button',            status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Actions' },
+      { name: 'Badge',             status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Data Display' },
+      { name: 'Input',             status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Textarea',          status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Select',            status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Checkbox',          status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Radio',             status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Toggle/Switch',     status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Card (Session)',    status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'Card (Project)',    status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'Card (Video)',      status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'Modal',             status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Overlay' },
+      { name: 'Toast/Alert',       status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Feedback' },
+      { name: 'Progress Bar',      status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Feedback' },
+      { name: 'Loading Skeleton',  status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Feedback' },
+      { name: 'Table',             status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Data Display' },
+      { name: 'Tabs',              status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Navigation' },
+      { name: 'Breadcrumbs',       status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Navigation' },
+      { name: 'Pagination',        status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Navigation' },
+      { name: 'Sidebar Nav',       status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Navigation' },
+      { name: 'Avatar',            status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Data Display' },
+      { name: 'Tooltip',           status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Overlay' },
+      { name: 'Dropdown Menu',     status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Overlay' },
+      { name: 'Empty State',       status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Feedback' },
+      { name: 'File Upload',       status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Tree View',         status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Navigation' },
+      { name: 'Divider',           status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'Stepper',           status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Navigation' },
+      { name: 'Activity Feed',     status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Data Display' },
+      { name: 'Pills/Chips',       status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Data Display' },
+      { name: 'Section Header',    status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'CTA Banner',        status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Marketing' },
+      { name: 'Notification Badge',status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Data Display' },
+      { name: 'Date/Time Display', status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Data Display' },
+      { name: 'Metadata Grid',     status: 'Stable',  version: '1.0', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'Accordion',         status: 'Beta',    version: '0.9', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'Command Palette',   status: 'Beta',    version: '0.9', updated: 'Mar 2026', category: 'Navigation' },
+      { name: 'Date Picker',       status: 'Beta',    version: '0.8', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Color Picker',      status: 'Beta',    version: '0.8', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Kanban Board',      status: 'Beta',    version: '0.7', updated: 'Mar 2026', category: 'Layout' },
+      { name: 'Rich Text Editor',  status: 'Alpha',   version: '0.5', updated: 'Mar 2026', category: 'Forms' },
+      { name: 'Video Player',      status: 'Alpha',   version: '0.5', updated: 'Mar 2026', category: 'Media' },
+      { name: 'Timeline',          status: 'Planned', version: '\u2014', updated: '\u2014', category: 'Data Display' },
+      { name: 'Gantt Chart',       status: 'Planned', version: '\u2014', updated: '\u2014', category: 'Data Display' },
+      { name: 'Calendar',          status: 'Planned', version: '\u2014', updated: '\u2014', category: 'Forms' },
+    ];
+
+    /* ===========================================================
+       State
+       =========================================================== */
+    let currentStatusFilter = 'all';
+    let currentSort = { col: 0, asc: true };
+
+    /* ===========================================================
+       Render stats
+       =========================================================== */
+    function renderStats(filtered) {
+      const counts = { Stable: 0, Beta: 0, Alpha: 0, Planned: 0, Deprecated: 0 };
+      filtered.forEach(c => { if (counts[c.status] !== undefined) counts[c.status]++; });
+      const grid = document.getElementById('stats-grid');
+      const statData = [
+        { label: 'Stable',     count: counts.Stable,     cls: 'status-stable' },
+        { label: 'Beta',       count: counts.Beta,       cls: 'status-beta' },
+        { label: 'Alpha',      count: counts.Alpha,      cls: 'status-alpha' },
+        { label: 'Planned',    count: counts.Planned,    cls: 'status-planned' },
+        { label: 'Total',      count: filtered.length,   cls: '' },
+      ];
+      grid.innerHTML = statData.map(s => `
+        <div class="stat-card">
+          <div style="font-size:28px; font-weight:700; margin-bottom:4px;">${s.count}</div>
+          <div style="font-size:12px; font-weight:600; display:inline-flex;">
+            ${s.cls ? `<span class="${s.cls}" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-full);">${s.label}</span>` : `<span style="color:var(--text-secondary);">${s.label}</span>`}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ===========================================================
+       Render table
+       =========================================================== */
+    function getStatusClass(status) {
+      return 'status-' + status.toLowerCase();
+    }
+
+    function getStatusOrder(status) {
+      const order = { Stable: 0, Beta: 1, Alpha: 2, Planned: 3, Deprecated: 4 };
+      return order[status] ?? 5;
+    }
+
+    function getVersionNum(v) {
+      if (v === '\u2014') return -1;
+      return parseFloat(v) || 0;
+    }
+
+    function getDateOrder(d) {
+      if (d === '\u2014') return 0;
+      const months = { Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6, Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12 };
+      const parts = d.split(' ');
+      const m = months[parts[0]] || 0;
+      const y = parseInt(parts[1]) || 0;
+      return y * 100 + m;
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById('comp-tbody');
+      const noResults = document.getElementById('no-results');
+
+      if (data.length === 0) {
+        tbody.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+      noResults.style.display = 'none';
+
+      tbody.innerHTML = data.map(c => `
+        <tr>
+          <td style="font-weight:500;">${c.name}</td>
+          <td><span class="${getStatusClass(c.status)}" style="font-size:11px; font-weight:600; padding:2px 10px; border-radius:var(--radius-full); display:inline-block;">${c.status}</span></td>
+          <td style="font-family:'SF Mono','Fira Code',monospace; font-size:12px;">${c.version}</td>
+          <td style="color:var(--text-secondary);">${c.updated}</td>
+          <td><span style="font-size:12px; color:var(--text-secondary); background:var(--bg-tertiary); padding:2px 10px; border-radius:var(--radius-full);">${c.category}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    /* ===========================================================
+       Filter & Sort
+       =========================================================== */
+    function getFilteredComponents() {
+      const search = document.getElementById('comp-search').value.toLowerCase().trim();
+      const catFilter = document.getElementById('cat-filter').value;
+
+      let filtered = components.filter(c => {
+        if (currentStatusFilter !== 'all' && c.status !== currentStatusFilter) return false;
+        if (catFilter !== 'all' && c.category !== catFilter) return false;
+        if (search && !c.name.toLowerCase().includes(search) && !c.category.toLowerCase().includes(search)) return false;
+        return true;
+      });
+
+      // Sort
+      const col = currentSort.col;
+      const asc = currentSort.asc;
+      filtered.sort((a, b) => {
+        let va, vb;
+        if (col === 0) { va = a.name.toLowerCase(); vb = b.name.toLowerCase(); }
+        else if (col === 1) { va = getStatusOrder(a.status); vb = getStatusOrder(b.status); }
+        else if (col === 2) { va = getVersionNum(a.version); vb = getVersionNum(b.version); }
+        else if (col === 3) { va = getDateOrder(a.updated); vb = getDateOrder(b.updated); }
+        else if (col === 4) { va = a.category.toLowerCase(); vb = b.category.toLowerCase(); }
+        if (va < vb) return asc ? -1 : 1;
+        if (va > vb) return asc ? 1 : -1;
+        return 0;
+      });
+
+      return filtered;
+    }
+
+    function filterComponents() {
+      const filtered = getFilteredComponents();
+      renderTable(filtered);
+      renderStats(filtered);
+    }
+
+    function setStatusFilter(value, btn) {
+      currentStatusFilter = value;
+      document.querySelectorAll('[data-filter="status"]').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      filterComponents();
+    }
+
+    function sortTable(col) {
+      if (currentSort.col === col) {
+        currentSort.asc = !currentSort.asc;
+      } else {
+        currentSort.col = col;
+        currentSort.asc = true;
+      }
+
+      // Update header UI
+      document.querySelectorAll('.comp-table th').forEach(th => {
+        th.classList.remove('sorted');
+        const arrow = th.querySelector('.sort-arrow');
+        if (arrow) arrow.innerHTML = '&#9650;';
+      });
+      const th = document.querySelector(`.comp-table th[data-col="${col}"]`);
+      if (th) {
+        th.classList.add('sorted');
+        const arrow = th.querySelector('.sort-arrow');
+        if (arrow) arrow.innerHTML = currentSort.asc ? '&#9650;' : '&#9660;';
+      }
+
+      filterComponents();
+    }
+
+    /* ===========================================================
+       Changelog toggle
+       =========================================================== */
+    function toggleChangelog(id) {
+      const body = document.getElementById('body-' + id);
+      const chevron = document.getElementById('chevron-' + id);
+      if (!body) return;
+
+      body.classList.toggle('collapsed');
+      if (chevron) {
+        chevron.style.transform = body.classList.contains('collapsed') ? 'rotate(-90deg)' : 'rotate(0deg)';
+      }
+    }
+
+    /* ===========================================================
+       Dark Mode
+       =========================================================== */
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', document.documentElement.classList.contains('dark'));
+      updateDmIcon();
+    }
+
+    function updateDmIcon() {
+      const icon = document.getElementById('dm-icon');
+      if (!icon) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      icon.innerHTML = isDark
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+    }
+
+    /* ===========================================================
+       Init
+       =========================================================== */
+    (function init() {
+      // Restore dark mode
+      const saved = localStorage.getItem('ds-dark-mode');
+      if (saved === 'true') {
+        document.documentElement.classList.add('dark');
+      }
+      updateDmIcon();
+
+      // Render component table
+      filterComponents();
+    })();
+  </script>
+</body>
+</html>

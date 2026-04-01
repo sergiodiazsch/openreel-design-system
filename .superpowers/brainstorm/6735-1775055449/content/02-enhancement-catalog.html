@@ -1,0 +1,111 @@
+<h2>Enhancement Catalog — What Gets Added</h2>
+<p class="subtitle">Same UI kit, refined details. Every enhancement below is additive — nothing changes, everything improves.</p>
+
+<div class="section">
+  <h3>Tier 2 — Motion & Visual Polish</h3>
+</div>
+
+<!-- BUTTONS -->
+<div style="margin-bottom: 24px; padding: 20px; background: var(--bg-secondary, #f9fafb); border-radius: 12px; border: 1px solid var(--border, #eaecf0);">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+    <span style="background: #1F12DE; color: white; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600;">BUTTONS</span>
+  </div>
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+    <li><strong>Hover lift:</strong> translateY(-1px) + shadow-sm upgrade — subtle elevation on hover</li>
+    <li><strong>Active press:</strong> translateY(0) + scale(0.98) — tactile click feedback</li>
+    <li><strong>Focus ring:</strong> brand-colored ring with 4px spread, animated opacity in</li>
+    <li><strong>Loading spinner:</strong> smooth rotation with opacity fade transition</li>
+    <li><strong>Disabled:</strong> gentle opacity transition instead of instant change</li>
+  </ul>
+</div>
+
+<!-- INPUTS -->
+<div style="margin-bottom: 24px; padding: 20px; background: var(--bg-secondary, #f9fafb); border-radius: 12px; border: 1px solid var(--border, #eaecf0);">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+    <span style="background: #1F12DE; color: white; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600;">INPUTS & FORMS</span>
+  </div>
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+    <li><strong>Focus border:</strong> border-color transitions smoothly to brand (150ms)</li>
+    <li><strong>Focus shadow:</strong> soft brand-colored ring fades in (0 0 0 4px rgba(31,18,222,0.12))</li>
+    <li><strong>Error state:</strong> border + ring transition to error-red, gentle shake on invalid submit</li>
+    <li><strong>Placeholder:</strong> text opacity animates on focus/blur</li>
+    <li><strong>Toggle/Switch:</strong> thumb slides with cubic-bezier, track color transitions</li>
+    <li><strong>Checkbox:</strong> checkmark draws in with stroke-dashoffset animation</li>
+    <li><strong>Select dropdown:</strong> slides down with opacity (150ms ease-out)</li>
+  </ul>
+</div>
+
+<!-- CARDS & SURFACES -->
+<div style="margin-bottom: 24px; padding: 20px; background: var(--bg-secondary, #f9fafb); border-radius: 12px; border: 1px solid var(--border, #eaecf0);">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+    <span style="background: #1F12DE; color: white; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600;">CARDS & SURFACES</span>
+  </div>
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+    <li><strong>Card hover:</strong> border-color subtly shifts + shadow upgrade from xs to sm (200ms)</li>
+    <li><strong>Interactive cards:</strong> translateY(-2px) on hover with shadow-md</li>
+    <li><strong>Modal enter:</strong> fade + scale(0.95 -> 1) with backdrop blur transition</li>
+    <li><strong>Modal exit:</strong> reverse — scale down + fade out (150ms)</li>
+    <li><strong>Drawer:</strong> slide from edge with subtle momentum easing</li>
+    <li><strong>Accordion:</strong> height auto-animates with max-height transition</li>
+  </ul>
+</div>
+
+<!-- COLORED SHADOWS -->
+<div style="margin-bottom: 24px; padding: 20px; background: var(--bg-secondary, #f9fafb); border-radius: 12px; border: 1px solid var(--border, #eaecf0);">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+    <span style="background: #1F12DE; color: white; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600;">COLORED ACCENT SHADOWS</span>
+    <span style="background: rgba(31,18,222,0.1); color: #1F12DE; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600;">Optional tokens</span>
+  </div>
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+    <li><strong>--shadow-brand-sm/md/lg:</strong> brand-tinted shadows for primary buttons, CTA cards</li>
+    <li><strong>--shadow-success-sm:</strong> green-tinted shadow for success states</li>
+    <li><strong>--shadow-error-sm:</strong> red-tinted shadow for error/destructive elements</li>
+    <li><strong>--shadow-warning-sm:</strong> amber-tinted shadow for warning states</li>
+    <li>Applied via <code>.or-shadow-brand</code>, <code>.or-shadow-success</code> utility classes</li>
+    <li>Transition on hover — neutral shadow to colored shadow</li>
+  </ul>
+</div>
+
+<!-- NAVIGATION & FEEDBACK -->
+<div style="margin-bottom: 24px; padding: 20px; background: var(--bg-secondary, #f9fafb); border-radius: 12px; border: 1px solid var(--border, #eaecf0);">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+    <span style="background: #1F12DE; color: white; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600;">NAVIGATION & FEEDBACK</span>
+  </div>
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+    <li><strong>Tab indicator:</strong> underline slides between tabs (not instant jump)</li>
+    <li><strong>Toast enter/exit:</strong> slide up + fade in, slide out on dismiss</li>
+    <li><strong>Tooltip:</strong> fade + slight translateY on show (100ms)</li>
+    <li><strong>Dropdown menu:</strong> scale origin from trigger, fade in (120ms)</li>
+    <li><strong>Progress bar:</strong> width transitions smoothly, striped animation on indeterminate</li>
+    <li><strong>Skeleton:</strong> shimmer pulse with gradient sweep (existing, refined timing)</li>
+    <li><strong>Badge:</strong> scale bounce on count update</li>
+  </ul>
+</div>
+
+<!-- GLOBAL -->
+<div style="margin-bottom: 24px; padding: 20px; background: var(--bg-secondary, #f9fafb); border-radius: 12px; border: 1px solid var(--border, #eaecf0);">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+    <span style="background: #475467; color: white; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600;">GLOBAL</span>
+  </div>
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+    <li><strong>prefers-reduced-motion:</strong> all animations disabled with single media query</li>
+    <li><strong>Dark mode transition:</strong> background + color crossfade (already exists, refined)</li>
+    <li><strong>Motion tokens:</strong> <code>--duration-fast: 100ms</code>, <code>--duration-normal: 200ms</code>, <code>--duration-slow: 300ms</code>, <code>--ease-default</code>, <code>--ease-spring</code></li>
+  </ul>
+</div>
+
+<div class="section" style="margin-top: 12px;">
+  <h3>Tier 3 — Advanced Effects (opt-in JS)</h3>
+</div>
+
+<div style="margin-bottom: 24px; padding: 20px; background: rgba(23,178,106,0.04); border-radius: 12px; border: 1px solid rgba(23,178,106,0.2);">
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.8; font-size: 14px;">
+    <li><strong>GSAP ScrollTrigger:</strong> components animate in on scroll (fade-up, stagger lists) — <code>data-or-animate="fade-up"</code></li>
+    <li><strong>GSAP SplitText:</strong> heading text reveal, character-by-character — <code>data-or-animate="split-chars"</code></li>
+    <li><strong>Three.js particle field:</strong> ambient floating particles for hero sections — <code>&lt;div data-or-particles&gt;</code></li>
+    <li><strong>WebGL gradient:</strong> animated mesh gradient background — <code>&lt;div data-or-gradient&gt;</code></li>
+    <li><strong>Parallax depth:</strong> layered scroll parallax — <code>data-or-parallax="0.5"</code></li>
+    <li><strong>SVG morph:</strong> icon morphing between states — <code>data-or-morph="icon-a,icon-b"</code></li>
+    <li>All via CDN, lazy-loaded only when <code>data-or-*</code> attributes detected on page</li>
+  </ul>
+</div>

@@ -1,0 +1,62 @@
+<h2>OpenReel DS 2.0 — Vision Overview</h2>
+<p class="subtitle">Three layers of upgrade: bug fixes, visual polish, and optional advanced effects</p>
+
+<div class="section">
+  <h3>The Upgrade Plan</h3>
+  <p>We're upgrading the design system across three tiers. Each builds on the previous one.</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="tier1" onclick="toggleSelect(this)" style="border-left: 4px solid #F04438;">
+    <div class="letter" style="background: #F04438;">1</div>
+    <div class="content">
+      <h3>Tier 1 — Bug Fixes & Infrastructure</h3>
+      <p><strong>Fix what's broken.</strong> Token naming collisions in MCP, CSS extraction to shared file, semantic HTML in code generators, Svelte 5 syntax, Vue type mapping, deeper guidelines.</p>
+      <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+        <span style="background: rgba(240,68,56,0.1); color: #F04438; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">P0 Critical</span>
+        <span style="background: rgba(240,68,56,0.1); color: #F04438; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">P1 High</span>
+        <span style="background: rgba(181,71,8,0.1); color: #B54708; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">P2–P3 Medium</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="tier2" onclick="toggleSelect(this)" style="border-left: 4px solid #1F12DE;">
+    <div class="letter" style="background: #1F12DE;">2</div>
+    <div class="content">
+      <h3>Tier 2 — Motion & Visual Polish</h3>
+      <p><strong>Make it feel alive.</strong> Smooth transitions, hover animations, input focus effects, colored accent shadows, micro-interactions on every component. Elegant and noticeable but not distracting.</p>
+      <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+        <span style="background: rgba(31,18,222,0.1); color: #1F12DE; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">Hover States</span>
+        <span style="background: rgba(31,18,222,0.1); color: #1F12DE; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">Input Animations</span>
+        <span style="background: rgba(31,18,222,0.1); color: #1F12DE; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">Colored Shadows</span>
+        <span style="background: rgba(31,18,222,0.1); color: #1F12DE; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">Micro-interactions</span>
+        <span style="background: rgba(31,18,222,0.1); color: #1F12DE; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">Page Transitions</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="tier3" onclick="toggleSelect(this)" style="border-left: 4px solid #17B26A;">
+    <div class="letter" style="background: #17B26A;">3</div>
+    <div class="content">
+      <h3>Tier 3 — Advanced Effects (Optional Layer)</h3>
+      <p><strong>Premium showpieces.</strong> GSAP scroll-triggered animations, Three.js/WebGL particle backgrounds, morphing SVGs, parallax depth effects. Opt-in — not required, loaded only when needed.</p>
+      <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+        <span style="background: rgba(23,178,106,0.1); color: #067647; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">GSAP ScrollTrigger</span>
+        <span style="background: rgba(23,178,106,0.1); color: #067647; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">Three.js Particles</span>
+        <span style="background: rgba(23,178,106,0.1); color: #067647; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">WebGL Shaders</span>
+        <span style="background: rgba(23,178,106,0.1); color: #067647; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">SVG Morphing</span>
+        <span style="background: rgba(23,178,106,0.1); color: #067647; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600;">Parallax</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 32px; padding: 20px; background: rgba(31,18,222,0.05); border-radius: 12px; border: 1px solid rgba(31,18,222,0.15);">
+  <h3 style="color: #1F12DE; margin-bottom: 8px;">Architecture Approach</h3>
+  <p style="margin-bottom: 12px;">Everything layered and opt-in:</p>
+  <div style="display: flex; gap: 8px; flex-direction: column; font-family: monospace; font-size: 13px;">
+    <div style="padding: 8px 16px; background: rgba(240,68,56,0.08); border-radius: 8px;">openreel-base.css <span style="color: #667085;">— tokens + reset + component structure</span></div>
+    <div style="padding: 8px 16px; background: rgba(31,18,222,0.08); border-radius: 8px;">openreel-motion.css <span style="color: #667085;">— transitions, hovers, micro-interactions, colored shadows</span></div>
+    <div style="padding: 8px 16px; background: rgba(23,178,106,0.08); border-radius: 8px;">openreel-effects.js <span style="color: #667085;">— GSAP, Three.js, WebGL (lazy-loaded, opt-in)</span></div>
+  </div>
+</div>

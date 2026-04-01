@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Templates - OpenReel Design System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand:#1F12DE;--brand-hover:#1a0fbc;--brand-light:rgba(31,18,222,0.1);
+      --blue-50:#EFF8FF;--blue-100:#B2DDFF;--blue-500:#2970FF;--blue-600:#175CD3;--blue-light:#53B1FD;
+      --gray-25:#FCFCFD;--gray-50:#F9FAFB;--gray-100:#F2F4F7;--gray-200:#EAECF0;--gray-300:#E4E7EC;--gray-400:#98A2B3;--gray-500:#667085;--gray-600:#475467;--gray-700:#344054;--gray-900:#101828;
+      --success-50:#ECFDF3;--success-100:#D1FAE0;--success-200:#A6F4C5;--success-500:#17B26A;--success-700:#067647;
+      --error-50:#FEF3F2;--error-100:#FEE4E2;--error-500:#F04438;--error-700:#B42318;
+      --warning-50:#FFFAEB;--warning-100:#FEDF89;--warning-700:#B54708;
+      --font-family:'Inter',system-ui,-apple-system,sans-serif;
+      --radius-sm:4px;--radius-md:8px;--radius-lg:10px;--radius-xl:14px;--radius-full:9999px;
+      --shadow-xs:0px 1px 2px rgba(16,24,40,0.05);
+      --shadow-sm:0px 1px 3px rgba(16,24,40,0.1),0px 1px 2px rgba(16,24,40,0.06);
+      --shadow-md:0px 4px 8px -2px rgba(16,24,40,0.1),0px 2px 4px -2px rgba(16,24,40,0.06);
+      --shadow-lg:0px 12px 16px -4px rgba(16,24,40,0.08),0px 4px 6px -2px rgba(16,24,40,0.03);
+    }
+    html:not(.dark){--bg-page:#F9FAFB;--bg-card:#FFFFFF;--bg-preview:#FFFFFF;--border-color:#EAECF0;--text-primary:#101828;--text-secondary:#667085;--text-tertiary:#98A2B3;}
+    html.dark{--bg-page:#0C111D;--bg-card:#161B26;--bg-preview:#1F242F;--border-color:#333741;--text-primary:#F5F5F6;--text-secondary:#94969C;--text-tertiary:#61646C;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--font-family);font-size:14px;line-height:24px;color:var(--text-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased;transition:background .25s,color .25s;}
+    ::-webkit-scrollbar{width:6px;height:6px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:var(--radius-full);}html.dark ::-webkit-scrollbar-thumb{background:#333741;}
+    .dm-toggle{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:var(--radius-md);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;cursor:pointer;transition:all .2s;}
+    .dm-toggle:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);}
+
+    /* Template tabs */
+    .template-tabs{display:flex;gap:0;border-bottom:1px solid var(--border-color);margin-bottom:24px;overflow-x:auto;}
+    .template-tab{padding:10px 20px;font-size:13px;font-weight:500;color:var(--text-secondary);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:var(--font-family);transition:all .15s;white-space:nowrap;}
+    .template-tab:hover{color:var(--text-primary);}
+    .template-tab.active{color:var(--brand);border-bottom-color:var(--brand);font-weight:600;}
+    html.dark .template-tab.active{color:#818cf8;border-bottom-color:#818cf8;}
+
+    /* Preview area */
+    .preview-area{background:var(--bg-preview);border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden;transition:all .2s;}
+    .preview-toolbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border-color);background:var(--bg-card);gap:8px;flex-wrap:wrap;}
+    .preview-toolbar .left{display:flex;align-items:center;gap:8px;}
+    .preview-toolbar .right{display:flex;align-items:center;gap:8px;}
+    .device-btn{padding:5px 12px;font-size:11px;font-weight:600;font-family:var(--font-family);border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-secondary);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;}
+    .device-btn:hover{border-color:var(--brand);color:var(--brand);}
+    .device-btn.active{background:var(--brand);color:#fff;border-color:var(--brand);}
+    .toolbar-btn{padding:5px 12px;font-size:11px;font-weight:600;font-family:var(--font-family);border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-secondary);border-radius:var(--radius-md);cursor:pointer;transition:all .15s;}
+    .toolbar-btn:hover{border-color:var(--brand);color:var(--brand);}
+    .preview-iframe-wrap{display:flex;justify-content:center;padding:24px;background:#e5e7eb;min-height:500px;transition:background .25s;}
+    html.dark .preview-iframe-wrap{background:#1a1a2e;}
+    .preview-iframe-wrap iframe{border:none;background:#fff;box-shadow:var(--shadow-lg);transition:width .3s;border-radius:4px;}
+
+    /* Code panel */
+    .code-panel{display:none;position:relative;background:var(--gray-900);max-height:500px;overflow:auto;border-top:1px solid var(--border-color);}
+    .code-panel.open{display:block;}
+    .code-panel pre{margin:0;padding:16px 20px;overflow-x:auto;}
+    .code-panel code{font-family:'SF Mono','Fira Code',monospace;font-size:11.5px;line-height:1.6;color:#e2e8f0;white-space:pre;}
+    .code-panel .cp-copy{position:absolute;top:8px;right:8px;padding:4px 10px;font-size:10px;font-weight:500;font-family:var(--font-family);color:#94a3b8;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;}
+    .code-panel .cp-copy:hover{color:#fff;background:rgba(255,255,255,0.12);}
+
+    /* Modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+    .modal-overlay.open{display:flex;}
+    .modal-box{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:32px;max-width:440px;width:90%;box-shadow:var(--shadow-xl);}
+    .modal-box h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+    .modal-box p{font-size:13px;color:var(--text-secondary);margin-bottom:20px;line-height:1.6;}
+    .modal-close{padding:8px 20px;font-size:13px;font-weight:600;font-family:var(--font-family);color:#fff;background:var(--brand);border:none;border-radius:var(--radius-md);cursor:pointer;transition:all .15s;}
+    .modal-close:hover{background:var(--brand-hover);}
+
+    .copied-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--gray-900);color:#fff;padding:10px 20px;border-radius:var(--radius-md);font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;}
+    .copied-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+      .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  
+    /* Mega menu nav */
+    .header-nav{display:flex;align-items:center;gap:2px}
+    .header-nav-link{padding:8px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.15s}
+    .header-nav-link:hover{color:#fff;background:rgba(255,255,255,0.12)}
+    .header-nav-link.active{color:#fff;background:rgba(255,255,255,0.18)}
+    button.header-nav-link{background:none;border:none;cursor:pointer;font:inherit;padding:inherit;color:rgba(255,255,255,0.5)}
+    .nav-dropdown-trigger{position:relative}
+    .nav-dropdown-trigger>.header-nav-link{cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+    .nav-dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#1a1f2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:260px;box-shadow:0 20px 40px rgba(0,0,0,0.3);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:100}
+    .nav-dropdown-trigger:hover .nav-dropdown,.nav-dropdown-trigger:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .nav-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.15s}
+    .nav-dropdown a:hover{background:rgba(255,255,255,0.15);color:#fff}
+    .nav-dropdown .nav-dd-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06)}
+    .nav-dropdown .nav-dd-text{display:flex;flex-direction:column}
+    .nav-dropdown .nav-dd-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9)}
+    .nav-dropdown .nav-dd-desc{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+    @media(max-width:768px){.header-nav{display:none}.nav-dropdown{display:none}}
+  </style>
+</head>
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+<!-- HEADER -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+<!-- MAIN -->
+<main id="main-content" style="max-width:1100px;margin:0 auto;padding:88px 24px 60px;">
+  <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.02em;">Email Templates</h1>
+  <p style="color:var(--text-secondary);margin-top:6px;max-width:600px;">Production-ready, email-safe HTML templates using table-based layouts and inline styles. Compatible with all major email clients.</p>
+
+  <!-- Template Tabs -->
+  <div class="template-tabs" style="margin-top:28px;">
+    <button class="template-tab active" onclick="switchTemplate(0, this)">Welcome</button>
+    <button class="template-tab" onclick="switchTemplate(1, this)">Notification</button>
+    <button class="template-tab" onclick="switchTemplate(2, this)">Invoice</button>
+    <button class="template-tab" onclick="switchTemplate(3, this)">Weekly Digest</button>
+    <button class="template-tab" onclick="switchTemplate(4, this)">Password Reset</button>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-area" id="preview-area">
+    <div class="preview-toolbar">
+      <div class="left">
+        <button class="device-btn active" onclick="setDevice('desktop', this)">Desktop (600px)</button>
+        <button class="device-btn" onclick="setDevice('mobile', this)">Mobile (320px)</button>
+      </div>
+      <div class="right">
+        <button class="toolbar-btn" onclick="toggleCode()">
+          <span id="code-toggle-label">View Code</span>
+        </button>
+        <button class="toolbar-btn" onclick="copyEmailCode()">Copy Code</button>
+        <button class="toolbar-btn" onclick="showSendTestModal()">Send Test</button>
+      </div>
+    </div>
+    <div class="preview-iframe-wrap" id="iframe-wrap">
+      <iframe id="email-preview" width="600" height="700" srcdoc=""></iframe>
+    </div>
+    <div class="code-panel" id="code-panel">
+      <button class="cp-copy" onclick="copyEmailCode()">Copy</button>
+      <pre><code id="code-display"></code></pre>
+    </div>
+  </div>
+</main>
+
+<!-- Send Test Modal -->
+<div class="modal-overlay" id="send-test-modal" onclick="if(event.target===this)closeSendTestModal()">
+  <div class="modal-box">
+    <h3>Send Test Email</h3>
+    <p>Copy the email HTML code using the "Copy Code" button, then paste it into your preferred email testing tool such as Litmus, Email on Acid, Mailtrap, or your ESP's preview feature.</p>
+    <div style="display:flex;gap:8px;">
+      <button class="modal-close" onclick="copyEmailCode();closeSendTestModal();">Copy Code &amp; Close</button>
+      <button class="toolbar-btn" onclick="closeSendTestModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="copied-toast" id="toast">Copied!</div>
+
+<script>
+/* ===========================================================
+   DARK MODE
+   =========================================================== */
+(function(){
+  const saved = localStorage.getItem('ds-dark-mode');
+  if (saved === 'true') document.documentElement.classList.add('dark');
+  updateDmIcon();
+})();
+function toggleDarkMode(){
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ds-dark-mode', document.documentElement.classList.contains('dark'));
+  updateDmIcon();
+}
+function updateDmIcon(){
+  const icon = document.getElementById('dm-icon');
+  if(!icon) return;
+  const isDark = document.documentElement.classList.contains('dark');
+  icon.innerHTML = isDark
+    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+}
+
+/* ===========================================================
+   TOAST
+   =========================================================== */
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg || 'Copied!';
+  t.classList.add('show');
+  setTimeout(()=> t.classList.remove('show'), 1800);
+}
+
+/* ===========================================================
+   MODAL
+   =========================================================== */
+function showSendTestModal(){ document.getElementById('send-test-modal').classList.add('open'); }
+function closeSendTestModal(){ document.getElementById('send-test-modal').classList.remove('open'); }
+
+/* ===========================================================
+   EMAIL TEMPLATES
+   =========================================================== */
+const LOGO_SVG = `<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center" style="padding:24px 0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="background:linear-gradient(135deg,#1F12DE,#2970FF);border-radius:8px;width:40px;height:40px;text-align:center;vertical-align:middle;"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIxMCA4IDE2IDEyIDEwIDE2IDEwIDgiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="OpenReel" width="20" height="20" style="display:block;margin:10px auto;" /></td><td style="padding-left:12px;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:#101828;">OpenReel</td></tr></table></td></tr></table>`;
+
+const FOOTER = `<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="padding:24px 40px;text-align:center;border-top:1px solid #EAECF0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto 16px;"><tr><td style="padding:0 8px;"><a href="#" style="color:#667085;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:12px;">Twitter</a></td><td style="padding:0 8px;"><a href="#" style="color:#667085;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:12px;">LinkedIn</a></td><td style="padding:0 8px;"><a href="#" style="color:#667085;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:12px;">Instagram</a></td></tr></table><p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#98A2B3;margin:0 0 8px;">OpenReel Inc. 123 Video Street, New York, NY 10001</p><p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;margin:0;"><a href="#" style="color:#98A2B3;text-decoration:underline;">Unsubscribe</a> &middot; <a href="#" style="color:#98A2B3;text-decoration:underline;">Manage preferences</a></p></td></tr></table>`;
+
+const templates = [
+  // 0: Welcome
+  {
+    name: 'Welcome Email',
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Welcome to OpenReel</title></head><body style="margin:0;padding:0;background-color:#F9FAFB;font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#F9FAFB;">
+<tr><td align="center" style="padding:40px 20px;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(16,24,40,0.1);">
+${LOGO_SVG}
+<!-- Hero -->
+<tr><td style="padding:0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="background-color:#1F12DE;height:200px;text-align:center;vertical-align:middle;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;"><tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:32px;font-weight:bold;color:#FFFFFF;text-align:center;padding:20px 40px;">Welcome to<br/>OpenReel</td></tr></table></td></tr></table></td></tr>
+<!-- Body -->
+<tr><td style="padding:40px;">
+<h1 style="font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:bold;color:#101828;margin:0 0 16px;">Hello there!</h1>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:24px;color:#475467;margin:0 0 24px;">Welcome to OpenReel! We are excited to have you on board. Our platform makes it easy to capture, manage, and share professional video content from anywhere in the world.</p>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:24px;color:#475467;margin:0 0 32px;">Get started by creating your first session. Your team is ready and waiting.</p>
+<!-- CTA -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;"><tr><td style="background-color:#1F12DE;border-radius:8px;text-align:center;"><a href="#" style="display:inline-block;padding:14px 32px;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold;color:#FFFFFF;text-decoration:none;">Get Started</a></td></tr></table>
+</td></tr>
+${FOOTER}
+</table>
+</td></tr></table>
+</body></html>`
+  },
+  // 1: Notification
+  {
+    name: 'Notification Email',
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>New Session Recorded</title></head><body style="margin:0;padding:0;background-color:#F9FAFB;font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#F9FAFB;">
+<tr><td align="center" style="padding:40px 20px;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(16,24,40,0.1);">
+${LOGO_SVG}
+<!-- Icon -->
+<tr><td align="center" style="padding:20px 0 0;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="background-color:#EFF8FF;border-radius:50%;width:56px;height:56px;text-align:center;vertical-align:middle;"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTUgMTdoNWwtMS40MDUtMS40MDVBMi4wMzIgMi4wMzIgMCAwMTE4IDEzLjE1OFY4YTYuMDAyIDYuMDAyIDAgMDAtNC02VjJhMiAyIDAgMTAtNCAwdjBhNiA2IDAgMDAtNCA2djUuMTU5YzAgLjUzOC0uMjE0IDEuMDU1LS41OTUgMS40MzZMNSAxN2g1bTUtMGExIDEgMCAwMS0yIDBtMiAwYTMgMyAwIDAxLTYgMCIgc3Ryb2tlPSIjMjk3MEZGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="" width="24" height="24" style="display:block;margin:16px auto;" /></td></tr></table>
+</td></tr>
+<!-- Body -->
+<tr><td style="padding:24px 40px 40px;">
+<h1 style="font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;color:#101828;margin:0 0 8px;text-align:center;">New Session Recorded</h1>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667085;margin:0 0 24px;text-align:center;">A new recording session has been completed. Here are the details:</p>
+<!-- Details card -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#F9FAFB;border-radius:8px;border:1px solid #EAECF0;">
+<tr><td style="padding:20px;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#98A2B3;font-weight:bold;text-transform:uppercase;letter-spacing:0.05em;padding-bottom:12px;">Session Details</td></tr>
+<tr><td style="padding:8px 0;border-top:1px solid #EAECF0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#667085;width:120px;">Session Name</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;">Product Demo Q1 2026</td></tr></table></td></tr>
+<tr><td style="padding:8px 0;border-top:1px solid #EAECF0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#667085;width:120px;">Date</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;">March 11, 2026</td></tr></table></td></tr>
+<tr><td style="padding:8px 0;border-top:1px solid #EAECF0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#667085;width:120px;">Duration</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;">24 minutes 13 seconds</td></tr></table></td></tr>
+<tr><td style="padding:12px 0 0;border-top:1px solid #EAECF0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="background-color:#EAECF0;border-radius:4px;height:120px;text-align:center;vertical-align:middle;"><span style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#98A2B3;">Thumbnail Preview</span></td></tr></table></td></tr>
+</table>
+</td></tr></table>
+<!-- CTA -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:24px;"><tr><td align="center"><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="background-color:#1F12DE;border-radius:8px;text-align:center;"><a href="#" style="display:inline-block;padding:12px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#FFFFFF;text-decoration:none;">View Session</a></td></tr></table></td></tr></table>
+</td></tr>
+${FOOTER}
+</table>
+</td></tr></table>
+</body></html>`
+  },
+  // 2: Invoice
+  {
+    name: 'Invoice / Receipt',
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Payment Received</title></head><body style="margin:0;padding:0;background-color:#F9FAFB;font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#F9FAFB;">
+<tr><td align="center" style="padding:40px 20px;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(16,24,40,0.1);">
+${LOGO_SVG}
+<tr><td style="padding:0 40px;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="background-color:#ECFDF3;border-radius:50%;width:48px;height:48px;text-align:center;vertical-align:middle;"><span style="font-size:24px;line-height:48px;">&#10003;</span></td></tr></table>
+<h1 style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:bold;color:#101828;margin:16px 0 8px;">Payment Received</h1>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#667085;margin:0 0 8px;">Thank you for your payment. Here is your receipt.</p>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#98A2B3;margin:0 0 24px;">Invoice #INV-2026-0342 &middot; March 11, 2026</p>
+<!-- Order table -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #EAECF0;border-radius:8px;overflow:hidden;">
+<tr style="background-color:#F9FAFB;"><td style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#667085;text-transform:uppercase;letter-spacing:0.05em;padding:10px 16px;border-bottom:1px solid #EAECF0;">Item</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#667085;text-transform:uppercase;letter-spacing:0.05em;padding:10px 16px;border-bottom:1px solid #EAECF0;text-align:center;">Qty</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#667085;text-transform:uppercase;letter-spacing:0.05em;padding:10px 16px;border-bottom:1px solid #EAECF0;text-align:right;">Price</td></tr>
+<tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;padding:12px 16px;border-bottom:1px solid #EAECF0;">OpenReel Pro Plan (Monthly)</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#475467;padding:12px 16px;border-bottom:1px solid #EAECF0;text-align:center;">1</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;padding:12px 16px;border-bottom:1px solid #EAECF0;text-align:right;">$149.00</td></tr>
+<tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;padding:12px 16px;border-bottom:1px solid #EAECF0;">Additional Storage (100 GB)</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#475467;padding:12px 16px;border-bottom:1px solid #EAECF0;text-align:center;">2</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;padding:12px 16px;border-bottom:1px solid #EAECF0;text-align:right;">$50.00</td></tr>
+<tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;padding:12px 16px;border-bottom:1px solid #EAECF0;">Priority Support</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#475467;padding:12px 16px;border-bottom:1px solid #EAECF0;text-align:center;">1</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;padding:12px 16px;border-bottom:1px solid #EAECF0;text-align:right;">$29.00</td></tr>
+<!-- Totals -->
+<tr><td colspan="2" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#667085;padding:10px 16px;text-align:right;border-bottom:1px solid #EAECF0;">Subtotal</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;padding:10px 16px;text-align:right;border-bottom:1px solid #EAECF0;">$228.00</td></tr>
+<tr><td colspan="2" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#667085;padding:10px 16px;text-align:right;border-bottom:1px solid #EAECF0;">Tax (8%)</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;font-weight:600;padding:10px 16px;text-align:right;border-bottom:1px solid #EAECF0;">$18.24</td></tr>
+<tr style="background-color:#F9FAFB;"><td colspan="2" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#101828;font-weight:bold;padding:12px 16px;text-align:right;">Total</td><td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#1F12DE;font-weight:bold;padding:12px 16px;text-align:right;">$246.24</td></tr>
+</table>
+<!-- Payment method -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:20px;background-color:#F9FAFB;border-radius:8px;padding:16px;">
+<tr><td style="padding:12px 16px;">
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#98A2B3;font-weight:bold;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 8px;">Payment Method</p>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#101828;margin:0;">Visa ending in 4242 &middot; Charged on March 11, 2026</p>
+</td></tr></table>
+<!-- CTA -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin:24px 0;"><tr><td align="center"><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="background-color:#1F12DE;border-radius:8px;text-align:center;"><a href="#" style="display:inline-block;padding:12px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#FFFFFF;text-decoration:none;">View Invoice</a></td></tr></table></td></tr></table>
+</td></tr>
+<!-- Support footer -->
+<tr><td style="padding:0 40px 32px;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#98A2B3;text-align:center;margin:0;">Questions about your invoice? Contact <a href="#" style="color:#1F12DE;text-decoration:underline;">billing@openreel.com</a></p></td></tr>
+${FOOTER}
+</table>
+</td></tr></table>
+</body></html>`
+  },
+  // 3: Weekly Digest
+  {
+    name: 'Weekly Digest',
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your Weekly Summary</title></head><body style="margin:0;padding:0;background-color:#F9FAFB;font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#F9FAFB;">
+<tr><td align="center" style="padding:40px 20px;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(16,24,40,0.1);">
+${LOGO_SVG}
+<tr><td style="padding:0 40px;">
+<h1 style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:bold;color:#101828;margin:0 0 4px;">Your Weekly Summary</h1>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#98A2B3;margin:0 0 24px;">March 4 - March 11, 2026</p>
+<!-- Stats row -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+<td width="33%" style="padding:0 6px 0 0;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#EFF8FF;border-radius:8px;"><tr><td style="padding:16px;text-align:center;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:bold;color:#1F12DE;margin:0;">24</p><p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#667085;margin:4px 0 0;text-transform:uppercase;letter-spacing:0.05em;">Sessions</p></td></tr></table></td>
+<td width="33%" style="padding:0 3px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#ECFDF3;border-radius:8px;"><tr><td style="padding:16px;text-align:center;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:bold;color:#17B26A;margin:0;">48 GB</p><p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#667085;margin:4px 0 0;text-transform:uppercase;letter-spacing:0.05em;">Storage</p></td></tr></table></td>
+<td width="33%" style="padding:0 0 0 6px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#FFFAEB;border-radius:8px;"><tr><td style="padding:16px;text-align:center;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:bold;color:#B54708;margin:0;">12</p><p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#667085;margin:4px 0 0;text-transform:uppercase;letter-spacing:0.05em;">Team Edits</p></td></tr></table></td>
+</tr></table>
+<!-- Featured content -->
+<h2 style="font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;color:#101828;margin:32px 0 16px;">Featured This Week</h2>
+<!-- Article 1 -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:16px;border:1px solid #EAECF0;border-radius:8px;overflow:hidden;">
+<tr><td style="padding:16px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="vertical-align:top;width:80px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="background-color:#EAECF0;border-radius:6px;width:72px;height:72px;text-align:center;vertical-align:middle;"><span style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#98A2B3;">IMG</span></td></tr></table></td><td style="padding-left:16px;vertical-align:top;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#101828;margin:0 0 4px;">Remote Video Production Best Practices</p><p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#667085;line-height:18px;margin:0;">Learn the top 5 techniques our power users employ to capture studio-quality footage remotely.</p></td></tr></table></td></tr></table>
+<!-- Article 2 -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:16px;border:1px solid #EAECF0;border-radius:8px;overflow:hidden;">
+<tr><td style="padding:16px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="vertical-align:top;width:80px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="background-color:#EAECF0;border-radius:6px;width:72px;height:72px;text-align:center;vertical-align:middle;"><span style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#98A2B3;">IMG</span></td></tr></table></td><td style="padding-left:16px;vertical-align:top;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#101828;margin:0 0 4px;">New: AI-Powered Transcription</p><p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#667085;line-height:18px;margin:0;">Automatically transcribe and caption your videos with our new AI transcription feature.</p></td></tr></table></td></tr></table>
+<!-- Article 3 -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;border:1px solid #EAECF0;border-radius:8px;overflow:hidden;">
+<tr><td style="padding:16px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="vertical-align:top;width:80px;"><table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td style="background-color:#EAECF0;border-radius:6px;width:72px;height:72px;text-align:center;vertical-align:middle;"><span style="font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#98A2B3;">IMG</span></td></tr></table></td><td style="padding-left:16px;vertical-align:top;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#101828;margin:0 0 4px;">Team Collaboration Updates</p><p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#667085;line-height:18px;margin:0;">Real-time commenting and approval workflows are now available for all team plans.</p></td></tr></table></td></tr></table>
+<!-- CTA -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:32px;"><tr><td align="center"><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="background-color:#1F12DE;border-radius:8px;text-align:center;"><a href="#" style="display:inline-block;padding:12px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;color:#FFFFFF;text-decoration:none;">View Dashboard</a></td></tr></table></td></tr></table>
+</td></tr>
+${FOOTER}
+</table>
+</td></tr></table>
+</body></html>`
+  },
+  // 4: Password Reset
+  {
+    name: 'Password Reset',
+    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Reset Your Password</title></head><body style="margin:0;padding:0;background-color:#F9FAFB;font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#F9FAFB;">
+<tr><td align="center" style="padding:40px 20px;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="background-color:#FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(16,24,40,0.1);">
+${LOGO_SVG}
+<!-- Security Icon -->
+<tr><td align="center" style="padding:20px 0 0;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="background-color:#FEF3F2;border-radius:50%;width:56px;height:56px;text-align:center;vertical-align:middle;"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMTVWMTdNNiA5VjdBNiA2IDAgMDExOCA3VjlNNSA5SDJBMiAyIDAgMDAzIDExVjE5QTIgMiAwIDAwNSAyMUgxOUEyIDIgMCAwMDIxIDE5VjExQTIgMiAwIDAwMTkgOUg1WiIgc3Ryb2tlPSIjRjA0NDM4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==" alt="" width="24" height="24" style="display:block;margin:16px auto;" /></td></tr></table>
+</td></tr>
+<!-- Body -->
+<tr><td style="padding:24px 40px 40px;">
+<h1 style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:bold;color:#101828;margin:0 0 12px;text-align:center;">Reset Your Password</h1>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#475467;margin:0 0 8px;text-align:center;">We received a request to reset the password associated with your OpenReel account. Click the button below to set a new password.</p>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#475467;margin:0 0 32px;text-align:center;">If you did not request a password reset, you can safely ignore this email.</p>
+<!-- CTA -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center"><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td style="background-color:#1F12DE;border-radius:8px;text-align:center;"><a href="#" style="display:inline-block;padding:14px 40px;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold;color:#FFFFFF;text-decoration:none;">Reset Password</a></td></tr></table></td></tr></table>
+<!-- Expiry note -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:24px;background-color:#FFFAEB;border-radius:8px;border:1px solid #FEDF89;">
+<tr><td style="padding:12px 16px;text-align:center;"><p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#B54708;font-weight:600;margin:0;">This link expires in 24 hours</p></td></tr></table>
+<!-- Help text -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:24px;border-top:1px solid #EAECF0;">
+<tr><td style="padding:20px 0 0;text-align:center;">
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#667085;margin:0 0 4px;font-weight:600;">Didn't request this?</p>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#98A2B3;margin:0;">If you didn't request a password reset, please contact our support team at <a href="#" style="color:#1F12DE;text-decoration:underline;">support@openreel.com</a> or call us at 1-800-OPENREEL.</p>
+</td></tr></table>
+</td></tr>
+${FOOTER}
+</table>
+</td></tr></table>
+</body></html>`
+  },
+];
+
+/* ===========================================================
+   TEMPLATE RENDERING
+   =========================================================== */
+let currentTemplate = 0;
+let currentDevice = 'desktop';
+let codeOpen = false;
+
+function switchTemplate(idx, btn){
+  currentTemplate = idx;
+  document.querySelectorAll('.template-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderTemplate();
+}
+
+function setDevice(device, btn){
+  currentDevice = device;
+  document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const iframe = document.getElementById('email-preview');
+  iframe.style.width = device === 'desktop' ? '600px' : '320px';
+}
+
+function toggleCode(){
+  codeOpen = !codeOpen;
+  const panel = document.getElementById('code-panel');
+  panel.classList.toggle('open', codeOpen);
+  document.getElementById('code-toggle-label').textContent = codeOpen ? 'Hide Code' : 'View Code';
+}
+
+function copyEmailCode(){
+  const html = templates[currentTemplate].html;
+  navigator.clipboard.writeText(html);
+  showToast('Email HTML copied!');
+}
+
+function renderTemplate(){
+  const t = templates[currentTemplate];
+  const iframe = document.getElementById('email-preview');
+  iframe.srcdoc = t.html;
+
+  // Update code display
+  const codeEl = document.getElementById('code-display');
+  codeEl.textContent = t.html;
+
+  // Auto-resize iframe after load
+  iframe.onload = function(){
+    try {
+      const body = iframe.contentDocument.body;
+      if(body) iframe.style.height = Math.max(body.scrollHeight + 40, 500) + 'px';
+    } catch(e){}
+  };
+}
+
+// Initial render
+renderTemplate();
+</script>
+</body>
+</html>

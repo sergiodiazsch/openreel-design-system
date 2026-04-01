@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenReel Design System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS — CSS Custom Properties
+       ========================================================= */
+    :root {
+      /* ---- Brand ---- */
+      --brand:        #1F12DE;
+      --brand-hover:  #1a0fbc;
+      --brand-light:  rgba(31, 18, 222, 0.1);
+
+      /* ---- Blue ---- */
+      --blue-50:   #EFF8FF;
+      --blue-100:  #B2DDFF;
+      --blue-500:  #2970FF;
+      --blue-600:  #175CD3;
+      --blue-light:#53B1FD;
+
+      /* ---- Gray ---- */
+      --gray-25:   #FCFCFD;
+      --gray-50:   #F9FAFB;
+      --gray-100:  #F2F4F7;
+      --gray-200:  #EAECF0;
+      --gray-300:  #E4E7EC;
+      --gray-400:  #98A2B3;
+      --gray-500:  #667085;
+      --gray-600:  #475467;
+      --gray-700:  #344054;
+      --gray-900:  #101828;
+
+      /* ---- Success ---- */
+      --success-50:  #ECFDF3;
+      --success-100: #D1FAE0;
+      --success-200: #A6F4C5;
+      --success-500: #17B26A;
+      --success-700: #067647;
+      --success-800: #027A48;
+
+      /* ---- Error ---- */
+      --error-50:  #FEF3F2;
+      --error-100: #FEE4E2;
+      --error-500: #F04438;
+      --error-700: #B42318;
+
+      /* ---- Warning ---- */
+      --warning-50:  #FFFAEB;
+      --warning-100: #FEDF89;
+      --warning-700: #B54708;
+
+      /* ---- Typography ---- */
+      --font-family:  'Inter', system-ui, -apple-system, sans-serif;
+
+      --text-xs:   10px;
+      --text-sm:   12px;
+      --text-base: 14px;
+      --text-md:   16px;
+      --text-lg:   18px;
+      --text-xl:   20px;
+      --text-2xl:  24px;
+
+      --font-regular:  400;
+      --font-medium:   500;
+      --font-semibold: 600;
+
+      --leading-xs:  16px;
+      --leading-sm:  20px;
+      --leading-base:24px;
+      --leading-lg:  28px;
+      --leading-xl:  32px;
+
+      /* ---- Border Radius ---- */
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   10px;
+      --radius-xl:   14px;
+      --radius-full: 9999px;
+
+      /* ---- Spacing ---- */
+      --space-1:  4px;
+      --space-1h: 6px;
+      --space-2:  8px;
+      --space-2h: 10px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-5:  20px;
+      --space-6:  24px;
+      --space-8:  32px;
+
+      /* ---- Shadows / Elevation ---- */
+      --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
+      --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+      --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+      --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+      --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+      --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    }
+
+    /* ---- Dark mode overrides ---- */
+    html.dark {
+      --bg-primary:   #0C111D;
+      --bg-secondary: #161B26;
+      --bg-tertiary:  #1F242F;
+      --text-primary:   #F5F5F6;
+      --text-secondary: #94969C;
+      --border-primary: #333741;
+    }
+
+    html:not(.dark) {
+      --bg-primary:   #FFFFFF;
+      --bg-secondary: var(--gray-50);
+      --bg-tertiary:  var(--gray-100);
+      --text-primary:   var(--gray-900);
+      --text-secondary: var(--gray-500);
+      --border-primary: var(--gray-200);
+    }
+
+    /* =========================================================
+       BASE STYLES
+       ========================================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--text-base);
+      line-height: var(--leading-base);
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    /* ---- Scrollbar ---- */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
+
+    /* ---- Code blocks ---- */
+    .code-wrapper {
+      position: relative;
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .code-wrapper pre {
+      margin: 0;
+      padding: 20px 24px;
+      overflow-x: auto;
+    }
+    .code-wrapper code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+    .code-wrapper .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .code-wrapper .copy-btn:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ---- Sidebar active state ---- */
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-500);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .nav-link:hover {
+      color: var(--gray-900);
+      background: var(--gray-100);
+    }
+    html.dark .nav-link:hover {
+      color: #F5F5F6;
+      background: #1F242F;
+    }
+    .nav-link.active {
+      color: var(--brand);
+      background: var(--brand-light);
+      font-weight: 600;
+    }
+    html.dark .nav-link.active {
+      color: #818cf8;
+      background: rgba(129, 140, 248, 0.1);
+    }
+
+    /* ---- Section headings ---- */
+    .section-title {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-desc {
+      font-size: var(--text-md);
+      color: var(--text-secondary);
+      line-height: var(--leading-lg);
+      max-width: 640px;
+    }
+
+    /* ---- Swatch grid ---- */
+    .swatch-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-primary);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .swatch-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+    .swatch-preview {
+      height: 80px;
+      width: 100%;
+    }
+    .swatch-info {
+      padding: 12px 14px;
+      background: var(--bg-primary);
+    }
+    .swatch-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .swatch-hex {
+      font-size: 12px;
+      font-family: 'SF Mono', monospace;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .swatch-context {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ---- Contrast badges ---- */
+    .contrast-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-top: 6px;
+    }
+    .contrast-badge.aaa { background: #ECFDF3; color: #067647; }
+    .contrast-badge.aa  { background: #FFFAEB; color: #B54708; }
+    .contrast-badge.fail { background: #FEF3F2; color: #B42318; }
+    html.dark .contrast-badge.aaa { background: rgba(6,118,71,0.15); color: #75E0A7; }
+    html.dark .contrast-badge.aa  { background: rgba(181,71,8,0.15); color: #FDB022; }
+    html.dark .contrast-badge.fail { background: rgba(180,35,24,0.15); color: #FDA29B; }
+
+    /* ---- Spacing bars ---- */
+    .spacing-bar {
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--brand), var(--blue-500));
+      transition: width 0.4s ease;
+    }
+
+    /* ---- Radius demo ---- */
+    .radius-demo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--brand-light), var(--blue-50));
+      border: 2px solid var(--brand);
+      transition: all 0.2s ease;
+    }
+    .radius-demo:hover {
+      background: var(--brand);
+      transform: scale(1.08);
+    }
+
+    /* ---- Shadow demo ---- */
+    .shadow-demo {
+      width: 100%;
+      height: 80px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-primary);
+      transition: all 0.3s ease;
+    }
+
+    /* ---- Table ---- */
+    .ds-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .ds-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-primary);
+    }
+    .ds-table td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border-primary);
+      vertical-align: middle;
+    }
+    .ds-table tr:last-child td { border-bottom: none; }
+    .ds-table tr:hover td { background: var(--bg-secondary); }
+
+    /* ---- Search highlight ---- */
+    .section-hidden { display: none !important; }
+
+    /* ---- Dark mode toggle button ---- */
+    .dm-toggle {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dm-toggle:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+    }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+  </style>
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+  <script>
+    // ---- Dark mode ----
+    (function() {
+      const stored = localStorage.getItem('ds-dark-mode');
+      if (stored === 'true' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', html.classList.contains('dark'));
+      const icon = document.getElementById('dm-icon');
+      if (icon) {
+        icon.innerHTML = html.classList.contains('dark')
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+      }
+    }
+
+    // ---- Copy to clipboard ----
+    function copyCode(btn) {
+      const code = btn.closest('.code-wrapper').querySelector('code').textContent;
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    }
+
+    // ---- Search / Filter sections ----
+    function filterSections(query) {
+      const q = query.toLowerCase().trim();
+      const sections = document.querySelectorAll('[data-section]');
+      sections.forEach(section => {
+        if (!q) {
+          section.classList.remove('section-hidden');
+          return;
+        }
+        const text = section.textContent.toLowerCase();
+        const tags = (section.dataset.section || '').toLowerCase();
+        const match = text.includes(q) || tags.includes(q);
+        section.classList.toggle('section-hidden', !match);
+      });
+    }
+
+    // ---- Active nav highlighting on scroll ----
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sectionEls = [];
+
+      navLinks.forEach(link => {
+        const id = link.getAttribute('href');
+        if (id && id.startsWith('#')) {
+          const el = document.querySelector(id);
+          if (el) sectionEls.push({ el, link });
+        }
+      });
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const match = sectionEls.find(s => s.el === entry.target);
+          if (match) {
+            if (entry.isIntersecting) {
+              navLinks.forEach(l => l.classList.remove('active'));
+              match.link.classList.add('active');
+            }
+          }
+        });
+      }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+      sectionEls.forEach(s => observer.observe(s.el));
+
+      // Search input listener
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', e => filterSections(e.target.value));
+      }
+    });
+  </script>
+</head>
+
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header style="
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    height: 64px;
+    background: var(--gray-900);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+    backdrop-filter: blur(12px);
+  ">
+    <!-- Logo -->
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div style="
+        width:36px; height:36px; border-radius: var(--radius-md);
+        background: linear-gradient(135deg, var(--brand), var(--blue-500));
+        display:flex; align-items:center; justify-content:center;
+        box-shadow: 0 0 20px rgba(31,18,222,0.3);
+      ">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/>
+        </svg>
+      </div>
+      <span style="font-size:16px; font-weight:700; color:#fff; letter-spacing:-0.02em;">
+        OpenReel <span style="font-weight:400; color:var(--gray-400);">Design System</span>
+      </span>
+      <span style="
+        font-size:11px; font-weight:600; color:var(--brand);
+        background:rgba(31,18,222,0.15); padding:3px 8px;
+        border-radius:var(--radius-full); letter-spacing:0.03em;
+      ">v1.0</span>
+    </div>
+
+    <!-- Search bar -->
+    <div style="
+      position:relative; width:320px;
+    ">
+      <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search tokens, components..."
+        style="
+          width:100%; padding:9px 14px 9px 38px;
+          background:rgba(255,255,255,0.06);
+          border:1px solid rgba(255,255,255,0.1);
+          border-radius:var(--radius-md);
+          color:#fff; font-size:13px; font-family:var(--font-family);
+          outline:none; transition: all 0.2s ease;
+        "
+        onfocus="this.style.borderColor='rgba(31,18,222,0.5)'; this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'"
+        onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'"
+      />
+      <kbd style="
+        position:absolute; right:10px; top:50%; transform:translateY(-50%);
+        font-size:11px; color:rgba(255,255,255,0.3);
+        padding:2px 6px; border-radius:4px;
+        border:1px solid rgba(255,255,255,0.1);
+        font-family:'SF Mono',monospace;
+      ">/</kbd>
+    </div>
+
+    <!-- Dark mode toggle -->
+    <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+      <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- =========================================================
+       LAYOUT: SIDEBAR + MAIN
+       ========================================================= -->
+  <div style="display:flex; padding-top:64px; min-height:100vh;">
+
+    <!-- SIDEBAR -->
+    <nav style="
+      position:sticky; top:64px; align-self:flex-start;
+      width:260px; min-width:260px;
+      height:calc(100vh - 64px); overflow-y:auto;
+      padding:24px 16px;
+      border-right:1px solid var(--border-primary);
+      background: var(--bg-primary);
+    ">
+      <!-- Foundations -->
+      <div style="margin-bottom:24px;">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Foundations</p>
+        <a href="#quick-start" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Quick Start
+        </a>
+        <a href="#css-variables" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+          CSS Variables
+        </a>
+        <a href="#colors" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+          Colors
+        </a>
+        <a href="#typography" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+          Typography
+        </a>
+        <a href="#spacing" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Spacing
+        </a>
+        <a href="#border-radius" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="6"/></svg>
+          Border Radius
+        </a>
+        <a href="#shadows" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M8 22h12a2 2 0 002-2V8"/></svg>
+          Shadows
+        </a>
+      </div>
+
+      <!-- Components -->
+      <div style="margin-bottom:24px;">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Components</p>
+        <a href="#buttons" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="3"/></svg>
+          Buttons
+        </a>
+        <a href="#inputs" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01"/></svg>
+          Inputs
+        </a>
+        <a href="#badges" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="8" rx="4"/></svg>
+          Badges
+        </a>
+        <a href="#cards" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="3"/><path d="M2 9h20"/></svg>
+          Cards
+        </a>
+        <a href="#modals" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+          Modals
+        </a>
+        <a href="#tables" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+          Tables
+        </a>
+      </div>
+
+      <!-- Patterns -->
+      <div style="margin-bottom:24px;">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Patterns</p>
+        <a href="#forms" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          Form Patterns
+        </a>
+        <a href="#navigation" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          Navigation
+        </a>
+        <a href="#data-display" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          Data Display
+        </a>
+      </div>
+
+      <!-- Guidelines -->
+      <div>
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Guidelines</p>
+        <a href="#accessibility" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="currentColor"/><path d="M12 11v5"/><path d="M9 12h6"/></svg>
+          Accessibility
+        </a>
+        <a href="#responsive" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Responsive
+        </a>
+        <a href="#motion" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Motion
+        </a>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" style="flex:1; min-width:0; padding:40px 48px 80px;">
+
+      <!-- =======================================================
+           QUICK START — Hero Section
+           ======================================================= -->
+      <section id="quick-start" data-section="quick start getting started hero" style="margin-bottom:64px;">
+        <div style="
+          background: linear-gradient(135deg, var(--gray-900) 0%, #1a1a3e 50%, var(--brand) 100%);
+          border-radius: var(--radius-xl);
+          padding: 56px 48px;
+          position: relative;
+          overflow: hidden;
+          box-shadow: var(--shadow-2xl);
+        ">
+          <!-- Decorative circles -->
+          <div style="position:absolute; top:-60px; right:-40px; width:250px; height:250px; border-radius:50%; background:rgba(41,112,255,0.1); filter:blur(60px);"></div>
+          <div style="position:absolute; bottom:-80px; left:20%; width:200px; height:200px; border-radius:50%; background:rgba(31,18,222,0.15); filter:blur(50px);"></div>
+
+          <div style="position:relative; z-index:1;">
+            <div style="
+              display:inline-flex; align-items:center; gap:6px;
+              background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12);
+              border-radius:var(--radius-full); padding:5px 14px;
+              font-size:12px; font-weight:500; color:rgba(255,255,255,0.7);
+              margin-bottom:20px;
+            ">
+              <span style="width:6px; height:6px; border-radius:50%; background:#17B26A;"></span>
+              Version 1.0 &mdash; Production Ready
+            </div>
+
+            <h1 style="font-size:40px; font-weight:700; color:#fff; letter-spacing:-0.03em; line-height:1.15; margin-bottom:16px;">
+              OpenReel<br/>Design System
+            </h1>
+            <p style="font-size:18px; color:rgba(255,255,255,0.65); line-height:1.6; max-width:540px; margin-bottom:32px;">
+              A comprehensive collection of design tokens, reusable components, and patterns. Build consistent, accessible, and beautiful interfaces&nbsp;faster.
+            </p>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <a href="#css-variables" style="
+                display:inline-flex; align-items:center; gap:8px;
+                padding:12px 24px; border-radius:var(--radius-md);
+                background:#fff; color:var(--gray-900);
+                font-size:14px; font-weight:600; text-decoration:none;
+                transition: all 0.2s ease;
+                box-shadow: var(--shadow-sm);
+              " onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='none'; this.style.boxShadow='var(--shadow-sm)'">
+                Get Started
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#colors" style="
+                display:inline-flex; align-items:center; gap:8px;
+                padding:12px 24px; border-radius:var(--radius-md);
+                background:rgba(255,255,255,0.08); color:#fff;
+                border:1px solid rgba(255,255,255,0.15);
+                font-size:14px; font-weight:500; text-decoration:none;
+                transition: all 0.2s ease;
+              " onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+                Browse Tokens
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- =======================================================
+           CSS VARIABLES EXPORT
+           ======================================================= -->
+      <section id="css-variables" data-section="css variables tokens export custom properties code" style="margin-bottom:64px;">
+        <div style="margin-bottom:24px;">
+          <h2 class="section-title">CSS Variables Export</h2>
+          <p class="section-desc">Copy and paste these custom properties into your project's root stylesheet. Every design token is available as a CSS variable for seamless integration.</p>
+        </div>
+
+        <div class="code-wrapper">
+          <button class="copy-btn" onclick="copyCode(this)">Copy All</button>
+          <pre><code>:root {
+  /* Brand */
+  --brand:        #1F12DE;
+  --brand-hover:  #1a0fbc;
+  --brand-light:  rgba(31, 18, 222, 0.1);
+
+  /* Blue */
+  --blue-50:   #EFF8FF;
+  --blue-100:  #B2DDFF;
+  --blue-500:  #2970FF;
+  --blue-600:  #175CD3;
+  --blue-light:#53B1FD;
+
+  /* Gray */
+  --gray-25:   #FCFCFD;
+  --gray-50:   #F9FAFB;
+  --gray-100:  #F2F4F7;
+  --gray-200:  #EAECF0;
+  --gray-300:  #E4E7EC;
+  --gray-400:  #98A2B3;
+  --gray-500:  #667085;
+  --gray-600:  #475467;
+  --gray-700:  #344054;
+  --gray-900:  #101828;
+
+  /* Success */
+  --success-50:  #ECFDF3;
+  --success-100: #D1FAE0;
+  --success-200: #A6F4C5;
+  --success-500: #17B26A;
+  --success-700: #067647;
+  --success-800: #027A48;
+
+  /* Error */
+  --error-50:  #FEF3F2;
+  --error-100: #FEE4E2;
+  --error-500: #F04438;
+  --error-700: #B42318;
+
+  /* Warning */
+  --warning-50:  #FFFAEB;
+  --warning-100: #FEDF89;
+  --warning-700: #B54708;
+
+  /* Typography */
+  --font-family:  'Inter', system-ui, -apple-system, sans-serif;
+  --text-xs:   10px;
+  --text-sm:   12px;
+  --text-base: 14px;
+  --text-md:   16px;
+  --text-lg:   18px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --font-regular:  400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --leading-xs:  16px;
+  --leading-sm:  20px;
+  --leading-base:24px;
+  --leading-lg:  28px;
+  --leading-xl:  32px;
+
+  /* Border Radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --space-1:  4px;
+  --space-1h: 6px;
+  --space-2:  8px;
+  --space-2h: 10px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+
+  /* Shadows */
+  --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+  --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+  --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+  --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+}</code></pre>
+        </div>
+      </section>
+
+
+      <!-- =======================================================
+           COLORS
+           ======================================================= -->
+      <section id="colors" data-section="colors palette brand blue gray success error warning contrast" style="margin-bottom:64px;">
+        <div style="margin-bottom:32px;">
+          <h2 class="section-title">Colors</h2>
+          <p class="section-desc">Our color system is built around semantic meaning and accessibility. Each swatch includes its WCAG contrast ratio against white (#FFFFFF) for text usage guidance.</p>
+        </div>
+
+        <!-- Brand Colors -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Brand</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:16px; margin-bottom:40px;">
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#1F12DE;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Brand</div>
+              <div class="swatch-hex">#1F12DE</div>
+              <div class="swatch-context">Primary actions, links, focus rings</div>
+              <span class="contrast-badge aaa">AAA 6.8:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#1a0fbc;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Brand Hover</div>
+              <div class="swatch-hex">#1a0fbc</div>
+              <div class="swatch-context">Hover state for primary actions</div>
+              <span class="contrast-badge aaa">AAA 8.2:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:rgba(31,18,222,0.1);"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Brand Light</div>
+              <div class="swatch-hex">rgba(31,18,222,0.1)</div>
+              <div class="swatch-context">Subtle backgrounds, selected states</div>
+              <span class="contrast-badge fail">N/A &mdash; BG only</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blue -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Blue</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:16px; margin-bottom:40px;">
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#EFF8FF;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Blue 50</div>
+              <div class="swatch-hex">#EFF8FF</div>
+              <div class="swatch-context">Info backgrounds, subtle highlights</div>
+              <span class="contrast-badge fail">1.1:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#B2DDFF;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Blue 100</div>
+              <div class="swatch-hex">#B2DDFF</div>
+              <div class="swatch-context">Info badges, light borders</div>
+              <span class="contrast-badge fail">1.5:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#2970FF;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Blue 500</div>
+              <div class="swatch-hex">#2970FF</div>
+              <div class="swatch-context">Links, info icons, interactive accents</div>
+              <span class="contrast-badge aa">AA 3.7:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#175CD3;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Blue 600</div>
+              <div class="swatch-hex">#175CD3</div>
+              <div class="swatch-context">Text links, active states</div>
+              <span class="contrast-badge aaa">AAA 5.2:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#53B1FD;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Blue Light</div>
+              <div class="swatch-hex">#53B1FD</div>
+              <div class="swatch-context">Decorative accents, charts</div>
+              <span class="contrast-badge fail">2.2:1 &mdash; Decorative</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gray -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Gray</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:16px; margin-bottom:40px;">
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#FCFCFD;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 25</div>
+              <div class="swatch-hex">#FCFCFD</div>
+              <div class="swatch-context">Page background (alt)</div>
+              <span class="contrast-badge fail">1.0:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#F9FAFB;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 50</div>
+              <div class="swatch-hex">#F9FAFB</div>
+              <div class="swatch-context">Secondary backgrounds, table stripes</div>
+              <span class="contrast-badge fail">1.1:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#F2F4F7;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 100</div>
+              <div class="swatch-hex">#F2F4F7</div>
+              <div class="swatch-context">Card backgrounds, hover states</div>
+              <span class="contrast-badge fail">1.2:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#EAECF0;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 200</div>
+              <div class="swatch-hex">#EAECF0</div>
+              <div class="swatch-context">Borders, dividers</div>
+              <span class="contrast-badge fail">1.4:1 &mdash; BG/Border</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#E4E7EC;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 300</div>
+              <div class="swatch-hex">#E4E7EC</div>
+              <div class="swatch-context">Input borders, disabled backgrounds</div>
+              <span class="contrast-badge fail">1.5:1 &mdash; Border only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#98A2B3;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 400</div>
+              <div class="swatch-hex">#98A2B3</div>
+              <div class="swatch-context">Placeholder text, disabled text</div>
+              <span class="contrast-badge aa">AA 2.7:1 &mdash; Large text</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#667085;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 500</div>
+              <div class="swatch-hex">#667085</div>
+              <div class="swatch-context">Secondary text, captions, labels</div>
+              <span class="contrast-badge aa">AA 4.6:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#475467;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 600</div>
+              <div class="swatch-hex">#475467</div>
+              <div class="swatch-context">Body text, descriptions</div>
+              <span class="contrast-badge aaa">AAA 7.0:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#344054;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 700</div>
+              <div class="swatch-hex">#344054</div>
+              <div class="swatch-context">Headings, strong text</div>
+              <span class="contrast-badge aaa">AAA 9.4:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#101828;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Gray 900</div>
+              <div class="swatch-hex">#101828</div>
+              <div class="swatch-context">Primary text, titles, headings</div>
+              <span class="contrast-badge aaa">AAA 16.8:1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Success</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:16px; margin-bottom:40px;">
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#ECFDF3;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Success 50</div>
+              <div class="swatch-hex">#ECFDF3</div>
+              <div class="swatch-context">Success alert backgrounds</div>
+              <span class="contrast-badge fail">1.1:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#D1FAE0;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Success 100</div>
+              <div class="swatch-hex">#D1FAE0</div>
+              <div class="swatch-context">Success badges, progress fills</div>
+              <span class="contrast-badge fail">1.3:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#A6F4C5;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Success 200</div>
+              <div class="swatch-hex">#A6F4C5</div>
+              <div class="swatch-context">Charts, decorative elements</div>
+              <span class="contrast-badge fail">1.5:1 &mdash; Decorative</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#17B26A;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Success 500</div>
+              <div class="swatch-hex">#17B26A</div>
+              <div class="swatch-context">Success icons, checkmarks</div>
+              <span class="contrast-badge aa">AA 3.3:1 &mdash; Large text</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#067647;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Success 700</div>
+              <div class="swatch-hex">#067647</div>
+              <div class="swatch-context">Success text on light backgrounds</div>
+              <span class="contrast-badge aaa">AAA 5.9:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#027A48;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Success 800</div>
+              <div class="swatch-hex">#027A48</div>
+              <div class="swatch-context">Strong success text, confirmation</div>
+              <span class="contrast-badge aaa">AAA 5.7:1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Error</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:16px; margin-bottom:40px;">
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#FEF3F2;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Error 50</div>
+              <div class="swatch-hex">#FEF3F2</div>
+              <div class="swatch-context">Error alert backgrounds</div>
+              <span class="contrast-badge fail">1.0:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#FEE4E2;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Error 100</div>
+              <div class="swatch-hex">#FEE4E2</div>
+              <div class="swatch-context">Error badges, input error borders</div>
+              <span class="contrast-badge fail">1.3:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#F04438;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Error 500</div>
+              <div class="swatch-hex">#F04438</div>
+              <div class="swatch-context">Error icons, destructive buttons</div>
+              <span class="contrast-badge aa">AA 3.9:1</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#B42318;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Error 700</div>
+              <div class="swatch-hex">#B42318</div>
+              <div class="swatch-context">Error text, validation messages</div>
+              <span class="contrast-badge aaa">AAA 6.5:1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Warning</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:16px; margin-bottom:16px;">
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#FFFAEB;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Warning 50</div>
+              <div class="swatch-hex">#FFFAEB</div>
+              <div class="swatch-context">Warning alert backgrounds</div>
+              <span class="contrast-badge fail">1.0:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#FEDF89;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Warning 100</div>
+              <div class="swatch-hex">#FEDF89</div>
+              <div class="swatch-context">Warning badges, highlights</div>
+              <span class="contrast-badge fail">1.5:1 &mdash; BG only</span>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-preview" style="background:#B54708;"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">Warning 700</div>
+              <div class="swatch-hex">#B54708</div>
+              <div class="swatch-context">Warning text, caution labels</div>
+              <span class="contrast-badge aaa">AAA 5.5:1</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- =======================================================
+           TYPOGRAPHY
+           ======================================================= -->
+      <section id="typography" data-section="typography font size weight line height scale text" style="margin-bottom:64px;">
+        <div style="margin-bottom:32px;">
+          <h2 class="section-title">Typography</h2>
+          <p class="section-desc">Built on Inter, our type scale provides clear hierarchy with seven sizes and three weights. Each step is tuned for optimal readability and rhythm.</p>
+        </div>
+
+        <!-- Font Family -->
+        <div style="
+          padding:24px 28px;
+          background:var(--bg-secondary);
+          border:1px solid var(--border-primary);
+          border-radius:var(--radius-lg);
+          margin-bottom:32px;
+        ">
+          <p style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-secondary); margin-bottom:12px;">Font Family</p>
+          <p style="font-size:36px; font-weight:600; letter-spacing:-0.03em; color:var(--text-primary);">Inter</p>
+          <p style="font-size:14px; color:var(--text-secondary); margin-top:4px;">
+            <code style="font-size:13px; background:var(--bg-tertiary); padding:2px 8px; border-radius:var(--radius-sm); font-family:'SF Mono',monospace;">font-family: 'Inter', system-ui, -apple-system, sans-serif;</code>
+          </p>
+        </div>
+
+        <!-- Type Scale Table -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Type Scale</h3>
+        <table class="ds-table" style="margin-bottom:32px;">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Size</th>
+              <th>Line Height</th>
+              <th>Preview</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--text-xs</code></td>
+              <td>10px</td>
+              <td>16px</td>
+              <td><span style="font-size:10px; line-height:16px;">The quick brown fox jumps over the lazy dog</span></td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--text-sm</code></td>
+              <td>12px</td>
+              <td>16px</td>
+              <td><span style="font-size:12px; line-height:16px;">The quick brown fox jumps over the lazy dog</span></td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--text-base</code></td>
+              <td>14px</td>
+              <td>20px</td>
+              <td><span style="font-size:14px; line-height:20px;">The quick brown fox jumps over the lazy dog</span></td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--text-md</code></td>
+              <td>16px</td>
+              <td>24px</td>
+              <td><span style="font-size:16px; line-height:24px;">The quick brown fox jumps over the lazy dog</span></td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--text-lg</code></td>
+              <td>18px</td>
+              <td>28px</td>
+              <td><span style="font-size:18px; line-height:28px;">The quick brown fox jumps over the lazy dog</span></td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--text-xl</code></td>
+              <td>20px</td>
+              <td>28px</td>
+              <td><span style="font-size:20px; line-height:28px;">The quick brown fox jumps over the lazy dog</span></td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--text-2xl</code></td>
+              <td>24px</td>
+              <td>32px</td>
+              <td><span style="font-size:24px; line-height:32px;">The quick brown fox jumps over the lazy dog</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Font Weights -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Font Weights</h3>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:32px;">
+
+          <div style="
+            padding:24px;
+            background:var(--bg-secondary);
+            border:1px solid var(--border-primary);
+            border-radius:var(--radius-lg);
+            text-align:center;
+          ">
+            <p style="font-size:40px; font-weight:400; color:var(--text-primary); margin-bottom:8px;">Aa</p>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">Regular</p>
+            <p style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+              <code style="font-family:'SF Mono',monospace; font-size:11px;">400</code>
+            </p>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:8px;">Body text, descriptions</p>
+          </div>
+
+          <div style="
+            padding:24px;
+            background:var(--bg-secondary);
+            border:1px solid var(--border-primary);
+            border-radius:var(--radius-lg);
+            text-align:center;
+          ">
+            <p style="font-size:40px; font-weight:500; color:var(--text-primary); margin-bottom:8px;">Aa</p>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">Medium</p>
+            <p style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+              <code style="font-family:'SF Mono',monospace; font-size:11px;">500</code>
+            </p>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:8px;">Labels, nav links, buttons</p>
+          </div>
+
+          <div style="
+            padding:24px;
+            background:var(--bg-secondary);
+            border:1px solid var(--border-primary);
+            border-radius:var(--radius-lg);
+            text-align:center;
+          ">
+            <p style="font-size:40px; font-weight:600; color:var(--text-primary); margin-bottom:8px;">Aa</p>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">Semibold</p>
+            <p style="font-size:12px; color:var(--text-secondary); margin-top:2px;">
+              <code style="font-family:'SF Mono',monospace; font-size:11px;">600</code>
+            </p>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:8px;">Headings, emphasis, CTAs</p>
+          </div>
+        </div>
+
+        <!-- Line Heights -->
+        <h3 style="font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:16px;">Line Heights</h3>
+        <table class="ds-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Value</th>
+              <th>Recommended Pairing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--leading-xs</code></td>
+              <td>16px</td>
+              <td>10px, 12px text (captions, badges)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--leading-sm</code></td>
+              <td>20px</td>
+              <td>14px text (body copy)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--leading-base</code></td>
+              <td>24px</td>
+              <td>16px text (large body)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--leading-lg</code></td>
+              <td>28px</td>
+              <td>18px, 20px text (subheadings)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--leading-xl</code></td>
+              <td>32px</td>
+              <td>24px text (section headings)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+
+      <!-- =======================================================
+           SPACING
+           ======================================================= -->
+      <section id="spacing" data-section="spacing scale gap padding margin" style="margin-bottom:64px;">
+        <div style="margin-bottom:32px;">
+          <h2 class="section-title">Spacing</h2>
+          <p class="section-desc">Our spacing scale uses consistent increments to create visual harmony. Every dimension in the system is derived from these tokens.</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+
+          <!-- 4px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-1</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">4px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:4px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Inline icon gaps, tight padding</div>
+          </div>
+
+          <!-- 6px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-1h</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">6px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:6px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Badge padding, small gaps</div>
+          </div>
+
+          <!-- 8px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-2</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">8px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:24px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Button padding, nav gaps</div>
+          </div>
+
+          <!-- 10px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-2h</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">10px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:36px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Input padding vertical</div>
+          </div>
+
+          <!-- 12px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-3</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">12px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:48px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Card inner padding, form gaps</div>
+          </div>
+
+          <!-- 16px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-4</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">16px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:80px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Section padding, grid gaps</div>
+          </div>
+
+          <!-- 20px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-5</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">20px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:110px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Modal padding, larger gaps</div>
+          </div>
+
+          <!-- 24px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-6</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">24px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:150px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Page margins, section spacing</div>
+          </div>
+
+          <!-- 32px -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="width:100px; flex-shrink:0;">
+              <code style="font-family:'SF Mono',monospace; font-size:12px; color:var(--brand);">--space-8</code>
+            </div>
+            <div style="width:50px; flex-shrink:0; font-size:13px; font-weight:500; color:var(--text-secondary); text-align:right;">32px</div>
+            <div style="flex:1;">
+              <div class="spacing-bar" style="width:220px;"></div>
+            </div>
+            <div style="width:160px; flex-shrink:0; font-size:12px; color:var(--gray-400);">Large sections, hero padding</div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- =======================================================
+           BORDER RADIUS
+           ======================================================= -->
+      <section id="border-radius" data-section="border radius rounded corners" style="margin-bottom:64px;">
+        <div style="margin-bottom:32px;">
+          <h2 class="section-title">Border Radius</h2>
+          <p class="section-desc">Five radius values that cover every use case, from subtle rounding on small elements to fully circular shapes for avatars and pills.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:24px;">
+
+          <!-- 4px -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+            <div class="radius-demo" style="border-radius:4px;"></div>
+            <div style="text-align:center;">
+              <p style="font-size:13px; font-weight:600; color:var(--text-primary);">SM</p>
+              <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand);">4px</code>
+              <p style="font-size:11px; color:var(--gray-400); margin-top:4px;">Badges, tags,<br/>small controls</p>
+            </div>
+          </div>
+
+          <!-- 8px -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+            <div class="radius-demo" style="border-radius:8px;"></div>
+            <div style="text-align:center;">
+              <p style="font-size:13px; font-weight:600; color:var(--text-primary);">MD</p>
+              <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand);">8px</code>
+              <p style="font-size:11px; color:var(--gray-400); margin-top:4px;">Buttons, inputs,<br/>dropdowns</p>
+            </div>
+          </div>
+
+          <!-- 10px -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+            <div class="radius-demo" style="border-radius:10px;"></div>
+            <div style="text-align:center;">
+              <p style="font-size:13px; font-weight:600; color:var(--text-primary);">LG</p>
+              <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand);">10px</code>
+              <p style="font-size:11px; color:var(--gray-400); margin-top:4px;">Cards, panels,<br/>code blocks</p>
+            </div>
+          </div>
+
+          <!-- 14px -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+            <div class="radius-demo" style="border-radius:14px;"></div>
+            <div style="text-align:center;">
+              <p style="font-size:13px; font-weight:600; color:var(--text-primary);">XL</p>
+              <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand);">14px</code>
+              <p style="font-size:11px; color:var(--gray-400); margin-top:4px;">Modals, banners,<br/>hero sections</p>
+            </div>
+          </div>
+
+          <!-- Full -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+            <div class="radius-demo" style="border-radius:9999px; width:80px; height:80px;"></div>
+            <div style="text-align:center;">
+              <p style="font-size:13px; font-weight:600; color:var(--text-primary);">Full</p>
+              <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand);">9999px</code>
+              <p style="font-size:11px; color:var(--gray-400); margin-top:4px;">Avatars, pills,<br/>toggle tracks</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- =======================================================
+           SHADOWS
+           ======================================================= -->
+      <section id="shadows" data-section="shadows elevation depth box-shadow" style="margin-bottom:64px;">
+        <div style="margin-bottom:32px;">
+          <h2 class="section-title">Shadows</h2>
+          <p class="section-desc">Six elevation levels create depth hierarchy. Use sparingly to draw attention to interactive elements and floating surfaces.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">
+
+          <!-- XS -->
+          <div style="text-align:center;">
+            <div class="shadow-demo" style="box-shadow:var(--shadow-xs); margin-bottom:14px;"></div>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">XS</p>
+            <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand); display:block; margin-top:2px;">--shadow-xs</code>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:6px;">Subtle lift. Inputs, small cards.</p>
+          </div>
+
+          <!-- SM -->
+          <div style="text-align:center;">
+            <div class="shadow-demo" style="box-shadow:var(--shadow-sm); margin-bottom:14px;"></div>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">SM</p>
+            <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand); display:block; margin-top:2px;">--shadow-sm</code>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:6px;">Buttons, interactive controls.</p>
+          </div>
+
+          <!-- MD -->
+          <div style="text-align:center;">
+            <div class="shadow-demo" style="box-shadow:var(--shadow-md); margin-bottom:14px;"></div>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">MD</p>
+            <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand); display:block; margin-top:2px;">--shadow-md</code>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:6px;">Cards, dropdowns on hover.</p>
+          </div>
+
+          <!-- LG -->
+          <div style="text-align:center;">
+            <div class="shadow-demo" style="box-shadow:var(--shadow-lg); margin-bottom:14px;"></div>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">LG</p>
+            <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand); display:block; margin-top:2px;">--shadow-lg</code>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:6px;">Popovers, floating menus.</p>
+          </div>
+
+          <!-- XL -->
+          <div style="text-align:center;">
+            <div class="shadow-demo" style="box-shadow:var(--shadow-xl); margin-bottom:14px;"></div>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">XL</p>
+            <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand); display:block; margin-top:2px;">--shadow-xl</code>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:6px;">Modals, dialogs.</p>
+          </div>
+
+          <!-- 2XL -->
+          <div style="text-align:center;">
+            <div class="shadow-demo" style="box-shadow:var(--shadow-2xl); margin-bottom:14px;"></div>
+            <p style="font-size:13px; font-weight:600; color:var(--text-primary);">2XL</p>
+            <code style="font-family:'SF Mono',monospace; font-size:11px; color:var(--brand); display:block; margin-top:2px;">--shadow-2xl</code>
+            <p style="font-size:11px; color:var(--gray-400); margin-top:6px;">Full-screen overlays, hero cards.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- NOTE: </main>, </div>, </body>, </html> are intentionally omitted.
+           This file is Part 1 and will be concatenated with subsequent parts. -->
