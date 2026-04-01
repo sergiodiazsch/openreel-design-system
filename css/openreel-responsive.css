@@ -102,7 +102,17 @@
 
 
 /* ─────────────────────────────────────────────
-   4. SIDEBAR RESPONSIVE  (< lg)
+   4. GLOBAL MOBILE OVERFLOW FIX
+   ───────────────────────────────────────────── */
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+
+/* ─────────────────────────────────────────────
+   4b. SIDEBAR RESPONSIVE  (< lg)
    ───────────────────────────────────────────── */
 
 @media (max-width: 1023px) {
@@ -111,30 +121,45 @@
   }
 
   #ds-sidebar,
-  .ds-sidebar,
-  [class*="sidebar"] {
+  .ds-sidebar {
+    position: fixed !important;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
     z-index: 1000 !important;
     width: 280px !important;
+    min-width: 0 !important;
     top: 0 !important;
+    left: 0 !important;
     height: 100vh !important;
     padding-top: 72px !important;
+    background: var(--bg-primary, #fff) !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
   }
 
   #ds-sidebar.or-sidebar-open,
-  .ds-sidebar.or-sidebar-open,
-  [class*="sidebar"].or-sidebar-open {
+  .ds-sidebar.or-sidebar-open {
     transform: translateX(0);
   }
 
-  /* Remove margin-left from main content */
+  /* Main content: remove sidebar offset, full width */
+  #main-content,
   #ds-sidebar + *,
-  .ds-sidebar ~ main,
-  .ds-sidebar ~ div,
+  #ds-sidebar ~ main,
+  #ds-sidebar ~ div,
+  main[style*="flex:1"],
   [style*="margin-left: 260px"],
   [style*="margin-left:260px"] {
     margin-left: 0 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* The flex parent that wraps sidebar + main */
+  [style*="display:flex"][style*="padding-top:64px"],
+  [style*="display: flex"][style*="padding-top"] {
+    flex-direction: column !important;
   }
 }
 
@@ -143,16 +168,39 @@
    5. HEADER / TOPBAR RESPONSIVE
    ───────────────────────────────────────────── */
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   header,
   .header,
   .topbar {
-    padding-left: 56px !important; /* room for hamburger */
+    padding-left: 60px !important; /* room for hamburger */
   }
 
+  /* Particles in header: reduce or hide */
+  header canvas,
+  .header canvas {
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 767px) {
   /* Hide desktop nav items on mobile */
   .header-nav,
-  .nav-links {
+  .nav-links,
+  header nav:not(#ds-sidebar) > a,
+  .dm-toggle-wrap {
+    display: none !important;
+  }
+
+  /* Shrink header text */
+  header [style*="font-size:18px"],
+  header [style*="font-size: 18px"] {
+    font-size: 14px !important;
+  }
+
+  /* Search bar */
+  header input[type="search"],
+  header .search-input,
+  [placeholder*="Search tokens"] {
     display: none !important;
   }
 }
@@ -161,7 +209,27 @@
   header,
   .header,
   .topbar {
-    padding: 12px 16px 12px 56px !important;
+    padding: 10px 12px 10px 56px !important;
+    height: auto !important;
+    min-height: 48px !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   5b. FOOTER RESPONSIVE
+   ───────────────────────────────────────────── */
+
+@media (max-width: 639px) {
+  footer,
+  footer > div {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 8px !important;
+  }
+
+  /* WebGL gradient in footer */
+  footer canvas {
+    opacity: 0.5;
   }
 }
 
@@ -333,10 +401,33 @@
    10. SPACING ADJUSTMENTS
    ───────────────────────────────────────────── */
 
+@media (max-width: 1023px) {
+  /* Main content padding reduction */
+  main,
+  #main-content,
+  main[style*="padding"] {
+    padding: 24px 20px 60px !important;
+  }
+}
+
 @media (max-width: 767px) {
   /* Reduce section padding on mobile */
   section,
   .component-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin-bottom: 40px !important;
+  }
+
+  main,
+  #main-content,
+  main[style*="padding"] {
+    padding: 20px 16px 60px !important;
+  }
+
+  /* Reduce max-width sections */
+  [style*="max-width:960px"],
+  [style*="max-width: 960px"] {
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
@@ -349,9 +440,56 @@
     padding-right: 12px !important;
   }
 
+  main,
+  #main-content {
+    padding: 16px 12px 48px !important;
+  }
+
   .or-card-body,
   .or-card__body {
     padding: 12px !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   10b. HERO SECTION RESPONSIVE
+   ───────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  /* Hero gradient card */
+  #quick-start > div,
+  [style*="padding: 56px 48px"],
+  [style*="padding:56px 48px"] {
+    padding: 32px 24px !important;
+  }
+
+  /* Hero title */
+  #quick-start h1,
+  [style*="font-size:40px"],
+  [style*="font-size: 40px"] {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Hero subtitle */
+  #quick-start p[style*="font-size:18px"],
+  [style*="font-size:18px"][style*="max-width:540px"] {
+    font-size: 15px !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 479px) {
+  #quick-start > div,
+  [style*="padding: 56px 48px"],
+  [style*="padding:56px 48px"] {
+    padding: 24px 16px !important;
+  }
+
+  #quick-start h1,
+  [style*="font-size:40px"],
+  [style*="font-size: 40px"] {
+    font-size: 24px !important;
   }
 }
 
@@ -431,4 +569,72 @@
   [data-or-glow] {
     pointer-events: auto;
   }
+
+
+/* ─────────────────────────────────────────────
+   13. INLINE STYLE OVERRIDES — CRITICAL
+   ─────────────────────────────────────────────
+   Many DS pages use inline styles with fixed widths.
+   These overrides fix the most common breakage.
+   ───────────────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  /* Any element with fixed width > 260px that's not a modal */
+  [style*="width:260px"],
+  [style*="width: 260px"],
+  [style*="min-width:260px"],
+  [style*="min-width: 260px"],
+  [style*="min-width:240px"],
+  [style*="min-width: 240px"] {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Fix stat cards with min-width */
+  .or-stat[style*="min-width"],
+  [style*="min-width:200px"],
+  [style*="min-width: 200px"],
+  [style*="min-width:160px"],
+  [style*="min-width: 160px"] {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Prevent any fixed-width element from overflowing */
+  [style*="width:"][style*="px"] {
+    max-width: 100% !important;
+  }
+
+  /* All inline flex containers: allow wrapping */
+  [style*="display:flex"],
+  [style*="display: flex"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* Inline grid: prevent overflow */
+  [style*="display:grid"],
+  [style*="display: grid"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+
+  /* Component demos: full width preview boxes */
+  .component-card,
+  .preview-box,
+  .preview-box-start,
+  .preview-box-col {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+
+  /* Tree views, code blocks: scroll not overflow */
+  .or-tree,
+  pre,
+  code {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
 }
