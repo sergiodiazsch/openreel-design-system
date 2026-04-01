@@ -1102,6 +1102,191 @@
   }
 
   /* ─────────────────────────────────────────────
+   * 10. 3D CARD TILT
+   * ───────────────────────────────────────────── */
+
+  function initTilt() {
+    if (reducedMotion) return;
+
+    document.querySelectorAll("[data-or-tilt]").forEach((el) => {
+      const maxDeg = parseFloat(el.dataset.orTiltMax) || 5;
+      const hasGlare = el.hasAttribute("data-or-tilt-glare");
+
+      el.style.willChange = "transform";
+
+      let glareEl = null;
+      if (hasGlare) {
+        glareEl = document.createElement("div");
+        glareEl.style.cssText =
+          "position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity 0.3s ease;";
+        el.style.position = el.style.position || "relative";
+        el.appendChild(glareEl);
+      }
+
+      el.addEventListener("mousemove", (e) => {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const xPct = (e.clientX - cx) / (rect.width / 2);
+        const yPct = (e.clientY - cy) / (rect.height / 2);
+
+        el.style.transition = "";
+        el.style.transform = `perspective(800px) rotateX(${-yPct * maxDeg}deg) rotateY(${xPct * maxDeg}deg)`;
+
+        if (glareEl) {
+          const angle =
+            Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI) + 90;
+          glareEl.style.opacity = "1";
+          glareEl.style.background = `linear-gradient(${angle}deg, rgba(255,255,255,0.15) 0%, transparent 60%)`;
+        }
+      });
+
+      el.addEventListener("mouseleave", () => {
+        el.style.transition = "transform 0.3s ease";
+        el.style.transform =
+          "perspective(800px) rotateX(0deg) rotateY(0deg)";
+        if (glareEl) {
+          glareEl.style.opacity = "0";
+        }
+      });
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 11. MAGNETIC BUTTONS
+   * ───────────────────────────────────────────── */
+
+  function initMagnetic() {
+    if (reducedMotion) return;
+
+    document.querySelectorAll("[data-or-magnetic]").forEach((el) => {
+      el.style.transition = "transform 0.15s ease-out";
+
+      const onMove = (e) => {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = e.clientX - cx;
+        const dy = e.clientY - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const zone = Math.max(rect.width, rect.height) / 2 + 50;
+
+        if (dist < zone) {
+          el.style.transition = "transform 0.15s ease-out";
+          el.style.transform = `translate(${dx * 0.15}px, ${dy * 0.15}px)`;
+        }
+      };
+
+      const onLeave = () => {
+        el.style.transition =
+          "transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)";
+        el.style.transform = "translate(0, 0)";
+      };
+
+      document.addEventListener("mousemove", onMove);
+      el.addEventListener("mouseleave", onLeave);
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 12. GRADIENT BORDER ANIMATION
+   * ───────────────────────────────────────────── */
+
+  function initGradientBorder() {
+    const style = document.createElement("style");
+    style.textContent = `
+@property --or-border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.or-gradient-border,
+[data-or-gradient-border] {
+  position: relative;
+  border: none !important;
+}
+
+.or-gradient-border::before,
+[data-or-gradient-border]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--or-border-angle), #1F12DE, #2970FF, #17B26A, #1F12DE);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.or-gradient-border:hover::before,
+.or-gradient-border:focus-within::before,
+[data-or-gradient-border]:hover::before,
+[data-or-gradient-border]:focus-within::before {
+  opacity: 1;
+  animation: or-border-rotate 3s linear infinite;
+}
+
+@keyframes or-border-rotate {
+  to { --or-border-angle: 360deg; }
+}
+    `;
+    document.head.appendChild(style);
+  }
+
+  /* ─────────────────────────────────────────────
+   * 13. CURSOR GLOW
+   * ───────────────────────────────────────────── */
+
+  function initGlow() {
+    document.querySelectorAll("[data-or-glow]").forEach((container) => {
+      const color =
+        container.dataset.orGlowColor || "rgba(31, 18, 222, 0.08)";
+      const size = parseInt(container.dataset.orGlowSize, 10) || 300;
+
+      container.style.position = "relative";
+      container.style.overflow = "hidden";
+
+      const overlay = document.createElement("div");
+      overlay.style.cssText =
+        "position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.3s ease;";
+      container.appendChild(overlay);
+
+      // Re-ensure children (excluding the overlay just added) sit above
+      Array.from(container.children).forEach((child) => {
+        if (child !== overlay) {
+          if (!child.style.position || child.style.position === "static") {
+            child.style.position = "relative";
+          }
+          if (!child.style.zIndex) {
+            child.style.zIndex = "2";
+          }
+        }
+      });
+
+      container.addEventListener("mouseenter", () => {
+        overlay.style.opacity = "1";
+      });
+
+      container.addEventListener("mousemove", (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        overlay.style.background = `radial-gradient(${size}px circle at ${x}px ${y}px, ${color}, transparent)`;
+      });
+
+      container.addEventListener("mouseleave", () => {
+        overlay.style.opacity = "0";
+      });
+    });
+  }
+
+  /* ─────────────────────────────────────────────
    * 9. INIT
    * ───────────────────────────────────────────── */
 
@@ -1113,6 +1298,10 @@
     initDarkModeReveal();
     initCommandPalette();
     initViewTransitions();
+    initTilt();
+    initMagnetic();
+    initGradientBorder();
+    initGlow();
   }
 
   if (document.readyState === "loading") {
