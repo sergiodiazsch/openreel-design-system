@@ -334,6 +334,38 @@ Load `js/openreel-effects.js` for GSAP/Three.js/WebGL effects. All activate via 
 | `data-or-gradient` | WebGL animated mesh gradient |
 | `data-or-parallax="0.3"` | Scroll parallax (factor 0-1) |
 
+### Interactive Effects
+
+| Attribute / Shortcut | Effect |
+|-----------|--------|
+| `data-or-tilt` | 3D perspective tilt following cursor |
+| `data-or-tilt-glare` | Adds glare overlay to tilt effect |
+| `data-or-magnetic` | Button gravitates toward cursor |
+| `data-or-glow` | Radial glow follows cursor on surface |
+| `.or-gradient-border` | Animated conic gradient border on hover/focus |
+| `data-or-counter` | Number counts up on scroll into view |
+| `data-or-scroll-progress` | Thin scroll progress bar at top of viewport |
+| `Cmd+K` / `Ctrl+K` | Opens command palette |
+| `Shift+A` | Toggles component anatomy overlay |
+
+### CSS Utilities
+
+| Class | Effect |
+|-------|--------|
+| `.or-glass` | Glassmorphism (blur 12px + transparent bg) |
+| `.or-glass-sm` | Glassmorphism small (blur 8px) |
+| `.or-glass-lg` | Glassmorphism large (blur 20px) |
+| `.or-grain` | Subtle noise/grain texture overlay |
+| `.or-gradient-border` | Animated gradient border on hover |
+
+### Dark Mode
+
+The dark mode toggle uses a **radial reveal animation** — a circle expands from the toggle button to reveal the new theme. Respects `prefers-reduced-motion`.
+
+### View Transitions
+
+Navigation between DS pages uses the **View Transitions API** for smooth crossfade. Progressive enhancement — standard navigation if unsupported.
+
 ### Particle Configuration
 
 | Attribute | Default | Description |
