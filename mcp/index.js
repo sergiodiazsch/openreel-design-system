@@ -612,61 +612,17 @@ server.tool(
   "Get the complete CSS setup needed to use the OpenReel Design System in a project — tokens, base styles, and dark mode.",
   {},
   async () => {
-    const css = `/* ============================================
-   OpenReel Design System — CSS Setup
-   ============================================ */
-
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* ── Tokens ── */
-${generateTokensCSS()}
-
-/* ── Dark Mode ── */
-html.dark {
-  --bg-primary:     ${tokens.dark["bg-primary"]};
-  --bg-secondary:   ${tokens.dark["bg-secondary"]};
-  --bg-tertiary:    ${tokens.dark["bg-tertiary"]};
-  --text-primary:   ${tokens.dark["text-primary"]};
-  --text-secondary: ${tokens.dark["text-secondary"]};
-  --border-primary: ${tokens.dark["border-primary"]};
-}
-
-html:not(.dark) {
-  --bg-primary:     #FFFFFF;
-  --bg-secondary:   ${tokens.colors["gray-50"]};
-  --bg-tertiary:    ${tokens.colors["gray-100"]};
-  --text-primary:   ${tokens.colors["gray-900"]};
-  --text-secondary: ${tokens.colors["gray-500"]};
-  --border-primary: ${tokens.colors["gray-200"]};
-}
-
-/* ── Base Styles ── */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: var(--font-family);
-  font-size: var(--text-base);
-  line-height: var(--leading-base);
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
-html.dark ::-webkit-scrollbar-thumb { background: var(--border-primary); }
-`;
-
+    let css;
+    try {
+      css = readFileSync(join(__dirname, "..", "css", "openreel.css"), "utf-8");
+    } catch {
+      css = "/* Error: css/openreel.css not found. Run from project root. */";
+    }
     return {
-      content: [
-        {
-          type: "text",
-          text: `# OpenReel Design System — CSS Setup\n\nPaste this into your main CSS file to get started:\n\n\`\`\`css\n${css}\n\`\`\`\n\n**Next steps:**\n1. Add \`class="dark"\` to \`<html>\` for dark mode\n2. Use \`get_component\` to get code for specific components\n3. Use \`get_tokens\` for format-specific exports (SCSS, Tailwind, etc.)`,
-        },
-      ],
+      content: [{
+        type: "text",
+        text: `# OpenReel Design System — CSS Setup\n\nPaste this into your main CSS file:\n\n\`\`\`css\n${css}\n\`\`\`\n\n**Next steps:**\n1. Add \`class="dark"\` to \`<html>\` for dark mode\n2. Use \`get_component\` to get code for specific components\n3. Use \`get_tokens\` for format-specific exports (SCSS, Tailwind, etc.)`,
+      }],
     };
   }
 );
