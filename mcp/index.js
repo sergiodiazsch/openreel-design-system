@@ -64,6 +64,8 @@ function suggestComponents(name) {
     .map((c) => c.name);
 }
 
+const prefixMap = { spacing: "space", borderRadius: "radius", shadows: "shadow" };
+
 function generateTokensCSS(category) {
   let lines = [":root {"];
   const cats = category ? { [category]: tokens[category] } : tokens;
@@ -75,14 +77,23 @@ function generateTokensCSS(category) {
         if (values.sizes) for (const [k, v] of Object.entries(values.sizes)) lines.push(`  --text-${k}: ${v};`);
         if (values.weights) for (const [k, v] of Object.entries(values.weights)) lines.push(`  --font-${k}: ${v};`);
         if (values.lineHeights) for (const [k, v] of Object.entries(values.lineHeights)) lines.push(`  --leading-${k}: ${v};`);
-      } else {
+      } else if (cat === "colors" || cat === "dark") {
+        // Colors already have descriptive names (--brand, --gray-500, --bg-primary)
         for (const [k, v] of Object.entries(values)) {
           if (typeof v === "object") {
-            for (const [k2, v2] of Object.entries(v)) {
-              lines.push(`  --${k}-${k2}: ${v2};`);
-            }
+            for (const [k2, v2] of Object.entries(v)) lines.push(`  --${k}-${k2}: ${v2};`);
           } else {
             lines.push(`  --${k}: ${v};`);
+          }
+        }
+      } else {
+        // Use prefix to avoid collisions: --space-1, --radius-sm, --shadow-xs
+        const prefix = prefixMap[cat] || cat;
+        for (const [k, v] of Object.entries(values)) {
+          if (typeof v === "object") {
+            for (const [k2, v2] of Object.entries(v)) lines.push(`  --${prefix}-${k}-${k2}: ${v2};`);
+          } else {
+            lines.push(`  --${prefix}-${k}: ${v};`);
           }
         }
       }
@@ -103,12 +114,23 @@ function generateTokensSCSS(category) {
         if (values.sizes) for (const [k, v] of Object.entries(values.sizes)) lines.push(`$text-${k}: ${v};`);
         if (values.weights) for (const [k, v] of Object.entries(values.weights)) lines.push(`$font-${k}: ${v};`);
         if (values.lineHeights) for (const [k, v] of Object.entries(values.lineHeights)) lines.push(`$leading-${k}: ${v};`);
-      } else {
+      } else if (cat === "colors" || cat === "dark") {
+        // Colors already have descriptive names ($brand, $gray-500, $bg-primary)
         for (const [k, v] of Object.entries(values)) {
           if (typeof v === "object") {
             for (const [k2, v2] of Object.entries(v)) lines.push(`$${k}-${k2}: ${v2};`);
           } else {
             lines.push(`$${k}: ${v};`);
+          }
+        }
+      } else {
+        // Use prefix to avoid collisions: $space-1, $radius-sm, $shadow-xs
+        const prefix = prefixMap[cat] || cat;
+        for (const [k, v] of Object.entries(values)) {
+          if (typeof v === "object") {
+            for (const [k2, v2] of Object.entries(v)) lines.push(`$${prefix}-${k}-${k2}: ${v2};`);
+          } else {
+            lines.push(`$${prefix}-${k}: ${v};`);
           }
         }
       }
