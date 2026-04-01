@@ -1249,7 +1249,10 @@
         container.dataset.orGlowColor || "rgba(31, 18, 222, 0.08)";
       const size = parseInt(container.dataset.orGlowSize, 10) || 300;
 
-      container.style.position = "relative";
+      const existingPos = getComputedStyle(container).position;
+      if (existingPos === "static") {
+        container.style.position = "relative";
+      }
       container.style.overflow = "hidden";
 
       const overlay = document.createElement("div");
