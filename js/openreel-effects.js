@@ -1287,6 +1287,251 @@
   }
 
   /* ─────────────────────────────────────────────
+   * 14. SCROLL PROGRESS BAR
+   * ───────────────────────────────────────────── */
+
+  function initScrollProgress() {
+    const bar = document.createElement("div");
+    Object.assign(bar.style, {
+      position: "fixed",
+      top: "0",
+      left: "0",
+      height: "3px",
+      width: "0%",
+      zIndex: "99999",
+      background: "var(--brand, #1F12DE)",
+      transition: "width 0.1s linear",
+      pointerEvents: "none",
+    });
+    document.body.appendChild(bar);
+
+    let rafPending = false;
+
+    function updateBar() {
+      const scrolled = window.scrollY;
+      const total = document.body.scrollHeight - window.innerHeight;
+      const pct = total > 0 ? (scrolled / total) * 100 : 0;
+      bar.style.width = pct + "%";
+      rafPending = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(updateBar);
+      }
+    }, { passive: true });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 15. ANIMATED COUNTERS
+   * ───────────────────────────────────────────── */
+
+  function initCounters() {
+    const els = Array.from(document.querySelectorAll("[data-or-counter]"));
+    if (!els.length) return;
+
+    if (reducedMotion) {
+      // Just display final value without animation
+      els.forEach((el) => {
+        const raw = el.dataset.orCounterTo || el.textContent.trim();
+        el.textContent = raw;
+      });
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        io.unobserve(el);
+
+        // Determine target and formatting
+        const rawAttr = el.dataset.orCounterTo;
+        const rawText = el.textContent.trim();
+        const raw = rawAttr !== undefined ? rawAttr : rawText;
+
+        // Detect prefix/suffix (currency symbols, %)
+        const prefixMatch = raw.match(/^([^0-9.-]+)/);
+        const suffixMatch = raw.match(/([^0-9.]+)$/);
+        const prefix = prefixMatch ? prefixMatch[1] : "";
+        const suffix = suffixMatch && suffixMatch[1] !== prefixMatch?.[1] ? suffixMatch[1] : "";
+
+        // Parse numeric value
+        const numericStr = raw.replace(/[^0-9.\-]/g, "");
+        const target = parseFloat(numericStr);
+        if (isNaN(target)) return;
+
+        const isDecimal = numericStr.includes(".");
+        const duration = 1500; // ms
+        const startTime = performance.now();
+
+        function tick(now) {
+          const elapsed = now - startTime;
+          const t = Math.min(elapsed / duration, 1);
+          const progress = 1 - Math.pow(1 - t, 3); // ease-out cubic
+          const current = target * progress;
+          const display = isDecimal
+            ? current.toFixed(1)
+            : String(Math.round(current));
+          el.textContent = prefix + display + suffix;
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = prefix + (isDecimal ? target.toFixed(1) : String(Math.round(target))) + suffix;
+          }
+        }
+
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.3 });
+
+    els.forEach((el) => io.observe(el));
+  }
+
+  /* ─────────────────────────────────────────────
+   * 16. COMPONENT ANATOMY MODE
+   * ───────────────────────────────────────────── */
+
+  function initAnatomy() {
+    let overlays = [];
+    let active = false;
+
+    function getStyle(el) {
+      return window.getComputedStyle(el);
+    }
+
+    function activateAnatomy() {
+      active = true;
+      document.body.classList.add("or-anatomy-active");
+
+      // Find all elements with or- classes
+      const allEls = Array.from(document.querySelectorAll("*"));
+      const orEls = allEls.filter((el) => {
+        return Array.from(el.classList).some((cls) => cls.startsWith("or-"));
+      });
+
+      orEls.forEach((el) => {
+        // Skip the anatomy overlays themselves
+        if (el.classList.contains("or-anatomy-label") || el.classList.contains("or-anatomy-overlay")) return;
+
+        // Add dashed border
+        const prev = el.style.outline;
+        el.dataset.orAnatomyPrevOutline = prev;
+        el.style.outline = "1px dashed var(--brand, #1F12DE)";
+        el.style.outlineOffset = "-1px";
+        overlays.push({ el, type: "border" });
+
+        const cs = getStyle(el);
+        const rect = el.getBoundingClientRect();
+        if (rect.width < 4 || rect.height < 4) return;
+
+        // Compute position for the overlay relative to parent (positioned ancestor or body)
+        const offsetParent = el.offsetParent || document.body;
+        const parentRect = offsetParent.getBoundingClientRect();
+
+        // Class label
+        const orClasses = Array.from(el.classList)
+          .filter((c) => c.startsWith("or-"))
+          .join(" ");
+
+        const label = document.createElement("div");
+        label.className = "or-anatomy-label";
+        Object.assign(label.style, {
+          position: "absolute",
+          top: (rect.top - parentRect.top + offsetParent.scrollTop) + "px",
+          left: (rect.left - parentRect.left + offsetParent.scrollLeft) + "px",
+          background: "var(--brand, #1F12DE)",
+          color: "#fff",
+          fontFamily: "monospace",
+          fontSize: "10px",
+          lineHeight: "1",
+          padding: "2px 5px",
+          borderRadius: "2px",
+          zIndex: "9998",
+          pointerEvents: "none",
+          whiteSpace: "nowrap",
+          maxWidth: "200px",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        });
+        label.textContent = orClasses;
+        offsetParent.style.position = offsetParent.style.position || "relative";
+        offsetParent.appendChild(label);
+        overlays.push({ el: label, type: "overlay" });
+
+        // Padding labels
+        const padTop = cs.paddingTop;
+        const padRight = cs.paddingRight;
+        const padBottom = cs.paddingBottom;
+        const padLeft = cs.paddingLeft;
+
+        const makepadLabel = (text, top, left) => {
+          const p = document.createElement("div");
+          p.className = "or-anatomy-label";
+          Object.assign(p.style, {
+            position: "absolute",
+            top: top + "px",
+            left: left + "px",
+            background: "rgba(31,18,222,0.8)",
+            color: "#fff",
+            fontFamily: "monospace",
+            fontSize: "9px",
+            lineHeight: "1",
+            padding: "1px 3px",
+            borderRadius: "2px",
+            zIndex: "9999",
+            pointerEvents: "none",
+            whiteSpace: "nowrap",
+          });
+          p.textContent = text;
+          offsetParent.appendChild(p);
+          overlays.push({ el: p, type: "overlay" });
+        };
+
+        const baseTop = rect.top - parentRect.top + offsetParent.scrollTop;
+        const baseLeft = rect.left - parentRect.left + offsetParent.scrollLeft;
+
+        if (padTop && padTop !== "0px") makepadLabel(padTop, baseTop + 2, baseLeft + rect.width / 2 - 10);
+        if (padBottom && padBottom !== "0px") makepadLabel(padBottom, baseTop + rect.height - 14, baseLeft + rect.width / 2 - 10);
+        if (padLeft && padLeft !== "0px") makepadLabel(padLeft, baseTop + rect.height / 2 - 6, baseLeft + 2);
+        if (padRight && padRight !== "0px") makepadLabel(padRight, baseTop + rect.height / 2 - 6, baseLeft + rect.width - 22);
+      });
+    }
+
+    function deactivateAnatomy() {
+      active = false;
+      document.body.classList.remove("or-anatomy-active");
+
+      // Remove overlay elements
+      overlays.forEach(({ el, type }) => {
+        if (type === "overlay") {
+          el.remove();
+        } else if (type === "border") {
+          el.style.outline = el.dataset.orAnatomyPrevOutline || "";
+          el.style.outlineOffset = "";
+          delete el.dataset.orAnatomyPrevOutline;
+        }
+      });
+      overlays = [];
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.shiftKey && e.key === "A" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        // Don't trigger when typing in inputs
+        const tag = document.activeElement?.tagName?.toLowerCase();
+        if (tag === "input" || tag === "textarea" || tag === "select") return;
+        e.preventDefault();
+        if (active) {
+          deactivateAnatomy();
+        } else {
+          activateAnatomy();
+        }
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────────
    * 9. INIT
    * ───────────────────────────────────────────── */
 
@@ -1302,6 +1547,9 @@
     initMagnetic();
     initGradientBorder();
     initGlow();
+    initScrollProgress();
+    initCounters();
+    initAnatomy();
   }
 
   if (document.readyState === "loading") {
