@@ -607,7 +607,502 @@
   }
 
   /* ─────────────────────────────────────────────
-   * 6. INIT
+   * 6. DARK MODE RADIAL REVEAL
+   * ───────────────────────────────────────────── */
+
+  function initDarkModeReveal() {
+    // Expose a working window.toggleDarkMode for onclick= handlers
+    function doToggleDarkMode(originX, originY) {
+      const html = document.documentElement;
+      const isDark = html.classList.contains("dark");
+      const targetBg = isDark ? "#FFFFFF" : "#0C111D";
+
+      // Reduced-motion: instant swap
+      if (reducedMotion) {
+        html.classList.toggle("dark");
+        try { localStorage.setItem("ds-dark-mode", html.classList.contains("dark") ? "true" : "false"); } catch (_) {}
+        return;
+      }
+
+      // Create overlay
+      const overlay = document.createElement("div");
+      Object.assign(overlay.style, {
+        position: "fixed",
+        inset: "0",
+        zIndex: "99999",
+        background: targetBg,
+        pointerEvents: "none",
+        clipPath: `circle(0% at ${originX}px ${originY}px)`,
+        transition: "clip-path 500ms ease-out",
+        willChange: "clip-path",
+      });
+      document.body.appendChild(overlay);
+
+      // Trigger animation on next frame
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          overlay.style.clipPath = `circle(150% at ${originX}px ${originY}px)`;
+        });
+      });
+
+      // Toggle class at midpoint
+      setTimeout(() => {
+        html.classList.toggle("dark");
+        try { localStorage.setItem("ds-dark-mode", html.classList.contains("dark") ? "true" : "false"); } catch (_) {}
+      }, 250);
+
+      // Remove overlay after animation
+      setTimeout(() => {
+        overlay.remove();
+      }, 500);
+    }
+
+    // Expose as window.toggleDarkMode so existing onclick= handlers still work
+    window.toggleDarkMode = function (e) {
+      let x = window.innerWidth / 2;
+      let y = window.innerHeight / 2;
+      if (e && e.clientX != null) {
+        x = e.clientX;
+        y = e.clientY;
+      }
+      doToggleDarkMode(x, y);
+    };
+
+    // Override click handlers on toggle buttons
+    function attachToggleButton(btn) {
+      btn.removeAttribute("onclick");
+      btn.addEventListener("click", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        doToggleDarkMode(x, y);
+      });
+    }
+
+    // Find buttons with onclick="toggleDarkMode()" or .dm-toggle class
+    const toggleBtns = Array.from(
+      document.querySelectorAll('[onclick*="toggleDarkMode"], .dm-toggle')
+    );
+    toggleBtns.forEach(attachToggleButton);
+
+    // Watch for dynamically added buttons
+    const obs = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        m.addedNodes.forEach((node) => {
+          if (node.nodeType !== 1) return;
+          const candidates = [
+            ...(node.matches?.('[onclick*="toggleDarkMode"], .dm-toggle') ? [node] : []),
+            ...Array.from(node.querySelectorAll?.('[onclick*="toggleDarkMode"], .dm-toggle') || []),
+          ];
+          candidates.forEach(attachToggleButton);
+        });
+      });
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 7. COMMAND PALETTE
+   * ───────────────────────────────────────────── */
+
+  function initCommandPalette() {
+    const isDarkNow = () => document.documentElement.classList.contains("dark");
+
+    // ── Build DOM ──────────────────────────────
+    const overlay = document.createElement("div");
+    overlay.className = "or-cmd-overlay";
+    Object.assign(overlay.style, {
+      display: "none",
+      position: "fixed",
+      inset: "0",
+      zIndex: "9999",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      paddingTop: "80px",
+    });
+
+    const backdrop = document.createElement("div");
+    backdrop.className = "or-cmd-backdrop";
+    Object.assign(backdrop.style, {
+      position: "absolute",
+      inset: "0",
+      background: "rgba(0,0,0,0.5)",
+      backdropFilter: "blur(4px)",
+      WebkitBackdropFilter: "blur(4px)",
+    });
+
+    const dialog = document.createElement("div");
+    dialog.className = "or-cmd-dialog";
+    Object.assign(dialog.style, {
+      position: "relative",
+      width: "100%",
+      maxWidth: "560px",
+      borderRadius: "16px",
+      overflow: "hidden",
+      boxShadow: "0px 24px 48px -12px rgba(16,24,40,0.35)",
+      transformOrigin: "top center",
+      transition: "transform 150ms ease-out, opacity 150ms ease-out",
+    });
+
+    const header = document.createElement("div");
+    header.className = "or-cmd-header";
+    Object.assign(header.style, {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      padding: "0 16px",
+      borderBottom: "1px solid",
+    });
+
+    const searchIcon = document.createElement("div");
+    searchIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:0.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`;
+    searchIcon.style.display = "flex";
+
+    const input = document.createElement("input");
+    input.className = "or-cmd-input";
+    input.type = "text";
+    input.placeholder = "Search components, pages...";
+    Object.assign(input.style, {
+      flex: "1",
+      border: "none",
+      outline: "none",
+      background: "transparent",
+      padding: "16px 0",
+      fontSize: "16px",
+      lineHeight: "1.5",
+      color: "inherit",
+    });
+
+    const escKbd = document.createElement("kbd");
+    escKbd.className = "or-cmd-kbd";
+    escKbd.textContent = "ESC";
+    Object.assign(escKbd.style, {
+      padding: "2px 6px",
+      borderRadius: "4px",
+      fontSize: "11px",
+      fontFamily: "inherit",
+      border: "1px solid",
+      opacity: "0.5",
+      flexShrink: "0",
+      cursor: "pointer",
+    });
+
+    header.appendChild(searchIcon);
+    header.appendChild(input);
+    header.appendChild(escKbd);
+
+    const results = document.createElement("div");
+    results.className = "or-cmd-results";
+    Object.assign(results.style, {
+      maxHeight: "360px",
+      overflowY: "auto",
+    });
+
+    dialog.appendChild(header);
+    dialog.appendChild(results);
+    overlay.appendChild(backdrop);
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    // ── Theme colors helper ─────────────────────
+    function applyTheme() {
+      const dark = isDarkNow();
+      const dialogBg = dark ? "#1F242F" : "#FFFFFF";
+      const textColor = dark ? "#F5F5F6" : "#101828";
+      const borderColor = dark ? "#333741" : "#EAECF0";
+      dialog.style.background = dialogBg;
+      dialog.style.color = textColor;
+      header.style.borderBottomColor = borderColor;
+      input.style.color = textColor;
+      escKbd.style.borderColor = borderColor;
+      escKbd.style.color = textColor;
+    }
+    applyTheme();
+
+    // ── Build entries ───────────────────────────
+    function buildEntries() {
+      const entries = [];
+
+      // h2 elements with id → components
+      document.querySelectorAll("h2[id]").forEach((el) => {
+        entries.push({
+          type: "component",
+          label: el.textContent.trim(),
+          hint: "Component",
+          icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>`,
+          action() { el.scrollIntoView({ behavior: "smooth", block: "start" }); },
+        });
+      });
+
+      // Nav links to .html pages
+      document.querySelectorAll('nav a[href$=".html"]').forEach((a) => {
+        entries.push({
+          type: "page",
+          label: a.textContent.trim(),
+          hint: "Page",
+          icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+          action() { window.location.href = a.href; },
+        });
+      });
+
+      // Hard-coded utility entries
+      entries.push({
+        type: "action",
+        label: "Toggle dark mode",
+        hint: "Theme",
+        icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
+        action() {
+          if (typeof window.toggleDarkMode === "function") {
+            window.toggleDarkMode(null);
+          } else {
+            document.documentElement.classList.toggle("dark");
+          }
+        },
+      });
+      entries.push({
+        type: "action",
+        label: "Scroll to top",
+        hint: "Navigation",
+        icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>`,
+        action() { window.scrollTo({ top: 0, behavior: "smooth" }); },
+      });
+
+      return entries;
+    }
+
+    let allEntries = [];
+    let activeIndex = -1;
+
+    // ── Render results ──────────────────────────
+    function renderResults(filtered) {
+      results.innerHTML = "";
+      activeIndex = filtered.length > 0 ? 0 : -1;
+
+      if (filtered.length === 0) {
+        const empty = document.createElement("div");
+        Object.assign(empty.style, {
+          padding: "24px 16px",
+          textAlign: "center",
+          opacity: "0.5",
+          fontSize: "14px",
+        });
+        empty.textContent = "No results found";
+        results.appendChild(empty);
+        return;
+      }
+
+      const dark = isDarkNow();
+      const hoverBg = dark ? "rgba(31,18,222,0.15)" : "rgba(31,18,222,0.08)";
+      const activeBg = dark ? "rgba(31,18,222,0.2)" : "rgba(31,18,222,0.1)";
+      const hintColor = dark ? "#94969C" : "#667085";
+
+      filtered.forEach((entry, i) => {
+        const item = document.createElement("div");
+        item.className = "or-cmd-item";
+        item.dataset.index = String(i);
+        Object.assign(item.style, {
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          padding: "10px 16px",
+          cursor: "pointer",
+          background: i === 0 ? activeBg : "transparent",
+          transition: "background 80ms",
+        });
+
+        const iconWrap = document.createElement("span");
+        iconWrap.innerHTML = entry.icon;
+        iconWrap.style.opacity = "0.6";
+        iconWrap.style.display = "flex";
+        iconWrap.style.flexShrink = "0";
+
+        const labelEl = document.createElement("span");
+        labelEl.textContent = entry.label;
+        labelEl.style.flex = "1";
+        labelEl.style.fontSize = "14px";
+
+        const hintEl = document.createElement("span");
+        hintEl.textContent = entry.hint;
+        Object.assign(hintEl.style, {
+          fontSize: "12px",
+          color: hintColor,
+          flexShrink: "0",
+        });
+
+        item.appendChild(iconWrap);
+        item.appendChild(labelEl);
+        item.appendChild(hintEl);
+
+        item.addEventListener("mouseover", () => {
+          setActive(i, filtered);
+        });
+
+        item.addEventListener("click", () => {
+          entry.action();
+          closeCmd();
+        });
+
+        results.appendChild(item);
+      });
+    }
+
+    function setActive(i, filtered) {
+      const items = Array.from(results.querySelectorAll(".or-cmd-item"));
+      const dark = isDarkNow();
+      const activeBg = dark ? "rgba(31,18,222,0.2)" : "rgba(31,18,222,0.1)";
+      items.forEach((el, idx) => {
+        el.style.background = idx === i ? activeBg : "transparent";
+      });
+      activeIndex = i;
+      // Ensure visible
+      if (items[i]) {
+        items[i].scrollIntoView({ block: "nearest" });
+      }
+    }
+
+    // ── Fuzzy filter ────────────────────────────
+    function filterEntries(query) {
+      if (!query) return allEntries;
+      const q = query.toLowerCase();
+      return allEntries.filter((e) => e.label.toLowerCase().includes(q));
+    }
+
+    // ── Open / Close ────────────────────────────
+    function openCmd() {
+      allEntries = buildEntries();
+      applyTheme();
+      overlay.style.display = "flex";
+      dialog.style.transform = "scale(0.95)";
+      dialog.style.opacity = "0";
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          dialog.style.transform = "scale(1)";
+          dialog.style.opacity = "1";
+        });
+      });
+      input.value = "";
+      renderResults(allEntries);
+      input.focus();
+    }
+
+    function closeCmd() {
+      dialog.style.transform = "scale(0.95)";
+      dialog.style.opacity = "0";
+      setTimeout(() => {
+        overlay.style.display = "none";
+        dialog.style.transform = "scale(1)";
+        dialog.style.opacity = "1";
+      }, 150);
+    }
+
+    // ── Input handler ───────────────────────────
+    input.addEventListener("input", () => {
+      const filtered = filterEntries(input.value.trim());
+      renderResults(filtered);
+    });
+
+    // ── Keyboard: global shortcut ───────────────
+    document.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        if (overlay.style.display === "none") {
+          openCmd();
+        } else {
+          closeCmd();
+        }
+        return;
+      }
+
+      if (overlay.style.display === "none") return;
+
+      const filtered = filterEntries(input.value.trim());
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeCmd();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = Math.min(activeIndex + 1, filtered.length - 1);
+        setActive(next, filtered);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = Math.max(activeIndex - 1, 0);
+        setActive(prev, filtered);
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (activeIndex >= 0 && filtered[activeIndex]) {
+          filtered[activeIndex].action();
+          closeCmd();
+        }
+      }
+    });
+
+    // ── Backdrop click closes ───────────────────
+    backdrop.addEventListener("click", closeCmd);
+    escKbd.addEventListener("click", closeCmd);
+
+    // ── Re-theme when dark mode toggles ─────────
+    const themeObs = new MutationObserver(() => {
+      if (overlay.style.display !== "none") {
+        applyTheme();
+        const filtered = filterEntries(input.value.trim());
+        renderResults(filtered);
+      }
+    });
+    themeObs.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 8. VIEW TRANSITIONS
+   * ───────────────────────────────────────────── */
+
+  function initViewTransitions() {
+    if (!document.startViewTransition) return;
+
+    // Inject transition CSS
+    const style = document.createElement("style");
+    style.textContent = `
+      ::view-transition-old(root) {
+        animation: 200ms ease-out both or-vt-fade-out;
+      }
+      ::view-transition-new(root) {
+        animation: 200ms ease-in both or-vt-fade-in;
+      }
+      @keyframes or-vt-fade-out { to { opacity: 0; } }
+      @keyframes or-vt-fade-in { from { opacity: 0; } }
+    `;
+    document.head.appendChild(style);
+
+    // Intercept same-origin .html link clicks
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (!a) return;
+
+      const href = a.getAttribute("href");
+      if (!href) return;
+      if (!href.endsWith(".html")) return;
+      if (a.target === "_blank") return;
+
+      // Same-origin or relative check
+      try {
+        const url = new URL(href, window.location.href);
+        if (url.origin !== window.location.origin) return;
+      } catch (_) {
+        return;
+      }
+
+      e.preventDefault();
+      document.startViewTransition(() => {
+        window.location.href = href;
+      });
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 9. INIT
    * ───────────────────────────────────────────── */
 
   function init() {
@@ -615,6 +1110,9 @@
     initParticles();
     initGradient();
     initParallax();
+    initDarkModeReveal();
+    initCommandPalette();
+    initViewTransitions();
   }
 
   if (document.readyState === "loading") {
