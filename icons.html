@@ -13,109 +13,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/openreel.css" />
 
   <style>
     /* =========================================================
        DESIGN TOKENS
        ========================================================= */
-    :root {
-      --brand:        #1F12DE;
-      --brand-hover:  #1a0fbc;
-      --brand-light:  rgba(31, 18, 222, 0.1);
-
-      --blue-50:   #EFF8FF;
-      --blue-100:  #B2DDFF;
-      --blue-500:  #2970FF;
-      --blue-600:  #175CD3;
-      --blue-light:#53B1FD;
-
-      --gray-25:   #FCFCFD;
-      --gray-50:   #F9FAFB;
-      --gray-100:  #F2F4F7;
-      --gray-200:  #EAECF0;
-      --gray-300:  #E4E7EC;
-      --gray-400:  #98A2B3;
-      --gray-500:  #667085;
-      --gray-600:  #475467;
-      --gray-700:  #344054;
-      --gray-900:  #101828;
-
-      --success-50:  #ECFDF3;
-      --success-100: #D1FAE0;
-      --success-200: #A6F4C5;
-      --success-500: #17B26A;
-      --success-700: #067647;
-      --success-800: #027A48;
-
-      --error-50:  #FEF3F2;
-      --error-100: #FEE4E2;
-      --error-500: #F04438;
-      --error-700: #B42318;
-
-      --warning-50:  #FFFAEB;
-      --warning-100: #FEDF89;
-      --warning-700: #B54708;
-
-      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-
-      --radius-sm:   4px;
-      --radius-md:   8px;
-      --radius-lg:   10px;
-      --radius-xl:   14px;
-      --radius-full: 9999px;
-
-      --shadow-xs:  0px 1px 2px rgba(16, 24, 40, 0.05);
-      --shadow-sm:  0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
-      --shadow-md:  0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
-      --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
-      --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
-      --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
-    }
 
     /* Light mode */
-    html:not(.dark) {
-      --bg-page:      #F9FAFB;
-      --bg-card:      #FFFFFF;
-      --bg-preview:   #FFFFFF;
-      --bg-controls:  #F9FAFB;
-      --border-color: #EAECF0;
-      --text-primary: #101828;
-      --text-secondary: #667085;
-      --text-tertiary: #98A2B3;
-    }
 
     /* Dark mode */
-    html.dark {
-      --bg-page:      #0C111D;
-      --bg-card:      #161B26;
-      --bg-preview:   #1F242F;
-      --bg-controls:  #161B26;
-      --border-color: #333741;
-      --text-primary: #F5F5F6;
-      --text-secondary: #94969C;
-      --text-tertiary: #61646C;
-    }
 
     /* =========================================================
        BASE STYLES
        ========================================================= */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: var(--font-family);
-      font-size: 14px;
-      line-height: 24px;
-      color: var(--text-primary);
-      background: var(--bg-page);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: background 0.25s ease, color 0.25s ease;
-    }
-
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
-    html.dark ::-webkit-scrollbar-thumb { background: #333741; }
 
     /* ---- Header ---- */
     .dm-toggle {
@@ -1158,34 +1070,7 @@
     };
 
     function generateCSS() {
-      var lines = [':root {'];
-      lines.push('  /* Brand */');
-      Object.entries(TOKEN_DATA.brand).forEach(function(e) { lines.push('  --' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Blue */');
-      Object.entries(TOKEN_DATA.blue).forEach(function(e) { lines.push('  --blue-' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Gray */');
-      Object.entries(TOKEN_DATA.gray).forEach(function(e) { lines.push('  --gray-' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Success */');
-      Object.entries(TOKEN_DATA.success).forEach(function(e) { lines.push('  --success-' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Error */');
-      Object.entries(TOKEN_DATA.error).forEach(function(e) { lines.push('  --error-' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Warning */');
-      Object.entries(TOKEN_DATA.warning).forEach(function(e) { lines.push('  --warning-' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Border Radius */');
-      Object.entries(TOKEN_DATA.radius).forEach(function(e) { lines.push('  --radius-' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Shadows */');
-      Object.entries(TOKEN_DATA.shadow).forEach(function(e) { lines.push('  --shadow-' + e[0] + ': ' + e[1] + ';'); });
-      lines.push('');
-      lines.push('  /* Font */');
-      lines.push("  --font-family: 'Inter', system-ui, -apple-system, sans-serif;");
-      lines.push('}');
+      var lines = ['');
       lines.push('');
       lines.push('/* Dark Mode */');
       lines.push('html.dark {');
@@ -1461,7 +1346,7 @@
       var wrapper = document.getElementById('palette-code-wrapper');
       wrapper.style.display = '';
       var lines = paletteShades.map(function(s) { return '  --color-' + s.label + ': ' + s.hex + ';'; });
-      document.getElementById('palette-css').textContent = ':root {\n' + lines.join('\n') + '\n}';
+      document.getElementById('palette-css').textContent = '';
     }
 
     function copyFullPalette() {

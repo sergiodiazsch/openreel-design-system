@@ -9,69 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/openreel.css" />
   <style>
-    /* ── OpenReel Design System Tokens ── */
-    :root {
-      --brand: #1F12DE; --brand-hover: #1a0fbc; --brand-light: rgba(31,18,222,0.1);
-      --blue-50: #EFF8FF; --blue-100: #B2DDFF; --blue-500: #2970FF; --blue-600: #175CD3; --blue-light: #53B1FD;
-      --gray-25: #FCFCFD; --gray-50: #F9FAFB; --gray-100: #F2F4F7; --gray-200: #EAECF0; --gray-300: #E4E7EC;
-      --gray-400: #98A2B3; --gray-500: #667085; --gray-600: #475467; --gray-700: #344054; --gray-900: #101828;
-      --success-50: #ECFDF3; --success-100: #D1FAE0; --success-500: #17B26A; --success-700: #067647;
-      --error-50: #FEF3F2; --error-100: #FEE4E2; --error-500: #F04438; --error-700: #B42318;
-      --warning-50: #FFFAEB; --warning-100: #FEDF89; --warning-700: #B54708;
-      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      --text-xs: 10px; --text-sm: 12px; --text-base: 14px; --text-md: 16px; --text-lg: 18px; --text-xl: 20px; --text-2xl: 24px;
-      --font-regular: 400; --font-medium: 500; --font-semibold: 600;
-      --leading-xs: 16px; --leading-sm: 20px; --leading-base: 24px; --leading-lg: 28px;
-      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 10px; --radius-xl: 14px; --radius-full: 9999px;
-      --space-1: 4px; --space-1h: 6px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
-      --shadow-xs: 0px 1px 2px rgba(16,24,40,0.05);
-      --shadow-sm: 0px 1px 3px rgba(16,24,40,0.1), 0px 1px 2px rgba(16,24,40,0.06);
-      --shadow-md: 0px 4px 8px -2px rgba(16,24,40,0.1), 0px 2px 4px -2px rgba(16,24,40,0.06);
-      --shadow-lg: 0px 12px 16px -4px rgba(16,24,40,0.08), 0px 4px 6px -2px rgba(16,24,40,0.03);
-      --bg-primary: #FFFFFF; --bg-secondary: #F9FAFB; --bg-tertiary: #F2F4F7;
-      --text-primary: #101828; --text-secondary: #667085; --border-primary: #EAECF0;
-    }
-    html.dark {
-      --bg-primary: #0C111D; --bg-secondary: #161B26; --bg-tertiary: #1F242F;
-      --text-primary: #F5F5F6; --text-secondary: #94969C; --border-primary: #333741;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font-family); font-size: var(--text-base); color: var(--text-primary); background: var(--bg-secondary); -webkit-font-smoothing: antialiased; transition: background .25s, color .25s; }
-    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
-
-    /* ── Component Styles ── */
-    .or-btn { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: var(--font-semibold); font-size: var(--text-base); border-radius: var(--radius-md); border: none; cursor: pointer; transition: all .15s; font-family: inherit; }
-    .or-btn--primary { background: var(--brand); color: #fff; padding: var(--space-2) var(--space-4); }
-    .or-btn--primary:hover { background: var(--brand-hover); }
-    .or-btn--secondary { background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-primary); padding: var(--space-2) var(--space-4); }
-    .or-btn--secondary:hover { background: var(--bg-tertiary); }
-    .or-btn--sm { font-size: var(--text-sm); padding: var(--space-1h) var(--space-3); }
-    .or-btn--ghost { background: transparent; color: var(--text-secondary); padding: var(--space-2); border: none; }
-    .or-btn--ghost:hover { background: var(--bg-tertiary); color: var(--text-primary); border-radius: var(--radius-md); }
-
-    .or-card { background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: var(--radius-lg); box-shadow: var(--shadow-xs); }
-
-    .or-badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: 2px var(--space-2); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: var(--font-medium); line-height: var(--leading-sm); }
-    .or-badge--success { background: var(--success-50); color: var(--success-700); }
-    .or-badge--error { background: var(--error-50); color: var(--error-700); }
-    .or-badge--warning { background: var(--warning-50); color: var(--warning-700); }
-    .or-badge--brand { background: var(--brand-light); color: var(--brand); }
-    .or-badge--gray { background: var(--gray-100); color: var(--gray-700); }
-
-    .or-input { width: 100%; height: 40px; padding: var(--space-2) var(--space-3); border: 1px solid var(--border-primary); border-radius: var(--radius-md); font-size: var(--text-base); font-family: inherit; color: var(--text-primary); background: var(--bg-primary); outline: none; transition: border .15s, box-shadow .15s; }
-    .or-input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-light); }
-
-    .or-table { width: 100%; border-collapse: collapse; }
-    .or-table th { text-align: left; font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--text-secondary); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-primary); background: var(--bg-secondary); }
-    .or-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-primary); font-size: var(--text-base); vertical-align: middle; }
-    .or-table tbody tr:hover { background: var(--bg-secondary); }
-    html.dark .or-table th { background: var(--bg-tertiary); }
-
-    .or-avatar { width: 36px; height: 36px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-weight: var(--font-semibold); font-size: var(--text-sm); color: #fff; flex-shrink: 0; }
-
-    .or-progress { height: 6px; background: var(--gray-200); border-radius: var(--radius-full); overflow: hidden; }
-    .or-progress__bar { height: 100%; border-radius: var(--radius-full); transition: width .5s ease; }
 
     /* ── Sidebar ── */
     .sidebar { width: 260px; background: var(--bg-primary); border-right: 1px solid var(--border-primary); height: 100vh; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; z-index: 40; transition: background .25s; }
