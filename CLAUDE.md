@@ -16,6 +16,13 @@ This is the **OpenReel Design System**, a comprehensive UI kit with 61 component
 
 ```
 openreel-design-system/
+├── css/
+│   ├── openreel.css          # Base: tokens + reset + component styles
+│   └── openreel-motion.css   # Motion: transitions, hovers, colored shadows (optional)
+├── js/
+│   └── openreel-effects.js   # Advanced: GSAP, Three.js, WebGL (optional, opt-in)
+├── scripts/
+│   └── sync-tokens.js        # Generates tokens.json from mcp/registry.json
 ├── index.html          # Main DS documentation (61 components)
 ├── playground.html     # Interactive component playgrounds (15 sections)
 ├── icons.html          # Icon library + token tools
@@ -110,6 +117,29 @@ ALWAYS use CSS custom properties. NEVER use hardcoded values.
 --shadow-lg:  0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
 --shadow-xl:  0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
 --shadow-2xl: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+```
+
+### Motion
+
+```css
+--duration-instant: 50ms;  --duration-fast: 100ms;
+--duration-normal: 200ms;  --duration-slow: 300ms;
+
+--ease-default: cubic-bezier(0.2, 0, 0, 1);
+--ease-in: cubic-bezier(0.4, 0, 1, 1);
+--ease-out: cubic-bezier(0, 0, 0.2, 1);
+--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+```
+
+### Colored Shadows (Accent)
+
+```css
+--shadow-brand-sm: 0 2px 8px rgba(31, 18, 222, 0.15);
+--shadow-brand-md: 0 4px 14px rgba(31, 18, 222, 0.2);
+--shadow-brand-lg: 0 8px 24px rgba(31, 18, 222, 0.25);
+--shadow-success-sm: 0 2px 8px rgba(23, 178, 106, 0.15);
+--shadow-error-sm: 0 2px 8px rgba(240, 68, 56, 0.15);
+--shadow-warning-sm: 0 2px 8px rgba(181, 71, 8, 0.15);
 ```
 
 ## Component Patterns
@@ -287,6 +317,42 @@ When building UI with this design system:
 3. Call `get_component` with the desired format (html/react/vue/svelte)
 4. Follow the token usage rules above — never hardcode values
 
+## Advanced Effects (Optional)
+
+Load `js/openreel-effects.js` for GSAP/Three.js/WebGL effects. All activate via `data-or-*` attributes:
+
+| Attribute | Effect |
+|-----------|--------|
+| `data-or-animate="fade-up"` | GSAP scroll-triggered fade up |
+| `data-or-animate="fade-down"` | GSAP scroll-triggered fade down |
+| `data-or-animate="fade-left"` | GSAP scroll-triggered fade from left |
+| `data-or-animate="fade-right"` | GSAP scroll-triggered fade from right |
+| `data-or-animate="scale-up"` | GSAP scroll-triggered scale up |
+| `data-or-animate="stagger"` | Children stagger in on scroll |
+| `data-or-animate="split-chars"` | Character-by-character text reveal |
+| `data-or-particles` | Canvas 2D floating particle field |
+| `data-or-gradient` | WebGL animated mesh gradient |
+| `data-or-parallax="0.3"` | Scroll parallax (factor 0-1) |
+
+### Particle Configuration
+
+| Attribute | Default | Description |
+|-----------|---------|-------------|
+| `data-or-particle-count` | 60 | Number of particles |
+| `data-or-particle-color` | `#1F12DE` | Particle color |
+| `data-or-particle-size` | 2 | Particle radius in px |
+| `data-or-particle-speed` | 0.5 | Float speed multiplier |
+| `data-or-particle-opacity` | 0.4 | Base opacity |
+| `data-or-particle-lines` | false | Draw connection lines |
+
+### CSS Import Order
+
+```html
+<link rel="stylesheet" href="css/openreel.css" />
+<link rel="stylesheet" href="css/openreel-motion.css" /> <!-- optional -->
+<script src="js/openreel-effects.js" defer></script>      <!-- optional -->
+```
+
 ## Rules Summary
 
 1. **ALWAYS** use `--token` CSS custom properties, never hardcoded hex/px values
@@ -299,3 +365,5 @@ When building UI with this design system:
 8. **NEVER** use inline styles when a token exists
 9. **NEVER** create new color values — use the existing palette
 10. **NEVER** skip focus states on interactive elements
+11. **ALWAYS** use motion tokens (`--duration-*`, `--ease-*`) for transitions, never hardcoded ms/bezier values
+12. **ALWAYS** respect `prefers-reduced-motion` — use `openreel-motion.css` which handles this globally
