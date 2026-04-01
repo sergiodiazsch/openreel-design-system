@@ -1,0 +1,845 @@
+/* ==========================================================================
+   OpenReel Design System — Motion Layer
+   openreel-motion.css
+
+   Subtle-professional micro-interactions (Linear / Stripe style).
+   CSS-only — no JavaScript required.
+   Import AFTER openreel.css.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. MOTION TOKENS
+   ========================================================================== */
+
+:root {
+  /* Duration */
+  --duration-instant: 50ms;
+  --duration-fast:    100ms;
+  --duration-normal:  200ms;
+  --duration-slow:    300ms;
+
+  /* Easing */
+  --ease-default: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Brand colored shadows — light mode */
+  --shadow-brand-sm:   0 2px 8px rgba(31, 18, 222, 0.15);
+  --shadow-brand-md:   0 4px 14px rgba(31, 18, 222, 0.2);
+  --shadow-brand-lg:   0 8px 24px rgba(31, 18, 222, 0.25);
+  --shadow-success-sm: 0 2px 8px rgba(23, 178, 106, 0.15);
+  --shadow-error-sm:   0 2px 8px rgba(240, 68, 56, 0.15);
+  --shadow-warning-sm: 0 2px 8px rgba(181, 71, 8, 0.15);
+}
+
+html.dark {
+  /* Brand colored shadows — dark mode (stronger alpha) */
+  --shadow-brand-sm:   0 2px 8px rgba(31, 18, 222, 0.25);
+  --shadow-brand-md:   0 4px 14px rgba(31, 18, 222, 0.3);
+  --shadow-brand-lg:   0 8px 24px rgba(31, 18, 222, 0.35);
+  --shadow-success-sm: 0 2px 8px rgba(23, 178, 106, 0.25);
+  --shadow-error-sm:   0 2px 8px rgba(240, 68, 56, 0.25);
+  --shadow-warning-sm: 0 2px 8px rgba(181, 71, 8, 0.25);
+}
+
+
+/* ==========================================================================
+   2. KEYFRAMES
+   ========================================================================== */
+
+/* Horizontal shake — invalid inputs */
+@keyframes or-shake {
+  0%,  100% { transform: translateX(0); }
+  15%        { transform: translateX(-3px); }
+  30%        { transform: translateX(3px); }
+  45%        { transform: translateX(-3px); }
+  60%        { transform: translateX(3px); }
+  75%        { transform: translateX(-2px); }
+  90%        { transform: translateX(2px); }
+}
+
+/* Full rotation — loading spinners */
+@keyframes or-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* SVG check draw — checkbox */
+@keyframes or-check-draw {
+  from { stroke-dashoffset: 20; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Skeleton shimmer sweep */
+@keyframes or-skeleton-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+/* Badge bounce — new notification / count update */
+@keyframes or-badge-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.15); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Notification dot appear */
+@keyframes or-dot-appear {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Progress bar stripe sweep */
+@keyframes or-progress-stripe {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 0; }
+}
+
+
+/* ==========================================================================
+   3. BUTTON ANIMATIONS (.or-btn)
+   ========================================================================== */
+
+.or-btn {
+  transition:
+    transform        var(--duration-fast)   var(--ease-default),
+    box-shadow       var(--duration-normal)  var(--ease-default),
+    background-color var(--duration-fast)   var(--ease-default),
+    opacity          var(--duration-fast)   var(--ease-default);
+}
+
+.or-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.or-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.or-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(31, 18, 222, 0.25);
+}
+
+/* Primary — brand shadow on hover */
+.or-btn--primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-brand-sm);
+}
+
+/* Success variant */
+.or-btn--success:hover:not(:disabled) {
+  box-shadow: var(--shadow-success-sm);
+}
+
+/* Destructive / danger variants */
+.or-btn--destructive:hover:not(:disabled),
+.or-btn--danger:hover:not(:disabled) {
+  box-shadow: var(--shadow-error-sm);
+}
+
+/* Loading state — spinner inside button */
+.or-btn--loading .or-btn__spinner,
+.or-btn[data-loading] .or-btn__spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: or-spin var(--duration-slow) linear infinite;
+}
+
+/* Hide button text content while loading */
+.or-btn--loading .or-btn__content,
+.or-btn[data-loading] .or-btn__content {
+  opacity: 0;
+}
+
+
+/* ==========================================================================
+   4. INPUT / FORM ANIMATIONS (.or-input, .or-select, .or-textarea)
+   ========================================================================== */
+
+.or-input,
+.or-select,
+.or-textarea {
+  transition:
+    border-color var(--duration-fast) var(--ease-default),
+    box-shadow   var(--duration-fast) var(--ease-default);
+}
+
+/* Focus ring — brand */
+.or-input:focus,
+.or-select:focus,
+.or-textarea:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px rgba(31, 18, 222, 0.12);
+  outline: none;
+}
+
+/* Error focus ring */
+.or-input--error:focus,
+.or-input.or-input--error:focus,
+.or-textarea--error:focus {
+  border-color: var(--error-500, #F04438);
+  box-shadow: 0 0 0 4px rgba(240, 68, 56, 0.12);
+}
+
+/* Shake on invalid submission */
+.or-input--shake,
+.or-input.is-invalid,
+.or-textarea--shake {
+  animation: or-shake 450ms var(--ease-default);
+}
+
+/* Placeholder fade on focus */
+.or-input::placeholder,
+.or-textarea::placeholder {
+  transition: opacity var(--duration-normal) var(--ease-default);
+  opacity: 0.7;
+}
+
+.or-input:focus::placeholder,
+.or-textarea:focus::placeholder {
+  opacity: 0.4;
+}
+
+
+/* ==========================================================================
+   5. CHECKBOX (.or-checkbox)
+   ========================================================================== */
+
+.or-checkbox {
+  transition:
+    background-color var(--duration-fast) var(--ease-default),
+    border-color     var(--duration-fast) var(--ease-default),
+    box-shadow       var(--duration-fast) var(--ease-default);
+}
+
+.or-checkbox:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(31, 18, 222, 0.2);
+}
+
+/* SVG check draw-in when checked (works with custom checkbox implementations) */
+.or-checkbox__check {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset var(--duration-normal) var(--ease-out);
+}
+
+.or-checkbox:checked + .or-checkbox__icon .or-checkbox__check,
+.or-checkbox[aria-checked="true"] .or-checkbox__check {
+  stroke-dashoffset: 0;
+}
+
+/* Keyframe version for JS-driven checkboxes */
+.or-checkbox--checked .or-checkbox__check {
+  animation: or-check-draw var(--duration-normal) var(--ease-out) forwards;
+}
+
+
+/* ==========================================================================
+   6. TOGGLE (.or-toggle)
+   ========================================================================== */
+
+.or-toggle {
+  transition:
+    background-color var(--duration-normal) var(--ease-default),
+    box-shadow       var(--duration-normal) var(--ease-default);
+}
+
+.or-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(31, 18, 222, 0.2);
+}
+
+.or-toggle__thumb {
+  transition: transform 250ms var(--ease-spring);
+}
+
+/* Slide to on-state — assumes toggle width ~44px, thumb ~20px, inset 2px */
+.or-toggle[aria-checked="true"] .or-toggle__thumb,
+.or-toggle.is-on .or-toggle__thumb {
+  transform: translateX(22px);
+}
+
+
+/* ==========================================================================
+   7. SELECT DROPDOWN (custom dropdown panel)
+   ========================================================================== */
+
+.or-dropdown-list,
+.or-select-panel {
+  transform-origin: top center;
+  animation: or-dropdown-open var(--duration-normal) var(--ease-out) both;
+}
+
+@keyframes or-dropdown-open {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scaleY(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+.or-dropdown-list.or-closing,
+.or-select-panel.or-closing {
+  animation: or-dropdown-close 120ms var(--ease-in) both;
+}
+
+@keyframes or-dropdown-close {
+  from {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scaleY(0.96);
+  }
+}
+
+
+/* ==========================================================================
+   8. CARDS (.or-card)
+   ========================================================================== */
+
+.or-card {
+  transition:
+    transform    var(--duration-normal) var(--ease-default),
+    box-shadow   var(--duration-normal) var(--ease-default),
+    border-color var(--duration-normal) var(--ease-default);
+}
+
+.or-card:hover {
+  border-color: var(--border-secondary, #D0D5DD);
+}
+
+/* Interactive / clickable cards */
+.or-card--interactive,
+.or-card[role="button"],
+a.or-card {
+  cursor: pointer;
+}
+
+.or-card--interactive:hover,
+.or-card[role="button"]:hover,
+a.or-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.or-card--interactive:active,
+.or-card[role="button"]:active {
+  transform: translateY(0);
+}
+
+/* Card image zoom on hover */
+.or-card__image {
+  overflow: hidden;
+}
+
+.or-card__image img,
+.or-card__image-inner {
+  transition: transform var(--duration-slow) var(--ease-default);
+}
+
+.or-card:hover .or-card__image img,
+.or-card:hover .or-card__image-inner {
+  transform: scale(1.03);
+}
+
+
+/* ==========================================================================
+   9. MODAL (.or-modal)
+   ========================================================================== */
+
+/* Backdrop */
+.or-modal-backdrop,
+.or-modal__overlay {
+  animation: or-backdrop-in var(--duration-normal) var(--ease-out) both;
+}
+
+@keyframes or-backdrop-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Modal content panel */
+.or-modal__content,
+.or-modal-panel {
+  animation: or-modal-in var(--duration-normal) var(--ease-spring) both;
+}
+
+@keyframes or-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Exit animations */
+.or-modal-backdrop.or-closing,
+.or-modal__overlay.or-closing {
+  animation: or-backdrop-out 150ms var(--ease-in) both;
+}
+
+@keyframes or-backdrop-out {
+  from { opacity: 1; backdrop-filter: blur(8px); }
+  to   { opacity: 0; backdrop-filter: blur(0px); }
+}
+
+.or-modal__content.or-closing,
+.or-modal-panel.or-closing {
+  animation: or-modal-out 150ms var(--ease-in) both;
+}
+
+@keyframes or-modal-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(8px); }
+}
+
+
+/* ==========================================================================
+   10. DRAWER (.or-drawer, .or-drawer-sheet)
+   ========================================================================== */
+
+/* Backdrop */
+.or-drawer-backdrop {
+  animation: or-fade-in var(--duration-normal) var(--ease-out) both;
+}
+
+.or-drawer-backdrop.or-closing {
+  animation: or-fade-out 200ms var(--ease-in) both;
+}
+
+@keyframes or-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes or-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Left drawer (default) */
+.or-drawer-sheet,
+.or-drawer {
+  animation: or-drawer-in-left var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes or-drawer-in-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+.or-drawer-sheet.or-closing,
+.or-drawer.or-closing {
+  animation: or-drawer-out-left var(--duration-normal) var(--ease-in) both;
+}
+
+@keyframes or-drawer-out-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Right-side drawer variant */
+.or-drawer-sheet--right,
+.or-drawer--right {
+  animation: or-drawer-in-right var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes or-drawer-in-right {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+.or-drawer-sheet--right.or-closing,
+.or-drawer--right.or-closing {
+  animation: or-drawer-out-right var(--duration-normal) var(--ease-in) both;
+}
+
+@keyframes or-drawer-out-right {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+/* Bottom drawer variant */
+.or-drawer-sheet--bottom,
+.or-drawer--bottom {
+  animation: or-drawer-in-bottom var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes or-drawer-in-bottom {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.or-drawer-sheet--bottom.or-closing,
+.or-drawer--bottom.or-closing {
+  animation: or-drawer-out-bottom var(--duration-normal) var(--ease-in) both;
+}
+
+@keyframes or-drawer-out-bottom {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
+
+/* ==========================================================================
+   11. TOAST / SNACKBAR
+   ========================================================================== */
+
+.or-toast,
+.or-snackbar {
+  animation: or-toast-enter var(--duration-normal) var(--ease-spring) both;
+}
+
+@keyframes or-toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.or-toast.or-closing,
+.or-snackbar.or-closing {
+  animation: or-toast-exit var(--duration-normal) var(--ease-in) both;
+}
+
+@keyframes or-toast-exit {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+
+/* ==========================================================================
+   12. TOOLTIP
+   ========================================================================== */
+
+.or-tooltip {
+  animation: or-tooltip-in var(--duration-fast) var(--ease-out) both;
+  pointer-events: none;
+}
+
+@keyframes or-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.or-tooltip.or-closing {
+  animation: or-tooltip-out var(--duration-fast) var(--ease-in) both;
+}
+
+@keyframes or-tooltip-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(4px); }
+}
+
+
+/* ==========================================================================
+   13. DROPDOWN MENU
+   ========================================================================== */
+
+.or-dropdown-menu,
+.or-menu {
+  transform-origin: top left;
+  animation: or-menu-in 120ms var(--ease-out) both;
+}
+
+@keyframes or-menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.or-dropdown-menu.or-closing,
+.or-menu.or-closing {
+  animation: or-menu-out 100ms var(--ease-in) both;
+}
+
+@keyframes or-menu-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.95); }
+}
+
+/* Dropdown menu items — subtle hover */
+.or-dropdown-menu__item,
+.or-menu__item {
+  transition:
+    background-color var(--duration-fast) var(--ease-default),
+    color            var(--duration-fast) var(--ease-default);
+}
+
+
+/* ==========================================================================
+   14. ACCORDION
+   ========================================================================== */
+
+.or-accordion__body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height var(--duration-slow) var(--ease-default),
+    opacity    var(--duration-normal) var(--ease-default);
+}
+
+.or-accordion__item--open .or-accordion__body,
+.or-accordion__body[aria-hidden="false"],
+.or-accordion__body.is-open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* Chevron rotation */
+.or-accordion__chevron {
+  transition: transform var(--duration-normal) var(--ease-default);
+  display: inline-block;
+}
+
+.or-accordion__item--open .or-accordion__chevron,
+.or-accordion__trigger[aria-expanded="true"] .or-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+
+/* ==========================================================================
+   15. TABS
+   ========================================================================== */
+
+/* Active indicator bar */
+.or-tabs__indicator {
+  transition:
+    left  var(--duration-normal) var(--ease-spring),
+    width var(--duration-normal) var(--ease-spring);
+}
+
+/* Tab content crossfade */
+.or-tabs__panel {
+  transition: opacity var(--duration-normal) var(--ease-default);
+}
+
+.or-tabs__panel[hidden],
+.or-tabs__panel.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.or-tabs__panel:not([hidden]),
+.or-tabs__panel.is-active {
+  opacity: 1;
+}
+
+/* Tab buttons */
+.or-tabs__tab {
+  transition:
+    color            var(--duration-fast) var(--ease-default),
+    background-color var(--duration-fast) var(--ease-default);
+}
+
+
+/* ==========================================================================
+   16. POPOVER
+   ========================================================================== */
+
+.or-popover {
+  transform-origin: top center;
+  animation: or-popover-in var(--duration-normal) var(--ease-spring) both;
+}
+
+@keyframes or-popover-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.or-popover.or-closing {
+  animation: or-popover-out 150ms var(--ease-in) both;
+}
+
+@keyframes or-popover-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(-4px); }
+}
+
+
+/* ==========================================================================
+   17. PROGRESS BAR
+   ========================================================================== */
+
+.or-progress__bar,
+.or-progress-fill {
+  transition: width var(--duration-slow) var(--ease-default);
+}
+
+/* Indeterminate / striped animation */
+.or-progress--indeterminate .or-progress__bar,
+.or-progress--striped .or-progress-fill {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent               25%,
+    transparent               50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent               75%,
+    transparent
+  );
+  background-size: 40px 40px;
+  animation: or-progress-stripe 600ms linear infinite;
+}
+
+
+/* ==========================================================================
+   18. SKELETON
+   ========================================================================== */
+
+.or-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary, #F2F4F7) 25%,
+    var(--bg-secondary, #F9FAFB) 50%,
+    var(--bg-tertiary, #F2F4F7) 75%
+  );
+  background-size: 800px 100%;
+  animation: or-skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm, 4px);
+}
+
+/* Dark mode skeleton */
+html.dark .or-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary, #1F242F) 25%,
+    rgba(255, 255, 255, 0.06)   50%,
+    var(--bg-tertiary, #1F242F) 75%
+  );
+  background-size: 800px 100%;
+  animation: or-skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+
+/* ==========================================================================
+   19. BADGE
+   ========================================================================== */
+
+.or-badge {
+  transition:
+    background-color var(--duration-fast) var(--ease-default),
+    color            var(--duration-fast) var(--ease-default);
+}
+
+/* Trigger this class via JS when the badge count/value updates */
+.or-badge-updated {
+  animation: or-badge-bounce 350ms var(--ease-spring);
+}
+
+
+/* ==========================================================================
+   20. NOTIFICATION DOT
+   ========================================================================== */
+
+.or-notification-dot {
+  animation: or-dot-appear 250ms var(--ease-spring) both;
+}
+
+
+/* ==========================================================================
+   21. COLORED SHADOW UTILITIES
+   ========================================================================== */
+
+/* Static shadows */
+.or-shadow-brand    { box-shadow: var(--shadow-brand-sm); }
+.or-shadow-brand-md { box-shadow: var(--shadow-brand-md); }
+.or-shadow-brand-lg { box-shadow: var(--shadow-brand-lg); }
+.or-shadow-success  { box-shadow: var(--shadow-success-sm); }
+.or-shadow-error    { box-shadow: var(--shadow-error-sm); }
+.or-shadow-warning  { box-shadow: var(--shadow-warning-sm); }
+
+/* Hover-activated colored shadows */
+.or-hover-shadow-brand {
+  transition: box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-hover-shadow-brand:hover {
+  box-shadow: var(--shadow-brand-sm);
+}
+
+.or-hover-shadow-success {
+  transition: box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-hover-shadow-success:hover {
+  box-shadow: var(--shadow-success-sm);
+}
+
+.or-hover-shadow-error {
+  transition: box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-hover-shadow-error:hover {
+  box-shadow: var(--shadow-error-sm);
+}
+
+.or-hover-shadow-warning {
+  transition: box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-hover-shadow-warning:hover {
+  box-shadow: var(--shadow-warning-sm);
+}
+
+
+/* ==========================================================================
+   22. REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+  }
+}
