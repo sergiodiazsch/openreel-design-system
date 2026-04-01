@@ -159,7 +159,7 @@
 <body>
 <a href="#main-content" class="sr-only">Skip to content</a>
 <!-- HEADER -->
-<header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+<header data-or-particles data-or-particle-count="50" data-or-particle-color="#1F12DE" data-or-particle-opacity="0.3" data-or-particle-lines="true" style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
     <div style="display:flex;align-items:center;gap:12px;">
       <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
         <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
@@ -222,14 +222,14 @@
 <!-- MAIN CONTENT -->
 <main id="main-content" class="main-content" style="padding-top:88px;padding-bottom:80px;margin-left:220px;padding-left:32px;padding-right:32px;max-width:1200px;">
   <div style="margin-bottom:36px;">
-    <h1 style="font-size:28px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;">Form Patterns</h1>
+    <h1 data-or-animate="fade-up" style="font-size:28px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;">Form Patterns</h1>
     <p style="font-size:15px;color:var(--text-secondary);max-width:640px;">Interactive, production-ready form patterns with real-time validation, keyboard navigation, and full dark mode support. Toggle the code panel to copy the markup.</p>
   </div>
 
   <!-- ======================= 1. LOGIN ======================= -->
-  <section id="login" class="pattern-card">
+  <section id="login" class="pattern-card" data-or-glow>
     <div class="pattern-header">
-      <div><h3>Login with Inline Validation</h3><p class="pattern-desc">A standard sign-in form with real-time field validation, social login options, and accessible error states.</p></div>
+      <div data-or-animate="fade-up"><h3>Login with Inline Validation</h3><p class="pattern-desc">A standard sign-in form with real-time field validation, social login options, and accessible error states.</p></div>
       <button class="btn-toggle-code" onclick="toggleCode('login-code')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Code</button>
     </div>
     <div class="pattern-demo">
@@ -238,7 +238,7 @@
           <div class="fi">
             <label for="login-email">Email</label>
             <div class="input-wrap">
-              <input type="email" id="login-email" placeholder="you@company.com" autocomplete="off"/>
+              <input data-or-gradient-border type="email" id="login-email" placeholder="you@company.com" autocomplete="off"/>
               <span class="ok-icon" id="login-email-ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
             </div>
             <span class="err-msg" id="login-email-err">Please enter a valid email address</span>
@@ -246,7 +246,7 @@
           <div class="fi">
             <label for="login-pw">Password</label>
             <div class="input-wrap">
-              <input type="password" id="login-pw" placeholder="Min 8 characters" autocomplete="off"/>
+              <input data-or-gradient-border type="password" id="login-pw" placeholder="Min 8 characters" autocomplete="off"/>
               <span class="ok-icon" id="login-pw-ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
             </div>
             <span class="err-msg" id="login-pw-err">Password must be at least 8 characters</span>
@@ -323,7 +323,7 @@
   <!-- ======================= 2. MULTI-STEP WIZARD ======================= -->
   <section id="wizard" class="pattern-card">
     <div class="pattern-header">
-      <div><h3>Multi-step Wizard</h3><p class="pattern-desc">A 3-step onboarding flow with progress tracking, field validation per step, and smooth slide transitions.</p></div>
+      <div data-or-animate="fade-up"><h3>Multi-step Wizard</h3><p class="pattern-desc">A 3-step onboarding flow with progress tracking, field validation per step, and smooth slide transitions.</p></div>
       <button class="btn-toggle-code" onclick="toggleCode('wizard-code')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Code</button>
     </div>
     <div class="pattern-demo">
@@ -438,7 +438,7 @@
   <!-- ======================= 3. CHECKOUT ======================= -->
   <section id="checkout" class="pattern-card">
     <div class="pattern-header">
-      <div><h3>Checkout Form</h3><p class="pattern-desc">A two-column checkout layout with shipping, payment fields with card auto-detection, and a live order summary.</p></div>
+      <div data-or-animate="fade-up"><h3>Checkout Form</h3><p class="pattern-desc">A two-column checkout layout with shipping, payment fields with card auto-detection, and a live order summary.</p></div>
       <button class="btn-toggle-code" onclick="toggleCode('checkout-code')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Code</button>
     </div>
     <div class="pattern-demo">
@@ -630,7 +630,7 @@
         <div id="flt-chips" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:8px;"></div>
         <!-- Results info -->
         <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--border-color);">
-          <span style="font-size:13px;color:var(--text-secondary);" id="flt-count">Showing 156 of 156 results</span>
+          <span data-or-counter style="font-size:13px;color:var(--text-secondary);" id="flt-count">Showing 156 of 156 results</span>
           <button id="flt-clear" style="font-size:12px;font-weight:600;color:var(--error-500);background:none;border:none;cursor:pointer;display:none;font-family:var(--font-family);" onclick="clearAllFilters()">Clear all filters</button>
         </div>
         <!-- Mock results -->
@@ -683,14 +683,14 @@
   <!-- ======================= 6. CONTACT FORM ======================= -->
   <section id="contact" class="pattern-card">
     <div class="pattern-header">
-      <div><h3>Contact Form</h3><p class="pattern-desc">An accessible contact form with file attachment, character counter, and a success confirmation state.</p></div>
+      <div data-or-animate="fade-up"><h3>Contact Form</h3><p class="pattern-desc">An accessible contact form with file attachment, character counter, and a success confirmation state.</p></div>
       <button class="btn-toggle-code" onclick="toggleCode('contact-code')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Code</button>
     </div>
     <div class="pattern-demo">
       <div style="max-width:480px;margin:0 auto;" id="contact-form-wrap">
         <form id="contactForm" novalidate onsubmit="return handleContact(event)">
-          <div class="fi"><label for="ct-name">Name</label><input type="text" id="ct-name" placeholder="Your full name" required aria-required="true"/></div>
-          <div class="fi"><label for="ct-email">Email</label><input type="email" id="ct-email" placeholder="you@example.com" required aria-required="true"/></div>
+          <div class="fi"><label for="ct-name">Name</label><input data-or-gradient-border type="text" id="ct-name" placeholder="Your full name" required aria-required="true"/></div>
+          <div class="fi"><label for="ct-email">Email</label><input data-or-gradient-border type="email" id="ct-email" placeholder="you@example.com" required aria-required="true"/></div>
           <div class="fi"><label for="ct-subject">Subject</label><select id="ct-subject" required aria-required="true"><option value="">Choose a subject</option><option>General</option><option>Bug Report</option><option>Feature Request</option><option>Billing</option></select></div>
           <div class="fi">
             <label for="ct-msg">Message <span style="font-weight:400;color:var(--text-tertiary);font-size:12px;" id="ct-msg-count">0/500</span></label>

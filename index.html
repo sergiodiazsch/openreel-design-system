@@ -920,7 +920,7 @@
   <!-- =========================================================
        HEADER
        ========================================================= -->
-  <header style="
+  <header data-or-particles data-or-particle-count="50" data-or-particle-color="#1F12DE" data-or-particle-opacity="0.3" data-or-particle-lines="true" style="
     position: fixed; top: 0; left: 0; right: 0; z-index: 50;
     height: 64px;
     background: var(--gray-900);
@@ -952,7 +952,7 @@
       ">v1.0</span>
 
       <!-- Page Navigation — Mega Menu -->
-      <nav class="header-nav" style="margin-left:24px;">
+      <nav class="header-nav or-glass" style="margin-left:24px;border-radius:var(--radius-md);padding:2px 4px;">
         <a href="index.html" class="header-nav-link active">Docs</a>
         <a href="playground.html" class="header-nav-link">Playground</a>
 
@@ -1097,7 +1097,7 @@
       background: var(--bg-primary);
     ">
       <!-- Foundations (always expanded) -->
-      <div style="margin-bottom:8px;">
+      <div style="margin-bottom:8px;" data-or-animate="stagger">
         <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-secondary); padding:0 12px; margin-bottom:6px;">Foundations</p>
         <a href="#quick-start" class="nav-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -1414,7 +1414,7 @@
            QUICK START — Hero Section
            ======================================================= -->
       <section id="quick-start" data-section="quick start getting started hero" style="margin-bottom:64px;">
-        <div style="
+        <div class="or-grain" style="
           background: linear-gradient(135deg, var(--gray-900) 0%, #1a1a3e 50%, var(--brand) 100%);
           border-radius: var(--radius-xl);
           padding: 56px 48px;
@@ -1423,7 +1423,7 @@
           box-shadow: var(--shadow-2xl);
         ">
           <!-- Decorative circles -->
-          <div style="position:absolute; top:-60px; right:-40px; width:250px; height:250px; border-radius:50%; background:rgba(41,112,255,0.1); filter:blur(60px);"></div>
+          <div data-or-parallax="0.15" style="position:absolute; top:-60px; right:-40px; width:250px; height:250px; border-radius:50%; background:rgba(41,112,255,0.1); filter:blur(60px);"></div>
           <div style="position:absolute; bottom:-80px; left:20%; width:200px; height:200px; border-radius:50%; background:rgba(31,18,222,0.15); filter:blur(50px);"></div>
 
           <div style="position:relative; z-index:1;">
@@ -2311,13 +2311,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <div class="component-section" id="buttons">
-  <h2>1. Buttons <a href="playground.html#button" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
+  <h2 data-or-animate="fade-up">1. Buttons <a href="playground.html#button" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
   <p>Action triggers in multiple variants, sizes, and states. Primary uses the brand color for main CTAs; secondary for less emphasis.</p>
 
 <div class="component-card">
   <h3>Primary Variants</h3>
   <div class="preview-box">
-    <button class="or-btn or-btn-md or-btn-primary">Primary</button>
+    <button class="or-btn or-btn-md or-btn-primary" data-or-magnetic>Primary</button>
     <button class="or-btn or-btn-md or-btn-secondary">Secondary</button>
     <button class="or-btn or-btn-md or-btn-success">Success</button>
     <button class="or-btn or-btn-md or-btn-destructive">Destructive</button>
@@ -2336,8 +2336,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><div class="component-card">
   <h3>Sizes</h3>
   <div class="preview-box">
-    <button class="or-btn or-btn-sm or-btn-primary">Small</button>
-    <button class="or-btn or-btn-md or-btn-primary">Medium</button>
+    <button class="or-btn or-btn-sm or-btn-primary" data-or-magnetic>Small</button>
+    <button class="or-btn or-btn-md or-btn-primary" data-or-magnetic>Medium</button>
     <button class="or-btn or-btn-lg or-btn-primary">Large</button>
   </div>
   <div class="code-wrapper">
@@ -2375,7 +2375,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="usage">Use Primary for main CTAs (1 per screen). Secondary for auxiliary actions. Destructive for delete/remove. Ghost for toolbar-style actions. Minimum tap target 44px.</div></div>
 
 <div class="component-section" id="badges">
-  <h2>2. Badges / Tags <a href="playground.html#badge" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
+  <h2 data-or-animate="fade-up">2. Badges / Tags <a href="playground.html#badge" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
   <p>Status indicators and categorical labels. Use dot variant for subtle status indication in lists.</p>
 
 <div class="component-card">
@@ -2412,7 +2412,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="usage">Badges communicate status at a glance. Always pair a color with a text label for accessibility. Dot variant is for tables and dense lists.</div></div>
 
 <div class="component-section" id="inputs">
-  <h2>3. Inputs <a href="playground.html#input" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
+  <h2 data-or-animate="fade-up">3. Inputs <a href="playground.html#input" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
   <p>Form controls for text entry. All inputs include hover, focus, disabled, and error states.</p>
 
 <div class="component-card">
@@ -2420,12 +2420,12 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="preview-box">
     <div class="or-input-group">
       <label>Full Name</label>
-      <input class="or-input" type="text" placeholder="Enter your name">
+      <input class="or-input" data-or-gradient-border type="text" placeholder="Enter your name">
       <span class="or-input-hint">First and last name</span>
     </div>
     <div class="or-input-group">
       <label>Email</label>
-      <input class="or-input error" type="email" value="invalid-email">
+      <input class="or-input error" data-or-gradient-border type="email" value="invalid-email">
       <span class="or-input-error-msg">Please enter a valid email address</span>
     </div>
   </div>
@@ -2480,14 +2480,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 <div class="usage">Always include a label above the input. Use hint text for format guidance. Error messages replace hint text and turn border red. AI Composer gets the branded border treatment.</div></div>
 
-<div class="component-section" id="cards">
-  <h2>4. Cards <a href="playground.html#card" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
+<div class="component-section" id="cards" data-or-glow>
+  <h2 data-or-animate="fade-up">4. Cards <a href="playground.html#card" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
   <p>Content containers for sessions, projects, and video items. Cards elevate on hover with a subtle shadow and image zoom.</p>
 
 <div class="component-card">
   <h3>Session / Project / Video Cards</h3>
   <div class="preview-box">
-    <div class="or-card">
+    <div class="or-card" data-or-tilt>
       <div class="or-card-img-wrap"><div class="or-card-img" style="background:linear-gradient(135deg,#1F12DE,#4F35F5);height:140px"></div></div>
       <div class="or-card-body">
         <div class="or-card-title">Q1 Brand Review</div>
@@ -2495,7 +2495,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="or-card-footer"><span class="or-badge or-badge-active"><span class="dot"></span>Active</span><span style="font-size:12px;color:#667085">Mar 10</span></div>
       </div>
     </div>
-    <div class="or-card">
+    <div class="or-card" data-or-tilt>
       <div class="or-card-img-wrap"><div class="or-card-img" style="background:linear-gradient(135deg,#17B26A,#2970FF);height:140px"></div></div>
       <div class="or-card-body">
         <div class="or-card-title">Product Demo v2</div>
@@ -2503,7 +2503,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="or-card-footer"><span class="or-badge or-badge-completed"><span class="dot"></span>Completed</span><span style="font-size:12px;color:#667085">4.2 GB</span></div>
       </div>
     </div>
-    <div class="or-card">
+    <div class="or-card" data-or-tilt>
       <div class="or-card-img-wrap"><div class="or-card-img" style="background:linear-gradient(135deg,#B54708,#F04438);height:140px"></div></div>
       <div class="or-card-body">
         <div class="or-card-title">Onboarding Series</div>
@@ -2532,7 +2532,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="usage">Use cards to represent browsable collections. Always include a status badge and metadata. Image area uses overflow:hidden to contain the zoom effect on hover.</div></div>
 
 <div class="component-section" id="avatars">
-  <h2>5. Avatars <a href="playground.html#avatar" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
+  <h2 data-or-animate="fade-up">5. Avatars <a href="playground.html#avatar" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
   <p>User identity indicators in multiple sizes, with stacking and status dot support.</p>
 
 <div class="component-card">
@@ -2574,7 +2574,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="usage">Use initials when no photo is available. Stack up to 4 visible + a "+N" overflow. Status dot: green=online, gray=offline, red=busy.</div></div>
 
 <div class="component-section" id="modals">
-  <h2>6. Modals <a href="playground.html#modal" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
+  <h2 data-or-animate="fade-up">6. Modals <a href="playground.html#modal" class="playground-link">Try in Playground <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></h2>
   <p>Dialog overlays with backdrop blur for focused interactions. Center vertically and horizontally.</p>
 
 <div class="component-card">
@@ -2614,7 +2614,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="usage">Always include a close button and a Cancel action. Destructive modals should clearly state what will happen. Backdrop uses blur(6px) for depth.</div></div>
 
 <div class="component-section" id="tabs">
-  <h2>7. Tabs</h2>
+  <h2 data-or-animate="fade-up">7. Tabs</h2>
   <p>Navigation between content panels. Pill style for contained sections, underline for page-level navigation.</p>
 
 <div class="component-card">
@@ -2651,7 +2651,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="usage">Pill tabs for filter-style switching within a card. Underline tabs for top-level page sections. Mark the active tab with the "active" class.</div></div>
 
 <div class="component-section" id="chips">
-  <h2>8. Pills / Chips</h2>
+  <h2 data-or-animate="fade-up">8. Pills / Chips</h2>
   <p>Selectable category filters. Toggle between default and selected states on click.</p>
 
 <div class="component-card">
@@ -3892,7 +3892,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="preview-box" style="align-items:stretch;">
     <div class="or-stat" style="min-width:200px;">
       <div class="or-stat-label">Total Sessions</div>
-      <div class="or-stat-value">1,284</div>
+      <div class="or-stat-value" data-or-counter>1,284</div>
       <div class="or-stat-trend up">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
         12.5%
@@ -3905,7 +3905,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
       <div class="or-stat-label">Active Recordings</div>
-      <div class="or-stat-value">23</div>
+      <div class="or-stat-value" data-or-counter>23</div>
       <div class="or-stat-trend down">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
         3.2%
@@ -3913,7 +3913,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="or-stat" style="min-width:200px;">
       <div class="or-stat-label">Storage Used</div>
-      <div class="or-stat-value">847 GB</div>
+      <div class="or-stat-value" data-or-counter>847 GB</div>
       <div class="or-stat-sparkline">
         <div class="or-stat-sparkline-bar" style="height:40%;"></div>
         <div class="or-stat-sparkline-bar" style="height:60%;"></div>
@@ -6186,7 +6186,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- ============================================
      SECTION 7: FOOTER
      ============================================ -->
-<footer style="font-family:Inter,system-ui,-apple-system,sans-serif;max-width:960px;margin:0 auto;padding:40px 20px;border-top:1px solid #EAECF0">
+<footer data-or-gradient data-or-gradient-colors="#1F12DE,#2970FF,#17B26A" style="font-family:Inter,system-ui,-apple-system,sans-serif;max-width:960px;margin:0 auto;padding:40px 20px;border-top:1px solid #EAECF0">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div style="display:flex;align-items:center;gap:10px">
       <div style="width:28px;height:28px;background:#1F12DE;border-radius:8px;display:flex;align-items:center;justify-content:center">

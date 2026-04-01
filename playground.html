@@ -292,7 +292,7 @@
   <!-- =========================================================
        HEADER
        ========================================================= -->
-  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+  <header data-or-particles data-or-particle-count="50" data-or-particle-color="#1F12DE" data-or-particle-opacity="0.3" data-or-particle-lines="true" style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
     <div style="display:flex;align-items:center;gap:12px;">
       <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
         <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
@@ -301,7 +301,7 @@
         <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
       </a>
       <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
-      <nav class="header-nav" style="margin-left:24px;">
+      <nav class="header-nav or-glass" style="margin-left:24px;border-radius:var(--radius-md);padding:2px 4px;">
         <a href="index.html" class="header-nav-link">Docs</a>
         <a href="playground.html" class="header-nav-link active">Playground</a>
         <div class="nav-dropdown-trigger">
@@ -332,7 +332,7 @@
     <div style="display:flex;align-items:center;gap:12px;">
       <div style="position:relative;width:320px;">
         <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <input data-or-gradient-border type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
         <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
       </div>
       <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
@@ -448,7 +448,7 @@
     ">
 
       <!-- Page Title -->
-      <div style="margin-bottom:28px;">
+      <div style="margin-bottom:28px;" data-or-animate="fade-up">
         <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em; margin-bottom:6px;">
           Component Playground
         </h1>
@@ -505,7 +505,7 @@
       <!-- =========================================================
            PLAYGROUND PANEL (preview + controls grid)
            ========================================================= -->
-      <div class="playground-grid" style="
+      <div class="playground-grid" data-or-tilt data-or-glow style="
         display:grid;
         grid-template-columns: 1fr 320px;
         gap: 0;
@@ -606,7 +606,7 @@
         <div style="padding:14px 20px; border-bottom:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between;">
           <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary);">Compare Variants</span>
           <div style="display:flex; gap:8px;">
-            <button onclick="addCompareInstance()" style="padding:5px 12px; font-size:12px; font-weight:600; color:#fff; background:var(--brand); border:none; border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family);">Add Instance</button>
+            <button data-or-magnetic onclick="addCompareInstance()" style="padding:5px 12px; font-size:12px; font-weight:600; color:#fff; background:var(--brand); border:none; border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family);">Add Instance</button>
             <button onclick="resetCompareInstances()" style="padding:5px 12px; font-size:12px; font-weight:500; color:var(--text-secondary); background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family);">Reset All</button>
           </div>
         </div>
@@ -618,7 +618,7 @@
       <!-- =========================================================
            CODE OUTPUT (multi-framework)
            ========================================================= -->
-      <div style="margin-top:24px;">
+      <div style="margin-top:24px;" data-or-animate="fade-up">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
           <span style="font-size:13px; font-weight:600; color:var(--text-secondary);">Generated Code</span>
           <div style="display:flex; gap:2px; background:var(--bg-controls); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:2px;" id="code-tabs">
