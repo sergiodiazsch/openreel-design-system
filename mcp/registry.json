@@ -67,14 +67,14 @@
     },
     "spacing": {
       "1": "4px",
-      "1.5": "6px",
       "2": "8px",
-      "2.5": "10px",
       "3": "12px",
       "4": "16px",
       "5": "20px",
       "6": "24px",
-      "8": "32px"
+      "8": "32px",
+      "1.5": "6px",
+      "2.5": "10px"
     },
     "borderRadius": {
       "sm": "4px",
@@ -104,19 +104,76 @@
     {
       "name": "Button",
       "slug": "button",
+      "element": "button",
       "category": "Form Controls",
       "description": "Primary action element with multiple variants and sizes",
       "status": "stable",
-      "cssClasses": ["or-btn", "or-btn-primary", "or-btn-secondary", "or-btn-tertiary", "or-btn-danger", "or-btn-success", "or-btn-sm", "or-btn-md", "or-btn-lg"],
-      "variants": ["primary", "secondary", "tertiary", "danger", "success"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-btn",
+        "or-btn-primary",
+        "or-btn-secondary",
+        "or-btn-tertiary",
+        "or-btn-danger",
+        "or-btn-success",
+        "or-btn-sm",
+        "or-btn-md",
+        "or-btn-lg"
+      ],
+      "variants": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "danger",
+        "success"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "variant", "type": "string", "options": ["primary", "secondary", "tertiary", "danger", "success"], "default": "primary" },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "loading", "type": "boolean", "default": false },
-        { "name": "icon", "type": "string", "default": null },
-        { "name": "fullWidth", "type": "boolean", "default": false }
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "primary",
+            "secondary",
+            "tertiary",
+            "danger",
+            "success"
+          ],
+          "default": "primary"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use primary for main actions, secondary for alternatives, tertiary for low-emphasis. One primary button per view.",
       "a11y": "Use native <button>. Include visible text or aria-label. 4.5:1 contrast."
@@ -124,23 +181,94 @@
     {
       "name": "Input",
       "slug": "input",
+      "element": "input",
       "category": "Form Controls",
       "description": "Text input field with label, helper text, validation states, and optional icons",
       "status": "stable",
-      "cssClasses": ["or-input", "or-input-sm", "or-input-md", "or-input-lg", "or-input-error", "or-input-disabled", "or-input-group"],
-      "variants": ["default", "error", "disabled"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-input",
+        "or-input-sm",
+        "or-input-md",
+        "or-input-lg",
+        "or-input-error",
+        "or-input-disabled",
+        "or-input-group"
+      ],
+      "variants": [
+        "default",
+        "error",
+        "disabled"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "type", "type": "string", "options": ["text", "email", "password", "number", "search", "url", "tel"], "default": "text" },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "placeholder", "type": "string", "default": null },
-        { "name": "helperText", "type": "string", "default": null },
-        { "name": "error", "type": "string", "default": null },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "leadingIcon", "type": "string", "default": null },
-        { "name": "trailingIcon", "type": "string", "default": null },
-        { "name": "required", "type": "boolean", "default": false }
+        {
+          "name": "type",
+          "type": "string",
+          "options": [
+            "text",
+            "email",
+            "password",
+            "number",
+            "search",
+            "url",
+            "tel"
+          ],
+          "default": "text"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "leadingIcon",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "trailingIcon",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Always pair with a visible label. Show error messages below the field. Use helper text for format hints.",
       "a11y": "Associate label via for/id. Use aria-describedby for helper/error text. aria-invalid on error."
@@ -148,18 +276,58 @@
     {
       "name": "Checkbox",
       "slug": "checkbox",
+      "element": "input",
       "category": "Form Controls",
       "description": "Selection control for binary or indeterminate choices",
       "status": "stable",
-      "cssClasses": ["or-checkbox", "or-checkbox-checked", "or-checkbox-indeterminate", "or-checkbox-disabled", "or-checkbox-sm", "or-checkbox-md"],
-      "variants": ["default", "checked", "indeterminate", "disabled"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-checkbox",
+        "or-checkbox-checked",
+        "or-checkbox-indeterminate",
+        "or-checkbox-disabled",
+        "or-checkbox-sm",
+        "or-checkbox-md"
+      ],
+      "variants": [
+        "default",
+        "checked",
+        "indeterminate",
+        "disabled"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "checked", "type": "boolean", "default": false },
-        { "name": "indeterminate", "type": "boolean", "default": false },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" }
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for multi-select lists or boolean toggles. Use indeterminate for parent checkboxes controlling a group.",
       "a11y": "Use native <input type='checkbox'>. Wrap in <label> or use aria-labelledby."
@@ -167,19 +335,62 @@
     {
       "name": "Radio",
       "slug": "radio",
+      "element": "input",
       "category": "Form Controls",
       "description": "Single-selection control within a group of mutually exclusive options",
       "status": "stable",
-      "cssClasses": ["or-radio", "or-radio-group", "or-radio-checked", "or-radio-disabled", "or-radio-sm", "or-radio-md"],
-      "variants": ["default", "checked", "disabled"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-radio",
+        "or-radio-group",
+        "or-radio-checked",
+        "or-radio-disabled",
+        "or-radio-sm",
+        "or-radio-md"
+      ],
+      "variants": [
+        "default",
+        "checked",
+        "disabled"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "checked", "type": "boolean", "default": false },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "name", "type": "string", "default": null },
-        { "name": "value", "type": "string", "default": null },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" }
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use within a radio group for mutually exclusive options. Always provide a group label with fieldset/legend.",
       "a11y": "Use native <input type='radio'> inside <fieldset> with <legend>. All radios in group share same name."
@@ -187,17 +398,55 @@
     {
       "name": "Toggle/Switch",
       "slug": "toggle-switch",
+      "element": "button",
       "category": "Form Controls",
       "description": "Binary toggle for on/off states with optional label",
       "status": "stable",
-      "cssClasses": ["or-toggle", "or-toggle-on", "or-toggle-off", "or-toggle-disabled", "or-toggle-sm", "or-toggle-md", "or-toggle-lg"],
-      "variants": ["on", "off", "disabled"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-toggle",
+        "or-toggle-on",
+        "or-toggle-off",
+        "or-toggle-disabled",
+        "or-toggle-sm",
+        "or-toggle-md",
+        "or-toggle-lg"
+      ],
+      "variants": [
+        "on",
+        "off",
+        "disabled"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "checked", "type": "boolean", "default": false },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" }
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for instant-apply settings (no submit needed). Prefer over checkbox when the change takes immediate effect.",
       "a11y": "Use role='switch' with aria-checked. Include visible label text."
@@ -205,22 +454,82 @@
     {
       "name": "Select",
       "slug": "select",
+      "element": "select",
       "category": "Form Controls",
       "description": "Dropdown selection control with search, multi-select, and grouped options",
       "status": "stable",
-      "cssClasses": ["or-select", "or-select-sm", "or-select-md", "or-select-lg", "or-select-error", "or-select-disabled", "or-select-open", "or-select-multi"],
-      "variants": ["default", "error", "disabled", "multi"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-select",
+        "or-select-sm",
+        "or-select-md",
+        "or-select-lg",
+        "or-select-error",
+        "or-select-disabled",
+        "or-select-open",
+        "or-select-multi"
+      ],
+      "variants": [
+        "default",
+        "error",
+        "disabled",
+        "multi"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "options", "type": "array", "default": [] },
-        { "name": "value", "type": "string|array", "default": null },
-        { "name": "placeholder", "type": "string", "default": "Select..." },
-        { "name": "searchable", "type": "boolean", "default": false },
-        { "name": "multi", "type": "boolean", "default": false },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "error", "type": "string", "default": null },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" }
+        {
+          "name": "options",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "value",
+          "type": "string|array",
+          "default": null
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Select..."
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "multi",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for picking from 5+ options. For fewer options, prefer radio buttons. Use searchable for long lists.",
       "a11y": "Use aria-expanded, aria-haspopup='listbox'. Keyboard nav with arrow keys, Enter to select, Escape to close."
@@ -228,18 +537,51 @@
     {
       "name": "File Upload",
       "slug": "file-upload",
+      "element": "div",
       "category": "Form Controls",
       "description": "Drag-and-drop or click-to-browse file upload area with progress and preview",
       "status": "stable",
-      "cssClasses": ["or-file-upload", "or-file-upload-dragover", "or-file-upload-error", "or-file-upload-disabled", "or-file-upload-compact"],
-      "variants": ["default", "dragover", "compact", "error", "disabled"],
+      "cssClasses": [
+        "or-file-upload",
+        "or-file-upload-dragover",
+        "or-file-upload-error",
+        "or-file-upload-disabled",
+        "or-file-upload-compact"
+      ],
+      "variants": [
+        "default",
+        "dragover",
+        "compact",
+        "error",
+        "disabled"
+      ],
       "sizes": [],
       "props": [
-        { "name": "accept", "type": "string", "default": "*" },
-        { "name": "multiple", "type": "boolean", "default": false },
-        { "name": "maxSize", "type": "number", "default": null },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "compact", "type": "boolean", "default": false }
+        {
+          "name": "accept",
+          "type": "string",
+          "default": "*"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "maxSize",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use the full-size variant for primary upload flows. Compact variant for inline/secondary uploads. Show progress and file preview after selection.",
       "a11y": "Include a visible label. Use aria-describedby for accepted formats/size limits. Announce upload progress to screen readers."
@@ -247,20 +589,57 @@
     {
       "name": "Slider/Range",
       "slug": "slider-range",
+      "element": "input",
       "category": "Form Controls",
       "description": "Range slider for numeric value selection with single or dual thumbs",
       "status": "stable",
-      "cssClasses": ["or-slider", "or-slider-disabled", "or-slider-range"],
-      "variants": ["single", "range", "disabled"],
+      "cssClasses": [
+        "or-slider",
+        "or-slider-disabled",
+        "or-slider-range"
+      ],
+      "variants": [
+        "single",
+        "range",
+        "disabled"
+      ],
       "sizes": [],
       "props": [
-        { "name": "min", "type": "number", "default": 0 },
-        { "name": "max", "type": "number", "default": 100 },
-        { "name": "step", "type": "number", "default": 1 },
-        { "name": "value", "type": "number|array", "default": 50 },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "showValue", "type": "boolean", "default": true },
-        { "name": "range", "type": "boolean", "default": false }
+        {
+          "name": "min",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 100
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "value",
+          "type": "number|array",
+          "default": 50
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "range",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for numeric values within a known range. Show current value label. Use range mode for min/max selection.",
       "a11y": "Use native <input type='range'> or role='slider'. Provide aria-valuemin, aria-valuemax, aria-valuenow, aria-valuetext."
@@ -268,21 +647,72 @@
     {
       "name": "Date Picker",
       "slug": "date-picker",
+      "element": "div",
       "category": "Form Controls",
       "description": "Calendar-based date selection with single date, range, and preset options",
       "status": "stable",
-      "cssClasses": ["or-datepicker", "or-datepicker-open", "or-datepicker-range", "or-datepicker-error", "or-datepicker-disabled"],
-      "variants": ["single", "range", "error", "disabled"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-datepicker",
+        "or-datepicker-open",
+        "or-datepicker-range",
+        "or-datepicker-error",
+        "or-datepicker-disabled"
+      ],
+      "variants": [
+        "single",
+        "range",
+        "error",
+        "disabled"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "value", "type": "string|array", "default": null },
-        { "name": "mode", "type": "string", "options": ["single", "range"], "default": "single" },
-        { "name": "minDate", "type": "string", "default": null },
-        { "name": "maxDate", "type": "string", "default": null },
-        { "name": "placeholder", "type": "string", "default": "Select date" },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "error", "type": "string", "default": null },
-        { "name": "presets", "type": "array", "default": [] }
+        {
+          "name": "value",
+          "type": "string|array",
+          "default": null
+        },
+        {
+          "name": "mode",
+          "type": "string",
+          "options": [
+            "single",
+            "range"
+          ],
+          "default": "single"
+        },
+        {
+          "name": "minDate",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "maxDate",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Select date"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "presets",
+          "type": "array",
+          "default": []
+        }
       ],
       "usage": "Use for date entry where calendar context is helpful. For known dates (birthdays), a plain text input may be better.",
       "a11y": "Full keyboard navigation. Announce month/year changes. Use role='grid' for calendar. Escape closes the popover."
@@ -290,18 +720,56 @@
     {
       "name": "Color Picker",
       "slug": "color-picker",
+      "element": "div",
       "category": "Form Controls",
       "description": "Color selection control with palette swatches, hex/RGB input, and alpha",
       "status": "stable",
-      "cssClasses": ["or-color-picker", "or-color-picker-open", "or-color-picker-swatch", "or-color-picker-disabled"],
-      "variants": ["default", "swatches-only", "full"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-color-picker",
+        "or-color-picker-open",
+        "or-color-picker-swatch",
+        "or-color-picker-disabled"
+      ],
+      "variants": [
+        "default",
+        "swatches-only",
+        "full"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "value", "type": "string", "default": "#1F12DE" },
-        { "name": "swatches", "type": "array", "default": [] },
-        { "name": "alpha", "type": "boolean", "default": false },
-        { "name": "format", "type": "string", "options": ["hex", "rgb", "hsl"], "default": "hex" },
-        { "name": "disabled", "type": "boolean", "default": false }
+        {
+          "name": "value",
+          "type": "string",
+          "default": "#1F12DE"
+        },
+        {
+          "name": "swatches",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "alpha",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "options": [
+            "hex",
+            "rgb",
+            "hsl"
+          ],
+          "default": "hex"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for theme/branding customization. Provide brand-relevant preset swatches. Show live preview of selected color.",
       "a11y": "Label the trigger clearly. Ensure swatch buttons have accessible names for their color values."
@@ -309,19 +777,66 @@
     {
       "name": "OTP Input",
       "slug": "otp-input",
+      "element": "div",
       "category": "Form Controls",
       "description": "One-time password input with auto-focus advance between digit fields",
       "status": "stable",
-      "cssClasses": ["or-otp", "or-otp-field", "or-otp-error", "or-otp-disabled"],
-      "variants": ["default", "error", "disabled"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-otp",
+        "or-otp-field",
+        "or-otp-error",
+        "or-otp-disabled"
+      ],
+      "variants": [
+        "default",
+        "error",
+        "disabled"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "length", "type": "number", "default": 6 },
-        { "name": "type", "type": "string", "options": ["numeric", "alphanumeric"], "default": "numeric" },
-        { "name": "error", "type": "string", "default": null },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "autoFocus", "type": "boolean", "default": true },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" }
+        {
+          "name": "length",
+          "type": "number",
+          "default": 6
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "options": [
+            "numeric",
+            "alphanumeric"
+          ],
+          "default": "numeric"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "autoFocus",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for verification codes. Auto-advance focus on digit entry. Support paste of full code. Clear on error.",
       "a11y": "Group inputs with role='group' and aria-label. Use inputmode='numeric' for mobile keyboards. Announce errors."
@@ -329,20 +844,66 @@
     {
       "name": "Tag Input",
       "slug": "tag-input",
+      "element": "div",
       "category": "Form Controls",
       "description": "Multi-value text input that creates removable tags/chips on Enter or comma",
       "status": "stable",
-      "cssClasses": ["or-tag-input", "or-tag-input-focused", "or-tag-input-error", "or-tag-input-disabled", "or-tag"],
-      "variants": ["default", "error", "disabled"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-tag-input",
+        "or-tag-input-focused",
+        "or-tag-input-error",
+        "or-tag-input-disabled",
+        "or-tag"
+      ],
+      "variants": [
+        "default",
+        "error",
+        "disabled"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "value", "type": "array", "default": [] },
-        { "name": "placeholder", "type": "string", "default": "Add tags..." },
-        { "name": "maxTags", "type": "number", "default": null },
-        { "name": "allowDuplicates", "type": "boolean", "default": false },
-        { "name": "disabled", "type": "boolean", "default": false },
-        { "name": "error", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" }
+        {
+          "name": "value",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Add tags..."
+        },
+        {
+          "name": "maxTags",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "allowDuplicates",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for multi-value inputs like tags, emails, or categories. Support Enter and comma as delimiters. Allow backspace to remove last tag.",
       "a11y": "Announce tag additions/removals. Each tag's remove button needs an accessible label. Use aria-live for count updates."
@@ -350,19 +911,82 @@
     {
       "name": "Badge",
       "slug": "badge",
+      "element": "span",
       "category": "Data Display",
       "description": "Compact label for status, count, or category indicators",
       "status": "stable",
-      "cssClasses": ["or-badge", "or-badge-primary", "or-badge-success", "or-badge-warning", "or-badge-error", "or-badge-gray", "or-badge-blue", "or-badge-sm", "or-badge-md", "or-badge-lg", "or-badge-dot", "or-badge-outline"],
-      "variants": ["primary", "success", "warning", "error", "gray", "blue", "outline"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-badge",
+        "or-badge-primary",
+        "or-badge-success",
+        "or-badge-warning",
+        "or-badge-error",
+        "or-badge-gray",
+        "or-badge-blue",
+        "or-badge-sm",
+        "or-badge-md",
+        "or-badge-lg",
+        "or-badge-dot",
+        "or-badge-outline"
+      ],
+      "variants": [
+        "primary",
+        "success",
+        "warning",
+        "error",
+        "gray",
+        "blue",
+        "outline"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "variant", "type": "string", "options": ["primary", "success", "warning", "error", "gray", "blue"], "default": "gray" },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "dot", "type": "boolean", "default": false },
-        { "name": "outline", "type": "boolean", "default": false },
-        { "name": "removable", "type": "boolean", "default": false },
-        { "name": "icon", "type": "string", "default": null }
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "primary",
+            "success",
+            "warning",
+            "error",
+            "gray",
+            "blue"
+          ],
+          "default": "gray"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "outline",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "default": null
+        }
       ],
       "usage": "Use for status labels, counts, and categories. Keep text short (1-2 words). Use dot variant for simple status indicators.",
       "a11y": "Ensure sufficient contrast. If badge conveys status, use aria-label to provide context beyond the visual."
@@ -370,16 +994,55 @@
     {
       "name": "Card",
       "slug": "card",
+      "element": "article",
       "category": "Data Display",
       "description": "Contained surface for grouping related content with optional header, media, and actions",
       "status": "stable",
-      "cssClasses": ["or-card", "or-card-header", "or-card-body", "or-card-footer", "or-card-media", "or-card-bordered", "or-card-elevated", "or-card-interactive"],
-      "variants": ["default", "bordered", "elevated", "interactive"],
+      "cssClasses": [
+        "or-card",
+        "or-card-header",
+        "or-card-body",
+        "or-card-footer",
+        "or-card-media",
+        "or-card-bordered",
+        "or-card-elevated",
+        "or-card-interactive"
+      ],
+      "variants": [
+        "default",
+        "bordered",
+        "elevated",
+        "interactive"
+      ],
       "sizes": [],
       "props": [
-        { "name": "variant", "type": "string", "options": ["default", "bordered", "elevated", "interactive"], "default": "default" },
-        { "name": "padding", "type": "string", "options": ["none", "sm", "md", "lg"], "default": "md" },
-        { "name": "clickable", "type": "boolean", "default": false }
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "default",
+            "bordered",
+            "elevated",
+            "interactive"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "padding",
+          "type": "string",
+          "options": [
+            "none",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "clickable",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use to group related content. Interactive cards should have a clear click target. Don't nest cards inside cards.",
       "a11y": "If clickable, use <a> or <button> as the root, or use role='link'/role='button'. Provide a clear accessible name."
@@ -387,20 +1050,61 @@
     {
       "name": "Table",
       "slug": "table",
+      "element": "table",
       "category": "Data Display",
       "description": "Basic data table with sortable columns, row selection, and striped rows",
       "status": "stable",
-      "cssClasses": ["or-table", "or-table-striped", "or-table-bordered", "or-table-compact", "or-table-hover", "or-table-sortable"],
-      "variants": ["default", "striped", "bordered", "compact"],
+      "cssClasses": [
+        "or-table",
+        "or-table-striped",
+        "or-table-bordered",
+        "or-table-compact",
+        "or-table-hover",
+        "or-table-sortable"
+      ],
+      "variants": [
+        "default",
+        "striped",
+        "bordered",
+        "compact"
+      ],
       "sizes": [],
       "props": [
-        { "name": "columns", "type": "array", "default": [] },
-        { "name": "data", "type": "array", "default": [] },
-        { "name": "sortable", "type": "boolean", "default": false },
-        { "name": "selectable", "type": "boolean", "default": false },
-        { "name": "striped", "type": "boolean", "default": false },
-        { "name": "compact", "type": "boolean", "default": false },
-        { "name": "bordered", "type": "boolean", "default": false }
+        {
+          "name": "columns",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "data",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "sortable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for structured data with consistent columns. Keep column count manageable. Use compact for dense data views.",
       "a11y": "Use semantic <table>, <thead>, <tbody>, <th scope>. Announce sort state with aria-sort. Use role='checkbox' for row selection."
@@ -408,23 +1112,72 @@
     {
       "name": "Data Table Advanced",
       "slug": "data-table-advanced",
+      "element": "table",
       "category": "Data Display",
       "description": "Feature-rich table with pagination, filtering, column resizing, row expansion, and bulk actions",
       "status": "stable",
-      "cssClasses": ["or-data-table", "or-data-table-toolbar", "or-data-table-pagination", "or-data-table-filters", "or-data-table-expandable"],
-      "variants": ["default"],
+      "cssClasses": [
+        "or-data-table",
+        "or-data-table-toolbar",
+        "or-data-table-pagination",
+        "or-data-table-filters",
+        "or-data-table-expandable"
+      ],
+      "variants": [
+        "default"
+      ],
       "sizes": [],
       "props": [
-        { "name": "columns", "type": "array", "default": [] },
-        { "name": "data", "type": "array", "default": [] },
-        { "name": "pagination", "type": "boolean", "default": true },
-        { "name": "pageSize", "type": "number", "default": 10 },
-        { "name": "filterable", "type": "boolean", "default": true },
-        { "name": "resizable", "type": "boolean", "default": false },
-        { "name": "expandable", "type": "boolean", "default": false },
-        { "name": "selectable", "type": "boolean", "default": true },
-        { "name": "bulkActions", "type": "array", "default": [] },
-        { "name": "searchable", "type": "boolean", "default": true }
+        {
+          "name": "columns",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "data",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "pagination",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "default": 10
+        },
+        {
+          "name": "filterable",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "expandable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "bulkActions",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use for complex data sets needing filtering, pagination, or bulk operations. Prefer basic Table for simple displays.",
       "a11y": "Announce page changes and filter results. Bulk action buttons include count in label. Column resize via keyboard."
@@ -432,19 +1185,81 @@
     {
       "name": "Avatar",
       "slug": "avatar",
+      "element": "span",
       "category": "Data Display",
       "description": "User or entity representation with image, initials, or icon fallback",
       "status": "stable",
-      "cssClasses": ["or-avatar", "or-avatar-xs", "or-avatar-sm", "or-avatar-md", "or-avatar-lg", "or-avatar-xl", "or-avatar-group", "or-avatar-status"],
-      "variants": ["image", "initials", "icon", "placeholder"],
-      "sizes": ["xs", "sm", "md", "lg", "xl"],
+      "cssClasses": [
+        "or-avatar",
+        "or-avatar-xs",
+        "or-avatar-sm",
+        "or-avatar-md",
+        "or-avatar-lg",
+        "or-avatar-xl",
+        "or-avatar-group",
+        "or-avatar-status"
+      ],
+      "variants": [
+        "image",
+        "initials",
+        "icon",
+        "placeholder"
+      ],
+      "sizes": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
       "props": [
-        { "name": "src", "type": "string", "default": null },
-        { "name": "alt", "type": "string", "default": null },
-        { "name": "initials", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["xs", "sm", "md", "lg", "xl"], "default": "md" },
-        { "name": "status", "type": "string", "options": ["online", "offline", "busy", "away"], "default": null },
-        { "name": "shape", "type": "string", "options": ["circle", "rounded"], "default": "circle" }
+        {
+          "name": "src",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "initials",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "options": [
+            "online",
+            "offline",
+            "busy",
+            "away"
+          ],
+          "default": null
+        },
+        {
+          "name": "shape",
+          "type": "string",
+          "options": [
+            "circle",
+            "rounded"
+          ],
+          "default": "circle"
+        }
       ],
       "usage": "Use for user profiles, comment authors, and team members. Avatar groups overlap for compact display. Limit groups to 5 visible.",
       "a11y": "Provide meaningful alt text. Status indicator needs aria-label (e.g., 'Online'). Decorative avatars use alt=''."
@@ -452,19 +1267,62 @@
     {
       "name": "Rating Stars",
       "slug": "rating-stars",
+      "element": "div",
       "category": "Data Display",
       "description": "Star-based rating display and interactive input with half-star support",
       "status": "stable",
-      "cssClasses": ["or-rating", "or-rating-readonly", "or-rating-sm", "or-rating-md", "or-rating-lg"],
-      "variants": ["interactive", "readonly"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-rating",
+        "or-rating-readonly",
+        "or-rating-sm",
+        "or-rating-md",
+        "or-rating-lg"
+      ],
+      "variants": [
+        "interactive",
+        "readonly"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "value", "type": "number", "default": 0 },
-        { "name": "max", "type": "number", "default": 5 },
-        { "name": "readonly", "type": "boolean", "default": false },
-        { "name": "halfStars", "type": "boolean", "default": false },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "showValue", "type": "boolean", "default": false }
+        {
+          "name": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 5
+        },
+        {
+          "name": "readonly",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "halfStars",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use readonly for displaying existing ratings. Interactive for user input. Show numeric value alongside stars for clarity.",
       "a11y": "Use role='radiogroup' for interactive, role='img' with aria-label for readonly. Announce selected rating."
@@ -472,19 +1330,57 @@
     {
       "name": "Stat Card",
       "slug": "stat-card",
+      "element": "article",
       "category": "Data Display",
       "description": "Metric display with value, label, trend indicator, and optional sparkline",
       "status": "stable",
-      "cssClasses": ["or-stat-card", "or-stat-card-trend-up", "or-stat-card-trend-down", "or-stat-card-compact"],
-      "variants": ["default", "compact"],
+      "cssClasses": [
+        "or-stat-card",
+        "or-stat-card-trend-up",
+        "or-stat-card-trend-down",
+        "or-stat-card-compact"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
       "sizes": [],
       "props": [
-        { "name": "label", "type": "string", "default": null },
-        { "name": "value", "type": "string|number", "default": null },
-        { "name": "trend", "type": "string", "options": ["up", "down", "neutral"], "default": null },
-        { "name": "trendValue", "type": "string", "default": null },
-        { "name": "icon", "type": "string", "default": null },
-        { "name": "compact", "type": "boolean", "default": false }
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "value",
+          "type": "string|number",
+          "default": null
+        },
+        {
+          "name": "trend",
+          "type": "string",
+          "options": [
+            "up",
+            "down",
+            "neutral"
+          ],
+          "default": null
+        },
+        {
+          "name": "trendValue",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use in dashboard layouts for KPI display. Group 3-4 stat cards in a row. Show trend for time-comparative metrics.",
       "a11y": "Use clear label text. Trend indicator should have text alternative (e.g., '+12% increase'). Don't rely on color alone."
@@ -492,15 +1388,33 @@
     {
       "name": "Timeline",
       "slug": "timeline",
+      "element": "ol",
       "category": "Data Display",
       "description": "Vertical chronological display of events with icons, timestamps, and content",
       "status": "stable",
-      "cssClasses": ["or-timeline", "or-timeline-item", "or-timeline-dot", "or-timeline-content", "or-timeline-compact"],
-      "variants": ["default", "compact"],
+      "cssClasses": [
+        "or-timeline",
+        "or-timeline-item",
+        "or-timeline-dot",
+        "or-timeline-content",
+        "or-timeline-compact"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "compact", "type": "boolean", "default": false }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for event history, changelog, or step-by-step progress. Most recent events first. Keep individual entries concise.",
       "a11y": "Use <ol> for ordered timelines. Each item has a clear timestamp and description. Icons are decorative (aria-hidden)."
@@ -508,17 +1422,43 @@
     {
       "name": "Activity Feed",
       "slug": "activity-feed",
+      "element": "div",
       "category": "Data Display",
       "description": "Real-time feed of user actions with actor, action, target, and timestamp",
       "status": "stable",
-      "cssClasses": ["or-activity-feed", "or-activity-item", "or-activity-actor", "or-activity-action"],
-      "variants": ["default", "compact", "grouped"],
+      "cssClasses": [
+        "or-activity-feed",
+        "or-activity-item",
+        "or-activity-actor",
+        "or-activity-action"
+      ],
+      "variants": [
+        "default",
+        "compact",
+        "grouped"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "compact", "type": "boolean", "default": false },
-        { "name": "grouped", "type": "boolean", "default": false },
-        { "name": "showAvatar", "type": "boolean", "default": true }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "grouped",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showAvatar",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use for audit logs, social feeds, or collaboration activity. Group related activities. Paginate or infinite-scroll for long feeds.",
       "a11y": "Use <ul> or role='feed'. New items announced with aria-live='polite'. Relative timestamps include full date in title attribute."
@@ -526,19 +1466,68 @@
     {
       "name": "Pills/Chips",
       "slug": "pills-chips",
+      "element": "span",
       "category": "Data Display",
       "description": "Compact interactive elements for filters, selections, or tags with optional remove",
       "status": "stable",
-      "cssClasses": ["or-pill", "or-pill-primary", "or-pill-secondary", "or-pill-active", "or-pill-removable", "or-pill-sm", "or-pill-md"],
-      "variants": ["primary", "secondary", "active", "removable"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-pill",
+        "or-pill-primary",
+        "or-pill-secondary",
+        "or-pill-active",
+        "or-pill-removable",
+        "or-pill-sm",
+        "or-pill-md"
+      ],
+      "variants": [
+        "primary",
+        "secondary",
+        "active",
+        "removable"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "label", "type": "string", "default": null },
-        { "name": "variant", "type": "string", "options": ["primary", "secondary"], "default": "secondary" },
-        { "name": "active", "type": "boolean", "default": false },
-        { "name": "removable", "type": "boolean", "default": false },
-        { "name": "icon", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" }
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "primary",
+            "secondary"
+          ],
+          "default": "secondary"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for filter selections and tag displays. Active state indicates currently applied filters. Removable for user-created items.",
       "a11y": "Use role='option' within a listbox for filter chips. Remove buttons need accessible labels including the chip text."
@@ -546,18 +1535,58 @@
     {
       "name": "Notification Badge",
       "slug": "notification-badge",
+      "element": "span",
       "category": "Data Display",
       "description": "Numeric or dot indicator overlaid on icons or avatars for unread counts",
       "status": "stable",
-      "cssClasses": ["or-notification-badge", "or-notification-badge-dot", "or-notification-badge-count"],
-      "variants": ["dot", "count"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-notification-badge",
+        "or-notification-badge-dot",
+        "or-notification-badge-count"
+      ],
+      "variants": [
+        "dot",
+        "count"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "count", "type": "number", "default": 0 },
-        { "name": "max", "type": "number", "default": 99 },
-        { "name": "dot", "type": "boolean", "default": false },
-        { "name": "variant", "type": "string", "options": ["error", "warning", "primary"], "default": "error" },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "sm" }
+        {
+          "name": "count",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 99
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "error",
+            "warning",
+            "primary"
+          ],
+          "default": "error"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "sm"
+        }
       ],
       "usage": "Use for unread notifications, messages, or pending items. Dot variant for generic 'new' indicator. Cap display at max value (99+).",
       "a11y": "Include count in parent element's aria-label (e.g., 'Notifications, 5 unread'). Don't rely on badge alone."
@@ -565,17 +1594,48 @@
     {
       "name": "Date/Time Display",
       "slug": "date-time-display",
+      "element": "time",
       "category": "Data Display",
       "description": "Formatted date and time display with relative timestamps and timezone support",
       "status": "stable",
-      "cssClasses": ["or-datetime", "or-datetime-relative", "or-datetime-absolute", "or-datetime-compact"],
-      "variants": ["relative", "absolute", "compact"],
+      "cssClasses": [
+        "or-datetime",
+        "or-datetime-relative",
+        "or-datetime-absolute",
+        "or-datetime-compact"
+      ],
+      "variants": [
+        "relative",
+        "absolute",
+        "compact"
+      ],
       "sizes": [],
       "props": [
-        { "name": "value", "type": "string", "default": null },
-        { "name": "format", "type": "string", "options": ["relative", "absolute", "compact"], "default": "relative" },
-        { "name": "showTimezone", "type": "boolean", "default": false },
-        { "name": "locale", "type": "string", "default": "en-US" }
+        {
+          "name": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "options": [
+            "relative",
+            "absolute",
+            "compact"
+          ],
+          "default": "relative"
+        },
+        {
+          "name": "showTimezone",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "default": "en-US"
+        }
       ],
       "usage": "Use relative for recent times ('2 hours ago'), absolute for specific dates. Show full date on hover via title attribute.",
       "a11y": "Use <time> element with datetime attribute. Full date in title for relative displays."
@@ -583,17 +1643,44 @@
     {
       "name": "Metadata Grid",
       "slug": "metadata-grid",
+      "element": "dl",
       "category": "Data Display",
       "description": "Key-value pair grid for displaying entity details and properties",
       "status": "stable",
-      "cssClasses": ["or-metadata-grid", "or-metadata-item", "or-metadata-label", "or-metadata-value", "or-metadata-grid-compact"],
-      "variants": ["default", "compact", "inline"],
+      "cssClasses": [
+        "or-metadata-grid",
+        "or-metadata-item",
+        "or-metadata-label",
+        "or-metadata-value",
+        "or-metadata-grid-compact"
+      ],
+      "variants": [
+        "default",
+        "compact",
+        "inline"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "columns", "type": "number", "default": 2 },
-        { "name": "compact", "type": "boolean", "default": false },
-        { "name": "inline", "type": "boolean", "default": false }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "default": 2
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for detail views showing entity properties. Consistent label alignment. Group related fields together.",
       "a11y": "Use <dl>, <dt>, <dd> for semantic key-value pairs. Ensure label-value association is clear."
@@ -601,17 +1688,64 @@
     {
       "name": "Status Indicator",
       "slug": "status-indicator",
+      "element": "span",
       "category": "Data Display",
       "description": "Colored dot or icon with label indicating current state of an entity",
       "status": "stable",
-      "cssClasses": ["or-status", "or-status-online", "or-status-offline", "or-status-pending", "or-status-error", "or-status-success", "or-status-warning"],
-      "variants": ["online", "offline", "pending", "error", "success", "warning"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-status",
+        "or-status-online",
+        "or-status-offline",
+        "or-status-pending",
+        "or-status-error",
+        "or-status-success",
+        "or-status-warning"
+      ],
+      "variants": [
+        "online",
+        "offline",
+        "pending",
+        "error",
+        "success",
+        "warning"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "status", "type": "string", "options": ["online", "offline", "pending", "error", "success", "warning"], "default": "online" },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "pulse", "type": "boolean", "default": false },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" }
+        {
+          "name": "status",
+          "type": "string",
+          "options": [
+            "online",
+            "offline",
+            "pending",
+            "error",
+            "success",
+            "warning"
+          ],
+          "default": "online"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "pulse",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use alongside labels, never color alone. Pulse animation for live/active states. Combine with text for clarity.",
       "a11y": "Always include a text label. Color is supplementary, not the sole indicator. Use aria-label if label is hidden."
@@ -619,19 +1753,69 @@
     {
       "name": "Modal",
       "slug": "modal",
+      "element": "dialog",
       "category": "Feedback",
       "description": "Overlay dialog for focused tasks, confirmations, or complex forms",
       "status": "stable",
-      "cssClasses": ["or-modal", "or-modal-overlay", "or-modal-content", "or-modal-header", "or-modal-body", "or-modal-footer", "or-modal-sm", "or-modal-md", "or-modal-lg", "or-modal-fullscreen"],
-      "variants": ["default", "fullscreen"],
-      "sizes": ["sm", "md", "lg", "fullscreen"],
+      "cssClasses": [
+        "or-modal",
+        "or-modal-overlay",
+        "or-modal-content",
+        "or-modal-header",
+        "or-modal-body",
+        "or-modal-footer",
+        "or-modal-sm",
+        "or-modal-md",
+        "or-modal-lg",
+        "or-modal-fullscreen"
+      ],
+      "variants": [
+        "default",
+        "fullscreen"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg",
+        "fullscreen"
+      ],
       "props": [
-        { "name": "open", "type": "boolean", "default": false },
-        { "name": "title", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg", "fullscreen"], "default": "md" },
-        { "name": "closable", "type": "boolean", "default": true },
-        { "name": "closeOnOverlay", "type": "boolean", "default": true },
-        { "name": "closeOnEscape", "type": "boolean", "default": true }
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg",
+            "fullscreen"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "closable",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "closeOnOverlay",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use for tasks requiring focus. Keep content minimal. Always provide a close mechanism. Avoid stacking modals.",
       "a11y": "Use <dialog> or role='dialog' with aria-modal='true'. Trap focus inside. Return focus to trigger on close. aria-labelledby for title."
@@ -639,20 +1823,73 @@
     {
       "name": "Toast/Alert",
       "slug": "toast-alert",
+      "element": "div",
       "category": "Feedback",
       "description": "Temporary notification messages for success, error, warning, and info feedback",
       "status": "stable",
-      "cssClasses": ["or-toast", "or-toast-success", "or-toast-error", "or-toast-warning", "or-toast-info", "or-toast-container"],
-      "variants": ["success", "error", "warning", "info"],
+      "cssClasses": [
+        "or-toast",
+        "or-toast-success",
+        "or-toast-error",
+        "or-toast-warning",
+        "or-toast-info",
+        "or-toast-container"
+      ],
+      "variants": [
+        "success",
+        "error",
+        "warning",
+        "info"
+      ],
       "sizes": [],
       "props": [
-        { "name": "variant", "type": "string", "options": ["success", "error", "warning", "info"], "default": "info" },
-        { "name": "message", "type": "string", "default": null },
-        { "name": "title", "type": "string", "default": null },
-        { "name": "duration", "type": "number", "default": 5000 },
-        { "name": "dismissible", "type": "boolean", "default": true },
-        { "name": "action", "type": "object", "default": null },
-        { "name": "position", "type": "string", "options": ["top-right", "top-center", "bottom-right", "bottom-center"], "default": "top-right" }
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "success",
+            "error",
+            "warning",
+            "info"
+          ],
+          "default": "info"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": 5000
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "action",
+          "type": "object",
+          "default": null
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "options": [
+            "top-right",
+            "top-center",
+            "bottom-right",
+            "bottom-center"
+          ],
+          "default": "top-right"
+        }
       ],
       "usage": "Use for transient feedback after user actions. Errors should persist until dismissed. Stack multiple toasts vertically.",
       "a11y": "Use role='alert' for errors, role='status' for success/info. Don't auto-dismiss errors. Provide dismiss button."
@@ -660,19 +1897,71 @@
     {
       "name": "Progress Bar",
       "slug": "progress-bar",
+      "element": "div",
       "category": "Feedback",
       "description": "Determinate or indeterminate progress indicator with optional label and percentage",
       "status": "stable",
-      "cssClasses": ["or-progress", "or-progress-sm", "or-progress-md", "or-progress-lg", "or-progress-indeterminate", "or-progress-success", "or-progress-error"],
-      "variants": ["default", "success", "error", "indeterminate"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-progress",
+        "or-progress-sm",
+        "or-progress-md",
+        "or-progress-lg",
+        "or-progress-indeterminate",
+        "or-progress-success",
+        "or-progress-error"
+      ],
+      "variants": [
+        "default",
+        "success",
+        "error",
+        "indeterminate"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "value", "type": "number", "default": 0 },
-        { "name": "max", "type": "number", "default": 100 },
-        { "name": "indeterminate", "type": "boolean", "default": false },
-        { "name": "showLabel", "type": "boolean", "default": false },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "variant", "type": "string", "options": ["default", "success", "error"], "default": "default" }
+        {
+          "name": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 100
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "default",
+            "success",
+            "error"
+          ],
+          "default": "default"
+        }
       ],
       "usage": "Use determinate when progress is known. Indeterminate for unknown duration. Show percentage for long operations.",
       "a11y": "Use role='progressbar' with aria-valuenow, aria-valuemin, aria-valuemax. Provide aria-label describing the operation."
@@ -680,18 +1969,56 @@
     {
       "name": "Loading Skeleton",
       "slug": "loading-skeleton",
+      "element": "div",
       "category": "Feedback",
       "description": "Placeholder shimmer elements matching content layout during loading states",
       "status": "stable",
-      "cssClasses": ["or-skeleton", "or-skeleton-text", "or-skeleton-circle", "or-skeleton-rect", "or-skeleton-card"],
-      "variants": ["text", "circle", "rect", "card"],
+      "cssClasses": [
+        "or-skeleton",
+        "or-skeleton-text",
+        "or-skeleton-circle",
+        "or-skeleton-rect",
+        "or-skeleton-card"
+      ],
+      "variants": [
+        "text",
+        "circle",
+        "rect",
+        "card"
+      ],
       "sizes": [],
       "props": [
-        { "name": "type", "type": "string", "options": ["text", "circle", "rect", "card"], "default": "text" },
-        { "name": "width", "type": "string", "default": "100%" },
-        { "name": "height", "type": "string", "default": null },
-        { "name": "lines", "type": "number", "default": 1 },
-        { "name": "animated", "type": "boolean", "default": true }
+        {
+          "name": "type",
+          "type": "string",
+          "options": [
+            "text",
+            "circle",
+            "rect",
+            "card"
+          ],
+          "default": "text"
+        },
+        {
+          "name": "width",
+          "type": "string",
+          "default": "100%"
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "lines",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "animated",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Match skeleton shapes to expected content layout. Use for initial page loads, not button loading states. Reduce layout shift.",
       "a11y": "Use aria-busy='true' on the loading container. Include aria-label='Loading' on the skeleton region."
@@ -699,18 +2026,48 @@
     {
       "name": "Empty State",
       "slug": "empty-state",
+      "element": "div",
       "category": "Feedback",
       "description": "Placeholder for empty lists, search results, or initial states with illustration and CTA",
       "status": "stable",
-      "cssClasses": ["or-empty-state", "or-empty-state-icon", "or-empty-state-title", "or-empty-state-description", "or-empty-state-action"],
-      "variants": ["default", "compact"],
+      "cssClasses": [
+        "or-empty-state",
+        "or-empty-state-icon",
+        "or-empty-state-title",
+        "or-empty-state-description",
+        "or-empty-state-action"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
       "sizes": [],
       "props": [
-        { "name": "title", "type": "string", "default": null },
-        { "name": "description", "type": "string", "default": null },
-        { "name": "icon", "type": "string", "default": null },
-        { "name": "actionLabel", "type": "string", "default": null },
-        { "name": "compact", "type": "boolean", "default": false }
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "actionLabel",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for empty lists, no search results, or first-use states. Always provide a clear action. Be encouraging, not blaming.",
       "a11y": "Ensure heading hierarchy is maintained. Action button is keyboard accessible. Illustration is decorative (aria-hidden)."
@@ -718,18 +2075,56 @@
     {
       "name": "Alert Banner",
       "slug": "alert-banner",
+      "element": "div",
       "category": "Feedback",
       "description": "Full-width persistent banner for system-level messages, warnings, or announcements",
       "status": "stable",
-      "cssClasses": ["or-alert-banner", "or-alert-banner-info", "or-alert-banner-warning", "or-alert-banner-error", "or-alert-banner-success"],
-      "variants": ["info", "warning", "error", "success"],
+      "cssClasses": [
+        "or-alert-banner",
+        "or-alert-banner-info",
+        "or-alert-banner-warning",
+        "or-alert-banner-error",
+        "or-alert-banner-success"
+      ],
+      "variants": [
+        "info",
+        "warning",
+        "error",
+        "success"
+      ],
       "sizes": [],
       "props": [
-        { "name": "variant", "type": "string", "options": ["info", "warning", "error", "success"], "default": "info" },
-        { "name": "message", "type": "string", "default": null },
-        { "name": "dismissible", "type": "boolean", "default": true },
-        { "name": "action", "type": "object", "default": null },
-        { "name": "icon", "type": "string", "default": null }
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "info",
+            "warning",
+            "error",
+            "success"
+          ],
+          "default": "info"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "action",
+          "type": "object",
+          "default": null
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "default": null
+        }
       ],
       "usage": "Use for system-wide messages at the top of the page. Errors and warnings should be persistent. Info can be dismissible.",
       "a11y": "Use role='alert' for urgent messages. Include dismiss button with aria-label. Don't auto-dismiss errors."
@@ -737,17 +2132,45 @@
     {
       "name": "Snackbar",
       "slug": "snackbar",
+      "element": "div",
       "category": "Feedback",
       "description": "Brief bottom-anchored message with optional undo action, auto-dismissing",
       "status": "stable",
-      "cssClasses": ["or-snackbar", "or-snackbar-action", "or-snackbar-visible"],
-      "variants": ["default", "action"],
+      "cssClasses": [
+        "or-snackbar",
+        "or-snackbar-action",
+        "or-snackbar-visible"
+      ],
+      "variants": [
+        "default",
+        "action"
+      ],
       "sizes": [],
       "props": [
-        { "name": "message", "type": "string", "default": null },
-        { "name": "action", "type": "object", "default": null },
-        { "name": "duration", "type": "number", "default": 4000 },
-        { "name": "position", "type": "string", "options": ["bottom-center", "bottom-left"], "default": "bottom-center" }
+        {
+          "name": "message",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "action",
+          "type": "object",
+          "default": null
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": 4000
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "options": [
+            "bottom-center",
+            "bottom-left"
+          ],
+          "default": "bottom-center"
+        }
       ],
       "usage": "Use for lightweight confirmations like 'Item deleted' with undo. Keep message under 2 lines. One snackbar at a time.",
       "a11y": "Use role='status' for non-critical. Undo action must be keyboard accessible. Pause auto-dismiss on hover/focus."
@@ -755,18 +2178,63 @@
     {
       "name": "Tabs",
       "slug": "tabs",
+      "element": "nav",
       "category": "Navigation",
       "description": "Horizontal or vertical tab navigation for switching between content panels",
       "status": "stable",
-      "cssClasses": ["or-tabs", "or-tab-list", "or-tab", "or-tab-active", "or-tab-panel", "or-tabs-underline", "or-tabs-pills", "or-tabs-vertical"],
-      "variants": ["underline", "pills", "vertical"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-tabs",
+        "or-tab-list",
+        "or-tab",
+        "or-tab-active",
+        "or-tab-panel",
+        "or-tabs-underline",
+        "or-tabs-pills",
+        "or-tabs-vertical"
+      ],
+      "variants": [
+        "underline",
+        "pills",
+        "vertical"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "activeTab", "type": "string|number", "default": 0 },
-        { "name": "variant", "type": "string", "options": ["underline", "pills"], "default": "underline" },
-        { "name": "vertical", "type": "boolean", "default": false },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "activeTab",
+          "type": "string|number",
+          "default": 0
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "underline",
+            "pills"
+          ],
+          "default": "underline"
+        },
+        {
+          "name": "vertical",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for related content views at the same hierarchy level. 3-7 tabs max. Don't use for sequential steps (use Stepper).",
       "a11y": "Use role='tablist', role='tab', role='tabpanel'. Arrow keys navigate tabs. aria-selected on active tab. aria-controls linking."
@@ -774,17 +2242,41 @@
     {
       "name": "Breadcrumbs",
       "slug": "breadcrumbs",
+      "element": "nav",
       "category": "Navigation",
       "description": "Hierarchical path trail showing current page location within site structure",
       "status": "stable",
-      "cssClasses": ["or-breadcrumbs", "or-breadcrumb-item", "or-breadcrumb-separator", "or-breadcrumb-current"],
-      "variants": ["default"],
+      "cssClasses": [
+        "or-breadcrumbs",
+        "or-breadcrumb-item",
+        "or-breadcrumb-separator",
+        "or-breadcrumb-current"
+      ],
+      "variants": [
+        "default"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "separator", "type": "string", "default": "/" },
-        { "name": "maxItems", "type": "number", "default": null },
-        { "name": "collapseAt", "type": "number", "default": null }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "separator",
+          "type": "string",
+          "default": "/"
+        },
+        {
+          "name": "maxItems",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "collapseAt",
+          "type": "number",
+          "default": null
+        }
       ],
       "usage": "Use for hierarchical navigation deeper than 2 levels. Current page is the last item (not a link). Collapse middle items on overflow.",
       "a11y": "Use <nav aria-label='Breadcrumb'> with <ol>. Current page uses aria-current='page'. Separator is decorative."
@@ -792,20 +2284,66 @@
     {
       "name": "Pagination",
       "slug": "pagination",
+      "element": "nav",
       "category": "Navigation",
       "description": "Page navigation controls with page numbers, prev/next, and page size selector",
       "status": "stable",
-      "cssClasses": ["or-pagination", "or-pagination-item", "or-pagination-active", "or-pagination-prev", "or-pagination-next", "or-pagination-ellipsis"],
-      "variants": ["default", "compact"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-pagination",
+        "or-pagination-item",
+        "or-pagination-active",
+        "or-pagination-prev",
+        "or-pagination-next",
+        "or-pagination-ellipsis"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "totalPages", "type": "number", "default": 1 },
-        { "name": "currentPage", "type": "number", "default": 1 },
-        { "name": "siblingCount", "type": "number", "default": 1 },
-        { "name": "showFirstLast", "type": "boolean", "default": true },
-        { "name": "compact", "type": "boolean", "default": false },
-        { "name": "pageSize", "type": "number", "default": null },
-        { "name": "pageSizeOptions", "type": "array", "default": [10, 25, 50] }
+        {
+          "name": "totalPages",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "currentPage",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "siblingCount",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "showFirstLast",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "default": null
+        },
+        {
+          "name": "pageSizeOptions",
+          "type": "array",
+          "default": [
+            10,
+            25,
+            50
+          ]
+        }
       ],
       "usage": "Use for paginated lists/tables. Show first/last page for long lists. Compact variant for tight spaces.",
       "a11y": "Use <nav aria-label='Pagination'>. Current page uses aria-current='page'. Prev/Next buttons have clear labels."
@@ -813,17 +2351,45 @@
     {
       "name": "Sidebar Nav",
       "slug": "sidebar-nav",
+      "element": "nav",
       "category": "Navigation",
       "description": "Vertical navigation sidebar with nested items, icons, sections, and collapse",
       "status": "stable",
-      "cssClasses": ["or-sidebar", "or-sidebar-collapsed", "or-sidebar-nav", "or-sidebar-item", "or-sidebar-item-active", "or-sidebar-section", "or-sidebar-footer"],
-      "variants": ["expanded", "collapsed"],
+      "cssClasses": [
+        "or-sidebar",
+        "or-sidebar-collapsed",
+        "or-sidebar-nav",
+        "or-sidebar-item",
+        "or-sidebar-item-active",
+        "or-sidebar-section",
+        "or-sidebar-footer"
+      ],
+      "variants": [
+        "expanded",
+        "collapsed"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "collapsed", "type": "boolean", "default": false },
-        { "name": "activeItem", "type": "string", "default": null },
-        { "name": "sections", "type": "array", "default": [] }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "activeItem",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "sections",
+          "type": "array",
+          "default": []
+        }
       ],
       "usage": "Use for app-level navigation. Support collapse for more content space. Group related items in sections. Highlight active item.",
       "a11y": "Use <nav aria-label='Main navigation'>. Collapsible sections use aria-expanded. Active item uses aria-current='page'."
@@ -831,18 +2397,50 @@
     {
       "name": "Tree View",
       "slug": "tree-view",
+      "element": "div",
       "category": "Navigation",
       "description": "Hierarchical expandable/collapsible tree for nested data like file systems",
       "status": "stable",
-      "cssClasses": ["or-tree", "or-tree-item", "or-tree-branch", "or-tree-leaf", "or-tree-expanded", "or-tree-selected"],
-      "variants": ["default", "selectable", "multi-select"],
+      "cssClasses": [
+        "or-tree",
+        "or-tree-item",
+        "or-tree-branch",
+        "or-tree-leaf",
+        "or-tree-expanded",
+        "or-tree-selected"
+      ],
+      "variants": [
+        "default",
+        "selectable",
+        "multi-select"
+      ],
       "sizes": [],
       "props": [
-        { "name": "data", "type": "array", "default": [] },
-        { "name": "selectable", "type": "boolean", "default": false },
-        { "name": "multiSelect", "type": "boolean", "default": false },
-        { "name": "defaultExpanded", "type": "array", "default": [] },
-        { "name": "showIcons", "type": "boolean", "default": true }
+        {
+          "name": "data",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "multiSelect",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "showIcons",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use for hierarchical data navigation (files, categories, org charts). Lazy-load deep branches. Indicate expandable nodes.",
       "a11y": "Use role='tree', role='treeitem', role='group'. Arrow keys for navigation. aria-expanded on branches."
@@ -850,18 +2448,54 @@
     {
       "name": "Stepper",
       "slug": "stepper",
+      "element": "nav",
       "category": "Navigation",
       "description": "Multi-step progress indicator showing completed, current, and upcoming steps",
       "status": "stable",
-      "cssClasses": ["or-stepper", "or-stepper-step", "or-stepper-active", "or-stepper-completed", "or-stepper-error", "or-stepper-horizontal", "or-stepper-vertical"],
-      "variants": ["horizontal", "vertical"],
+      "cssClasses": [
+        "or-stepper",
+        "or-stepper-step",
+        "or-stepper-active",
+        "or-stepper-completed",
+        "or-stepper-error",
+        "or-stepper-horizontal",
+        "or-stepper-vertical"
+      ],
+      "variants": [
+        "horizontal",
+        "vertical"
+      ],
       "sizes": [],
       "props": [
-        { "name": "steps", "type": "array", "default": [] },
-        { "name": "activeStep", "type": "number", "default": 0 },
-        { "name": "orientation", "type": "string", "options": ["horizontal", "vertical"], "default": "horizontal" },
-        { "name": "clickable", "type": "boolean", "default": false },
-        { "name": "showDescription", "type": "boolean", "default": false }
+        {
+          "name": "steps",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "activeStep",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "orientation",
+          "type": "string",
+          "options": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "horizontal"
+        },
+        {
+          "name": "clickable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "showDescription",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for multi-step workflows (checkout, onboarding). 3-7 steps max. Allow going back to completed steps. Show current step clearly.",
       "a11y": "Use aria-current='step' on active. Completed steps use aria-label including 'completed'. Step numbers visible."
@@ -869,16 +2503,37 @@
     {
       "name": "Mega Menu",
       "slug": "mega-menu",
+      "element": "nav",
       "category": "Navigation",
       "description": "Full-width dropdown navigation panel with categorized links, icons, and featured content",
       "status": "stable",
-      "cssClasses": ["or-mega-menu", "or-mega-menu-trigger", "or-mega-menu-panel", "or-mega-menu-section", "or-mega-menu-item"],
-      "variants": ["default"],
+      "cssClasses": [
+        "or-mega-menu",
+        "or-mega-menu-trigger",
+        "or-mega-menu-panel",
+        "or-mega-menu-section",
+        "or-mega-menu-item"
+      ],
+      "variants": [
+        "default"
+      ],
       "sizes": [],
       "props": [
-        { "name": "sections", "type": "array", "default": [] },
-        { "name": "trigger", "type": "string", "default": null },
-        { "name": "featured", "type": "object", "default": null }
+        {
+          "name": "sections",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "trigger",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "featured",
+          "type": "object",
+          "default": null
+        }
       ],
       "usage": "Use for sites with many top-level categories. Open on hover (desktop) or click (mobile). Include a featured/promoted section.",
       "a11y": "Trigger uses aria-expanded, aria-haspopup='true'. Escape closes. Tab navigates within panel. Focus trap when open."
@@ -886,16 +2541,42 @@
     {
       "name": "Bottom Navigation",
       "slug": "bottom-navigation",
+      "element": "nav",
       "category": "Navigation",
       "description": "Mobile-oriented fixed bottom navigation bar with icons and labels",
       "status": "stable",
-      "cssClasses": ["or-bottom-nav", "or-bottom-nav-item", "or-bottom-nav-active"],
-      "variants": ["default", "labels-always", "labels-active-only"],
+      "cssClasses": [
+        "or-bottom-nav",
+        "or-bottom-nav-item",
+        "or-bottom-nav-active"
+      ],
+      "variants": [
+        "default",
+        "labels-always",
+        "labels-active-only"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "activeItem", "type": "string", "default": null },
-        { "name": "showLabels", "type": "string", "options": ["always", "active-only", "never"], "default": "always" }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "activeItem",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "showLabels",
+          "type": "string",
+          "options": [
+            "always",
+            "active-only",
+            "never"
+          ],
+          "default": "always"
+        }
       ],
       "usage": "Use for mobile apps with 3-5 primary destinations. Icons required, labels strongly recommended. Fixed to bottom of viewport.",
       "a11y": "Use <nav> with role='navigation'. Active item uses aria-current. Items are focusable with clear labels."
@@ -903,17 +2584,49 @@
     {
       "name": "Segmented Control",
       "slug": "segmented-control",
+      "element": "div",
       "category": "Navigation",
       "description": "Inline toggle between 2-5 mutually exclusive views or filter options",
       "status": "stable",
-      "cssClasses": ["or-segmented", "or-segmented-item", "or-segmented-active", "or-segmented-sm", "or-segmented-md"],
-      "variants": ["default"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-segmented",
+        "or-segmented-item",
+        "or-segmented-active",
+        "or-segmented-sm",
+        "or-segmented-md"
+      ],
+      "variants": [
+        "default"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "value", "type": "string", "default": null },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" },
-        { "name": "fullWidth", "type": "boolean", "default": false }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for toggling between 2-5 views or modes. Not for navigation between pages. All options should be related and parallel.",
       "a11y": "Use role='radiogroup' with role='radio' items. Arrow keys navigate. aria-checked on selected."
@@ -921,18 +2634,48 @@
     {
       "name": "Section Header",
       "slug": "section-header",
+      "element": "header",
       "category": "Layout",
       "description": "Page or section title with optional description, badge, and action buttons",
       "status": "stable",
-      "cssClasses": ["or-section-header", "or-section-title", "or-section-description", "or-section-actions"],
-      "variants": ["default", "compact", "with-tabs"],
+      "cssClasses": [
+        "or-section-header",
+        "or-section-title",
+        "or-section-description",
+        "or-section-actions"
+      ],
+      "variants": [
+        "default",
+        "compact",
+        "with-tabs"
+      ],
       "sizes": [],
       "props": [
-        { "name": "title", "type": "string", "default": null },
-        { "name": "description", "type": "string", "default": null },
-        { "name": "badge", "type": "object", "default": null },
-        { "name": "actions", "type": "array", "default": [] },
-        { "name": "compact", "type": "boolean", "default": false }
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "badge",
+          "type": "object",
+          "default": null
+        },
+        {
+          "name": "actions",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use at the top of pages or major sections. One H1 per page. Include action buttons for primary section operations.",
       "a11y": "Use proper heading hierarchy (h1-h6). Actions are keyboard accessible. Badge provides supplementary info."
@@ -940,20 +2683,63 @@
     {
       "name": "CTA Banner",
       "slug": "cta-banner",
+      "element": "section",
       "category": "Layout",
       "description": "Promotional or action-oriented banner with headline, description, and call-to-action buttons",
       "status": "stable",
-      "cssClasses": ["or-cta-banner", "or-cta-banner-primary", "or-cta-banner-secondary", "or-cta-banner-gradient"],
-      "variants": ["primary", "secondary", "gradient"],
+      "cssClasses": [
+        "or-cta-banner",
+        "or-cta-banner-primary",
+        "or-cta-banner-secondary",
+        "or-cta-banner-gradient"
+      ],
+      "variants": [
+        "primary",
+        "secondary",
+        "gradient"
+      ],
       "sizes": [],
       "props": [
-        { "name": "headline", "type": "string", "default": null },
-        { "name": "description", "type": "string", "default": null },
-        { "name": "primaryAction", "type": "object", "default": null },
-        { "name": "secondaryAction", "type": "object", "default": null },
-        { "name": "variant", "type": "string", "options": ["primary", "secondary", "gradient"], "default": "primary" },
-        { "name": "dismissible", "type": "boolean", "default": false },
-        { "name": "image", "type": "string", "default": null }
+        {
+          "name": "headline",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "primaryAction",
+          "type": "object",
+          "default": null
+        },
+        {
+          "name": "secondaryAction",
+          "type": "object",
+          "default": null
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "primary",
+            "secondary",
+            "gradient"
+          ],
+          "default": "primary"
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "default": null
+        }
       ],
       "usage": "Use sparingly for high-priority promotions or upgrades. One CTA banner per view. Ensure clear value proposition.",
       "a11y": "Use role='banner' or a semantic section. CTA buttons have clear action text. Dismissible has accessible close button."
@@ -961,16 +2747,44 @@
     {
       "name": "Divider",
       "slug": "divider",
+      "element": "hr",
       "category": "Layout",
       "description": "Horizontal or vertical line separator with optional label for visual grouping",
       "status": "stable",
-      "cssClasses": ["or-divider", "or-divider-horizontal", "or-divider-vertical", "or-divider-label", "or-divider-dashed"],
-      "variants": ["horizontal", "vertical", "with-label", "dashed"],
+      "cssClasses": [
+        "or-divider",
+        "or-divider-horizontal",
+        "or-divider-vertical",
+        "or-divider-label",
+        "or-divider-dashed"
+      ],
+      "variants": [
+        "horizontal",
+        "vertical",
+        "with-label",
+        "dashed"
+      ],
       "sizes": [],
       "props": [
-        { "name": "orientation", "type": "string", "options": ["horizontal", "vertical"], "default": "horizontal" },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "dashed", "type": "boolean", "default": false }
+        {
+          "name": "orientation",
+          "type": "string",
+          "options": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "horizontal"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "dashed",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use to separate content groups. Don't overuse -- spacing alone is often enough. Label variant for 'or' separators in forms.",
       "a11y": "Use role='separator'. Decorative dividers use aria-hidden='true'. Labeled dividers include the text accessibly."
@@ -978,19 +2792,72 @@
     {
       "name": "Drawer/Sheet",
       "slug": "drawer-sheet",
+      "element": "aside",
       "category": "Layout",
       "description": "Slide-in panel from edge of screen for secondary content, filters, or detail views",
       "status": "stable",
-      "cssClasses": ["or-drawer", "or-drawer-overlay", "or-drawer-content", "or-drawer-header", "or-drawer-body", "or-drawer-footer", "or-drawer-left", "or-drawer-right", "or-drawer-bottom"],
-      "variants": ["left", "right", "bottom"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-drawer",
+        "or-drawer-overlay",
+        "or-drawer-content",
+        "or-drawer-header",
+        "or-drawer-body",
+        "or-drawer-footer",
+        "or-drawer-left",
+        "or-drawer-right",
+        "or-drawer-bottom"
+      ],
+      "variants": [
+        "left",
+        "right",
+        "bottom"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "open", "type": "boolean", "default": false },
-        { "name": "position", "type": "string", "options": ["left", "right", "bottom"], "default": "right" },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "title", "type": "string", "default": null },
-        { "name": "closeOnOverlay", "type": "boolean", "default": true },
-        { "name": "closeOnEscape", "type": "boolean", "default": true }
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "options": [
+            "left",
+            "right",
+            "bottom"
+          ],
+          "default": "right"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "closeOnOverlay",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use for detail views, filters, or forms that don't warrant a full page. Right-side for detail, left for navigation, bottom for mobile.",
       "a11y": "Same as Modal: role='dialog', aria-modal='true', focus trap, aria-labelledby. Return focus on close."
@@ -998,18 +2865,47 @@
     {
       "name": "Kanban Board",
       "slug": "kanban-board",
+      "element": "div",
       "category": "Layout",
       "description": "Column-based drag-and-drop board for workflow and task management",
       "status": "stable",
-      "cssClasses": ["or-kanban", "or-kanban-column", "or-kanban-card", "or-kanban-header", "or-kanban-add"],
-      "variants": ["default"],
+      "cssClasses": [
+        "or-kanban",
+        "or-kanban-column",
+        "or-kanban-card",
+        "or-kanban-header",
+        "or-kanban-add"
+      ],
+      "variants": [
+        "default"
+      ],
       "sizes": [],
       "props": [
-        { "name": "columns", "type": "array", "default": [] },
-        { "name": "draggable", "type": "boolean", "default": true },
-        { "name": "addCard", "type": "boolean", "default": true },
-        { "name": "addColumn", "type": "boolean", "default": false },
-        { "name": "columnLimit", "type": "number", "default": null }
+        {
+          "name": "columns",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "addCard",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "addColumn",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "columnLimit",
+          "type": "number",
+          "default": null
+        }
       ],
       "usage": "Use for workflow visualization (To Do / In Progress / Done). Horizontal scroll for many columns. Show card count per column.",
       "a11y": "Use aria-roledescription='Kanban board'. Drag-and-drop has keyboard alternative (move via menu). Announce card movements."
@@ -1017,16 +2913,37 @@
     {
       "name": "Toolbar",
       "slug": "toolbar",
+      "element": "div",
       "category": "Layout",
       "description": "Horizontal bar with grouped action buttons, toggles, and controls for content manipulation",
       "status": "stable",
-      "cssClasses": ["or-toolbar", "or-toolbar-group", "or-toolbar-separator", "or-toolbar-item"],
-      "variants": ["default", "compact"],
+      "cssClasses": [
+        "or-toolbar",
+        "or-toolbar-group",
+        "or-toolbar-separator",
+        "or-toolbar-item"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "compact", "type": "boolean", "default": false },
-        { "name": "sticky", "type": "boolean", "default": false }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use above content areas for actions (text editor toolbar, table actions). Group related actions. Use separators between groups.",
       "a11y": "Use role='toolbar'. Arrow keys navigate between items. Items use aria-pressed for toggle state."
@@ -1034,19 +2951,59 @@
     {
       "name": "Image Gallery",
       "slug": "image-gallery",
+      "element": "div",
       "category": "Layout",
       "description": "Grid or carousel display of images with lightbox, thumbnails, and zoom",
       "status": "stable",
-      "cssClasses": ["or-gallery", "or-gallery-grid", "or-gallery-carousel", "or-gallery-lightbox", "or-gallery-thumbnail"],
-      "variants": ["grid", "carousel", "masonry"],
+      "cssClasses": [
+        "or-gallery",
+        "or-gallery-grid",
+        "or-gallery-carousel",
+        "or-gallery-lightbox",
+        "or-gallery-thumbnail"
+      ],
+      "variants": [
+        "grid",
+        "carousel",
+        "masonry"
+      ],
       "sizes": [],
       "props": [
-        { "name": "images", "type": "array", "default": [] },
-        { "name": "layout", "type": "string", "options": ["grid", "carousel", "masonry"], "default": "grid" },
-        { "name": "columns", "type": "number", "default": 3 },
-        { "name": "lightbox", "type": "boolean", "default": true },
-        { "name": "thumbnails", "type": "boolean", "default": false },
-        { "name": "autoplay", "type": "boolean", "default": false }
+        {
+          "name": "images",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "layout",
+          "type": "string",
+          "options": [
+            "grid",
+            "carousel",
+            "masonry"
+          ],
+          "default": "grid"
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "default": 3
+        },
+        {
+          "name": "lightbox",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "thumbnails",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use grid for uniform thumbnails, masonry for mixed aspect ratios, carousel for featured images. Always provide lightbox for detail view.",
       "a11y": "All images have alt text. Lightbox traps focus. Carousel has pause button. Arrow key navigation."
@@ -1054,20 +3011,64 @@
     {
       "name": "Audio Player",
       "slug": "audio-player",
+      "element": "div",
       "category": "Layout",
       "description": "Audio playback controls with play/pause, seek, volume, speed, and waveform visualization",
       "status": "stable",
-      "cssClasses": ["or-audio-player", "or-audio-player-compact", "or-audio-controls", "or-audio-waveform", "or-audio-progress"],
-      "variants": ["default", "compact", "mini"],
+      "cssClasses": [
+        "or-audio-player",
+        "or-audio-player-compact",
+        "or-audio-controls",
+        "or-audio-waveform",
+        "or-audio-progress"
+      ],
+      "variants": [
+        "default",
+        "compact",
+        "mini"
+      ],
       "sizes": [],
       "props": [
-        { "name": "src", "type": "string", "default": null },
-        { "name": "title", "type": "string", "default": null },
-        { "name": "artist", "type": "string", "default": null },
-        { "name": "artwork", "type": "string", "default": null },
-        { "name": "waveform", "type": "boolean", "default": false },
-        { "name": "compact", "type": "boolean", "default": false },
-        { "name": "playbackRates", "type": "array", "default": [0.5, 1, 1.5, 2] }
+        {
+          "name": "src",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "artist",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "artwork",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "waveform",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "playbackRates",
+          "type": "array",
+          "default": [
+            0.5,
+            1,
+            1.5,
+            2
+          ]
+        }
       ],
       "usage": "Use default variant for primary audio content. Compact for inline playback. Mini for minimal controls in lists.",
       "a11y": "All controls have accessible labels. Keyboard shortcuts for play/pause (Space), seek (arrows), volume (up/down). Announce track changes."
@@ -1075,18 +3076,60 @@
     {
       "name": "Tooltip",
       "slug": "tooltip",
+      "element": "div",
       "category": "Overlay",
       "description": "Contextual text popup on hover/focus for supplementary information",
       "status": "stable",
-      "cssClasses": ["or-tooltip", "or-tooltip-top", "or-tooltip-bottom", "or-tooltip-left", "or-tooltip-right", "or-tooltip-dark", "or-tooltip-light"],
-      "variants": ["dark", "light"],
+      "cssClasses": [
+        "or-tooltip",
+        "or-tooltip-top",
+        "or-tooltip-bottom",
+        "or-tooltip-left",
+        "or-tooltip-right",
+        "or-tooltip-dark",
+        "or-tooltip-light"
+      ],
+      "variants": [
+        "dark",
+        "light"
+      ],
       "sizes": [],
       "props": [
-        { "name": "content", "type": "string", "default": null },
-        { "name": "position", "type": "string", "options": ["top", "bottom", "left", "right"], "default": "top" },
-        { "name": "variant", "type": "string", "options": ["dark", "light"], "default": "dark" },
-        { "name": "delay", "type": "number", "default": 300 },
-        { "name": "maxWidth", "type": "string", "default": "240px" }
+        {
+          "name": "content",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "options": [
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ],
+          "default": "top"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "dark",
+            "light"
+          ],
+          "default": "dark"
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "default": 300
+        },
+        {
+          "name": "maxWidth",
+          "type": "string",
+          "default": "240px"
+        }
       ],
       "usage": "Use for brief supplementary text (1-2 lines). Not for essential info -- users may not discover tooltips. Don't put interactive content inside.",
       "a11y": "Use aria-describedby linking trigger to tooltip. Show on focus as well as hover. Dismiss with Escape."
@@ -1094,17 +3137,55 @@
     {
       "name": "Dropdown Menu",
       "slug": "dropdown-menu",
+      "element": "div",
       "category": "Overlay",
       "description": "Action menu triggered by a button with items, dividers, icons, and keyboard navigation",
       "status": "stable",
-      "cssClasses": ["or-dropdown", "or-dropdown-trigger", "or-dropdown-menu", "or-dropdown-item", "or-dropdown-divider", "or-dropdown-header"],
-      "variants": ["default"],
-      "sizes": ["sm", "md"],
+      "cssClasses": [
+        "or-dropdown",
+        "or-dropdown-trigger",
+        "or-dropdown-menu",
+        "or-dropdown-item",
+        "or-dropdown-divider",
+        "or-dropdown-header"
+      ],
+      "variants": [
+        "default"
+      ],
+      "sizes": [
+        "sm",
+        "md"
+      ],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "trigger", "type": "string", "default": null },
-        { "name": "align", "type": "string", "options": ["start", "end", "center"], "default": "start" },
-        { "name": "size", "type": "string", "options": ["sm", "md"], "default": "md" }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "trigger",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "align",
+          "type": "string",
+          "options": [
+            "start",
+            "end",
+            "center"
+          ],
+          "default": "start"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Use for actions on a specific item (row actions, more menu). Group related items with dividers. Show destructive actions in error color.",
       "a11y": "Trigger uses aria-expanded, aria-haspopup='menu'. Menu uses role='menu', items role='menuitem'. Arrow keys, Enter, Escape."
@@ -1112,18 +3193,66 @@
     {
       "name": "Popover",
       "slug": "popover",
+      "element": "div",
       "category": "Overlay",
       "description": "Rich content popup anchored to a trigger, supporting forms, lists, and interactive content",
       "status": "stable",
-      "cssClasses": ["or-popover", "or-popover-trigger", "or-popover-content", "or-popover-arrow", "or-popover-header"],
-      "variants": ["default"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-popover",
+        "or-popover-trigger",
+        "or-popover-content",
+        "or-popover-arrow",
+        "or-popover-header"
+      ],
+      "variants": [
+        "default"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "trigger", "type": "string", "options": ["click", "hover"], "default": "click" },
-        { "name": "position", "type": "string", "options": ["top", "bottom", "left", "right"], "default": "bottom" },
-        { "name": "showArrow", "type": "boolean", "default": true },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "closeOnOutsideClick", "type": "boolean", "default": true }
+        {
+          "name": "trigger",
+          "type": "string",
+          "options": [
+            "click",
+            "hover"
+          ],
+          "default": "click"
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "options": [
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ],
+          "default": "bottom"
+        },
+        {
+          "name": "showArrow",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "closeOnOutsideClick",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use for rich interactive content that doesn't warrant a modal (mini forms, preview cards). Click-triggered for interactive content.",
       "a11y": "Trigger uses aria-expanded. Popover has role='dialog' if interactive. Focus managed inside. Escape closes."
@@ -1131,18 +3260,48 @@
     {
       "name": "Command Palette",
       "slug": "command-palette",
+      "element": "div",
       "category": "Overlay",
       "description": "Keyboard-driven searchable command launcher for quick navigation and actions",
       "status": "stable",
-      "cssClasses": ["or-command-palette", "or-command-input", "or-command-list", "or-command-item", "or-command-group", "or-command-shortcut"],
-      "variants": ["default"],
+      "cssClasses": [
+        "or-command-palette",
+        "or-command-input",
+        "or-command-list",
+        "or-command-item",
+        "or-command-group",
+        "or-command-shortcut"
+      ],
+      "variants": [
+        "default"
+      ],
       "sizes": [],
       "props": [
-        { "name": "commands", "type": "array", "default": [] },
-        { "name": "placeholder", "type": "string", "default": "Type a command..." },
-        { "name": "shortcut", "type": "string", "default": "Cmd+K" },
-        { "name": "recentCommands", "type": "array", "default": [] },
-        { "name": "groups", "type": "array", "default": [] }
+        {
+          "name": "commands",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Type a command..."
+        },
+        {
+          "name": "shortcut",
+          "type": "string",
+          "default": "Cmd+K"
+        },
+        {
+          "name": "recentCommands",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "groups",
+          "type": "array",
+          "default": []
+        }
       ],
       "usage": "Trigger with Cmd/Ctrl+K. Show recent commands first. Group by category. Support fuzzy search. Display keyboard shortcuts.",
       "a11y": "Use role='combobox' with aria-expanded. Results use role='listbox'. Arrow keys navigate. Enter executes. Escape closes."
@@ -1150,18 +3309,50 @@
     {
       "name": "Accordion",
       "slug": "accordion",
+      "element": "div",
       "category": "Overlay",
       "description": "Vertically stacked collapsible sections for progressive disclosure of content",
       "status": "stable",
-      "cssClasses": ["or-accordion", "or-accordion-item", "or-accordion-header", "or-accordion-content", "or-accordion-open", "or-accordion-bordered"],
-      "variants": ["default", "bordered", "flush"],
+      "cssClasses": [
+        "or-accordion",
+        "or-accordion-item",
+        "or-accordion-header",
+        "or-accordion-content",
+        "or-accordion-open",
+        "or-accordion-bordered"
+      ],
+      "variants": [
+        "default",
+        "bordered",
+        "flush"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "multiple", "type": "boolean", "default": false },
-        { "name": "defaultOpen", "type": "array", "default": [] },
-        { "name": "bordered", "type": "boolean", "default": true },
-        { "name": "flush", "type": "boolean", "default": false }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "defaultOpen",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "flush",
+          "type": "boolean",
+          "default": false
+        }
       ],
       "usage": "Use for FAQs, settings groups, or long forms. Allow multiple open for reference content. Single open for focused reading.",
       "a11y": "Use <details>/<summary> or role='region' with aria-expanded buttons. Arrow keys between headers. Enter/Space toggles."
@@ -1169,20 +3360,60 @@
     {
       "name": "Comment/Thread",
       "slug": "comment-thread",
+      "element": "article",
       "category": "Content",
       "description": "Threaded discussion component with replies, reactions, and author info",
       "status": "stable",
-      "cssClasses": ["or-comment", "or-comment-thread", "or-comment-reply", "or-comment-author", "or-comment-body", "or-comment-actions", "or-comment-reactions"],
-      "variants": ["default", "compact"],
+      "cssClasses": [
+        "or-comment",
+        "or-comment-thread",
+        "or-comment-reply",
+        "or-comment-author",
+        "or-comment-body",
+        "or-comment-actions",
+        "or-comment-reactions"
+      ],
+      "variants": [
+        "default",
+        "compact"
+      ],
       "sizes": [],
       "props": [
-        { "name": "author", "type": "object", "default": null },
-        { "name": "content", "type": "string", "default": null },
-        { "name": "timestamp", "type": "string", "default": null },
-        { "name": "replies", "type": "array", "default": [] },
-        { "name": "reactions", "type": "array", "default": [] },
-        { "name": "editable", "type": "boolean", "default": false },
-        { "name": "replyable", "type": "boolean", "default": true }
+        {
+          "name": "author",
+          "type": "object",
+          "default": null
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "timestamp",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "replies",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "reactions",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "replyable",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use for discussions, code review, or feedback threads. Indent replies to show hierarchy. Show newest replies last.",
       "a11y": "Use <article> for each comment. Time element for timestamps. Reply forms are keyboard accessible. Announce new replies."
@@ -1190,17 +3421,44 @@
     {
       "name": "Notification Panel",
       "slug": "notification-panel",
+      "element": "aside",
       "category": "Content",
       "description": "Grouped notification list with read/unread states, categories, and mark-all-read action",
       "status": "stable",
-      "cssClasses": ["or-notification-panel", "or-notification-item", "or-notification-unread", "or-notification-group", "or-notification-header", "or-notification-empty"],
-      "variants": ["default", "grouped"],
+      "cssClasses": [
+        "or-notification-panel",
+        "or-notification-item",
+        "or-notification-unread",
+        "or-notification-group",
+        "or-notification-header",
+        "or-notification-empty"
+      ],
+      "variants": [
+        "default",
+        "grouped"
+      ],
       "sizes": [],
       "props": [
-        { "name": "notifications", "type": "array", "default": [] },
-        { "name": "grouped", "type": "boolean", "default": false },
-        { "name": "markAllRead", "type": "boolean", "default": true },
-        { "name": "emptyMessage", "type": "string", "default": "No notifications" }
+        {
+          "name": "notifications",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "grouped",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "markAllRead",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "default": "No notifications"
+        }
       ],
       "usage": "Use in a dropdown or drawer. Group by date or type. Unread items visually distinct. Provide mark-all-read shortcut.",
       "a11y": "Use role='list' for notifications. Unread indicated with aria-label. New notifications announced with aria-live."
@@ -1208,18 +3466,56 @@
     {
       "name": "Calendar View",
       "slug": "calendar-view",
+      "element": "div",
       "category": "Content",
       "description": "Full calendar display with month/week/day views, event rendering, and drag-to-create",
       "status": "stable",
-      "cssClasses": ["or-calendar", "or-calendar-month", "or-calendar-week", "or-calendar-day", "or-calendar-event", "or-calendar-toolbar", "or-calendar-today"],
-      "variants": ["month", "week", "day"],
+      "cssClasses": [
+        "or-calendar",
+        "or-calendar-month",
+        "or-calendar-week",
+        "or-calendar-day",
+        "or-calendar-event",
+        "or-calendar-toolbar",
+        "or-calendar-today"
+      ],
+      "variants": [
+        "month",
+        "week",
+        "day"
+      ],
       "sizes": [],
       "props": [
-        { "name": "view", "type": "string", "options": ["month", "week", "day"], "default": "month" },
-        { "name": "events", "type": "array", "default": [] },
-        { "name": "date", "type": "string", "default": null },
-        { "name": "editable", "type": "boolean", "default": false },
-        { "name": "selectable", "type": "boolean", "default": true }
+        {
+          "name": "view",
+          "type": "string",
+          "options": [
+            "month",
+            "week",
+            "day"
+          ],
+          "default": "month"
+        },
+        {
+          "name": "events",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use month view for overview, week for scheduling, day for detailed timeline. Color-code event categories. Show today prominently.",
       "a11y": "Use role='grid' for calendar. Navigate dates with arrow keys. Events are focusable with full details in label. Announce view changes."
@@ -1227,20 +3523,63 @@
     {
       "name": "Pricing Card",
       "slug": "pricing-card",
+      "element": "article",
       "category": "Content",
       "description": "Plan/pricing display card with feature list, price, billing period, and CTA",
       "status": "stable",
-      "cssClasses": ["or-pricing-card", "or-pricing-featured", "or-pricing-header", "or-pricing-features", "or-pricing-price", "or-pricing-cta"],
-      "variants": ["default", "featured"],
+      "cssClasses": [
+        "or-pricing-card",
+        "or-pricing-featured",
+        "or-pricing-header",
+        "or-pricing-features",
+        "or-pricing-price",
+        "or-pricing-cta"
+      ],
+      "variants": [
+        "default",
+        "featured"
+      ],
       "sizes": [],
       "props": [
-        { "name": "planName", "type": "string", "default": null },
-        { "name": "price", "type": "string|number", "default": null },
-        { "name": "period", "type": "string", "options": ["monthly", "yearly"], "default": "monthly" },
-        { "name": "features", "type": "array", "default": [] },
-        { "name": "featured", "type": "boolean", "default": false },
-        { "name": "ctaLabel", "type": "string", "default": "Get Started" },
-        { "name": "badge", "type": "string", "default": null }
+        {
+          "name": "planName",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "price",
+          "type": "string|number",
+          "default": null
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "options": [
+            "monthly",
+            "yearly"
+          ],
+          "default": "monthly"
+        },
+        {
+          "name": "features",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "featured",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "ctaLabel",
+          "type": "string",
+          "default": "Get Started"
+        },
+        {
+          "name": "badge",
+          "type": "string",
+          "default": null
+        }
       ],
       "usage": "Use in a row of 2-4 plans. Highlight recommended plan with featured variant. Show annual savings. Keep feature lists comparable.",
       "a11y": "Use clear heading for plan name. Feature list uses <ul>. CTA button is the primary action. Indicate featured plan."
@@ -1248,20 +3587,64 @@
     {
       "name": "Testimonial",
       "slug": "testimonial",
+      "element": "blockquote",
       "category": "Content",
       "description": "Customer quote display with attribution, avatar, role, and company",
       "status": "stable",
-      "cssClasses": ["or-testimonial", "or-testimonial-quote", "or-testimonial-author", "or-testimonial-card", "or-testimonial-carousel"],
-      "variants": ["card", "inline", "carousel"],
+      "cssClasses": [
+        "or-testimonial",
+        "or-testimonial-quote",
+        "or-testimonial-author",
+        "or-testimonial-card",
+        "or-testimonial-carousel"
+      ],
+      "variants": [
+        "card",
+        "inline",
+        "carousel"
+      ],
       "sizes": [],
       "props": [
-        { "name": "quote", "type": "string", "default": null },
-        { "name": "author", "type": "string", "default": null },
-        { "name": "role", "type": "string", "default": null },
-        { "name": "company", "type": "string", "default": null },
-        { "name": "avatar", "type": "string", "default": null },
-        { "name": "variant", "type": "string", "options": ["card", "inline", "carousel"], "default": "card" },
-        { "name": "rating", "type": "number", "default": null }
+        {
+          "name": "quote",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "author",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "company",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "avatar",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "card",
+            "inline",
+            "carousel"
+          ],
+          "default": "card"
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "default": null
+        }
       ],
       "usage": "Use for social proof on landing pages. Include real names and roles. Card variant for standalone, carousel for multiple.",
       "a11y": "Use <blockquote> with <cite>. Avatar is decorative. Carousel has pause/navigation controls."
@@ -1269,19 +3652,74 @@
     {
       "name": "FAB",
       "slug": "fab",
+      "element": "button",
       "category": "Content",
       "description": "Floating action button for primary screen-level action, fixed positioned",
       "status": "stable",
-      "cssClasses": ["or-fab", "or-fab-primary", "or-fab-secondary", "or-fab-extended", "or-fab-sm", "or-fab-md", "or-fab-lg"],
-      "variants": ["primary", "secondary", "extended"],
-      "sizes": ["sm", "md", "lg"],
+      "cssClasses": [
+        "or-fab",
+        "or-fab-primary",
+        "or-fab-secondary",
+        "or-fab-extended",
+        "or-fab-sm",
+        "or-fab-md",
+        "or-fab-lg"
+      ],
+      "variants": [
+        "primary",
+        "secondary",
+        "extended"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "icon", "type": "string", "default": null },
-        { "name": "label", "type": "string", "default": null },
-        { "name": "variant", "type": "string", "options": ["primary", "secondary"], "default": "primary" },
-        { "name": "extended", "type": "boolean", "default": false },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" },
-        { "name": "position", "type": "string", "options": ["bottom-right", "bottom-left", "bottom-center"], "default": "bottom-right" }
+        {
+          "name": "icon",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "primary",
+            "secondary"
+          ],
+          "default": "primary"
+        },
+        {
+          "name": "extended",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "options": [
+            "bottom-right",
+            "bottom-left",
+            "bottom-center"
+          ],
+          "default": "bottom-right"
+        }
       ],
       "usage": "Use for the single most important action on a screen (create, compose). One FAB per view. Extended variant includes text label.",
       "a11y": "Use <button> with aria-label. Extended FAB includes visible text. Ensure not obscuring content. Keyboard accessible."
@@ -1292,49 +3730,135 @@
       "name": "Dashboard",
       "slug": "dashboard",
       "description": "Analytics dashboard layout with stat cards, charts area, recent activity, and data table",
-      "components_used": ["sidebar-nav", "section-header", "stat-card", "card", "data-table-advanced", "activity-feed", "badge", "avatar", "dropdown-menu"]
+      "components_used": [
+        "sidebar-nav",
+        "section-header",
+        "stat-card",
+        "card",
+        "data-table-advanced",
+        "activity-feed",
+        "badge",
+        "avatar",
+        "dropdown-menu"
+      ]
     },
     {
       "name": "Settings Page",
       "slug": "settings-page",
       "description": "User/account settings with tabbed sections, form controls, and save actions",
-      "components_used": ["tabs", "section-header", "input", "select", "toggle-switch", "checkbox", "file-upload", "button", "toast-alert", "avatar", "divider"]
+      "components_used": [
+        "tabs",
+        "section-header",
+        "input",
+        "select",
+        "toggle-switch",
+        "checkbox",
+        "file-upload",
+        "button",
+        "toast-alert",
+        "avatar",
+        "divider"
+      ]
     },
     {
       "name": "Auth Flow",
       "slug": "auth-flow",
       "description": "Login, register, forgot password, and OTP verification screens",
-      "components_used": ["input", "button", "checkbox", "otp-input", "divider", "alert-banner", "card"]
+      "components_used": [
+        "input",
+        "button",
+        "checkbox",
+        "otp-input",
+        "divider",
+        "alert-banner",
+        "card"
+      ]
     },
     {
       "name": "Listing Page",
       "slug": "listing-page",
       "description": "Filtered and paginated item listing with search, filters, and grid/list view toggle",
-      "components_used": ["section-header", "input", "select", "pills-chips", "card", "pagination", "segmented-control", "empty-state", "loading-skeleton", "badge"]
+      "components_used": [
+        "section-header",
+        "input",
+        "select",
+        "pills-chips",
+        "card",
+        "pagination",
+        "segmented-control",
+        "empty-state",
+        "loading-skeleton",
+        "badge"
+      ]
     },
     {
       "name": "Detail Page",
       "slug": "detail-page",
       "description": "Entity detail view with metadata, timeline, comments, and related items",
-      "components_used": ["section-header", "breadcrumbs", "metadata-grid", "tabs", "timeline", "comment-thread", "badge", "status-indicator", "button", "dropdown-menu", "avatar"]
+      "components_used": [
+        "section-header",
+        "breadcrumbs",
+        "metadata-grid",
+        "tabs",
+        "timeline",
+        "comment-thread",
+        "badge",
+        "status-indicator",
+        "button",
+        "dropdown-menu",
+        "avatar"
+      ]
     },
     {
       "name": "Kanban Workflow",
       "slug": "kanban-workflow",
       "description": "Project management board with columns, cards, filters, and quick-add",
-      "components_used": ["kanban-board", "section-header", "toolbar", "pills-chips", "avatar", "badge", "dropdown-menu", "modal", "input", "select", "date-picker"]
+      "components_used": [
+        "kanban-board",
+        "section-header",
+        "toolbar",
+        "pills-chips",
+        "avatar",
+        "badge",
+        "dropdown-menu",
+        "modal",
+        "input",
+        "select",
+        "date-picker"
+      ]
     },
     {
       "name": "Pricing Page",
       "slug": "pricing-page",
       "description": "Plan comparison page with pricing cards, feature matrix, and testimonials",
-      "components_used": ["pricing-card", "segmented-control", "section-header", "table", "testimonial", "badge", "button", "accordion", "cta-banner"]
+      "components_used": [
+        "pricing-card",
+        "segmented-control",
+        "section-header",
+        "table",
+        "testimonial",
+        "badge",
+        "button",
+        "accordion",
+        "cta-banner"
+      ]
     },
     {
       "name": "Notification Center",
       "slug": "notification-center",
       "description": "Full notification management with panel, preferences, and history",
-      "components_used": ["notification-panel", "drawer-sheet", "tabs", "notification-badge", "toggle-switch", "empty-state", "pagination", "badge", "avatar", "date-time-display"]
+      "components_used": [
+        "notification-panel",
+        "drawer-sheet",
+        "tabs",
+        "notification-badge",
+        "toggle-switch",
+        "empty-state",
+        "pagination",
+        "badge",
+        "avatar",
+        "date-time-display"
+      ]
     }
   ],
   "guidelines": {
