@@ -1,0 +1,434 @@
+/* ═══════════════════════════════════════════════════════════════
+   OpenReel Design System — Responsive Layer
+   ═══════════════════════════════════════════════════════════════
+   Mobile-first responsive overrides for the full DS.
+
+   Breakpoints (Tailwind defaults):
+     sm:  640px
+     md:  768px
+     lg: 1024px
+     xl: 1280px
+
+   Import order:
+     1. openreel.css          (tokens + components)
+     2. openreel-motion.css   (transitions, optional)
+     3. openreel-responsive.css  ← this file
+     4. openreel-effects.js   (JS, optional)
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────
+   1. RESPONSIVE TYPOGRAPHY
+   ───────────────────────────────────────────── */
+
+:root {
+  --text-xs:  clamp(9px,  0.5rem   + 0.1vw,  10px);
+  --text-sm:  clamp(11px, 0.625rem + 0.1vw,  12px);
+  --text-base:clamp(13px, 0.75rem  + 0.15vw, 14px);
+  --text-md:  clamp(14px, 0.8rem   + 0.2vw,  16px);
+  --text-lg:  clamp(16px, 0.9rem   + 0.25vw, 18px);
+  --text-xl:  clamp(18px, 1rem     + 0.3vw,  20px);
+  --text-2xl: clamp(20px, 1.1rem   + 0.5vw,  24px);
+}
+
+
+/* ─────────────────────────────────────────────
+   2. HAMBURGER MENU BUTTON
+   ───────────────────────────────────────────── */
+
+.or-hamburger {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--bg-primary, #fff);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+}
+
+.or-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary, #101828);
+  border-radius: 2px;
+  transition: transform var(--duration-slow, 300ms) var(--ease-default, cubic-bezier(0.2, 0, 0, 1)),
+              opacity  var(--duration-slow, 300ms) var(--ease-default, cubic-bezier(0.2, 0, 0, 1));
+}
+
+/* Hamburger → X animation */
+.or-hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.or-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.or-hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+/* ─────────────────────────────────────────────
+   3. SIDEBAR OVERLAY
+   ───────────────────────────────────────────── */
+
+.or-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity var(--duration-slow, 300ms) var(--ease-default, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.or-sidebar-overlay.active {
+  opacity: 1;
+}
+
+
+/* ─────────────────────────────────────────────
+   4. SIDEBAR RESPONSIVE  (< lg)
+   ───────────────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  .or-hamburger {
+    display: flex;
+  }
+
+  #ds-sidebar,
+  .ds-sidebar,
+  [class*="sidebar"] {
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+    z-index: 1000 !important;
+    width: 280px !important;
+    top: 0 !important;
+    height: 100vh !important;
+    padding-top: 72px !important;
+  }
+
+  #ds-sidebar.or-sidebar-open,
+  .ds-sidebar.or-sidebar-open,
+  [class*="sidebar"].or-sidebar-open {
+    transform: translateX(0);
+  }
+
+  /* Remove margin-left from main content */
+  #ds-sidebar + *,
+  .ds-sidebar ~ main,
+  .ds-sidebar ~ div,
+  [style*="margin-left: 260px"],
+  [style*="margin-left:260px"] {
+    margin-left: 0 !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   5. HEADER / TOPBAR RESPONSIVE
+   ───────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  header,
+  .header,
+  .topbar {
+    padding-left: 56px !important; /* room for hamburger */
+  }
+
+  /* Hide desktop nav items on mobile */
+  .header-nav,
+  .nav-links {
+    display: none !important;
+  }
+}
+
+@media (max-width: 639px) {
+  header,
+  .header,
+  .topbar {
+    padding: 12px 16px 12px 56px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   6. GRID LAYOUTS RESPONSIVE
+   ───────────────────────────────────────────── */
+
+/* Tablet: 4-col & 3-col → 2-col */
+@media (max-width: 767px) {
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns:repeat(4"],
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns:repeat(3"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* Small mobile: everything → 1 col */
+@media (max-width: 479px) {
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns:repeat(4"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns:repeat(3"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"],
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   7. FLEX LAYOUTS RESPONSIVE
+   ───────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  /* Flex rows that should wrap on mobile */
+  [style*="display: flex"][style*="gap"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* Section headers: stack title and actions */
+  .or-section-header,
+  [style*="justify-content: space-between"] {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   8. TABLES RESPONSIVE
+   ───────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .or-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table,
+  .or-data-table {
+    min-width: 600px;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   9. COMPONENT RESPONSIVE ADJUSTMENTS
+   ───────────────────────────────────────────── */
+
+/* Cards — full width on small screens */
+@media (max-width: 639px) {
+  .or-card {
+    width: 100% !important;
+  }
+}
+
+/* Modals — fullscreen on mobile */
+@media (max-width: 639px) {
+  .or-modal-content,
+  .or-modal-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100vh !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* Drawer — full width on mobile */
+@media (max-width: 639px) {
+  .or-drawer,
+  .or-drawer-sheet {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Bottom nav — visible only on mobile */
+.or-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .or-bottom-nav {
+    display: flex;
+  }
+}
+
+/* Input groups stack on small mobile */
+@media (max-width: 479px) {
+  .or-input-group {
+    width: 100% !important;
+  }
+
+  .or-input {
+    width: 100% !important;
+  }
+}
+
+/* Large buttons full width on very small screens */
+@media (max-width: 479px) {
+  .or-btn-lg {
+    width: 100%;
+  }
+}
+
+/* Pricing cards stack */
+@media (max-width: 767px) {
+  .or-pricing-card {
+    width: 100% !important;
+  }
+}
+
+/* Tabs scroll horizontally on mobile */
+@media (max-width: 639px) {
+  .or-tabs,
+  [role="tablist"] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none;
+  }
+
+  .or-tabs::-webkit-scrollbar,
+  [role="tablist"]::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Mega menu: stack columns on mobile */
+@media (max-width: 767px) {
+  .or-mega-menu-content {
+    flex-direction: column !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   10. SPACING ADJUSTMENTS
+   ───────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  /* Reduce section padding on mobile */
+  section,
+  .component-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  section,
+  .component-section {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .or-card-body,
+  .or-card__body {
+    padding: 12px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   11. DS DOCUMENTATION PAGES — SPECIFIC FIXES
+   ───────────────────────────────────────────── */
+
+/* Preview boxes in component demos */
+@media (max-width: 767px) {
+  .preview-box,
+  .preview-box-start {
+    padding: 16px !important;
+    gap: 8px !important;
+  }
+
+  .preview-box-col {
+    padding: 16px !important;
+  }
+}
+
+/* Code blocks scroll */
+@media (max-width: 767px) {
+  .code-wrapper pre {
+    font-size: 11px !important;
+  }
+
+  .code-wrapper code {
+    font-size: 11px !important;
+  }
+}
+
+/* Command palette responsive */
+@media (max-width: 639px) {
+  .or-cmd-dialog {
+    width: calc(100% - 32px) !important;
+    max-width: none !important;
+    margin: 16px !important;
+  }
+}
+
+/* Scroll progress bar thinner on mobile */
+@media (max-width: 639px) {
+  [style*="z-index: 99999"][style*="height: 3px"] {
+    height: 2px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   12. TOUCH-FRIENDLY
+   ───────────────────────────────────────────── */
+
+/* Increase touch targets on mobile */
+@media (max-width: 767px) {
+  .or-btn-sm {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .or-checkbox,
+  .or-radio {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Disable hover-dependent transform effects on touch */
+  .or-card:hover {
+    transform: none;
+  }
+}
+
+/* Disable magnetic / tilt / glow on touch devices */
+@media (hover: none) {
+  [data-or-magnetic],
+  [data-or-tilt],
+  [data-or-glow] {
+    pointer-events: auto;
+  }
+}
