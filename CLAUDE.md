@@ -385,6 +385,26 @@ Navigation between DS pages uses the **View Transitions API** for smooth crossfa
 <script src="js/openreel-effects.js" defer></script>      <!-- optional -->
 ```
 
+## Responsive Design
+
+The DS is responsive via `css/openreel-responsive.css`. Breakpoints:
+
+| Breakpoint | Width | Target |
+|-----------|-------|--------|
+| xs | < 480px | Small phones |
+| sm | < 640px | Phones |
+| md | < 768px | Tablets portrait |
+| lg | < 1024px | Tablets landscape |
+| xl | > 1280px | Large screens |
+
+Key features:
+- **Mobile hamburger menu** — drawer navigation replaces sidebar below 1024px
+- **Responsive typography** — `clamp()` fluid scaling on all text tokens
+- **Grid collapse** — 4-col → 2-col → 1-col at breakpoints
+- **Touch-friendly** — 44px minimum touch targets, disabled hover effects on touch
+- **Tables** — horizontal scroll on mobile
+- **Modals/Drawers** — fullscreen on small devices
+
 ## Rules Summary
 
 1. **ALWAYS** use `--token` CSS custom properties, never hardcoded hex/px values
