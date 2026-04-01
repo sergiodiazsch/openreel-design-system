@@ -1532,7 +1532,53 @@
   }
 
   /* ─────────────────────────────────────────────
-   * 9. INIT
+   * 9. HAMBURGER MENU (responsive sidebar toggle)
+   * ───────────────────────────────────────────── */
+
+  function initHamburger() {
+    const sidebar = document.querySelector('#ds-sidebar, .ds-sidebar, [class*="sidebar-nav"]');
+    if (!sidebar) return;
+
+    // Create hamburger button
+    const btn = document.createElement('button');
+    btn.className = 'or-hamburger';
+    btn.setAttribute('aria-label', 'Toggle navigation');
+    btn.innerHTML = '<span></span><span></span><span></span>';
+    document.body.appendChild(btn);
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'or-sidebar-overlay';
+    document.body.appendChild(overlay);
+
+    function toggle() {
+      const isOpen = sidebar.classList.toggle('or-sidebar-open');
+      btn.classList.toggle('active', isOpen);
+      overlay.classList.toggle('active', isOpen);
+      overlay.style.display = isOpen ? 'block' : 'none';
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    btn.addEventListener('click', toggle);
+    overlay.addEventListener('click', toggle);
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sidebar.classList.contains('or-sidebar-open')) {
+        toggle();
+      }
+    });
+
+    // Close when resized to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 1023 && sidebar.classList.contains('or-sidebar-open')) {
+        toggle();
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 10. INIT
    * ───────────────────────────────────────────── */
 
   function init() {
@@ -1550,6 +1596,7 @@
     initScrollProgress();
     initCounters();
     initAnatomy();
+    initHamburger();
   }
 
   if (document.readyState === "loading") {
