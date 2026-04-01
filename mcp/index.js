@@ -169,8 +169,11 @@ function generateTokensTailwind(category) {
   return "// tailwind.config.js\n" + JSON.stringify(config, null, 2);
 }
 
+const selfClosingTags = new Set(["input", "img", "hr", "br", "area", "base", "col", "embed", "link", "meta", "param", "source", "track", "wbr"]);
+
 function generateReactComponent(comp) {
   const name = comp.name.replace(/[\s/()-]/g, "");
+  const tag = comp.element || "div";
   const propsStr = comp.props
     .map((p) => {
       const def = p.default === null ? "undefined" : JSON.stringify(p.default);
@@ -178,11 +181,15 @@ function generateReactComponent(comp) {
     })
     .join(",\n");
   const classExpr = comp.cssClasses?.[0] || `or-${comp.slug}`;
+  const isSelfClosing = selfClosingTags.has(tag);
+  const innerContent = isSelfClosing
+    ? `    <${tag} className={classes} {...props} />`
+    : `    <${tag} className={classes} {...props}>\n      {children}\n    </${tag}>`;
+  const childrenProp = isSelfClosing ? "" : "\n  children,";
   return `import React from 'react';
 
 export function ${name}({
-${propsStr},
-  children,
+${propsStr},${childrenProp}
   className,
   ...props
 }) {
@@ -194,9 +201,7 @@ ${propsStr},
   ].filter(Boolean).join(' ');
 
   return (
-    <div className={classes} {...props}>
-      {children}
-    </div>
+${innerContent}
   );
 }
 
@@ -206,18 +211,23 @@ ${name}.displayName = '${name}';
 
 function generateVueComponent(comp) {
   const name = comp.name.replace(/[\s/()-]/g, "");
+  const tag = comp.element || "div";
+  const typeMap = { boolean: "Boolean", string: "String", number: "Number", array: "Array", object: "Object" };
   const propsStr = comp.props
     .map((p) => {
-      const type = p.type === "boolean" ? "Boolean" : p.type === "string" ? "String" : "String";
+      const baseType = p.type.split("|")[0].trim();
+      const type = typeMap[baseType] || "String";
       const def = p.default === null ? "null" : JSON.stringify(p.default);
       return `  ${p.name}: { type: ${type}, default: ${def} }`;
     })
     .join(",\n");
   const classExpr = comp.cssClasses?.[0] || `or-${comp.slug}`;
+  const isSelfClosing = selfClosingTags.has(tag);
+  const templateContent = isSelfClosing
+    ? `  <${tag} :class="classes" />`
+    : `  <${tag} :class="classes">\n    <slot />\n  </${tag}>`;
   return `<template>
-  <div :class="classes">
-    <slot />
-  </div>
+${templateContent}
 </template>
 
 <script setup>
@@ -237,28 +247,28 @@ const classes = computed(() => [
 }
 
 function generateSvelteComponent(comp) {
-  const propsStr = comp.props
-    .map((p) => {
-      const def = p.default === null ? "undefined" : JSON.stringify(p.default);
-      return `  export let ${p.name} = ${def};`;
-    })
-    .join("\n");
+  const tag = comp.element || "div";
+  const propNames = comp.props.map((p) => p.name);
+  const propsDestructure = [...propNames, "children", "...rest"].join(", ");
   const classExpr = comp.cssClasses?.[0] || `or-${comp.slug}`;
+  const isSelfClosing = selfClosingTags.has(tag);
+  const templateContent = isSelfClosing
+    ? `<${tag} class={classes} {...rest} />`
+    : `<${tag} class={classes} {...rest}>\n  {@render children?.()}\n</${tag}>`;
   return `<script>
-${propsStr}
+  let { ${propsDestructure} } = $props();
 
-  $: classes = [
+  const classes = $derived([
     '${classExpr}',
     variant ? \`${classExpr}-\${variant}\` : '',
     size ? \`${classExpr}-\${size}\` : ''
-  ].filter(Boolean).join(' ');
+  ].filter(Boolean).join(' '));
 </script>
 
-<div class={classes}>
-  <slot />
-</div>
+${templateContent}
 `;
 }
+
 
 // ── MCP Server ─────────────────────────────────────────────────
 
