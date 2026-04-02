@@ -1325,6 +1325,7 @@
         <a href="#audio-player" class="nav-link"><span class="cat-dot cat-dot--layout"></span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>
           Audio Player</a>
+        <a href="#new-components" class="nav-link"><span class="cat-dot cat-dot--content"></span>New Components</a>
         <a href="#video-multimedia" class="nav-link"><span class="cat-dot cat-dot--layout"></span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="15" height="10" rx="2"/><path d="M17 9l5-2v10l-5-2"/></svg>
           Video &amp; Media</a>
@@ -6187,6 +6188,218 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <!-- ============================================
+     NEW COMPONENTS
+     ============================================ -->
+<section id="new-components" class="component-section" data-section="carousel context menu avatar group inline edit callout loading cookie countdown">
+  <h2 data-or-animate="fade-up">New Components</h2>
+  <p>Recently added components for common UI patterns.</p>
+
+  <!-- Carousel -->
+  <div class="component-card">
+    <h3>Carousel / Image Slider</h3>
+    <div class="preview-box" style="background:var(--gray-100);">
+      <div class="or-carousel" style="max-width:480px;width:100%;" id="demo-carousel">
+        <div class="or-carousel-track">
+          <div class="or-carousel-slide"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=480&h=270&fit=crop" alt="Slide 1" style="aspect-ratio:16/9;"/></div>
+          <div class="or-carousel-slide"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=480&h=270&fit=crop" alt="Slide 2" style="aspect-ratio:16/9;"/></div>
+          <div class="or-carousel-slide"><img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=480&h=270&fit=crop" alt="Slide 3" style="aspect-ratio:16/9;"/></div>
+        </div>
+        <button class="or-carousel-prev" onclick="carouselNav(-1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button class="or-carousel-next" onclick="carouselNav(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></button>
+        <div class="or-carousel-dots">
+          <button class="or-carousel-dot active" onclick="carouselTo(0)"></button>
+          <button class="or-carousel-dot" onclick="carouselTo(1)"></button>
+          <button class="or-carousel-dot" onclick="carouselTo(2)"></button>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-carousel"&gt;
+  &lt;div class="or-carousel-track"&gt;
+    &lt;div class="or-carousel-slide"&gt;&lt;img src="..." /&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="or-carousel-prev"&gt;←&lt;/button&gt;
+  &lt;button class="or-carousel-next"&gt;→&lt;/button&gt;
+  &lt;div class="or-carousel-dots"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- Context Menu -->
+  <div class="component-card">
+    <h3>Context Menu</h3>
+    <div class="preview-box">
+      <div id="context-demo-area" style="width:300px;height:160px;background:var(--gray-100);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;color:var(--gray-500);font-size:13px;cursor:context-menu;border:1px dashed var(--gray-300);">
+        Right-click here
+      </div>
+      <div class="or-context-menu" id="demo-context-menu">
+        <div class="or-context-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Edit <span class="or-context-shortcut">⌘E</span>
+        </div>
+        <div class="or-context-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Duplicate <span class="or-context-shortcut">⌘D</span>
+        </div>
+        <div class="or-context-separator"></div>
+        <div class="or-context-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share
+        </div>
+        <div class="or-context-separator"></div>
+        <div class="or-context-item or-context-item-danger">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          Delete <span class="or-context-shortcut">⌫</span>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-context-menu or-active"&gt;
+  &lt;div class="or-context-item"&gt;Edit &lt;span class="or-context-shortcut"&gt;⌘E&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="or-context-separator"&gt;&lt;/div&gt;
+  &lt;div class="or-context-item or-context-item-danger"&gt;Delete&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- Avatar Group -->
+  <div class="component-card">
+    <h3>Avatar Group</h3>
+    <div class="preview-box">
+      <div class="or-avatar-group">
+        <div class="or-avatar or-avatar-md" style="background:var(--brand);color:#fff;">JD</div>
+        <div class="or-avatar or-avatar-md" style="background:var(--success-500);color:#fff;">AK</div>
+        <div class="or-avatar or-avatar-md" style="background:var(--error-500);color:#fff;">MR</div>
+        <div class="or-avatar or-avatar-md" style="background:var(--blue-500);color:#fff;">TS</div>
+        <div class="or-avatar-overflow or-avatar-md">+5</div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-avatar-group"&gt;
+  &lt;div class="or-avatar or-avatar-md"&gt;JD&lt;/div&gt;
+  &lt;div class="or-avatar or-avatar-md"&gt;AK&lt;/div&gt;
+  &lt;div class="or-avatar-overflow or-avatar-md"&gt;+5&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- Inline Edit -->
+  <div class="component-card">
+    <h3>Inline Edit</h3>
+    <div class="preview-box-col">
+      <div class="or-inline-edit" onclick="this.classList.add('editing');this.querySelector('input').focus();">
+        <input type="text" value="Project Alpha" onblur="this.parentElement.classList.remove('editing');" style="font-size:16px;font-weight:600;" />
+        <span class="or-inline-edit-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span>
+      </div>
+      <div class="or-inline-edit" onclick="this.classList.add('editing');this.querySelector('input').focus();">
+        <input type="text" value="Click to edit this text" onblur="this.parentElement.classList.remove('editing');" />
+        <span class="or-inline-edit-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-inline-edit"&gt;
+  &lt;input type="text" value="Editable text" /&gt;
+  &lt;span class="or-inline-edit-icon"&gt;✎&lt;/span&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- Callout -->
+  <div class="component-card">
+    <h3>Callout / Aside</h3>
+    <div class="preview-box-col" style="gap:12px;">
+      <div class="or-callout or-callout-info">
+        <span class="or-callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+        <div class="or-callout-content"><div class="or-callout-title">Info</div><div class="or-callout-text">This is an informational callout with helpful context.</div></div>
+      </div>
+      <div class="or-callout or-callout-warning">
+        <span class="or-callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--warning-700)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+        <div class="or-callout-content"><div class="or-callout-title">Warning</div><div class="or-callout-text">Proceed with caution. This action has side effects.</div></div>
+      </div>
+      <div class="or-callout or-callout-error">
+        <span class="or-callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--error-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+        <div class="or-callout-content"><div class="or-callout-title">Error</div><div class="or-callout-text">Something went wrong. Please try again.</div></div>
+      </div>
+      <div class="or-callout or-callout-success">
+        <span class="or-callout-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+        <div class="or-callout-content"><div class="or-callout-title">Success</div><div class="or-callout-text">Changes saved successfully.</div></div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-callout or-callout-info"&gt;
+  &lt;span class="or-callout-icon"&gt;ℹ&lt;/span&gt;
+  &lt;div class="or-callout-content"&gt;
+    &lt;div class="or-callout-title"&gt;Info&lt;/div&gt;
+    &lt;div class="or-callout-text"&gt;Message text&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="component-card">
+    <h3>Loading Overlay &amp; Spinners</h3>
+    <div class="preview-box" style="gap:32px;">
+      <div style="position:relative;width:200px;height:120px;background:var(--bg-primary);border:1px solid var(--gray-200);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+        <p style="color:var(--gray-500);font-size:13px;">Content below</p>
+        <div class="or-loading-overlay">
+          <div class="or-loading-spinner"></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div class="or-loading-spinner-sm or-loading-spinner"></div>
+        <div class="or-loading-spinner"></div>
+        <div class="or-loading-spinner or-loading-spinner-lg"></div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div style="position:relative"&gt;
+  Content here...
+  &lt;div class="or-loading-overlay"&gt;
+    &lt;div class="or-loading-spinner"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div class="component-card">
+    <h3>Cookie Banner</h3>
+    <div class="preview-box" style="min-height:200px;position:relative;overflow:hidden;">
+      <div class="or-cookie-banner or-active" style="position:absolute;bottom:16px;">
+        <div class="or-cookie-title">🍪 We use cookies</div>
+        <div class="or-cookie-text">This site uses cookies to improve your experience. By continuing, you agree to our cookie policy.</div>
+        <div class="or-cookie-actions">
+          <button class="or-btn or-btn-primary or-btn-sm" onclick="this.closest('.or-cookie-banner').classList.remove('or-active')">Accept All</button>
+          <button class="or-btn or-btn-secondary or-btn-sm" onclick="this.closest('.or-cookie-banner').classList.remove('or-active')">Manage</button>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-cookie-banner or-active"&gt;
+  &lt;div class="or-cookie-title"&gt;We use cookies&lt;/div&gt;
+  &lt;div class="or-cookie-text"&gt;...&lt;/div&gt;
+  &lt;div class="or-cookie-actions"&gt;
+    &lt;button class="or-btn or-btn-primary or-btn-sm"&gt;Accept&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- Countdown Timer -->
+  <div class="component-card">
+    <h3>Countdown Timer</h3>
+    <div class="preview-box">
+      <div class="or-countdown" id="demo-countdown">
+        <div class="or-countdown-unit"><div class="or-countdown-value" data-or-counter data-or-counter-to="12">12</div><div class="or-countdown-label">Days</div></div>
+        <span class="or-countdown-separator">:</span>
+        <div class="or-countdown-unit"><div class="or-countdown-value">08</div><div class="or-countdown-label">Hours</div></div>
+        <span class="or-countdown-separator">:</span>
+        <div class="or-countdown-unit"><div class="or-countdown-value">34</div><div class="or-countdown-label">Minutes</div></div>
+        <span class="or-countdown-separator">:</span>
+        <div class="or-countdown-unit"><div class="or-countdown-value" id="countdown-seconds">56</div><div class="or-countdown-label">Seconds</div></div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-countdown"&gt;
+  &lt;div class="or-countdown-unit"&gt;
+    &lt;div class="or-countdown-value"&gt;12&lt;/div&gt;
+    &lt;div class="or-countdown-label"&gt;Days&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="or-countdown-separator"&gt;:&lt;/span&gt;
+  ...
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+</section>
+
+
+<!-- ============================================
      VIDEO & MULTIMEDIA COMPONENTS
      ============================================ -->
 <section id="video-multimedia" class="component-section" data-section="video multimedia player media">
@@ -7277,6 +7490,49 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 })();
+
+// Carousel
+let carouselIndex = 0;
+function carouselNav(dir) {
+  const track = document.querySelector('#demo-carousel .or-carousel-track');
+  const dots = document.querySelectorAll('#demo-carousel .or-carousel-dot');
+  const total = track ? track.children.length : 0;
+  if (!track || !total) return;
+  carouselIndex = (carouselIndex + dir + total) % total;
+  track.style.transform = `translateX(-${carouselIndex * 100}%)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
+}
+function carouselTo(i) {
+  const track = document.querySelector('#demo-carousel .or-carousel-track');
+  const dots = document.querySelectorAll('#demo-carousel .or-carousel-dot');
+  if (!track) return;
+  carouselIndex = i;
+  track.style.transform = `translateX(-${i * 100}%)`;
+  dots.forEach((d, j) => d.classList.toggle('active', j === i));
+}
+
+// Context menu
+const ctxArea = document.getElementById('context-demo-area');
+const ctxMenu = document.getElementById('demo-context-menu');
+if (ctxArea && ctxMenu) {
+  ctxArea.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    ctxMenu.style.left = e.clientX + 'px';
+    ctxMenu.style.top = e.clientY + 'px';
+    ctxMenu.classList.add('or-active');
+  });
+  document.addEventListener('click', () => ctxMenu.classList.remove('or-active'));
+}
+
+// Countdown seconds tick
+const secEl = document.getElementById('countdown-seconds');
+if (secEl) {
+  let sec = 56;
+  setInterval(() => {
+    sec = sec <= 0 ? 59 : sec - 1;
+    secEl.textContent = String(sec).padStart(2, '0');
+  }, 1000);
+}
 </script>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
