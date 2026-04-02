@@ -3749,14 +3749,43 @@
       "category": "Content",
       "description": "Video playback component powered by Plyr with brand-themed controls",
       "status": "stable",
-      "cssClasses": ["or-video-player", "or-video-player-sm"],
-      "variants": ["default", "small"],
+      "cssClasses": [
+        "or-video-player",
+        "or-video-player-sm"
+      ],
+      "variants": [
+        "default",
+        "small"
+      ],
       "sizes": [],
       "props": [
-        { "name": "src", "type": "string", "default": null },
-        { "name": "poster", "type": "string", "default": null },
-        { "name": "autoplay", "type": "boolean", "default": false },
-        { "name": "controls", "type": "array", "default": ["play", "progress", "current-time", "mute", "volume", "fullscreen"] }
+        {
+          "name": "src",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "poster",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "controls",
+          "type": "array",
+          "default": [
+            "play",
+            "progress",
+            "current-time",
+            "mute",
+            "volume",
+            "fullscreen"
+          ]
+        }
       ],
       "usage": "Wrap a <video> element. Initialize with new Plyr('#id'). Use .or-video-player-sm for compact variant.",
       "a11y": "Plyr provides built-in keyboard controls and screen reader support. Add captions via <track> element."
@@ -3768,14 +3797,37 @@
       "category": "Content",
       "description": "Thumbnail card with play overlay, duration badge, title and metadata",
       "status": "stable",
-      "cssClasses": ["or-video-card", "or-video-overlay", "or-video-play-btn", "or-video-info", "or-video-duration", "or-video-grid"],
+      "cssClasses": [
+        "or-video-card",
+        "or-video-overlay",
+        "or-video-play-btn",
+        "or-video-info",
+        "or-video-duration",
+        "or-video-grid"
+      ],
       "variants": [],
       "sizes": [],
       "props": [
-        { "name": "thumbnail", "type": "string", "default": null },
-        { "name": "title", "type": "string", "default": null },
-        { "name": "duration", "type": "string", "default": null },
-        { "name": "views", "type": "string", "default": null }
+        {
+          "name": "thumbnail",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "duration",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "views",
+          "type": "string",
+          "default": null
+        }
       ],
       "usage": "Use in .or-video-grid for responsive thumbnail layouts. Overlay shows play button on hover.",
       "a11y": "Use alt text on thumbnail images. Ensure play button is keyboard-focusable."
@@ -3787,13 +3839,34 @@
       "category": "Layout",
       "description": "Image slider with prev/next buttons and dot navigation",
       "status": "stable",
-      "cssClasses": ["or-carousel", "or-carousel-track", "or-carousel-slide", "or-carousel-btn", "or-carousel-prev", "or-carousel-next", "or-carousel-dots", "or-carousel-dot"],
+      "cssClasses": [
+        "or-carousel",
+        "or-carousel-track",
+        "or-carousel-slide",
+        "or-carousel-btn",
+        "or-carousel-prev",
+        "or-carousel-next",
+        "or-carousel-dots",
+        "or-carousel-dot"
+      ],
       "variants": [],
       "sizes": [],
       "props": [
-        { "name": "autoplay", "type": "boolean", "default": false },
-        { "name": "interval", "type": "number", "default": 5000 },
-        { "name": "loop", "type": "boolean", "default": true }
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "interval",
+          "type": "number",
+          "default": 5000
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Use translateX on .or-carousel-track to navigate slides. Toggle .active on dots.",
       "a11y": "Add aria-label to prev/next buttons. Use aria-roledescription='carousel' on container."
@@ -3805,12 +3878,29 @@
       "category": "Overlay",
       "description": "Right-click menu with items, separators, shortcuts, and danger variants",
       "status": "stable",
-      "cssClasses": ["or-context-menu", "or-context-item", "or-context-item-danger", "or-context-separator", "or-context-shortcut"],
-      "variants": ["default", "danger"],
+      "cssClasses": [
+        "or-context-menu",
+        "or-context-item",
+        "or-context-item-danger",
+        "or-context-separator",
+        "or-context-shortcut"
+      ],
+      "variants": [
+        "default",
+        "danger"
+      ],
       "sizes": [],
       "props": [
-        { "name": "items", "type": "array", "default": [] },
-        { "name": "position", "type": "object", "default": null }
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "position",
+          "type": "object",
+          "default": null
+        }
       ],
       "usage": "Position with JS on contextmenu event. Toggle .or-active to show/hide. Close on outside click.",
       "a11y": "Use role='menu' on container, role='menuitem' on items. Support arrow key navigation."
@@ -3822,12 +3912,32 @@
       "category": "Data Display",
       "description": "Stacked avatar row with overflow count indicator",
       "status": "stable",
-      "cssClasses": ["or-avatar-group", "or-avatar-overflow"],
+      "cssClasses": [
+        "or-avatar-group",
+        "or-avatar-overflow"
+      ],
       "variants": [],
-      "sizes": ["sm", "md", "lg"],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "max", "type": "number", "default": 5 },
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" }
+        {
+          "name": "max",
+          "type": "number",
+          "default": 5
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Nest .or-avatar elements inside. Use .or-avatar-overflow for +N count. Uses flex-direction: row-reverse.",
       "a11y": "Each avatar needs alt text or aria-label. Overflow badge should state count."
@@ -3839,12 +3949,26 @@
       "category": "Form Controls",
       "description": "Click-to-edit text field with pencil icon and focus state",
       "status": "stable",
-      "cssClasses": ["or-inline-edit", "or-inline-edit-icon"],
-      "variants": ["default", "editing"],
+      "cssClasses": [
+        "or-inline-edit",
+        "or-inline-edit-icon"
+      ],
+      "variants": [
+        "default",
+        "editing"
+      ],
       "sizes": [],
       "props": [
-        { "name": "value", "type": "string", "default": "" },
-        { "name": "placeholder", "type": "string", "default": "Click to edit" }
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Click to edit"
+        }
       ],
       "usage": "Toggle .editing class on click. Contains an <input> that becomes editable. Remove .editing on blur.",
       "a11y": "Input must have aria-label. Announce edit mode to screen readers."
@@ -3856,13 +3980,42 @@
       "category": "Feedback",
       "description": "Bordered aside block with icon, title, and message in info/warning/error/success variants",
       "status": "stable",
-      "cssClasses": ["or-callout", "or-callout-info", "or-callout-warning", "or-callout-error", "or-callout-success"],
-      "variants": ["info", "warning", "error", "success"],
+      "cssClasses": [
+        "or-callout",
+        "or-callout-info",
+        "or-callout-warning",
+        "or-callout-error",
+        "or-callout-success"
+      ],
+      "variants": [
+        "info",
+        "warning",
+        "error",
+        "success"
+      ],
       "sizes": [],
       "props": [
-        { "name": "variant", "type": "string", "options": ["info", "warning", "error", "success"], "default": "info" },
-        { "name": "title", "type": "string", "default": null },
-        { "name": "message", "type": "string", "default": null }
+        {
+          "name": "variant",
+          "type": "string",
+          "options": [
+            "info",
+            "warning",
+            "error",
+            "success"
+          ],
+          "default": "info"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "default": null
+        }
       ],
       "usage": "Use for important contextual messages. Variant determines color and icon. Always include a title.",
       "a11y": "Use role='note' or role='alert' for error/warning variants. Icon must have aria-hidden='true'."
@@ -3874,11 +4027,29 @@
       "category": "Feedback",
       "description": "Blurred overlay with spinner for indicating loading state on any container",
       "status": "stable",
-      "cssClasses": ["or-loading-overlay", "or-loading-spinner", "or-loading-spinner-sm", "or-loading-spinner-lg"],
+      "cssClasses": [
+        "or-loading-overlay",
+        "or-loading-spinner",
+        "or-loading-spinner-sm",
+        "or-loading-spinner-lg"
+      ],
       "variants": [],
-      "sizes": ["sm", "md", "lg"],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
       "props": [
-        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" }
+        {
+          "name": "size",
+          "type": "string",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        }
       ],
       "usage": "Place inside a position:relative container. Use spinner sizes for different contexts.",
       "a11y": "Add aria-busy='true' to the parent container. Spinner should have role='status' and aria-label='Loading'."
@@ -3890,12 +4061,25 @@
       "category": "Content",
       "description": "Fixed bottom banner for cookie consent with accept/manage actions",
       "status": "stable",
-      "cssClasses": ["or-cookie-banner", "or-cookie-title", "or-cookie-text", "or-cookie-actions"],
+      "cssClasses": [
+        "or-cookie-banner",
+        "or-cookie-title",
+        "or-cookie-text",
+        "or-cookie-actions"
+      ],
       "variants": [],
       "sizes": [],
       "props": [
-        { "name": "title", "type": "string", "default": "We use cookies" },
-        { "name": "message", "type": "string", "default": null }
+        {
+          "name": "title",
+          "type": "string",
+          "default": "We use cookies"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "default": null
+        }
       ],
       "usage": "Toggle .or-active to show/hide with slide-up animation. Position is fixed bottom center.",
       "a11y": "Use role='dialog' and aria-label. Focus should move to banner when shown."
@@ -3907,15 +4091,764 @@
       "category": "Data Display",
       "description": "Countdown display with days, hours, minutes, seconds and separator",
       "status": "stable",
-      "cssClasses": ["or-countdown", "or-countdown-unit", "or-countdown-value", "or-countdown-label", "or-countdown-separator"],
+      "cssClasses": [
+        "or-countdown",
+        "or-countdown-unit",
+        "or-countdown-value",
+        "or-countdown-label",
+        "or-countdown-separator"
+      ],
       "variants": [],
       "sizes": [],
       "props": [
-        { "name": "target", "type": "string", "default": null },
-        { "name": "showDays", "type": "boolean", "default": true }
+        {
+          "name": "target",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "showDays",
+          "type": "boolean",
+          "default": true
+        }
       ],
       "usage": "Update values with JS setInterval. Use tabular-nums font variant for stable widths.",
       "a11y": "Use aria-live='polite' on the countdown container. Announce significant milestones."
+    },
+    {
+      "name": "Combobox",
+      "slug": "combobox",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Searchable select with filterable dropdown options",
+      "cssClasses": [
+        "or-combobox",
+        "or-combobox-input",
+        "or-combobox-list",
+        "or-combobox-option"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Searchable select with filterable dropdown options.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Bottom Sheet",
+      "slug": "bottom-sheet",
+      "element": "div",
+      "category": "Overlay",
+      "description": "Mobile-friendly slide-up panel from bottom edge",
+      "cssClasses": [
+        "or-bottom-sheet",
+        "or-bottom-sheet-handle",
+        "or-bottom-sheet-header",
+        "or-bottom-sheet-body"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Mobile-friendly slide-up panel from bottom edge.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Switch Group",
+      "slug": "switch-group",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Grouped toggle switches with labels and descriptions",
+      "cssClasses": [
+        "or-switch-group",
+        "or-switch-row",
+        "or-switch-label",
+        "or-switch-desc"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Grouped toggle switches with labels and descriptions.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Split Button",
+      "slug": "split-button",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Primary action button with attached dropdown for secondary actions",
+      "cssClasses": [
+        "or-split-btn",
+        "or-split-btn-main",
+        "or-split-btn-toggle",
+        "or-split-btn-dropdown"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Primary action button with attached dropdown for secondary actions.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Speed Dial",
+      "slug": "speed-dial",
+      "element": "div",
+      "category": "Layout",
+      "description": "Floating action button that expands to reveal multiple actions",
+      "cssClasses": [
+        "or-speed-dial",
+        "or-speed-dial-actions",
+        "or-speed-dial-action",
+        "or-speed-dial-trigger"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Floating action button that expands to reveal multiple actions.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Search Autocomplete",
+      "slug": "search-autocomplete",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Search input with live suggestion results and highlight matching",
+      "cssClasses": [
+        "or-search-auto",
+        "or-search-auto-input",
+        "or-search-auto-results",
+        "or-search-auto-item"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Search input with live suggestion results and highlight matching.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Expandable Search",
+      "slug": "expandable-search",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Compact search icon that expands into a full input field",
+      "cssClasses": [
+        "or-search-expand",
+        "or-search-expand-input",
+        "or-search-expand-btn"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Compact search icon that expands into a full input field.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Multi Select",
+      "slug": "multi-select",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Multiple selection input with removable tag chips",
+      "cssClasses": [
+        "or-multiselect",
+        "or-multiselect-trigger",
+        "or-multiselect-tag",
+        "or-multiselect-tag-remove"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Multiple selection input with removable tag chips.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Code Block",
+      "slug": "code-block",
+      "element": "div",
+      "category": "Content",
+      "description": "Syntax-highlighted code display with language label and copy button",
+      "cssClasses": [
+        "or-code-block",
+        "or-code-header",
+        "or-code-lang",
+        "or-code-copy",
+        "or-code-body"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Syntax-highlighted code display with language label and copy button.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Keyboard Shortcut",
+      "slug": "keyboard-shortcut",
+      "element": "span",
+      "category": "Data Display",
+      "description": "Styled keyboard shortcut display with key combinations",
+      "cssClasses": [
+        "or-kbd"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Styled keyboard shortcut display with key combinations.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Scroll Area",
+      "slug": "scroll-area",
+      "element": "div",
+      "category": "Layout",
+      "description": "Custom-scrollbar container for overflow content",
+      "cssClasses": [
+        "or-scroll-area"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Custom-scrollbar container for overflow content.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Collapsible",
+      "slug": "collapsible",
+      "element": "div",
+      "category": "Overlay",
+      "description": "Simple collapsible panel with toggle trigger",
+      "cssClasses": [
+        "or-collapsible",
+        "or-collapsible-trigger",
+        "or-collapsible-content",
+        "or-collapsible-body"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Simple collapsible panel with toggle trigger.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Resizable Panel",
+      "slug": "resizable-panel",
+      "element": "div",
+      "category": "Layout",
+      "description": "Panel with draggable resize handle for adjustable width/height",
+      "cssClasses": [
+        "or-resizable",
+        "or-resizable-handle"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Panel with draggable resize handle for adjustable width/height.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Hover Card",
+      "slug": "hover-card",
+      "element": "div",
+      "category": "Overlay",
+      "description": "Rich content card that appears on hover over a trigger",
+      "cssClasses": [
+        "or-hover-card-wrap",
+        "or-hover-card"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Rich content card that appears on hover over a trigger.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Alert Dialog",
+      "slug": "alert-dialog",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Confirmation dialog with icon, title, description, and action buttons",
+      "cssClasses": [
+        "or-alert-dialog",
+        "or-alert-dialog-icon",
+        "or-alert-dialog-title",
+        "or-alert-dialog-desc",
+        "or-alert-dialog-actions"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Confirmation dialog with icon, title, description, and action buttons.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Radio Card",
+      "slug": "radio-card",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Radio button presented as a selectable card with title and description",
+      "cssClasses": [
+        "or-radio-card",
+        "or-radio-card-indicator",
+        "or-radio-card-title",
+        "or-radio-card-desc"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Radio button presented as a selectable card with title and description.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Checkbox Card",
+      "slug": "checkbox-card",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Checkbox presented as a selectable card with visual check indicator",
+      "cssClasses": [
+        "or-checkbox-card",
+        "or-checkbox-card-check"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Checkbox presented as a selectable card with visual check indicator.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Data List",
+      "slug": "data-list",
+      "element": "dl",
+      "category": "Data Display",
+      "description": "Key-value pair list for displaying entity properties",
+      "cssClasses": [
+        "or-data-list",
+        "or-data-list-item",
+        "or-data-list-label",
+        "or-data-list-value"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Key-value pair list for displaying entity properties.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Metric Card",
+      "slug": "metric-card",
+      "element": "div",
+      "category": "Data Display",
+      "description": "KPI metric display with large value, label, and trend indicator",
+      "cssClasses": [
+        "or-metric",
+        "or-metric-label",
+        "or-metric-value",
+        "or-metric-change"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "KPI metric display with large value, label, and trend indicator.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Feature Card",
+      "slug": "feature-card",
+      "element": "div",
+      "category": "Content",
+      "description": "Feature highlight card with icon, title, and description",
+      "cssClasses": [
+        "or-feature-card",
+        "or-feature-card-icon",
+        "or-feature-card-title",
+        "or-feature-card-desc"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Feature highlight card with icon, title, and description.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Team Member Card",
+      "slug": "team-member-card",
+      "element": "div",
+      "category": "Content",
+      "description": "Person card with avatar, name, role, and social links",
+      "cssClasses": [
+        "or-team-card",
+        "or-team-card-avatar",
+        "or-team-card-name",
+        "or-team-card-role",
+        "or-team-card-social"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Person card with avatar, name, role, and social links.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Social Proof",
+      "slug": "social-proof",
+      "element": "div",
+      "category": "Content",
+      "description": "Trust badge bar with grayscale logos that colorize on hover",
+      "cssClasses": [
+        "or-trust-bar",
+        "or-trust-logo",
+        "or-trust-label"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Trust badge bar with grayscale logos that colorize on hover.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Chip Group",
+      "slug": "chip-group",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Grouped selectable chips for multi-filter selection",
+      "cssClasses": [
+        "or-chip-group"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Grouped selectable chips for multi-filter selection.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Status Timeline",
+      "slug": "status-timeline",
+      "element": "div",
+      "category": "Navigation",
+      "description": "Horizontal step progress with complete/current/pending states",
+      "cssClasses": [
+        "or-status-timeline",
+        "or-status-step",
+        "or-status-dot",
+        "or-status-line"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Horizontal step progress with complete/current/pending states.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Comparison Table",
+      "slug": "comparison-table",
+      "element": "table",
+      "category": "Data Display",
+      "description": "Feature comparison grid with check/cross indicators and highlight column",
+      "cssClasses": [
+        "or-comparison",
+        "or-comparison-check",
+        "or-comparison-cross",
+        "or-comparison-highlight"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Feature comparison grid with check/cross indicators and highlight column.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "File Preview Card",
+      "slug": "file-preview-card",
+      "element": "div",
+      "category": "Data Display",
+      "description": "File card with type-colored icon badge, name, and metadata",
+      "cssClasses": [
+        "or-file-card",
+        "or-file-icon",
+        "or-file-name",
+        "or-file-meta"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "File card with type-colored icon badge, name, and metadata.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Toast Stack",
+      "slug": "toast-stack",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Fixed position stack of notification toasts with slide-in animation",
+      "cssClasses": [
+        "or-toast-stack",
+        "or-toast-item",
+        "or-toast-item-icon",
+        "or-toast-item-content"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Fixed position stack of notification toasts with slide-in animation.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Command Bar",
+      "slug": "command-bar",
+      "element": "div",
+      "category": "Navigation",
+      "description": "Inline search and action bar with input and command buttons",
+      "cssClasses": [
+        "or-command-bar",
+        "or-command-bar-input",
+        "or-command-bar-actions"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Inline search and action bar with input and command buttons.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Search Results",
+      "slug": "search-results",
+      "element": "div",
+      "category": "Content",
+      "description": "Search result list with thumbnail, title, URL, and description",
+      "cssClasses": [
+        "or-search-results",
+        "or-search-result",
+        "or-search-result-title",
+        "or-search-result-desc"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Search result list with thumbnail, title, URL, and description.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Filter Panel",
+      "slug": "filter-panel",
+      "element": "aside",
+      "category": "Navigation",
+      "description": "Sidebar filter panel with grouped options, counts, and clear action",
+      "cssClasses": [
+        "or-filter-panel",
+        "or-filter-header",
+        "or-filter-group",
+        "or-filter-option"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Sidebar filter panel with grouped options, counts, and clear action.",
+      "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
     }
   ],
   "templates": [
@@ -4151,7 +5084,12 @@
         {
           "name": "status",
           "type": "string",
-          "options": ["draft", "processing", "published", "archived"],
+          "options": [
+            "draft",
+            "processing",
+            "published",
+            "archived"
+          ],
           "default": "published"
         }
       ],
@@ -4282,13 +5220,21 @@
         {
           "name": "size",
           "type": "string",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         },
         {
           "name": "overlap",
           "type": "string",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         }
       ],
@@ -4365,7 +5311,12 @@
         {
           "name": "variant",
           "type": "string",
-          "options": ["info", "success", "warning", "error"],
+          "options": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ],
           "default": "info"
         },
         {
@@ -4415,7 +5366,11 @@
         {
           "name": "variant",
           "type": "string",
-          "options": ["default", "transparent", "blur"],
+          "options": [
+            "default",
+            "transparent",
+            "blur"
+          ],
           "default": "default"
         }
       ],
@@ -4445,7 +5400,11 @@
         {
           "name": "variant",
           "type": "string",
-          "options": ["bottom-bar", "modal", "corner"],
+          "options": [
+            "bottom-bar",
+            "modal",
+            "corner"
+          ],
           "default": "bottom-bar"
         },
         {
