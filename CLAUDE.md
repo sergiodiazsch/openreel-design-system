@@ -2,7 +2,9 @@
 
 ## Overview
 
-This is the **OpenReel Design System**, a comprehensive UI kit with 61 components, design tokens, and multi-framework support. All code generated for this project MUST follow these rules.
+This is the **OpenReel Design System v3.0**, a comprehensive UI kit with 131 components, design tokens, and multi-framework support. All code generated for this project MUST follow these rules.
+
+GitHub: https://github.com/sergiodiazsch/openreel-design-system
 
 ## Tech Stack
 
@@ -40,7 +42,7 @@ openreel-design-system/
 ├── tokens.json         # Tokens Studio compatible format
 ├── mcp/
 │   ├── index.js        # MCP server (7 tools)
-│   ├── registry.json   # Component registry (61 components + tokens)
+│   ├── registry.json   # Component registry (131 components + tokens)
 │   ├── package.json
 │   └── README.md
 └── .claude/
@@ -297,11 +299,11 @@ add_code_connect_map(nodeId, fileKey, source, componentName, label)
 
 ## MCP Server
 
-The MCP server at `mcp/index.js` exposes 7 tools:
+The MCP server (v3.0) at `mcp/index.js` exposes 7 tools. Install via GitHub: `github:sergiodiazsch/openreel-design-system/mcp`
 
 | Tool | Purpose |
 |------|---------|
-| `list_components` | List all 61 components, filter by category |
+| `list_components` | List all 131 components, filter by category |
 | `get_component` | Get component details + code (HTML/React/Vue/Svelte) |
 | `get_tokens` | Export tokens in CSS/SCSS/JSON/Tailwind |
 | `search` | Fuzzy search across components, tokens, guidelines |

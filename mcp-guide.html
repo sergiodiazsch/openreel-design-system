@@ -398,13 +398,23 @@
             <div>
               <p style="font-weight:600; color:var(--gray-900); margin-bottom:4px;">Copy this into your settings</p>
               <p style="font-size:13px; color:var(--gray-500); margin-bottom:8px;">Open Claude Code → Settings → MCP Servers → paste this:</p>
-              <div style="background:var(--gray-900);border-radius:var(--radius-md);padding:12px 16px;font-family:'SF Mono',monospace;font-size:12px;color:#e2e8f0;overflow-x:auto;">
-                {<br/>
-                &nbsp;&nbsp;"openreel-ds": {<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;"command": "npx",<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;"args": ["-y", "openreel-design-system-mcp"]<br/>
-                &nbsp;&nbsp;}<br/>
-                }
+              <div style="background:var(--gray-900);border-radius:var(--radius-md);padding:16px 20px;font-family:'SF Mono',monospace;font-size:12px;color:#e2e8f0;overflow-x:auto;line-height:1.8;">
+{<br/>
+&nbsp;&nbsp;"mcpServers": {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;"openreel-ds": {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "npx",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": [<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"-y",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"github:sergiodiazsch/openreel-design-system/mcp"<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;}<br/>
+}
+              </div>
+              <p style="font-size:12px;color:var(--gray-500);margin-top:8px;">Or clone the repo and point to the local path:</p>
+              <div style="background:var(--gray-900);border-radius:var(--radius-md);padding:12px 16px;font-family:'SF Mono',monospace;font-size:12px;color:#e2e8f0;overflow-x:auto;margin-top:8px;">
+git clone https://github.com/sergiodiazsch/openreel-design-system.git<br/>
+cd openreel-design-system/mcp && npm install
               </div>
             </div>
           </div>
