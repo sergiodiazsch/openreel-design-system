@@ -101,6 +101,130 @@
 
 
 /* ─────────────────────────────────────────────
+   3b. KEYBOARD SHORTCUTS MODAL FIX
+   ───────────────────────────────────────────── */
+
+/* The kbd modal lost its styles during CSS extraction — re-add them */
+.kbd-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+.kbd-modal-overlay.active,
+.kbd-modal-overlay[style*="display:flex"],
+.kbd-modal-overlay[style*="display: flex"] {
+  display: flex;
+}
+
+.kbd-modal {
+  background: var(--bg-primary, #fff);
+  border: 1px solid var(--gray-200, #eaecf0);
+  border-radius: var(--radius-xl, 14px);
+  padding: 24px;
+  min-width: 280px;
+  max-width: 360px;
+  box-shadow: var(--shadow-xl);
+}
+
+.kbd-modal h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--gray-900, #101828);
+}
+
+.kbd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--gray-600, #475467);
+  border-bottom: 1px solid var(--gray-100, #f2f4f7);
+}
+
+.kbd-row:last-child {
+  border-bottom: none;
+}
+
+.kbd-row kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  font-family: 'SF Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  background: var(--gray-100, #f2f4f7);
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+}
+
+html.dark .kbd-modal {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .kbd-modal h3 {
+  color: var(--text-primary);
+}
+
+html.dark .kbd-row {
+  color: var(--text-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .kbd-row kbd {
+  background: var(--bg-tertiary);
+  border-color: var(--border-primary);
+  color: var(--text-secondary);
+}
+
+/* Hide kbd modal completely on mobile (keyboard shortcuts not useful on touch) */
+@media (max-width: 767px) {
+  #kbd-shortcuts-modal,
+  .kbd-modal-overlay {
+    display: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   3c. HEADER SEARCH ICON FIX
+   ───────────────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  /* Hide the entire search wrapper including the icon */
+  header [style*="position:relative"][style*="320px"],
+  header [style*="position: relative"][style*="320px"],
+  header div:has(> input[placeholder*="Search"]),
+  header > div:last-child > div:has(svg):has(input) {
+    display: none !important;
+  }
+
+  /* Fallback: hide any search-related elements in header right section */
+  header > div:last-child input,
+  header > div:last-child svg:not(.dm-toggle svg) {
+    display: none !important;
+  }
+
+  /* But keep the dark mode toggle visible */
+  header .dm-toggle,
+  header .dm-toggle svg {
+    display: flex !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
    4. GLOBAL MOBILE OVERFLOW FIX
    ───────────────────────────────────────────── */
 
