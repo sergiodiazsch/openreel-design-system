@@ -3741,6 +3741,181 @@
       ],
       "usage": "Use for the single most important action on a screen (create, compose). One FAB per view. Extended variant includes text label.",
       "a11y": "Use <button> with aria-label. Extended FAB includes visible text. Ensure not obscuring content. Keyboard accessible."
+    },
+    {
+      "name": "Video Player",
+      "slug": "video-player",
+      "element": "div",
+      "category": "Content",
+      "description": "Video playback component powered by Plyr with brand-themed controls",
+      "status": "stable",
+      "cssClasses": ["or-video-player", "or-video-player-sm"],
+      "variants": ["default", "small"],
+      "sizes": [],
+      "props": [
+        { "name": "src", "type": "string", "default": null },
+        { "name": "poster", "type": "string", "default": null },
+        { "name": "autoplay", "type": "boolean", "default": false },
+        { "name": "controls", "type": "array", "default": ["play", "progress", "current-time", "mute", "volume", "fullscreen"] }
+      ],
+      "usage": "Wrap a <video> element. Initialize with new Plyr('#id'). Use .or-video-player-sm for compact variant.",
+      "a11y": "Plyr provides built-in keyboard controls and screen reader support. Add captions via <track> element."
+    },
+    {
+      "name": "Video Card",
+      "slug": "video-card",
+      "element": "article",
+      "category": "Content",
+      "description": "Thumbnail card with play overlay, duration badge, title and metadata",
+      "status": "stable",
+      "cssClasses": ["or-video-card", "or-video-overlay", "or-video-play-btn", "or-video-info", "or-video-duration", "or-video-grid"],
+      "variants": [],
+      "sizes": [],
+      "props": [
+        { "name": "thumbnail", "type": "string", "default": null },
+        { "name": "title", "type": "string", "default": null },
+        { "name": "duration", "type": "string", "default": null },
+        { "name": "views", "type": "string", "default": null }
+      ],
+      "usage": "Use in .or-video-grid for responsive thumbnail layouts. Overlay shows play button on hover.",
+      "a11y": "Use alt text on thumbnail images. Ensure play button is keyboard-focusable."
+    },
+    {
+      "name": "Carousel",
+      "slug": "carousel",
+      "element": "div",
+      "category": "Layout",
+      "description": "Image slider with prev/next buttons and dot navigation",
+      "status": "stable",
+      "cssClasses": ["or-carousel", "or-carousel-track", "or-carousel-slide", "or-carousel-btn", "or-carousel-prev", "or-carousel-next", "or-carousel-dots", "or-carousel-dot"],
+      "variants": [],
+      "sizes": [],
+      "props": [
+        { "name": "autoplay", "type": "boolean", "default": false },
+        { "name": "interval", "type": "number", "default": 5000 },
+        { "name": "loop", "type": "boolean", "default": true }
+      ],
+      "usage": "Use translateX on .or-carousel-track to navigate slides. Toggle .active on dots.",
+      "a11y": "Add aria-label to prev/next buttons. Use aria-roledescription='carousel' on container."
+    },
+    {
+      "name": "Context Menu",
+      "slug": "context-menu",
+      "element": "div",
+      "category": "Overlay",
+      "description": "Right-click menu with items, separators, shortcuts, and danger variants",
+      "status": "stable",
+      "cssClasses": ["or-context-menu", "or-context-item", "or-context-item-danger", "or-context-separator", "or-context-shortcut"],
+      "variants": ["default", "danger"],
+      "sizes": [],
+      "props": [
+        { "name": "items", "type": "array", "default": [] },
+        { "name": "position", "type": "object", "default": null }
+      ],
+      "usage": "Position with JS on contextmenu event. Toggle .or-active to show/hide. Close on outside click.",
+      "a11y": "Use role='menu' on container, role='menuitem' on items. Support arrow key navigation."
+    },
+    {
+      "name": "Avatar Group",
+      "slug": "avatar-group",
+      "element": "div",
+      "category": "Data Display",
+      "description": "Stacked avatar row with overflow count indicator",
+      "status": "stable",
+      "cssClasses": ["or-avatar-group", "or-avatar-overflow"],
+      "variants": [],
+      "sizes": ["sm", "md", "lg"],
+      "props": [
+        { "name": "max", "type": "number", "default": 5 },
+        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" }
+      ],
+      "usage": "Nest .or-avatar elements inside. Use .or-avatar-overflow for +N count. Uses flex-direction: row-reverse.",
+      "a11y": "Each avatar needs alt text or aria-label. Overflow badge should state count."
+    },
+    {
+      "name": "Inline Edit",
+      "slug": "inline-edit",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Click-to-edit text field with pencil icon and focus state",
+      "status": "stable",
+      "cssClasses": ["or-inline-edit", "or-inline-edit-icon"],
+      "variants": ["default", "editing"],
+      "sizes": [],
+      "props": [
+        { "name": "value", "type": "string", "default": "" },
+        { "name": "placeholder", "type": "string", "default": "Click to edit" }
+      ],
+      "usage": "Toggle .editing class on click. Contains an <input> that becomes editable. Remove .editing on blur.",
+      "a11y": "Input must have aria-label. Announce edit mode to screen readers."
+    },
+    {
+      "name": "Callout",
+      "slug": "callout",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Bordered aside block with icon, title, and message in info/warning/error/success variants",
+      "status": "stable",
+      "cssClasses": ["or-callout", "or-callout-info", "or-callout-warning", "or-callout-error", "or-callout-success"],
+      "variants": ["info", "warning", "error", "success"],
+      "sizes": [],
+      "props": [
+        { "name": "variant", "type": "string", "options": ["info", "warning", "error", "success"], "default": "info" },
+        { "name": "title", "type": "string", "default": null },
+        { "name": "message", "type": "string", "default": null }
+      ],
+      "usage": "Use for important contextual messages. Variant determines color and icon. Always include a title.",
+      "a11y": "Use role='note' or role='alert' for error/warning variants. Icon must have aria-hidden='true'."
+    },
+    {
+      "name": "Loading Overlay",
+      "slug": "loading-overlay",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Blurred overlay with spinner for indicating loading state on any container",
+      "status": "stable",
+      "cssClasses": ["or-loading-overlay", "or-loading-spinner", "or-loading-spinner-sm", "or-loading-spinner-lg"],
+      "variants": [],
+      "sizes": ["sm", "md", "lg"],
+      "props": [
+        { "name": "size", "type": "string", "options": ["sm", "md", "lg"], "default": "md" }
+      ],
+      "usage": "Place inside a position:relative container. Use spinner sizes for different contexts.",
+      "a11y": "Add aria-busy='true' to the parent container. Spinner should have role='status' and aria-label='Loading'."
+    },
+    {
+      "name": "Cookie Banner",
+      "slug": "cookie-banner",
+      "element": "div",
+      "category": "Content",
+      "description": "Fixed bottom banner for cookie consent with accept/manage actions",
+      "status": "stable",
+      "cssClasses": ["or-cookie-banner", "or-cookie-title", "or-cookie-text", "or-cookie-actions"],
+      "variants": [],
+      "sizes": [],
+      "props": [
+        { "name": "title", "type": "string", "default": "We use cookies" },
+        { "name": "message", "type": "string", "default": null }
+      ],
+      "usage": "Toggle .or-active to show/hide with slide-up animation. Position is fixed bottom center.",
+      "a11y": "Use role='dialog' and aria-label. Focus should move to banner when shown."
+    },
+    {
+      "name": "Countdown Timer",
+      "slug": "countdown-timer",
+      "element": "div",
+      "category": "Data Display",
+      "description": "Countdown display with days, hours, minutes, seconds and separator",
+      "status": "stable",
+      "cssClasses": ["or-countdown", "or-countdown-unit", "or-countdown-value", "or-countdown-label", "or-countdown-separator"],
+      "variants": [],
+      "sizes": [],
+      "props": [
+        { "name": "target", "type": "string", "default": null },
+        { "name": "showDays", "type": "boolean", "default": true }
+      ],
+      "usage": "Update values with JS setInterval. Use tabular-nums font variant for stable widths.",
+      "a11y": "Use aria-live='polite' on the countdown container. Announce significant milestones."
     }
   ],
   "templates": [
