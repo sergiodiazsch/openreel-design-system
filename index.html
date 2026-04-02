@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/openreel-motion.css" />
   <link rel="stylesheet" href="css/openreel-responsive.css" />
   <script src="js/openreel-effects.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js" defer></script>
 
   <style>
     /* =========================================================
@@ -7192,6 +7193,20 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+  // Kanban — SortableJS
+  if (typeof Sortable !== 'undefined') {
+    document.querySelectorAll('.or-kanban-col-body, [class*="kanban"][class*="body"]').forEach(col => {
+      new Sortable(col, {
+        group: 'kanban',
+        animation: 200,
+        ghostClass: 'or-kanban-ghost',
+        chosenClass: 'or-kanban-chosen',
+        dragClass: 'or-kanban-drag',
+        easing: 'cubic-bezier(0.2, 0, 0, 1)',
+      });
+    });
+  }
 
   // ==============================
   // 26. TOOLTIP HOVER (ensure CSS tooltips work, add aria)

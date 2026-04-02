@@ -361,6 +361,48 @@
     </section>
 
 
+    <!-- ============ QUICK START ============ -->
+    <section style="padding: 0 24px 64px; max-width: 800px; margin: 0 auto;">
+      <div style="background:linear-gradient(135deg, var(--brand-light), rgba(41,112,255,0.05)); border:1px solid rgba(31,18,222,0.15); border-radius:var(--radius-xl); padding:32px; margin-bottom:40px;">
+        <h2 style="font-size:24px; font-weight:700; color:var(--brand); margin-bottom:8px;">Get Started in 60 Seconds</h2>
+        <p style="color:var(--gray-500); margin-bottom:24px;">No coding required. Just copy, paste, done.</p>
+
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;">1</div>
+            <div>
+              <p style="font-weight:600; color:var(--gray-900); margin-bottom:4px;">Install Claude Code</p>
+              <p style="font-size:13px; color:var(--gray-500); line-height:1.5;">Download Claude Code from <a href="https://claude.ai/code" style="color:var(--brand);">claude.ai/code</a> and open it on your computer.</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;">2</div>
+            <div>
+              <p style="font-weight:600; color:var(--gray-900); margin-bottom:4px;">Copy this into your settings</p>
+              <p style="font-size:13px; color:var(--gray-500); margin-bottom:8px;">Open Claude Code → Settings → MCP Servers → paste this:</p>
+              <div style="background:var(--gray-900);border-radius:var(--radius-md);padding:12px 16px;font-family:'SF Mono',monospace;font-size:12px;color:#e2e8f0;overflow-x:auto;">
+                {<br/>
+                &nbsp;&nbsp;"openreel-ds": {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"command": "npx",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"args": ["-y", "openreel-design-system-mcp"]<br/>
+                &nbsp;&nbsp;}<br/>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--success-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;">&#10003;</div>
+            <div>
+              <p style="font-weight:600; color:var(--gray-900); margin-bottom:4px;">That's it! Start building</p>
+              <p style="font-size:13px; color:var(--gray-500); line-height:1.5;">Ask Claude: <em>"Build me a dashboard using the OpenReel Design System"</em> and it will use the right components, tokens, and patterns automatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 3 STEPS ============ -->
     <section id="steps" style="padding: 64px 24px 80px; max-width: 800px; margin: 0 auto;">
       <div style="text-align: center; margin-bottom: 56px;" class="fade-up">
