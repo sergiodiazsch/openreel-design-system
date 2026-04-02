@@ -618,6 +618,324 @@ html, body {
   [data-or-glow] {
     pointer-events: auto;
   }
+}
+
+
+/* ─────────────────────────────────────────────
+   12b. MOBILE ACCESSIBILITY & SPACING
+   ───────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  /* Generous spacing between component sections */
+  .component-section {
+    margin-bottom: 48px !important;
+  }
+
+  .component-section > h2 {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .component-section > p {
+    font-size: 14px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Component cards: more breathing room */
+  .component-card {
+    margin-bottom: 20px !important;
+    border-radius: 12px !important;
+  }
+
+  .component-card > h3 {
+    padding: 10px 16px !important;
+    font-size: 11px !important;
+  }
+
+  /* Better focus indicators on mobile */
+  *:focus-visible {
+    outline: 3px solid var(--brand) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Touch targets: minimum 48px (WCAG 2.5.8) */
+  button,
+  [role="button"],
+  a,
+  input[type="checkbox"],
+  input[type="radio"],
+  .or-btn,
+  .or-chip,
+  .or-tab-pill,
+  .or-tab-underline,
+  .or-page-btn,
+  .or-sidebar-item,
+  .or-tree-item,
+  .or-accordion-trigger,
+  .nav-link {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* More line-height for readability */
+  body {
+    line-height: 1.6 !important;
+  }
+
+  p, li, td, th, .or-callout-text, .or-card-desc {
+    line-height: 1.6 !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   12c. NEW COMPONENTS RESPONSIVE (Batch 2+3)
+   ───────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  /* Metric cards: stack */
+  .or-metric {
+    width: 100% !important;
+  }
+
+  /* Feature cards: single column */
+  .or-feature-card {
+    width: 100% !important;
+  }
+
+  /* Team member cards: full width */
+  .or-team-card {
+    width: 100% !important;
+  }
+
+  /* Bento grid: 1 column */
+  .or-bento {
+    grid-template-columns: 1fr !important;
+  }
+  .or-bento-span-2,
+  .or-bento-span-3 {
+    grid-column: span 1 !important;
+  }
+
+  /* Video grid: 1 column */
+  .or-video-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Comparison table: scroll */
+  .or-comparison {
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Notification center: full width */
+  .or-notif-center {
+    width: 100% !important;
+  }
+
+  /* Countdown: wrap if needed */
+  .or-countdown {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+  }
+
+  /* Status timeline: scroll horizontally */
+  .or-status-timeline {
+    overflow-x: auto !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* Trust bar: smaller gap */
+  .or-trust-bar {
+    gap: 16px !important;
+    padding: 16px !important;
+  }
+
+  /* Radio/Checkbox cards: full width */
+  .or-radio-card,
+  .or-checkbox-card {
+    width: 100% !important;
+  }
+
+  /* Toast stack: full width */
+  .or-toast-stack {
+    right: 8px !important;
+    left: 8px !important;
+    max-width: none !important;
+  }
+
+  /* Cookie banner: wider */
+  .or-cookie-banner {
+    max-width: calc(100% - 16px) !important;
+    bottom: 8px !important;
+  }
+
+  /* Bottom sheet: full width */
+  .or-bottom-sheet {
+    border-radius: 16px 16px 0 0 !important;
+  }
+
+  /* Phone frame: scale down */
+  .or-phone-frame {
+    width: 220px !important;
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+
+  /* Browser frame: full width */
+  .or-browser-frame {
+    width: 100% !important;
+  }
+
+  /* Banner card: less padding */
+  .or-banner-card {
+    padding: 24px 16px !important;
+  }
+
+  .or-banner-card-title {
+    font-size: 22px !important;
+  }
+
+  /* Wizard steps: compact */
+  .or-wizard-label {
+    font-size: 10px !important;
+  }
+
+  .or-wizard-num {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 10px !important;
+  }
+
+  /* Split button dropdown: full width */
+  .or-split-btn-dropdown {
+    min-width: auto !important;
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  /* Filter panel: full width */
+  .or-filter-panel {
+    width: 100% !important;
+  }
+
+  /* Search results: stack */
+  .or-search-result {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .or-search-result-thumb {
+    width: 100% !important;
+    height: 120px !important;
+  }
+
+  /* Marquee: slower on mobile for readability */
+  .or-marquee-track {
+    animation-duration: 30s !important;
+  }
+
+  /* Data list: tighter */
+  .or-data-list-item {
+    padding: 10px 0 !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  /* Link card: full width */
+  .or-link-card {
+    width: 100% !important;
+  }
+
+  /* Hover card: position below instead of above */
+  .or-hover-card {
+    width: 240px !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  /* Alert dialog: nearly full width */
+  .or-alert-dialog {
+    max-width: calc(100% - 32px) !important;
+  }
+
+  /* Media controls: wrap */
+  .or-media-controls {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* Changelog entries: stack */
+  .or-changelog-entry {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  /* Number input: larger for touch */
+  .or-number-btn {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  /* Pin entry: larger fields */
+  .or-pin-field {
+    width: 48px !important;
+    height: 56px !important;
+  }
+
+  /* Collapsible: more padding */
+  .or-collapsible-trigger {
+    padding: 14px 16px !important;
+  }
+
+  /* Speed dial: smaller offset */
+  .or-speed-dial {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+
+  /* Expandable search: smaller expanded width */
+  .or-search-expand.or-open .or-search-expand-input {
+    width: 150px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  /* Even more compact on small phones */
+  .or-countdown-value {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 18px !important;
+  }
+
+  .or-countdown-separator {
+    font-size: 18px !important;
+  }
+
+  .or-metric-value {
+    font-size: 24px !important;
+  }
+
+  .or-banner-card-title {
+    font-size: 18px !important;
+  }
+
+  .or-phone-frame {
+    width: 180px !important;
+  }
+
+  /* Pin entry: even more compact */
+  .or-pin-field {
+    width: 40px !important;
+    height: 48px !important;
+    font-size: 16px !important;
+  }
+
+  .or-pin-entry {
+    gap: 4px !important;
+  }
+}
 
 
 /* ─────────────────────────────────────────────
