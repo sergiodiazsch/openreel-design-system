@@ -1539,7 +1539,7 @@
    * ───────────────────────────────────────────── */
 
   function initHamburger() {
-    const sidebar = document.querySelector('#ds-sidebar, .ds-sidebar, [class*="sidebar-nav"]');
+    const sidebar = document.querySelector('#ds-sidebar, .ds-sidebar, .sidebar, .layout-sidebar, [class*="sidebar-nav"], nav[style*="width:240"], aside[style*="width:240"]');
     if (!sidebar) return;
 
     // Create hamburger button
