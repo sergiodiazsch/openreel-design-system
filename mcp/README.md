@@ -4,7 +4,7 @@ Enables AI assistants (Claude Code, Cursor, Windsurf, etc.) to build interfaces 
 
 ## What it does
 
-The AI can query 61 components, design tokens, guidelines, and page templates — then generate code in HTML, React, Vue, or Svelte that follows the design system perfectly.
+The AI can query 131 components, design tokens, guidelines, and page templates — then generate code in HTML, React, Vue, or Svelte that follows the design system perfectly.
 
 ## Setup
 
@@ -51,7 +51,7 @@ Same pattern — point to the `index.js` file as a stdio MCP server.
 
 | Tool | Description |
 |------|-------------|
-| `list_components` | List all 61 components, optionally by category |
+| `list_components` | List all 131 components, optionally by category |
 | `get_component` | Get details + code for any component (HTML/React/Vue/Svelte) |
 | `get_tokens` | Export tokens in CSS/SCSS/JSON/Tailwind format |
 | `search` | Search across components, tokens, and guidelines |

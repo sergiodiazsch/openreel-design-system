@@ -25,7 +25,7 @@ openreel-design-system/
 │   └── openreel-effects.js   # Advanced: GSAP, Three.js, WebGL (optional, opt-in)
 ├── scripts/
 │   └── sync-tokens.js        # Generates tokens.json from mcp/registry.json
-├── index.html          # Main DS documentation (61 components)
+├── index.html          # Main DS documentation (131 components)
 ├── playground.html     # Interactive component playgrounds (15 sections)
 ├── icons.html          # Icon library + token tools
 ├── templates.html      # 8 page templates with responsive preview
