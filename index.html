@@ -3546,7 +3546,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="or-cmd">
       <div class="or-cmd-input-wrap">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input class="or-cmd-input" placeholder="Type a command or search..." readonly>
+        <input class="or-cmd-input" placeholder="Type a command or search...">
         <span class="or-cmd-kbd">Esc</span>
       </div>
       <div class="or-cmd-group-title">Recent</div>
@@ -3660,7 +3660,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div class="or-colorpicker-hex">
         <div class="or-colorpicker-preview" style="background:#1F12DE;"></div>
-        <input type="text" value="#1F12DE" readonly>
+        <input type="text" value="#1F12DE">
       </div>
       <div class="or-colorpicker-swatches">
         <div class="or-colorpicker-swatch" style="background:#1F12DE;"></div>
@@ -4270,7 +4270,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <span class="or-tag-chip">Video Production <span class="or-tag-chip-x">&times;</span></span>
         <span class="or-tag-chip">Interview <span class="or-tag-chip-x">&times;</span></span>
         <span class="or-tag-chip">4K <span class="or-tag-chip-x">&times;</span></span>
-        <input type="text" placeholder="Add tag..." readonly>
+        <input type="text" placeholder="Add tag...">
       </div>
       <div class="or-tag-dropdown">
         <div class="or-tag-dropdown-item">Tutorial</div>
@@ -6195,5 +6195,895 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </main>
 </div>
+
+<!-- ============================================
+     INTERACTIVE DEMO HANDLERS
+     ============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // ==============================
+  // 1. TABS (pill + underline)
+  // ==============================
+  document.addEventListener('click', function(e) {
+    var tab = e.target.closest('.or-tab-pill, .or-tab-underline');
+    if (!tab) return;
+    var parent = tab.parentElement;
+    if (!parent) return;
+    var cls = tab.classList.contains('or-tab-pill') ? '.or-tab-pill' : '.or-tab-underline';
+    parent.querySelectorAll(cls).forEach(function(t) { t.classList.remove('active'); });
+    tab.classList.add('active');
+  });
+
+  // ==============================
+  // 2. SEGMENTED CONTROL
+  // ==============================
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.or-segmented-btn');
+    if (!btn) return;
+    var parent = btn.closest('.or-segmented');
+    if (!parent) return;
+    parent.querySelectorAll('.or-segmented-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  });
+
+  // ==============================
+  // 3. CHIPS (filter toggles)
+  // ==============================
+  document.addEventListener('click', function(e) {
+    var chip = e.target.closest('.or-chip');
+    if (!chip) return;
+    var parent = chip.parentElement;
+    if (!parent) return;
+    parent.querySelectorAll('.or-chip').forEach(function(c) { c.classList.remove('selected'); });
+    chip.classList.add('selected');
+  });
+
+  // ==============================
+  // 4. PAGINATION
+  // ==============================
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.or-page-btn:not(.or-page-nav):not([disabled])');
+    if (!btn) return;
+    var pag = btn.closest('.or-pagination');
+    if (!pag) return;
+    pag.querySelectorAll('.or-page-btn:not(.or-page-nav)').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  });
+
+  // ==============================
+  // 5. SLIDER / RANGE (drag)
+  // ==============================
+  function initSliders() {
+    document.querySelectorAll('.or-slider-track').forEach(function(track) {
+      var thumbs = track.querySelectorAll('.or-slider-thumb');
+      var fill = track.querySelector('.or-slider-fill');
+      var wrap = track.closest('.or-slider-wrap');
+      var labels = wrap ? wrap.querySelector('.or-slider-labels') : null;
+      var isRange = thumbs.length === 2;
+
+      // Determine min/max from labels
+      var minVal = 0, maxVal = 100, prefix = '', suffix = '%';
+      if (labels) {
+        var spans = labels.querySelectorAll('span');
+        if (spans.length === 2) {
+          var minText = spans[0].textContent.trim();
+          var maxText = spans[1].textContent.trim();
+          if (minText.charAt(0) === '$') {
+            prefix = '$'; suffix = '';
+            minVal = parseFloat(minText.replace('$', '')) || 0;
+            maxVal = parseFloat(maxText.replace('$', '')) || 500;
+          } else {
+            prefix = ''; suffix = minText.includes('%') ? '%' : '';
+            minVal = parseFloat(minText) || 0;
+            maxVal = parseFloat(maxText.replace('%', '')) || 100;
+          }
+        }
+      }
+
+      thumbs.forEach(function(thumb, idx) {
+        function onDrag(moveEvt) {
+          var rect = track.getBoundingClientRect();
+          var clientX = moveEvt.touches ? moveEvt.touches[0].clientX : moveEvt.clientX;
+          var pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+          var pctStr = (pct * 100).toFixed(1) + '%';
+          thumb.style.left = pctStr;
+
+          var tooltip = thumb.querySelector('.or-slider-tooltip');
+          var val = minVal + pct * (maxVal - minVal);
+          if (tooltip) {
+            tooltip.textContent = prefix + (suffix === '%' ? Math.round(val) + suffix : Math.round(val));
+          }
+
+          // Update fill
+          if (fill) {
+            if (isRange) {
+              var leftPct = parseFloat(thumbs[0].style.left) || 0;
+              var rightPct = parseFloat(thumbs[1].style.left) || 100;
+              if (leftPct > rightPct) { var tmp = leftPct; leftPct = rightPct; rightPct = tmp; }
+              fill.style.left = leftPct + '%';
+              fill.style.width = (rightPct - leftPct) + '%';
+            } else {
+              fill.style.width = pctStr;
+              fill.style.left = '0%';
+            }
+          }
+        }
+
+        function onUp() {
+          document.removeEventListener('mousemove', onDrag);
+          document.removeEventListener('mouseup', onUp);
+          document.removeEventListener('touchmove', onDrag);
+          document.removeEventListener('touchend', onUp);
+        }
+
+        thumb.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          document.addEventListener('mousemove', onDrag);
+          document.addEventListener('mouseup', onUp);
+        });
+        thumb.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          document.addEventListener('touchmove', onDrag, { passive: false });
+          document.addEventListener('touchend', onUp);
+        }, { passive: false });
+      });
+    });
+  }
+  initSliders();
+
+  // ==============================
+  // 6. RATING STARS (hover + click)
+  // ==============================
+  document.querySelectorAll('.or-rating').forEach(function(rating) {
+    var stars = Array.from(rating.querySelectorAll('.or-rating-star'));
+    var countEl = rating.querySelector('.or-rating-count');
+    if (stars.length === 0) return;
+
+    var currentRating = stars.filter(function(s) { return s.classList.contains('filled'); }).length;
+    var filledFill = '#F59E0B';
+    var emptyFill = 'none';
+    var emptyStroke = '#E4E7EC';
+
+    function setStars(n) {
+      stars.forEach(function(star, i) {
+        var svg = star.querySelector('svg');
+        var poly = svg ? svg.querySelector('polygon') : null;
+        if (i < n) {
+          star.classList.add('filled');
+          if (svg) { svg.setAttribute('fill', filledFill); svg.setAttribute('stroke', filledFill); svg.setAttribute('stroke-width', '1'); }
+          if (poly) { poly.setAttribute('fill', filledFill); poly.setAttribute('stroke', filledFill); }
+        } else {
+          star.classList.remove('filled');
+          if (svg) { svg.setAttribute('fill', emptyFill); svg.setAttribute('stroke', emptyStroke); svg.setAttribute('stroke-width', '1.5'); }
+          if (poly) { poly.setAttribute('fill', emptyFill); poly.setAttribute('stroke', emptyStroke); }
+        }
+      });
+    }
+
+    stars.forEach(function(star, idx) {
+      star.style.cursor = 'pointer';
+
+      star.addEventListener('mouseenter', function() {
+        setStars(idx + 1);
+      });
+
+      star.addEventListener('click', function() {
+        currentRating = idx + 1;
+        setStars(currentRating);
+        if (countEl) countEl.textContent = currentRating + '.0';
+      });
+    });
+
+    rating.addEventListener('mouseleave', function() {
+      setStars(currentRating);
+    });
+  });
+
+  // ==============================
+  // 7. MODALS (open/close)
+  // ==============================
+  document.querySelectorAll('.or-modal-backdrop').forEach(function(backdrop) {
+    var previewBox = backdrop.closest('.preview-box');
+    if (!previewBox) return;
+    var card = previewBox.closest('.component-card');
+    if (!card) return;
+
+    // Initially hide the modal
+    backdrop.style.display = 'none';
+
+    // Create an "Open Modal" trigger button
+    var openBtn = document.createElement('button');
+    openBtn.className = 'or-btn or-btn-md or-btn-primary';
+    openBtn.textContent = 'Open Modal';
+    openBtn.style.marginBottom = '12px';
+    previewBox.insertBefore(openBtn, backdrop);
+
+    openBtn.addEventListener('click', function() {
+      backdrop.style.display = '';
+      backdrop.classList.add('or-active');
+    });
+
+    // Close on backdrop click
+    backdrop.addEventListener('click', function(e) {
+      if (e.target === backdrop) {
+        backdrop.classList.remove('or-active');
+        setTimeout(function() { backdrop.style.display = 'none'; }, 200);
+      }
+    });
+
+    // Close button (X) in modal header
+    var closeBtn = backdrop.querySelector('.or-modal-header button');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        backdrop.classList.remove('or-active');
+        setTimeout(function() { backdrop.style.display = 'none'; }, 200);
+      });
+    }
+
+    // Cancel button in modal footer
+    var cancelBtn = backdrop.querySelector('.or-btn-secondary, .or-btn--secondary');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function() {
+        backdrop.classList.remove('or-active');
+        setTimeout(function() { backdrop.style.display = 'none'; }, 200);
+      });
+    }
+
+    // Destructive / confirm button
+    var confirmBtn = backdrop.querySelector('.or-btn-destructive, .or-btn--destructive');
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', function() {
+        backdrop.classList.remove('or-active');
+        setTimeout(function() { backdrop.style.display = 'none'; }, 200);
+      });
+    }
+  });
+
+  // ==============================
+  // 8. TOAST / SNACKBAR (dismiss + demo trigger)
+  // ==============================
+  // Toast dismiss buttons
+  document.addEventListener('click', function(e) {
+    var dismissBtn = e.target.closest('.or-toast-dismiss');
+    if (!dismissBtn) return;
+    var toast = dismissBtn.closest('.or-toast');
+    if (toast) {
+      toast.style.transition = 'opacity 0.2s, transform 0.2s';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(20px)';
+      setTimeout(function() {
+        toast.style.display = 'none';
+        // After 3 seconds, restore it for demo purposes
+        setTimeout(function() {
+          toast.style.display = '';
+          toast.style.opacity = '1';
+          toast.style.transform = '';
+        }, 3000);
+      }, 200);
+    }
+  });
+
+  // Snackbar dismiss
+  document.addEventListener('click', function(e) {
+    var dismissBtn = e.target.closest('.or-snackbar-dismiss');
+    if (!dismissBtn) return;
+    var snack = dismissBtn.closest('.or-snackbar');
+    if (snack) {
+      snack.style.transition = 'opacity 0.2s, transform 0.2s';
+      snack.style.opacity = '0';
+      snack.style.transform = 'translateY(10px)';
+      setTimeout(function() {
+        snack.style.display = 'none';
+        setTimeout(function() {
+          snack.style.display = '';
+          snack.style.opacity = '1';
+          snack.style.transform = '';
+        }, 3000);
+      }, 200);
+    }
+  });
+
+  // Add a "Show Toast" demo button to the toast section
+  (function() {
+    var toastSection = document.getElementById('toast');
+    if (!toastSection) return;
+    var firstCard = toastSection.querySelector('.component-card');
+    if (!firstCard) return;
+    var previewBox = firstCard.querySelector('.preview-box-col');
+    if (!previewBox) return;
+
+    var demoBtn = document.createElement('button');
+    demoBtn.className = 'or-btn or-btn-md or-btn-primary';
+    demoBtn.textContent = 'Show Toast Demo';
+    demoBtn.style.marginBottom = '16px';
+    demoBtn.style.alignSelf = 'center';
+    previewBox.insertBefore(demoBtn, previewBox.firstChild);
+
+    var toastTypes = ['success', 'error', 'warning', 'info'];
+    var toastIdx = 0;
+
+    demoBtn.addEventListener('click', function() {
+      var type = toastTypes[toastIdx % toastTypes.length];
+      toastIdx++;
+
+      var icons = {
+        success: '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#17B26A" stroke-width="1.5"/><path d="M5.5 9l2.5 2.5 4.5-5" stroke="#17B26A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        error: '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#F04438" stroke-width="1.5"/><path d="M9 5.5v4M9 12.5h.01" stroke="#F04438" stroke-width="1.5" stroke-linecap="round"/></svg>',
+        warning: '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L1.5 15.5h15L9 2z" stroke="#B54708" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7v3.5M9 13h.01" stroke="#B54708" stroke-width="1.5" stroke-linecap="round"/></svg>',
+        info: '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#2970FF" stroke-width="1.5"/><path d="M9 8v5M9 5.5h.01" stroke="#2970FF" stroke-width="1.5" stroke-linecap="round"/></svg>'
+      };
+      var messages = {
+        success: '<strong>Success</strong> Action completed.',
+        error: '<strong>Error</strong> Something went wrong.',
+        warning: '<strong>Warning</strong> Please review.',
+        info: '<strong>Info</strong> New update available.'
+      };
+
+      var toast = document.createElement('div');
+      toast.className = 'or-toast or-toast-' + type;
+      toast.style.position = 'fixed';
+      toast.style.top = '80px';
+      toast.style.right = '20px';
+      toast.style.zIndex = '10000';
+      toast.style.animation = 'none';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(40px)';
+      toast.style.transition = 'opacity 0.3s var(--ease-out, ease-out), transform 0.3s var(--ease-out, ease-out)';
+      toast.innerHTML = icons[type] + '<div class="or-toast-msg">' + messages[type] + '</div><button class="or-toast-dismiss">&times;</button>';
+      document.body.appendChild(toast);
+
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          toast.style.opacity = '1';
+          toast.style.transform = 'translateX(0)';
+        });
+      });
+
+      // Auto-dismiss after 3s
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(40px)';
+        setTimeout(function() { toast.remove(); }, 300);
+      }, 3000);
+    });
+  })();
+
+  // ==============================
+  // 9. STEPPER (click to navigate)
+  // ==============================
+  document.querySelectorAll('.or-stepper').forEach(function(stepper) {
+    var steps = Array.from(stepper.querySelectorAll('.or-step'));
+    var lines = Array.from(stepper.querySelectorAll('.or-step-line'));
+    var checkSVG = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    steps.forEach(function(step, idx) {
+      step.style.cursor = 'pointer';
+      step.addEventListener('click', function() {
+        steps.forEach(function(s, i) {
+          var circle = s.querySelector('.or-step-circle');
+          if (i < idx) {
+            s.className = 'or-step completed';
+            if (circle) circle.innerHTML = checkSVG;
+          } else if (i === idx) {
+            s.className = 'or-step current';
+            if (circle) circle.textContent = (i + 1);
+          } else {
+            s.className = 'or-step upcoming';
+            if (circle) circle.textContent = (i + 1);
+          }
+        });
+        lines.forEach(function(line, i) {
+          line.className = 'or-step-line ' + (i < idx ? 'done' : 'pending');
+        });
+      });
+    });
+  });
+
+  // ==============================
+  // 10. TREE VIEW (toggle expand/collapse)
+  // ==============================
+  document.addEventListener('click', function(e) {
+    var arrow = e.target.closest('.or-tree-item .arrow');
+    if (!arrow) return;
+    if (arrow.style.opacity === '0') return; // leaf node, not expandable
+
+    var treeItem = arrow.closest('.or-tree-item');
+    if (!treeItem) return;
+    var children = treeItem.nextElementSibling;
+    if (!children || !children.classList.contains('or-tree-children')) return;
+
+    arrow.classList.toggle('open');
+    if (arrow.classList.contains('open')) {
+      children.style.display = '';
+    } else {
+      children.style.display = 'none';
+    }
+  });
+
+  // ==============================
+  // 11. DROPDOWN MENU (toggle)
+  // ==============================
+  document.addEventListener('click', function(e) {
+    var dropdownBtn = e.target.closest('.or-dropdown > .or-btn');
+    if (dropdownBtn) {
+      var dropdown = dropdownBtn.closest('.or-dropdown');
+      var menu = dropdown.querySelector('.or-dropdown-menu');
+      if (menu) {
+        var isOpen = menu.style.display !== 'none' && menu.classList.contains('or-open');
+        // Close all other dropdowns
+        document.querySelectorAll('.or-dropdown-menu.or-open').forEach(function(m) {
+          m.classList.remove('or-open');
+          m.style.display = 'none';
+        });
+        if (!isOpen) {
+          menu.classList.add('or-open');
+          menu.style.display = '';
+        }
+        return;
+      }
+    }
+
+    // Close dropdowns when clicking outside
+    if (!e.target.closest('.or-dropdown')) {
+      document.querySelectorAll('.or-dropdown-menu.or-open').forEach(function(m) {
+        m.classList.remove('or-open');
+        m.style.display = 'none';
+      });
+    }
+  });
+
+  // ==============================
+  // 12. OTP INPUT (auto-advance + backspace)
+  // ==============================
+  document.querySelectorAll('.or-otp').forEach(function(otp) {
+    var digits = Array.from(otp.querySelectorAll('.or-otp-digit'));
+
+    digits.forEach(function(input, idx) {
+      input.addEventListener('input', function() {
+        var val = input.value;
+        if (val.length > 1) input.value = val.charAt(val.length - 1);
+        if (input.value.length === 1) {
+          input.classList.add('filled');
+          if (idx < digits.length - 1) digits[idx + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' && input.value === '' && idx > 0) {
+          digits[idx - 1].focus();
+          digits[idx - 1].value = '';
+          digits[idx - 1].classList.remove('filled');
+        }
+      });
+
+      input.addEventListener('focus', function() {
+        input.select();
+      });
+    });
+  });
+
+  // ==============================
+  // 13. TAG INPUT (add/remove tags)
+  // ==============================
+  document.querySelectorAll('.or-tag-input').forEach(function(tagInput) {
+    var input = tagInput.querySelector('input[type="text"]');
+    var dropdownWrap = tagInput.parentElement ? tagInput.parentElement.querySelector('.or-tag-dropdown') : null;
+
+    if (input) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && input.value.trim()) {
+          e.preventDefault();
+          var tagText = input.value.trim();
+          var chip = document.createElement('span');
+          chip.className = 'or-tag-chip';
+          chip.innerHTML = tagText + ' <span class="or-tag-chip-x">&times;</span>';
+          tagInput.insertBefore(chip, input);
+          input.value = '';
+          if (dropdownWrap) dropdownWrap.style.display = 'none';
+        }
+      });
+
+      // Show/hide dropdown on focus
+      input.addEventListener('focus', function() {
+        if (dropdownWrap) dropdownWrap.style.display = '';
+      });
+      input.addEventListener('blur', function() {
+        setTimeout(function() {
+          if (dropdownWrap) dropdownWrap.style.display = 'none';
+        }, 200);
+      });
+    }
+
+    // Remove tag on X click
+    tagInput.addEventListener('click', function(e) {
+      var x = e.target.closest('.or-tag-chip-x');
+      if (x) {
+        var chip = x.closest('.or-tag-chip');
+        if (chip) chip.remove();
+      }
+    });
+
+    // Add tag from dropdown suggestion
+    if (dropdownWrap) {
+      dropdownWrap.addEventListener('click', function(e) {
+        var item = e.target.closest('.or-tag-dropdown-item');
+        if (item && input) {
+          var tagText = item.textContent.trim();
+          var chip = document.createElement('span');
+          chip.className = 'or-tag-chip';
+          chip.innerHTML = tagText + ' <span class="or-tag-chip-x">&times;</span>';
+          tagInput.insertBefore(chip, input);
+          item.remove();
+        }
+      });
+    }
+  });
+
+  // ==============================
+  // 14. SIDEBAR NAVIGATION (active + scroll)
+  // ==============================
+  var sidebar = document.getElementById('ds-sidebar');
+  if (sidebar) {
+    sidebar.addEventListener('click', function(e) {
+      var link = e.target.closest('.nav-link');
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        sidebar.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
+        link.classList.add('active');
+        var target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  // ==============================
+  // 15. PROGRESS BARS (animate on scroll)
+  // ==============================
+  function initProgressBars() {
+    var fills = document.querySelectorAll('.or-progress-fill');
+    if (!fills.length) return;
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var fill = entry.target;
+          var targetWidth = fill.getAttribute('data-target-width') || fill.style.width;
+          fill.setAttribute('data-target-width', targetWidth);
+          fill.style.width = '0%';
+          fill.style.transition = 'width 0.8s var(--ease-out, ease-out)';
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              fill.style.width = targetWidth;
+            });
+          });
+          observer.unobserve(fill);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    fills.forEach(function(fill) {
+      fill.setAttribute('data-target-width', fill.style.width);
+      observer.observe(fill);
+    });
+  }
+  initProgressBars();
+
+  // ==============================
+  // 16. ACCORDION (already has inline onclick, enhance for keyboard)
+  // ==============================
+  document.querySelectorAll('.or-accordion-trigger').forEach(function(trigger) {
+    if (trigger.disabled) return;
+    trigger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger.click();
+      }
+    });
+  });
+
+  // ==============================
+  // 17. SIDENAV (active toggle)
+  // ==============================
+  document.querySelectorAll('.or-sidenav').forEach(function(sidenav) {
+    sidenav.addEventListener('click', function(e) {
+      var item = e.target.closest('.or-sidenav-item');
+      if (!item) return;
+      sidenav.querySelectorAll('.or-sidenav-item').forEach(function(i) { i.classList.remove('active'); });
+      item.classList.add('active');
+    });
+  });
+
+  // ==============================
+  // 18. DATE PICKER (select day)
+  // ==============================
+  document.querySelectorAll('.or-datepicker').forEach(function(picker) {
+    picker.addEventListener('click', function(e) {
+      var day = e.target.closest('.or-datepicker-day:not(.muted)');
+      if (!day) return;
+      picker.querySelectorAll('.or-datepicker-day').forEach(function(d) {
+        d.classList.remove('selected', 'range');
+      });
+      day.classList.add('selected');
+    });
+  });
+
+  // ==============================
+  // 19. COLOR PICKER (swatch click)
+  // ==============================
+  document.querySelectorAll('.or-colorpicker').forEach(function(cp) {
+    var preview = cp.querySelector('.or-colorpicker-preview');
+    var hexInput = cp.querySelector('.or-colorpicker-hex input');
+    var hueThumb = cp.querySelector('.or-colorpicker-hue-thumb');
+    var satBox = cp.querySelector('.or-colorpicker-sat');
+
+    cp.querySelectorAll('.or-colorpicker-swatch').forEach(function(swatch) {
+      swatch.style.cursor = 'pointer';
+      swatch.addEventListener('click', function() {
+        var color = swatch.style.background || swatch.style.backgroundColor;
+        if (preview) preview.style.background = color;
+        if (hexInput) {
+          // Convert to hex from rgb
+          var temp = document.createElement('div');
+          temp.style.color = color;
+          document.body.appendChild(temp);
+          var computed = getComputedStyle(temp).color;
+          document.body.removeChild(temp);
+          var match = computed.match(/\d+/g);
+          if (match && match.length >= 3) {
+            var hex = '#' + match.slice(0, 3).map(function(v) { return parseInt(v).toString(16).padStart(2, '0'); }).join('');
+            hexInput.value = hex.toUpperCase();
+          }
+        }
+        if (hueThumb) hueThumb.style.background = color;
+        if (satBox) {
+          satBox.style.background = 'linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, ' + color + ')';
+        }
+      });
+    });
+
+    // Hex input change
+    if (hexInput) {
+      hexInput.addEventListener('change', function() {
+        var val = hexInput.value.trim();
+        if (/^#?[0-9a-fA-F]{6}$/.test(val)) {
+          if (val.charAt(0) !== '#') val = '#' + val;
+          hexInput.value = val.toUpperCase();
+          if (preview) preview.style.background = val;
+          if (hueThumb) hueThumb.style.background = val;
+          if (satBox) satBox.style.background = 'linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, ' + val + ')';
+        }
+      });
+    }
+  });
+
+  // ==============================
+  // 20. COMMAND PALETTE (keyboard nav)
+  // ==============================
+  document.querySelectorAll('.or-cmd').forEach(function(cmd) {
+    var items = cmd.querySelectorAll('.or-cmd-item');
+    var input = cmd.querySelector('.or-cmd-input');
+
+    if (input) {
+      input.addEventListener('keydown', function(e) {
+        var allItems = Array.from(cmd.querySelectorAll('.or-cmd-item'));
+        var activeItem = cmd.querySelector('.or-cmd-item.active');
+        var activeIdx = activeItem ? allItems.indexOf(activeItem) : -1;
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          allItems.forEach(function(i) { i.classList.remove('active'); });
+          activeIdx = Math.min(activeIdx + 1, allItems.length - 1);
+          allItems[activeIdx].classList.add('active');
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          allItems.forEach(function(i) { i.classList.remove('active'); });
+          activeIdx = Math.max(activeIdx - 1, 0);
+          allItems[activeIdx].classList.add('active');
+        } else if (e.key === 'Enter' && activeIdx >= 0) {
+          e.preventDefault();
+          allItems[activeIdx].click();
+        }
+      });
+
+      // Filter items as user types
+      input.addEventListener('input', function() {
+        var q = input.value.toLowerCase().trim();
+        var items = cmd.querySelectorAll('.or-cmd-item');
+        var groups = cmd.querySelectorAll('.or-cmd-group-title');
+        if (!q) {
+          items.forEach(function(i) { i.style.display = ''; });
+          groups.forEach(function(g) { g.style.display = ''; });
+          return;
+        }
+        items.forEach(function(item) {
+          var text = item.textContent.toLowerCase();
+          item.style.display = text.includes(q) ? '' : 'none';
+        });
+        // Hide empty group titles
+        groups.forEach(function(g) {
+          var next = g.nextElementSibling;
+          var hasVisible = false;
+          while (next && next.classList.contains('or-cmd-item')) {
+            if (next.style.display !== 'none') hasVisible = true;
+            next = next.nextElementSibling;
+          }
+          g.style.display = hasVisible ? '' : 'none';
+        });
+      });
+    }
+
+    // Click items
+    items.forEach(function(item) {
+      item.style.cursor = 'pointer';
+      item.addEventListener('click', function() {
+        items.forEach(function(i) { i.classList.remove('active'); });
+        item.classList.add('active');
+      });
+    });
+  });
+
+  // ==============================
+  // 21. GALLERY (select item)
+  // ==============================
+  document.querySelectorAll('.or-gallery').forEach(function(gallery) {
+    gallery.addEventListener('click', function(e) {
+      var item = e.target.closest('.or-gallery-item');
+      if (!item) return;
+      gallery.querySelectorAll('.or-gallery-item').forEach(function(i) { i.classList.remove('selected'); });
+      item.classList.add('selected');
+    });
+  });
+
+  // ==============================
+  // 22. AUDIO PLAYER (play/pause toggle + progress click)
+  // ==============================
+  document.querySelectorAll('.or-audioplayer').forEach(function(player) {
+    var playBtn = player.querySelector('.or-audioplayer-play');
+    var progressTrack = player.querySelector('.or-audioplayer-track');
+    var progressFill = player.querySelector('.or-audioplayer-fill');
+    var volTrack = player.querySelector('.or-audioplayer-vol-track');
+    var volFill = player.querySelector('.or-audioplayer-vol-fill');
+    var isPlaying = false;
+
+    if (playBtn) {
+      var playSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+      var pauseSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';
+
+      playBtn.addEventListener('click', function() {
+        isPlaying = !isPlaying;
+        playBtn.innerHTML = isPlaying ? pauseSVG : playSVG;
+      });
+    }
+
+    if (progressTrack && progressFill) {
+      progressTrack.style.cursor = 'pointer';
+      progressTrack.addEventListener('click', function(e) {
+        var rect = progressTrack.getBoundingClientRect();
+        var pct = ((e.clientX - rect.left) / rect.width) * 100;
+        progressFill.style.width = pct + '%';
+      });
+    }
+
+    if (volTrack && volFill) {
+      volTrack.style.cursor = 'pointer';
+      volTrack.addEventListener('click', function(e) {
+        var rect = volTrack.getBoundingClientRect();
+        var pct = ((e.clientX - rect.left) / rect.width) * 100;
+        volFill.style.width = pct + '%';
+      });
+    }
+  });
+
+  // ==============================
+  // 23. DRAWER (demo - not changing HTML, just the close button)
+  // ==============================
+  document.querySelectorAll('.or-drawer-close').forEach(function(closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      var panel = closeBtn.closest('.or-drawer-panel');
+      var demo = closeBtn.closest('.or-drawer-demo');
+      if (panel) {
+        panel.style.transition = 'transform 0.3s var(--ease-out, ease-out)';
+        panel.style.transform = 'translateX(100%)';
+        setTimeout(function() {
+          panel.style.transform = '';
+        }, 2000);
+      }
+    });
+  });
+
+  // ==============================
+  // 24. DATA TABLE CHECKBOXES
+  // ==============================
+  document.querySelectorAll('.or-dtable').forEach(function(table) {
+    var headerCb = table.querySelector('thead .or-checkbox, thead input[type="checkbox"]');
+    var rowCbs = table.querySelectorAll('tbody .or-checkbox, tbody input[type="checkbox"]');
+
+    if (headerCb) {
+      headerCb.addEventListener('change', function() {
+        rowCbs.forEach(function(cb) { cb.checked = headerCb.checked; });
+      });
+    }
+  });
+
+  // ==============================
+  // 25. KANBAN CARD DRAG (visual feedback)
+  // ==============================
+  document.querySelectorAll('.or-kanban-card').forEach(function(card) {
+    card.setAttribute('draggable', 'true');
+    card.addEventListener('dragstart', function(e) {
+      card.style.opacity = '0.5';
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    card.addEventListener('dragend', function() {
+      card.style.opacity = '1';
+    });
+  });
+
+  document.querySelectorAll('.or-kanban-col').forEach(function(col) {
+    col.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      col.style.background = 'rgba(31, 18, 222, 0.04)';
+    });
+    col.addEventListener('dragleave', function() {
+      col.style.background = '';
+    });
+    col.addEventListener('drop', function(e) {
+      e.preventDefault();
+      col.style.background = '';
+      var dragging = document.querySelector('.or-kanban-card[style*="opacity: 0.5"]');
+      if (dragging) {
+        var header = col.querySelector('.or-kanban-col-header');
+        if (header) col.insertBefore(dragging, header.nextSibling);
+        else col.appendChild(dragging);
+      }
+    });
+  });
+
+  // ==============================
+  // 26. TOOLTIP HOVER (ensure CSS tooltips work, add aria)
+  // ==============================
+  document.querySelectorAll('.or-tooltip-wrap').forEach(function(wrap) {
+    var trigger = wrap.querySelector('button, a, [tabindex]');
+    var tooltip = wrap.querySelector('.or-tooltip');
+    if (trigger && tooltip) {
+      trigger.setAttribute('aria-describedby', '');
+      trigger.addEventListener('focus', function() { tooltip.classList.add('or-visible'); });
+      trigger.addEventListener('blur', function() { tooltip.classList.remove('or-visible'); });
+    }
+  });
+
+  // ==============================
+  // 27. FAB (click ripple effect)
+  // ==============================
+  document.querySelectorAll('.or-fab').forEach(function(fab) {
+    fab.addEventListener('click', function() {
+      fab.style.transform = 'scale(0.9)';
+      setTimeout(function() { fab.style.transform = ''; }, 150);
+    });
+  });
+
+  // ==============================
+  // 28. POPOVER TRIGGER (hover to show if hidden)
+  // ==============================
+  document.querySelectorAll('.or-popover-wrap').forEach(function(wrap) {
+    var popover = wrap.querySelector('.or-popover');
+    if (!popover) return;
+    // Cancel/close buttons inside popovers
+    var cancelBtn = popover.querySelector('.or-btn-secondary, .or-btn--secondary');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function() {
+        popover.style.opacity = '0';
+        setTimeout(function() { popover.style.opacity = ''; }, 1500);
+      });
+    }
+  });
+
+})();
+</script>
+
 </body>
 </html>
