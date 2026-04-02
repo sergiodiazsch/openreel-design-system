@@ -202,24 +202,9 @@ html.dark .kbd-row kbd {
    ───────────────────────────────────────────── */
 
 @media (max-width: 1023px) {
-  /* Hide the entire search wrapper including the icon */
-  header [style*="position:relative"][style*="320px"],
-  header [style*="position: relative"][style*="320px"],
-  header div:has(> input[placeholder*="Search"]),
-  header > div:last-child > div:has(svg):has(input) {
+  /* Hide search bar on tablet/mobile */
+  .header-search {
     display: none !important;
-  }
-
-  /* Fallback: hide any search-related elements in header right section */
-  header > div:last-child input,
-  header > div:last-child svg:not(.dm-toggle svg) {
-    display: none !important;
-  }
-
-  /* But keep the dark mode toggle visible */
-  header .dm-toggle,
-  header .dm-toggle svg {
-    display: flex !important;
   }
 }
 
