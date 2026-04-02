@@ -39,15 +39,14 @@
 .or-hamburger {
   display: none;
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: 12px;
+  left: 12px;
   z-index: 1001;
   width: 40px;
   height: 40px;
   border: none;
-  background: var(--bg-primary, #fff);
+  background: transparent;
   border-radius: var(--radius-md, 8px);
-  box-shadow: var(--shadow-sm);
   cursor: pointer;
   flex-direction: column;
   align-items: center;
@@ -60,10 +59,10 @@
   display: block;
   width: 20px;
   height: 2px;
-  background: var(--text-primary, #101828);
+  background: #fff;
   border-radius: 2px;
-  transition: transform var(--duration-slow, 300ms) var(--ease-default, cubic-bezier(0.2, 0, 0, 1)),
-              opacity  var(--duration-slow, 300ms) var(--ease-default, cubic-bezier(0.2, 0, 0, 1));
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+              opacity  0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* Hamburger → X animation */
@@ -160,6 +159,14 @@ html, body {
   [style*="display:flex"][style*="padding-top:64px"],
   [style*="display: flex"][style*="padding-top"] {
     flex-direction: column !important;
+    padding-top: 56px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  [style*="display:flex"][style*="padding-top:64px"],
+  [style*="display: flex"][style*="padding-top"] {
+    padding-top: 48px !important;
   }
 }
 
@@ -172,46 +179,89 @@ html, body {
   header,
   .header,
   .topbar {
-    padding-left: 60px !important; /* room for hamburger */
+    padding-left: 52px !important; /* room for hamburger */
   }
 
-  /* Particles in header: reduce or hide */
-  header canvas,
-  .header canvas {
-    opacity: 0.3;
+  /* Hide page nav on tablet */
+  .header-nav {
+    display: none !important;
+  }
+
+  /* Hide search bar on tablet */
+  header input[type="search"],
+  header .search-input,
+  [placeholder*="Search tokens"],
+  [placeholder*="Search components"] {
+    display: none !important;
+  }
+
+  /* Hide keyboard shortcut hints */
+  header kbd,
+  header .kbd-help {
+    display: none !important;
   }
 }
 
 @media (max-width: 767px) {
-  /* Hide desktop nav items on mobile */
-  .header-nav,
-  .nav-links,
-  header nav:not(#ds-sidebar) > a,
-  .dm-toggle-wrap {
-    display: none !important;
-  }
-
-  /* Shrink header text */
-  header [style*="font-size:18px"],
-  header [style*="font-size: 18px"] {
-    font-size: 14px !important;
-  }
-
-  /* Search bar */
-  header input[type="search"],
-  header .search-input,
-  [placeholder*="Search tokens"] {
-    display: none !important;
-  }
-}
-
-@media (max-width: 639px) {
   header,
   .header,
   .topbar {
-    padding: 10px 12px 10px 56px !important;
-    height: auto !important;
-    min-height: 48px !important;
+    height: 56px !important;
+    padding: 0 16px 0 48px !important;
+  }
+
+  /* Hide "Design System" text, keep "OpenReel" */
+  header span[style*="font-weight:400"] {
+    display: none !important;
+  }
+
+  /* Hide version badge */
+  header span[style*="font-size:11px"][style*="border-radius"] {
+    display: none !important;
+  }
+
+  /* Hide dark mode toggle on very small */
+  .dm-toggle {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* Hamburger position inside the header bar */
+  .or-hamburger {
+    top: 8px !important;
+    left: 8px !important;
+  }
+}
+
+@media (max-width: 479px) {
+  header,
+  .header,
+  .topbar {
+    height: 48px !important;
+    padding: 0 12px 0 44px !important;
+  }
+
+  /* Shrink logo icon */
+  header > div:first-child > div:first-child {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  header > div:first-child > div:first-child svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* Shrink brand text */
+  header span[style*="font-size:16px"] {
+    font-size: 14px !important;
+  }
+
+  .or-hamburger {
+    top: 4px !important;
+    left: 4px !important;
+    width: 36px !important;
+    height: 36px !important;
   }
 }
 
@@ -227,7 +277,6 @@ html, body {
     gap: 8px !important;
   }
 
-  /* WebGL gradient in footer */
   footer canvas {
     opacity: 0.5;
   }
