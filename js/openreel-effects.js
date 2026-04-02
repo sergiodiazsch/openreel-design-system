@@ -1581,7 +1581,38 @@
   }
 
   /* ─────────────────────────────────────────────
-   * 10. INIT
+   * 10. NAV ACTIVE STATE
+   * ───────────────────────────────────────────── */
+
+  function initNavActive() {
+    const path = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.header-nav-link');
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      const href = link.getAttribute('href');
+      if (href === path || (path === 'index.html' && href === 'index.html')) {
+        link.classList.add('active');
+      }
+    });
+
+    // Also check dropdown items for "Resources" and "Tools" groups
+    const dropdownLinks = document.querySelectorAll('.nav-dropdown a');
+    dropdownLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === path) {
+        // Find the parent dropdown trigger button and highlight it
+        const trigger = link.closest('.nav-dropdown-trigger');
+        if (trigger) {
+          const btn = trigger.querySelector('.header-nav-link');
+          if (btn) btn.classList.add('active');
+        }
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 11. INIT
    * ───────────────────────────────────────────── */
 
   function init() {
@@ -1600,6 +1631,7 @@
     initCounters();
     initAnatomy();
     initHamburger();
+    initNavActive();
   }
 
   if (document.readyState === "loading") {

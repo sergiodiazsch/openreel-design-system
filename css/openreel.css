@@ -905,3 +905,233 @@ html.dark ::-webkit-scrollbar-thumb { background: #333741; }
 
 /* Kanban card */
 .or-kanban-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* ── Custom Select Styling ── */
+.or-select,
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  padding: 10px 36px 10px 14px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  color: var(--gray-900);
+  background-color: var(--white, #fff);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+select:hover {
+  border-color: var(--gray-500);
+}
+
+select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(31, 18, 222, 0.12);
+}
+
+html.dark select,
+html.dark .or-select {
+  background-color: var(--bg-secondary, #161B26);
+  border-color: var(--border-primary, #333741);
+  color: var(--text-primary, #F5F5F6);
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394969C' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+html.dark select:focus,
+html.dark .or-select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(31, 18, 222, 0.2);
+}
+
+/* Select sizes */
+select.or-select-sm {
+  padding: 6px 32px 6px 10px;
+  font-size: var(--text-sm);
+}
+
+select.or-select-lg {
+  padding: 12px 40px 12px 16px;
+  font-size: var(--text-md);
+}
+
+/* ── Dark Mode Component Overrides ── */
+html.dark .or-card {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-card-title {
+  color: var(--text-primary);
+}
+
+html.dark .or-card-desc {
+  color: var(--text-secondary);
+}
+
+html.dark .or-input {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+html.dark .or-input::placeholder {
+  color: var(--text-secondary);
+}
+
+html.dark .or-input:hover {
+  border-color: var(--gray-500);
+}
+
+html.dark .or-btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-btn-secondary:hover {
+  background: var(--bg-tertiary);
+}
+
+html.dark .or-badge-draft {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+html.dark .or-tag {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+html.dark .or-input-group label {
+  color: var(--text-secondary);
+}
+
+html.dark .or-input-hint {
+  color: var(--text-secondary);
+}
+
+html.dark .or-table th {
+  color: var(--text-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-table td {
+  border-color: var(--border-primary);
+}
+
+html.dark .or-table tbody tr:hover {
+  background: var(--bg-tertiary);
+}
+
+html.dark .or-accordion-trigger {
+  color: var(--text-primary);
+}
+
+html.dark .or-dropdown-item {
+  color: var(--text-primary);
+}
+
+html.dark .or-dropdown-item:hover {
+  background: var(--bg-tertiary);
+}
+
+html.dark .or-sidebar-item {
+  color: var(--text-secondary);
+}
+
+html.dark .or-sidebar-item:hover,
+html.dark .or-sidebar-item.active {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+html.dark .or-stat {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-stat-value {
+  color: var(--text-primary);
+}
+
+html.dark .or-stat-label {
+  color: var(--text-secondary);
+}
+
+html.dark .or-chip {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-chip.selected,
+html.dark .or-chip:hover {
+  background: rgba(31, 18, 222, 0.15);
+  color: var(--brand);
+}
+
+html.dark .or-toggle-track {
+  background: var(--bg-tertiary);
+}
+
+html.dark .or-upload-zone {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+  color: var(--text-secondary);
+}
+
+html.dark .or-pricing {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-testimonial {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-timeline-content {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-kanban-card {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+html.dark .or-kanban-col {
+  background: var(--bg-tertiary);
+}
+
+html.dark .component-card {
+  border-color: var(--border-primary);
+}
+
+html.dark .component-card > h3 {
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
+  color: var(--text-secondary);
+}
+
+html.dark .preview-box,
+html.dark .preview-box-start,
+html.dark .preview-box-col {
+  background: var(--bg-secondary);
+}
+
+html.dark .code-wrapper {
+  background: #0a0e1a;
+}
+
+html.dark .copy-btn {
+  color: var(--brand);
+}
