@@ -1335,6 +1335,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/></svg>
           Audio Player</a>
         <a href="#new-components" class="nav-link"><span class="cat-dot cat-dot--content"></span>New Components</a>
+        <a href="#extended-components" class="nav-link"><span class="cat-dot cat-dot--content"></span>Extended (30)</a>
         <a href="#video-multimedia" class="nav-link"><span class="cat-dot cat-dot--layout"></span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="15" height="10" rx="2"/><path d="M17 9l5-2v10l-5-2"/></svg>
           Video &amp; Media</a>
@@ -6402,6 +6403,844 @@ document.addEventListener('DOMContentLoaded', function() {
   &lt;/div&gt;
   &lt;span class="or-countdown-separator"&gt;:&lt;/span&gt;
   ...
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+</section>
+
+
+<!-- ============================================
+     EXTENDED COMPONENTS (30)
+     ============================================ -->
+<section id="extended-components" class="component-section" data-section="combobox sheet split button code block metric filter search">
+  <h2 data-or-animate="fade-up">Extended Components</h2>
+  <p>30 additional components for advanced UI patterns — selection, display, navigation, and data.</p>
+
+  <!-- 1. Combobox -->
+  <div class="component-card">
+    <h3>Combobox</h3>
+    <div class="preview-box">
+      <div style="position:relative;width:260px;">
+        <input class="or-input" type="text" placeholder="Search framework..." value="React" style="width:100%;padding-right:36px;" />
+        <svg style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gray-400)" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        <div style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:10;overflow:hidden;">
+          <div style="padding:4px 0;">
+            <div style="padding:8px 12px;background:var(--brand-light);color:var(--brand);font-size:13px;cursor:pointer;">React</div>
+            <div style="padding:8px 12px;font-size:13px;cursor:pointer;color:var(--text-primary);">Vue</div>
+            <div style="padding:8px 12px;font-size:13px;cursor:pointer;color:var(--text-primary);">Svelte</div>
+            <div style="padding:8px 12px;font-size:13px;cursor:pointer;color:var(--text-primary);">Angular</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div style="position:relative;"&gt;
+  &lt;input class="or-input" type="text" placeholder="Search..." /&gt;
+  &lt;div class="or-dropdown"&gt;
+    &lt;div class="or-dropdown-item or-active"&gt;React&lt;/div&gt;
+    &lt;div class="or-dropdown-item"&gt;Vue&lt;/div&gt;
+    &lt;div class="or-dropdown-item"&gt;Svelte&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 2. Bottom Sheet -->
+  <div class="component-card">
+    <h3>Bottom Sheet</h3>
+    <div class="preview-box-col" style="background:var(--gray-100);padding:0;overflow:hidden;min-height:200px;position:relative;border-radius:var(--radius-lg);">
+      <div style="position:absolute;bottom:0;left:0;right:0;background:var(--bg-primary);border-radius:var(--radius-xl) var(--radius-xl) 0 0;box-shadow:0 -4px 24px rgba(0,0,0,0.12);padding:12px 20px 24px;">
+        <div style="width:40px;height:4px;background:var(--gray-300);border-radius:var(--radius-full);margin:0 auto 16px;"></div>
+        <div style="font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:8px;">Share to</div>
+        <div style="display:flex;gap:12px;padding:4px 0;">
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:var(--brand-light);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin-bottom:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></div><span style="font-size:11px;color:var(--text-secondary);">Share</span></div>
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:var(--success-50);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin-bottom:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><span style="font-size:11px;color:var(--text-secondary);">Message</span></div>
+          <div style="text-align:center;"><div style="width:48px;height:48px;background:var(--warning-50);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;margin-bottom:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--warning-600)" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div><span style="font-size:11px;color:var(--text-secondary);">Copy Link</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-bottom-sheet"&gt;
+  &lt;div class="or-bottom-sheet__handle"&gt;&lt;/div&gt;
+  &lt;div class="or-bottom-sheet__header"&gt;Share to&lt;/div&gt;
+  &lt;div class="or-bottom-sheet__body"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 3. Switch Group -->
+  <div class="component-card">
+    <h3>Switch Group</h3>
+    <div class="preview-box-col">
+      <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:380px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+          <div><div style="font-size:14px;font-weight:500;color:var(--text-primary);">Email notifications</div><div style="font-size:12px;color:var(--text-secondary);">Receive updates via email</div></div>
+          <label style="position:relative;display:inline-flex;cursor:pointer;"><input type="checkbox" checked style="opacity:0;width:0;height:0;position:absolute;"/><span style="display:block;width:44px;height:24px;background:var(--brand);border-radius:var(--radius-full);position:relative;transition:background var(--duration-normal);"><span style="position:absolute;top:2px;left:22px;width:20px;height:20px;background:#fff;border-radius:50%;transition:left var(--duration-normal);box-shadow:var(--shadow-sm);"></span></span></label>
+        </div>
+        <div style="height:1px;background:var(--border-primary);"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+          <div><div style="font-size:14px;font-weight:500;color:var(--text-primary);">Push notifications</div><div style="font-size:12px;color:var(--text-secondary);">Get alerts on your device</div></div>
+          <label style="position:relative;display:inline-flex;cursor:pointer;"><input type="checkbox" style="opacity:0;width:0;height:0;position:absolute;"/><span style="display:block;width:44px;height:24px;background:var(--gray-300);border-radius:var(--radius-full);position:relative;"><span style="position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:var(--shadow-sm);"></span></span></label>
+        </div>
+        <div style="height:1px;background:var(--border-primary);"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+          <div><div style="font-size:14px;font-weight:500;color:var(--text-primary);">Marketing emails</div><div style="font-size:12px;color:var(--text-secondary);">News, tips and updates</div></div>
+          <label style="position:relative;display:inline-flex;cursor:pointer;"><input type="checkbox" checked style="opacity:0;width:0;height:0;position:absolute;"/><span style="display:block;width:44px;height:24px;background:var(--brand);border-radius:var(--radius-full);position:relative;"><span style="position:absolute;top:2px;left:22px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:var(--shadow-sm);"></span></span></label>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-switch-group"&gt;
+  &lt;div class="or-switch-row"&gt;
+    &lt;div&gt;
+      &lt;div class="or-switch-label"&gt;Email notifications&lt;/div&gt;
+      &lt;div class="or-switch-desc"&gt;Receive updates via email&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;input type="checkbox" class="or-toggle" checked /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 4. Split Button -->
+  <div class="component-card">
+    <h3>Split Button</h3>
+    <div class="preview-box" style="gap:24px;">
+      <div style="display:inline-flex;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <button class="or-btn or-btn--primary or-btn--md" style="border-radius:0;border-right:1px solid rgba(255,255,255,0.2);">Save</button>
+        <button class="or-btn or-btn--primary or-btn--md" style="border-radius:0;padding:0 10px;" aria-label="More options"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+      </div>
+      <div style="display:inline-flex;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <button class="or-btn or-btn--secondary or-btn--md" style="border-radius:0;border-right:1px solid var(--border-primary);">Export</button>
+        <button class="or-btn or-btn--secondary or-btn--md" style="border-radius:0;padding:0 10px;" aria-label="More options"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-split-btn"&gt;
+  &lt;button class="or-btn or-btn--primary"&gt;Save&lt;/button&gt;
+  &lt;button class="or-btn or-btn--primary or-split-btn__arrow"&gt;
+    &lt;svg&gt;...chevron-down&lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 5. Speed Dial -->
+  <div class="component-card">
+    <h3>Speed Dial</h3>
+    <div class="preview-box" style="min-height:200px;">
+      <div style="position:relative;width:56px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <button style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--success-500);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-md);" title="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+          <button style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--blue-500);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-md);" title="Edit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--warning-500);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-md);" title="Bookmark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></button>
+          <button style="width:56px;height:56px;border-radius:var(--radius-full);background:var(--brand);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-brand-md);" aria-label="Open speed dial"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-speed-dial"&gt;
+  &lt;div class="or-speed-dial__actions"&gt;
+    &lt;button class="or-speed-dial__action"&gt;...&lt;/button&gt;
+    &lt;button class="or-speed-dial__action"&gt;...&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;button class="or-speed-dial__trigger"&gt;+&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 6. Search Autocomplete -->
+  <div class="component-card">
+    <h3>Search Autocomplete</h3>
+    <div class="preview-box-col">
+      <div style="position:relative;width:300px;">
+        <div style="position:relative;"><svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gray-400)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input class="or-input" type="text" value="des" style="padding-left:38px;width:100%;" /></div>
+        <div style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:10;overflow:hidden;">
+          <div style="padding:4px 0;">
+            <div style="padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-400)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span style="font-size:13px;color:var(--text-primary);"><strong>des</strong>ign tokens</span></div>
+            <div style="padding:10px 12px;display:flex;align-items:center;gap:10px;background:var(--brand-light);cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span style="font-size:13px;color:var(--brand);"><strong>des</strong>ktop layout</span></div>
+            <div style="padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-400)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span style="font-size:13px;color:var(--text-primary);"><strong>des</strong>tructive button</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-search-autocomplete"&gt;
+  &lt;input class="or-input" type="search" value="des" /&gt;
+  &lt;ul class="or-autocomplete-list"&gt;
+    &lt;li class="or-autocomplete-item"&gt;design tokens&lt;/li&gt;
+    &lt;li class="or-autocomplete-item or-active"&gt;desktop layout&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 7. Expandable Search -->
+  <div class="component-card">
+    <h3>Expandable Search</h3>
+    <div class="preview-box" style="gap:32px;">
+      <div style="display:flex;align-items:center;">
+        <button style="width:40px;height:40px;border-radius:var(--radius-full);background:var(--bg-secondary);border:1px solid var(--border-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gray-500)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+        <span style="font-size:12px;color:var(--text-secondary);margin-left:10px;">Collapsed</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:0;background:var(--bg-primary);border:1px solid var(--brand);border-radius:var(--radius-full);padding:0 8px;box-shadow:0 0 0 3px var(--brand-light);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search..." style="border:none;background:transparent;padding:8px 10px;font-size:13px;outline:none;width:180px;color:var(--text-primary);" />
+        <button style="width:24px;height:24px;border-radius:var(--radius-full);background:var(--gray-100);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" aria-label="Clear"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gray-500)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;!-- Collapsed --&gt;
+&lt;button class="or-btn or-btn--icon" aria-label="Search"&gt;
+  &lt;svg&gt;...search icon&lt;/svg&gt;
+&lt;/button&gt;
+
+&lt;!-- Expanded --&gt;
+&lt;div class="or-expandable-search or-expanded"&gt;
+  &lt;svg&gt;...search icon&lt;/svg&gt;
+  &lt;input type="text" placeholder="Search..." /&gt;
+  &lt;button class="or-clear-btn"&gt;×&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 8. Multi-select -->
+  <div class="component-card">
+    <h3>Multi-select</h3>
+    <div class="preview-box">
+      <div style="width:320px;min-height:44px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-md);padding:6px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;cursor:text;">
+        <span style="display:inline-flex;align-items:center;gap:4px;background:var(--brand-light);color:var(--brand);border-radius:var(--radius-sm);padding:2px 8px;font-size:12px;font-weight:500;">Design<button style="border:none;background:none;cursor:pointer;color:var(--brand);padding:0;line-height:1;font-size:14px;" aria-label="Remove">×</button></span>
+        <span style="display:inline-flex;align-items:center;gap:4px;background:var(--brand-light);color:var(--brand);border-radius:var(--radius-sm);padding:2px 8px;font-size:12px;font-weight:500;">Engineering<button style="border:none;background:none;cursor:pointer;color:var(--brand);padding:0;line-height:1;font-size:14px;" aria-label="Remove">×</button></span>
+        <span style="display:inline-flex;align-items:center;gap:4px;background:var(--brand-light);color:var(--brand);border-radius:var(--radius-sm);padding:2px 8px;font-size:12px;font-weight:500;">Product<button style="border:none;background:none;cursor:pointer;color:var(--brand);padding:0;line-height:1;font-size:14px;" aria-label="Remove">×</button></span>
+        <input type="text" placeholder="Add tag..." style="border:none;outline:none;background:transparent;font-size:13px;color:var(--text-primary);flex:1;min-width:80px;" />
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-multiselect"&gt;
+  &lt;span class="or-tag"&gt;Design &lt;button&gt;×&lt;/button&gt;&lt;/span&gt;
+  &lt;span class="or-tag"&gt;Engineering &lt;button&gt;×&lt;/button&gt;&lt;/span&gt;
+  &lt;input type="text" placeholder="Add tag..." /&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 9. Code Block -->
+  <div class="component-card">
+    <h3>Code Block</h3>
+    <div class="preview-box">
+      <div style="width:100%;max-width:460px;background:#0f1117;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#1a1d27;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex;gap:6px;"><span style="width:12px;height:12px;border-radius:50%;background:#ff5f57;display:block;"></span><span style="width:12px;height:12px;border-radius:50%;background:#ffbd2e;display:block;"></span><span style="width:12px;height:12px;border-radius:50%;background:#28c840;display:block;"></span></div>
+          <span style="font-size:11px;color:rgba(255,255,255,0.4);">index.html</span>
+          <button style="font-size:11px;color:rgba(255,255,255,0.5);background:none;border:none;cursor:pointer;">Copy</button>
+        </div>
+        <pre style="margin:0;padding:16px;font-family:'Fira Code',monospace;font-size:13px;line-height:1.7;overflow-x:auto;"><code><span style="color:#e879f9;">&lt;button</span> <span style="color:#7dd3fc;">class</span><span style="color:#fff;">=</span><span style="color:#86efac;">"or-btn or-btn--primary"</span><span style="color:#e879f9;">&gt;</span>
+  <span style="color:#fff;">Save changes</span>
+<span style="color:#e879f9;">&lt;/button&gt;</span></code></pre>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-code-block"&gt;
+  &lt;div class="or-code-block__header"&gt;
+    &lt;span&gt;index.html&lt;/span&gt;
+    &lt;button class="or-copy-btn"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 10. Keyboard Shortcut (kbd) -->
+  <div class="component-card">
+    <h3>Keyboard Shortcut (kbd)</h3>
+    <div class="preview-box" style="gap:20px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <kbd style="display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-bottom:3px solid var(--gray-300);border-radius:var(--radius-sm);font-size:12px;font-family:var(--font-family);color:var(--text-primary);line-height:1;white-space:nowrap;">⌘</kbd>
+        <span style="font-size:12px;color:var(--text-secondary);">+</span>
+        <kbd style="display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-bottom:3px solid var(--gray-300);border-radius:var(--radius-sm);font-size:12px;font-family:var(--font-family);color:var(--text-primary);line-height:1;white-space:nowrap;">K</kbd>
+        <span style="font-size:12px;color:var(--text-secondary);margin-left:8px;">Open palette</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;">
+        <kbd style="display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-bottom:3px solid var(--gray-300);border-radius:var(--radius-sm);font-size:12px;font-family:var(--font-family);color:var(--text-primary);line-height:1;white-space:nowrap;">Ctrl</kbd>
+        <span style="font-size:12px;color:var(--text-secondary);">+</span>
+        <kbd style="display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-bottom:3px solid var(--gray-300);border-radius:var(--radius-sm);font-size:12px;font-family:var(--font-family);color:var(--text-primary);line-height:1;white-space:nowrap;">S</kbd>
+        <span style="font-size:12px;color:var(--text-secondary);margin-left:8px;">Save</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;">
+        <kbd style="display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-bottom:3px solid var(--gray-300);border-radius:var(--radius-sm);font-size:12px;font-family:var(--font-family);color:var(--text-primary);line-height:1;white-space:nowrap;">⇧</kbd>
+        <span style="font-size:12px;color:var(--text-secondary);">+</span>
+        <kbd style="display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-bottom:3px solid var(--gray-300);border-radius:var(--radius-sm);font-size:12px;font-family:var(--font-family);color:var(--text-primary);line-height:1;white-space:nowrap;">A</kbd>
+        <span style="font-size:12px;color:var(--text-secondary);margin-left:8px;">Anatomy</span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;span class="or-kbd"&gt;⌘&lt;/span&gt;
+&lt;span class="or-kbd-sep"&gt;+&lt;/span&gt;
+&lt;span class="or-kbd"&gt;K&lt;/span&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 11. Scroll Area -->
+  <div class="component-card">
+    <h3>Scroll Area</h3>
+    <div class="preview-box">
+      <div style="width:260px;height:140px;overflow-y:auto;border:1px solid var(--border-primary);border-radius:var(--radius-md);background:var(--bg-primary);scrollbar-width:thin;scrollbar-color:var(--gray-300) transparent;">
+        <div style="padding:12px;">
+          <div style="padding:8px 0;border-bottom:1px solid var(--border-primary);font-size:13px;color:var(--text-primary);">Dashboard overview</div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border-primary);font-size:13px;color:var(--text-primary);">Component library</div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border-primary);font-size:13px;color:var(--text-primary);">Design tokens</div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border-primary);font-size:13px;color:var(--text-primary);">Typography scale</div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border-primary);font-size:13px;color:var(--text-primary);">Color system</div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border-primary);font-size:13px;color:var(--text-primary);">Icon library</div>
+          <div style="padding:8px 0;font-size:13px;color:var(--text-primary);">Accessibility guide</div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-scroll-area"
+  style="height:140px;overflow-y:auto;"&gt;
+  &lt;!-- overflowing content --&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 12. Collapsible -->
+  <div class="component-card">
+    <h3>Collapsible</h3>
+    <div class="preview-box-col">
+      <div style="width:100%;max-width:380px;border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden;">
+        <button onclick="this.closest('div').classList.toggle('or-open')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg-secondary);border:none;cursor:pointer;font-size:14px;font-weight:500;color:var(--text-primary);">
+          Advanced settings
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition:transform var(--duration-normal);transform:rotate(0deg);"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div style="padding:16px;background:var(--bg-primary);border-top:1px solid var(--border-primary);">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);margin-bottom:10px;cursor:pointer;"><input type="checkbox" class="or-checkbox" /> Enable debug mode</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);cursor:pointer;"><input type="checkbox" class="or-checkbox" checked /> Show tooltips</label>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-collapsible"&gt;
+  &lt;button class="or-collapsible__trigger"&gt;
+    Advanced settings
+    &lt;svg&gt;...chevron&lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;div class="or-collapsible__content"&gt;
+    ...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 13. Resizable Panel -->
+  <div class="component-card">
+    <h3>Resizable Panel</h3>
+    <div class="preview-box" style="padding:0;overflow:hidden;min-height:160px;">
+      <div style="display:flex;width:100%;height:160px;">
+        <div style="width:220px;min-width:120px;background:var(--bg-secondary);padding:16px;flex-shrink:0;">
+          <div style="font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Files</div>
+          <div style="font-size:13px;color:var(--text-primary);padding:4px 0;">index.html</div>
+          <div style="font-size:13px;color:var(--text-primary);padding:4px 0;font-weight:500;color:var(--brand);">styles.css</div>
+          <div style="font-size:13px;color:var(--text-primary);padding:4px 0;">app.js</div>
+        </div>
+        <div style="width:6px;background:var(--border-primary);cursor:col-resize;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <div style="width:2px;height:32px;background:var(--gray-300);border-radius:var(--radius-full);"></div>
+        </div>
+        <div style="flex:1;padding:16px;background:var(--bg-primary);overflow:auto;">
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">styles.css</div>
+          <div style="font-family:monospace;font-size:12px;color:var(--text-primary);line-height:1.8;">.or-btn { display: inline-flex; }</div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-resizable-panels"&gt;
+  &lt;div class="or-panel"&gt;Sidebar&lt;/div&gt;
+  &lt;div class="or-resize-handle"
+    data-or-resizable&gt;&lt;/div&gt;
+  &lt;div class="or-panel"&gt;Main&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 14. Hover Card -->
+  <div class="component-card">
+    <h3>Hover Card</h3>
+    <div class="preview-box" style="padding-top:32px;align-items:flex-start;gap:48px;">
+      <div style="position:relative;display:inline-block;">
+        <span style="font-size:14px;color:var(--brand);font-weight:500;text-decoration:underline;cursor:pointer;text-underline-offset:3px;">@sarah_design</span>
+        <div style="position:absolute;top:28px;left:0;width:240px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);padding:16px;z-index:20;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:600;flex-shrink:0;">SD</div>
+            <div><div style="font-size:14px;font-weight:600;color:var(--text-primary);">Sarah Designer</div><div style="font-size:12px;color:var(--text-secondary);">@sarah_design</div></div>
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;">Product designer at OpenReel. Passionate about design systems.</div>
+          <button class="or-btn or-btn--secondary or-btn--sm" style="width:100%;">Follow</button>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-hover-card-trigger"&gt;
+  &lt;a&gt;@sarah_design&lt;/a&gt;
+  &lt;div class="or-hover-card"&gt;
+    &lt;div class="or-hover-card__avatar"&gt;SD&lt;/div&gt;
+    &lt;div class="or-hover-card__name"&gt;Sarah Designer&lt;/div&gt;
+    &lt;p&gt;Product designer at OpenReel.&lt;/p&gt;
+    &lt;button&gt;Follow&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 15. Alert Dialog -->
+  <div class="component-card">
+    <h3>Alert Dialog</h3>
+    <div class="preview-box" style="background:rgba(0,0,0,0.3);">
+      <div style="width:380px;background:var(--bg-primary);border-radius:var(--radius-xl);box-shadow:var(--shadow-2xl);padding:24px;text-align:center;">
+        <div style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--error-50);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--error-500)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div style="font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:8px;">Delete project?</div>
+        <div style="font-size:14px;color:var(--text-secondary);margin-bottom:24px;line-height:1.5;">This action cannot be undone. All data in this project will be permanently deleted.</div>
+        <div style="display:flex;gap:12px;">
+          <button class="or-btn or-btn--secondary or-btn--md" style="flex:1;">Cancel</button>
+          <button class="or-btn or-btn--destructive or-btn--md" style="flex:1;">Delete</button>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-alert-dialog"&gt;
+  &lt;div class="or-alert-dialog__icon"&gt;...&lt;/div&gt;
+  &lt;h3&gt;Delete project?&lt;/h3&gt;
+  &lt;p&gt;This action cannot be undone.&lt;/p&gt;
+  &lt;div class="or-alert-dialog__actions"&gt;
+    &lt;button class="or-btn or-btn--secondary"&gt;Cancel&lt;/button&gt;
+    &lt;button class="or-btn or-btn--destructive"&gt;Delete&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 16. Radio Card -->
+  <div class="component-card">
+    <h3>Radio Card</h3>
+    <div class="preview-box-col">
+      <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;">
+        <label style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid var(--brand);border-radius:var(--radius-md);background:var(--brand-light);cursor:pointer;">
+          <input type="radio" name="plan" checked style="accent-color:var(--brand);width:16px;height:16px;flex-shrink:0;" />
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text-primary);">Starter</div><div style="font-size:12px;color:var(--text-secondary);">Up to 3 projects</div></div>
+          <div style="font-size:15px;font-weight:700;color:var(--brand);">Free</div>
+        </label>
+        <label style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border-primary);border-radius:var(--radius-md);background:var(--bg-primary);cursor:pointer;">
+          <input type="radio" name="plan" style="accent-color:var(--brand);width:16px;height:16px;flex-shrink:0;" />
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text-primary);">Pro</div><div style="font-size:12px;color:var(--text-secondary);">Unlimited projects</div></div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-primary);">$19/mo</div>
+        </label>
+        <label style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border-primary);border-radius:var(--radius-md);background:var(--bg-primary);cursor:pointer;">
+          <input type="radio" name="plan" style="accent-color:var(--brand);width:16px;height:16px;flex-shrink:0;" />
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text-primary);">Enterprise</div><div style="font-size:12px;color:var(--text-secondary);">Custom limits</div></div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-primary);">$99/mo</div>
+        </label>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;label class="or-radio-card or-selected"&gt;
+  &lt;input type="radio" name="plan" checked /&gt;
+  &lt;div&gt;
+    &lt;div class="or-radio-card__title"&gt;Starter&lt;/div&gt;
+    &lt;div class="or-radio-card__desc"&gt;Up to 3 projects&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="or-radio-card__price"&gt;Free&lt;/span&gt;
+&lt;/label&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 17. Checkbox Card -->
+  <div class="component-card">
+    <h3>Checkbox Card</h3>
+    <div class="preview-box-col">
+      <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;">
+        <label style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:2px solid var(--brand);border-radius:var(--radius-md);background:var(--brand-light);cursor:pointer;">
+          <input type="checkbox" checked style="accent-color:var(--brand);width:16px;height:16px;flex-shrink:0;margin-top:2px;" />
+          <div><div style="font-size:14px;font-weight:600;color:var(--text-primary);">Analytics</div><div style="font-size:12px;color:var(--text-secondary);">Track views, clicks and conversions</div></div>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:2px solid var(--brand);border-radius:var(--radius-md);background:var(--brand-light);cursor:pointer;">
+          <input type="checkbox" checked style="accent-color:var(--brand);width:16px;height:16px;flex-shrink:0;margin-top:2px;" />
+          <div><div style="font-size:14px;font-weight:600;color:var(--text-primary);">A/B Testing</div><div style="font-size:12px;color:var(--text-secondary);">Split test variations</div></div>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:1px solid var(--border-primary);border-radius:var(--radius-md);background:var(--bg-primary);cursor:pointer;">
+          <input type="checkbox" style="accent-color:var(--brand);width:16px;height:16px;flex-shrink:0;margin-top:2px;" />
+          <div><div style="font-size:14px;font-weight:600;color:var(--text-primary);">Heatmaps</div><div style="font-size:12px;color:var(--text-secondary);">Visualize user behavior</div></div>
+        </label>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;label class="or-checkbox-card or-selected"&gt;
+  &lt;input type="checkbox" checked /&gt;
+  &lt;div&gt;
+    &lt;div class="or-checkbox-card__title"&gt;Analytics&lt;/div&gt;
+    &lt;div class="or-checkbox-card__desc"&gt;Track views...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/label&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 18. Data List -->
+  <div class="component-card">
+    <h3>Data List</h3>
+    <div class="preview-box">
+      <dl style="width:100%;max-width:400px;margin:0;">
+        <div style="display:flex;padding:10px 0;border-bottom:1px solid var(--border-primary);gap:16px;">
+          <dt style="font-size:13px;color:var(--text-secondary);font-weight:500;min-width:130px;flex-shrink:0;">Full name</dt>
+          <dd style="font-size:13px;color:var(--text-primary);margin:0;">Sarah Johnson</dd>
+        </div>
+        <div style="display:flex;padding:10px 0;border-bottom:1px solid var(--border-primary);gap:16px;">
+          <dt style="font-size:13px;color:var(--text-secondary);font-weight:500;min-width:130px;flex-shrink:0;">Email</dt>
+          <dd style="font-size:13px;color:var(--brand);margin:0;">sarah@openreel.com</dd>
+        </div>
+        <div style="display:flex;padding:10px 0;border-bottom:1px solid var(--border-primary);gap:16px;">
+          <dt style="font-size:13px;color:var(--text-secondary);font-weight:500;min-width:130px;flex-shrink:0;">Role</dt>
+          <dd style="font-size:13px;margin:0;"><span class="or-badge or-badge--brand">Admin</span></dd>
+        </div>
+        <div style="display:flex;padding:10px 0;border-bottom:1px solid var(--border-primary);gap:16px;">
+          <dt style="font-size:13px;color:var(--text-secondary);font-weight:500;min-width:130px;flex-shrink:0;">Joined</dt>
+          <dd style="font-size:13px;color:var(--text-primary);margin:0;">March 12, 2024</dd>
+        </div>
+        <div style="display:flex;padding:10px 0;gap:16px;">
+          <dt style="font-size:13px;color:var(--text-secondary);font-weight:500;min-width:130px;flex-shrink:0;">Status</dt>
+          <dd style="font-size:13px;margin:0;"><span class="or-badge or-badge--success">Active</span></dd>
+        </div>
+      </dl>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;dl class="or-data-list"&gt;
+  &lt;div class="or-data-list__row"&gt;
+    &lt;dt&gt;Full name&lt;/dt&gt;
+    &lt;dd&gt;Sarah Johnson&lt;/dd&gt;
+  &lt;/div&gt;
+  &lt;div class="or-data-list__row"&gt;
+    &lt;dt&gt;Status&lt;/dt&gt;
+    &lt;dd&gt;&lt;span class="or-badge or-badge--success"&gt;Active&lt;/span&gt;&lt;/dd&gt;
+  &lt;/div&gt;
+&lt;/dl&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 19. Metric Card -->
+  <div class="component-card">
+    <h3>Metric Card</h3>
+    <div class="preview-box" style="flex-wrap:wrap;gap:12px;">
+      <div style="min-width:140px;padding:16px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="font-size:12px;color:var(--text-secondary);font-weight:500;margin-bottom:6px;">Revenue</div>
+        <div style="font-size:22px;font-weight:700;color:var(--text-primary);margin-bottom:6px;">$48.2K</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--success-600);font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>+12.5%</div>
+      </div>
+      <div style="min-width:140px;padding:16px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="font-size:12px;color:var(--text-secondary);font-weight:500;margin-bottom:6px;">Users</div>
+        <div style="font-size:22px;font-weight:700;color:var(--text-primary);margin-bottom:6px;">8,420</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--success-600);font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>+8.1%</div>
+      </div>
+      <div style="min-width:140px;padding:16px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="font-size:12px;color:var(--text-secondary);font-weight:500;margin-bottom:6px;">Bounce Rate</div>
+        <div style="font-size:22px;font-weight:700;color:var(--text-primary);margin-bottom:6px;">34.7%</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--error-500);font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>−2.3%</div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-metric-card"&gt;
+  &lt;div class="or-metric-card__label"&gt;Revenue&lt;/div&gt;
+  &lt;div class="or-metric-card__value"&gt;$48.2K&lt;/div&gt;
+  &lt;div class="or-metric-card__trend or-up"&gt;
+    +12.5%
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 20. Feature Card -->
+  <div class="component-card">
+    <h3>Feature Card</h3>
+    <div class="preview-box" style="flex-wrap:wrap;gap:14px;">
+      <div style="width:200px;padding:20px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="width:40px;height:40px;background:var(--brand-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="m12 2-3.09 6.26L2 9.27l5 4.87-1.18 6.88L12 17.77l6.18 3.25L17 14.14l5-4.87-6.91-1.01L12 2z"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Smart Tokens</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">Design tokens auto-sync across all components.</div>
+      </div>
+      <div style="width:200px;padding:20px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="width:40px;height:40px;background:var(--success-50);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Live Preview</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">See changes reflected instantly in the browser.</div>
+      </div>
+      <div style="width:200px;padding:20px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);">
+        <div style="width:40px;height:40px;background:var(--warning-50);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:14px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--warning-600)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div style="font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">Multi-Framework</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">Export to HTML, React, Vue or Svelte.</div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-feature-card"&gt;
+  &lt;div class="or-feature-card__icon"&gt;
+    &lt;svg&gt;...&lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;h4 class="or-feature-card__title"&gt;Smart Tokens&lt;/h4&gt;
+  &lt;p class="or-feature-card__desc"&gt;...&lt;/p&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 21. Team Member Card -->
+  <div class="component-card">
+    <h3>Team Member Card</h3>
+    <div class="preview-box" style="flex-wrap:wrap;gap:12px;">
+      <div style="width:160px;padding:20px 16px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);text-align:center;box-shadow:var(--shadow-sm);">
+        <div style="width:52px;height:52px;border-radius:var(--radius-full);background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;margin:0 auto 12px;">JD</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text-primary);">Jane Doe</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Head of Design</div>
+        <span class="or-badge or-badge--success" style="margin-top:8px;display:inline-block;">Active</span>
+      </div>
+      <div style="width:160px;padding:20px 16px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);text-align:center;box-shadow:var(--shadow-sm);">
+        <div style="width:52px;height:52px;border-radius:var(--radius-full);background:var(--success-500);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;margin:0 auto 12px;">AK</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text-primary);">Alex Kim</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Engineering Lead</div>
+        <span class="or-badge or-badge--success" style="margin-top:8px;display:inline-block;">Active</span>
+      </div>
+      <div style="width:160px;padding:20px 16px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);text-align:center;box-shadow:var(--shadow-sm);">
+        <div style="width:52px;height:52px;border-radius:var(--radius-full);background:var(--error-500);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;margin:0 auto 12px;">MR</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text-primary);">Maria Reyes</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Product Manager</div>
+        <span class="or-badge or-badge--gray" style="margin-top:8px;display:inline-block;">Away</span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-team-card"&gt;
+  &lt;div class="or-avatar or-avatar-lg"&gt;JD&lt;/div&gt;
+  &lt;div class="or-team-card__name"&gt;Jane Doe&lt;/div&gt;
+  &lt;div class="or-team-card__role"&gt;Head of Design&lt;/div&gt;
+  &lt;span class="or-badge or-badge--success"&gt;Active&lt;/span&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 22. Social Proof -->
+  <div class="component-card">
+    <h3>Social Proof / Trust Bar</h3>
+    <div class="preview-box-col" style="gap:20px;">
+      <div style="font-size:12px;font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.08em;text-align:center;">Trusted by teams at</div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px;">
+        <div style="padding:8px 18px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--text-secondary);">Stripe</div>
+        <div style="padding:8px 18px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--text-secondary);">Vercel</div>
+        <div style="padding:8px 18px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--text-secondary);">Linear</div>
+        <div style="padding:8px 18px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-md);font-size:13px;font-weight:600;color:var(--text-secondary);">Notion</div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-trust-bar"&gt;
+  &lt;p class="or-trust-bar__label"&gt;Trusted by teams at&lt;/p&gt;
+  &lt;div class="or-trust-bar__logos"&gt;
+    &lt;div class="or-logo-placeholder"&gt;Stripe&lt;/div&gt;
+    &lt;div class="or-logo-placeholder"&gt;Vercel&lt;/div&gt;
+    &lt;div class="or-logo-placeholder"&gt;Linear&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 23. Chip Group -->
+  <div class="component-card">
+    <h3>Chip Group</h3>
+    <div class="preview-box" style="flex-wrap:wrap;gap:8px;">
+      <button style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-full);font-size:13px;font-weight:500;cursor:pointer;background:var(--brand);color:#fff;border:1px solid var(--brand);">All</button>
+      <button style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-full);font-size:13px;font-weight:500;cursor:pointer;background:var(--bg-primary);color:var(--text-primary);border:1px solid var(--border-primary);">Design</button>
+      <button style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-full);font-size:13px;font-weight:500;cursor:pointer;background:var(--brand);color:#fff;border:1px solid var(--brand);">Engineering<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
+      <button style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-full);font-size:13px;font-weight:500;cursor:pointer;background:var(--bg-primary);color:var(--text-primary);border:1px solid var(--border-primary);">Marketing</button>
+      <button style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-full);font-size:13px;font-weight:500;cursor:pointer;background:var(--brand);color:#fff;border:1px solid var(--brand);">Product<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-chip-group"&gt;
+  &lt;button class="or-chip or-chip--active"&gt;All&lt;/button&gt;
+  &lt;button class="or-chip"&gt;Design&lt;/button&gt;
+  &lt;button class="or-chip or-chip--active"&gt;
+    Engineering ✓
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 24. Status Timeline -->
+  <div class="component-card">
+    <h3>Status Timeline</h3>
+    <div class="preview-box">
+      <div style="display:flex;align-items:center;gap:0;width:100%;max-width:440px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
+          <div style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--brand);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span style="font-size:11px;font-weight:500;color:var(--brand);">Order placed</span>
+        </div>
+        <div style="flex:1;height:2px;background:var(--brand);margin-bottom:20px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
+          <div style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--brand);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span style="font-size:11px;font-weight:500;color:var(--brand);">Processing</span>
+        </div>
+        <div style="flex:1;height:2px;background:var(--brand);margin-bottom:20px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
+          <div style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--brand);border:2px solid var(--brand);box-sizing:border-box;display:flex;align-items:center;justify-content:center;"><div style="width:10px;height:10px;border-radius:50%;background:var(--brand);"></div></div>
+          <span style="font-size:11px;font-weight:600;color:var(--brand);">Shipped</span>
+        </div>
+        <div style="flex:1;height:2px;background:var(--border-primary);margin-bottom:20px;"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;">
+          <div style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--bg-secondary);border:2px solid var(--border-primary);box-sizing:border-box;"></div>
+          <span style="font-size:11px;color:var(--text-secondary);">Delivered</span>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-status-timeline"&gt;
+  &lt;div class="or-timeline-step or-done"&gt;Order placed&lt;/div&gt;
+  &lt;div class="or-timeline-step or-done"&gt;Processing&lt;/div&gt;
+  &lt;div class="or-timeline-step or-current"&gt;Shipped&lt;/div&gt;
+  &lt;div class="or-timeline-step or-pending"&gt;Delivered&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 25. Comparison Table -->
+  <div class="component-card">
+    <h3>Comparison Table</h3>
+    <div class="preview-box" style="padding:0;overflow:hidden;">
+      <div style="overflow-x:auto;width:100%;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:var(--bg-secondary);">
+              <th style="padding:12px 16px;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border-primary);">Feature</th>
+              <th style="padding:12px 16px;text-align:center;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border-primary);">Free</th>
+              <th style="padding:12px 16px;text-align:center;font-weight:600;color:var(--brand);border-bottom:1px solid var(--border-primary);">Pro ★</th>
+              <th style="padding:12px 16px;text-align:center;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border-primary);">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);color:var(--text-primary);">Projects</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--text-secondary);">3</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--brand);font-weight:500;background:rgba(31,18,222,0.03);">Unlimited</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--text-secondary);">Unlimited</td></tr>
+            <tr><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);color:var(--text-primary);">Analytics</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--error-400);">✕</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--success-500);background:rgba(31,18,222,0.03);">✓</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--success-500);">✓</td></tr>
+            <tr><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);color:var(--text-primary);">Priority support</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--error-400);">✕</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--error-400);background:rgba(31,18,222,0.03);">✕</td><td style="padding:11px 16px;border-bottom:1px solid var(--border-primary);text-align:center;color:var(--success-500);">✓</td></tr>
+            <tr><td style="padding:11px 16px;color:var(--text-primary);">SSO</td><td style="padding:11px 16px;text-align:center;color:var(--error-400);">✕</td><td style="padding:11px 16px;text-align:center;color:var(--error-400);background:rgba(31,18,222,0.03);">✕</td><td style="padding:11px 16px;text-align:center;color:var(--success-500);">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;table class="or-comparison-table"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Feature&lt;/th&gt;
+      &lt;th&gt;Free&lt;/th&gt;
+      &lt;th class="or-highlighted"&gt;Pro&lt;/th&gt;
+      &lt;th&gt;Enterprise&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;...&lt;/tbody&gt;
+&lt;/table&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 26. File Preview Card -->
+  <div class="component-card">
+    <h3>File Preview Card</h3>
+    <div class="preview-box" style="flex-wrap:wrap;gap:10px;">
+      <div style="width:110px;border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <div style="height:64px;background:var(--error-50);display:flex;align-items:center;justify-content:center;"><span style="font-size:11px;font-weight:700;color:var(--error-500);letter-spacing:.06em;background:var(--error-100);padding:3px 7px;border-radius:3px;">PDF</span></div>
+        <div style="padding:8px;border-top:1px solid var(--border-primary);"><div style="font-size:11px;font-weight:500;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">report.pdf</div><div style="font-size:10px;color:var(--text-secondary);">2.4 MB</div></div>
+      </div>
+      <div style="width:110px;border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <div style="height:64px;background:var(--blue-50);display:flex;align-items:center;justify-content:center;"><span style="font-size:11px;font-weight:700;color:var(--blue-500);letter-spacing:.06em;background:var(--blue-100);padding:3px 7px;border-radius:3px;">DOC</span></div>
+        <div style="padding:8px;border-top:1px solid var(--border-primary);"><div style="font-size:11px;font-weight:500;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">brief.docx</div><div style="font-size:10px;color:var(--text-secondary);">340 KB</div></div>
+      </div>
+      <div style="width:110px;border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <div style="height:64px;background:var(--success-50);display:flex;align-items:center;justify-content:center;"><span style="font-size:11px;font-weight:700;color:var(--success-600);letter-spacing:.06em;background:var(--success-100);padding:3px 7px;border-radius:3px;">IMG</span></div>
+        <div style="padding:8px;border-top:1px solid var(--border-primary);"><div style="font-size:11px;font-weight:500;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">hero.png</div><div style="font-size:10px;color:var(--text-secondary);">1.1 MB</div></div>
+      </div>
+      <div style="width:110px;border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <div style="height:64px;background:var(--warning-50);display:flex;align-items:center;justify-content:center;"><span style="font-size:11px;font-weight:700;color:var(--warning-600);letter-spacing:.06em;background:var(--warning-100);padding:3px 7px;border-radius:3px;">VID</span></div>
+        <div style="padding:8px;border-top:1px solid var(--border-primary);"><div style="font-size:11px;font-weight:500;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">demo.mp4</div><div style="font-size:10px;color:var(--text-secondary);">48.7 MB</div></div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-file-card"&gt;
+  &lt;div class="or-file-card__preview"&gt;
+    &lt;span class="or-file-card__type"&gt;PDF&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="or-file-card__meta"&gt;
+    &lt;span&gt;report.pdf&lt;/span&gt;
+    &lt;span&gt;2.4 MB&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 27. Toast Stack -->
+  <div class="component-card">
+    <h3>Toast Stack</h3>
+    <div class="preview-box-col" style="gap:8px;align-items:flex-end;">
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--bg-primary);border:1px solid var(--border-primary);border-left:3px solid var(--success-500);border-radius:var(--radius-md);padding:12px 14px;min-width:280px;box-shadow:var(--shadow-lg);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--text-primary);">Saved successfully</div><div style="font-size:12px;color:var(--text-secondary);">Your changes have been saved.</div></div>
+        <button style="background:none;border:none;cursor:pointer;color:var(--gray-400);" aria-label="Dismiss"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--bg-primary);border:1px solid var(--border-primary);border-left:3px solid var(--error-500);border-radius:var(--radius-md);padding:12px 14px;min-width:280px;box-shadow:var(--shadow-lg);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--error-500)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--text-primary);">Upload failed</div><div style="font-size:12px;color:var(--text-secondary);">File exceeds the 10MB limit.</div></div>
+        <button style="background:none;border:none;cursor:pointer;color:var(--gray-400);" aria-label="Dismiss"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--bg-primary);border:1px solid var(--border-primary);border-left:3px solid var(--brand);border-radius:var(--radius-md);padding:12px 14px;min-width:280px;box-shadow:var(--shadow-lg);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--text-primary);">New version available</div><div style="font-size:12px;color:var(--text-secondary);">Refresh to load v2.4.0.</div></div>
+        <button style="background:none;border:none;cursor:pointer;color:var(--gray-400);" aria-label="Dismiss"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-toast-stack"&gt;
+  &lt;div class="or-toast or-toast--success"&gt;
+    Saved successfully
+  &lt;/div&gt;
+  &lt;div class="or-toast or-toast--error"&gt;
+    Upload failed
+  &lt;/div&gt;
+  &lt;div class="or-toast or-toast--info"&gt;
+    New version available
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 28. Command Bar -->
+  <div class="component-card">
+    <h3>Command Bar</h3>
+    <div class="preview-box">
+      <div style="width:100%;max-width:480px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);padding:8px 10px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-sm);">
+        <div style="display:flex;align-items:center;gap:6px;flex:1;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-md);padding:7px 12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-400)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" placeholder="Run command or search..." style="border:none;background:transparent;font-size:13px;outline:none;flex:1;color:var(--text-primary);" />
+          <span style="display:inline-flex;align-items:center;gap:2px;"><kbd style="padding:2px 5px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:3px;font-size:10px;color:var(--text-secondary);">⌘</kbd><kbd style="padding:2px 5px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:3px;font-size:10px;color:var(--text-secondary);">K</kbd></span>
+        </div>
+        <button class="or-btn or-btn--primary or-btn--sm">Run</button>
+        <button class="or-btn or-btn--secondary or-btn--sm">History</button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-command-bar"&gt;
+  &lt;div class="or-command-bar__input"&gt;
+    &lt;svg&gt;...search&lt;/svg&gt;
+    &lt;input placeholder="Run command..." /&gt;
+    &lt;kbd&gt;⌘K&lt;/kbd&gt;
+  &lt;/div&gt;
+  &lt;button class="or-btn or-btn--primary"&gt;Run&lt;/button&gt;
+  &lt;button class="or-btn or-btn--secondary"&gt;History&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 29. Search Results -->
+  <div class="component-card">
+    <h3>Search Results</h3>
+    <div class="preview-box-col" style="gap:2px;">
+      <div style="width:100%;max-width:480px;">
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">2 results for <strong style="color:var(--text-primary);">"button component"</strong></div>
+        <div style="padding:14px 16px;border:1px solid var(--border-primary);border-radius:var(--radius-md);margin-bottom:8px;background:var(--bg-primary);cursor:pointer;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="width:28px;height:28px;border-radius:var(--radius-sm);background:var(--brand-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+            <div style="font-size:14px;font-weight:600;color:var(--text-primary);">Button Component</div>
+            <span class="or-badge or-badge--brand" style="margin-left:auto;">Component</span>
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">Primary, secondary, and destructive variants. Supports sizes SM/MD/LG and icon buttons.</div>
+        </div>
+        <div style="padding:14px 16px;border:1px solid var(--border-primary);border-radius:var(--radius-md);background:var(--bg-primary);cursor:pointer;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="width:28px;height:28px;border-radius:var(--radius-sm);background:var(--success-50);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success-500)" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg></div>
+            <div style="font-size:14px;font-weight:600;color:var(--text-primary);">Button Usage Guidelines</div>
+            <span class="or-badge or-badge--success" style="margin-left:auto;">Docs</span>
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">When to use primary vs. secondary buttons. Accessibility and keyboard interaction patterns.</div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-search-results"&gt;
+  &lt;p class="or-search-results__meta"&gt;
+    2 results for "button"
+  &lt;/p&gt;
+  &lt;div class="or-search-result-item"&gt;
+    &lt;h4&gt;Button Component&lt;/h4&gt;
+    &lt;p&gt;Primary, secondary...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 30. Filter Panel -->
+  <div class="component-card">
+    <h3>Filter Panel</h3>
+    <div class="preview-box" style="align-items:flex-start;">
+      <div style="width:220px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <div style="padding:12px 16px;font-size:13px;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border-primary);display:flex;align-items:center;justify-content:space-between;">Filters <button style="font-size:11px;color:var(--brand);background:none;border:none;cursor:pointer;font-weight:500;">Clear all</button></div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border-primary);">
+          <div style="font-size:11px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Category</div>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);margin-bottom:8px;cursor:pointer;"><input type="checkbox" class="or-checkbox" checked /> Components</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);margin-bottom:8px;cursor:pointer;"><input type="checkbox" class="or-checkbox" /> Templates</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);cursor:pointer;"><input type="checkbox" class="or-checkbox" checked /> Guidelines</label>
+        </div>
+        <div style="padding:14px 16px;">
+          <div style="font-size:11px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Status</div>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);margin-bottom:8px;cursor:pointer;"><input type="checkbox" class="or-checkbox" checked /> Stable</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);margin-bottom:8px;cursor:pointer;"><input type="checkbox" class="or-checkbox" /> Beta</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);cursor:pointer;"><input type="checkbox" class="or-checkbox" /> Draft</label>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-filter-panel"&gt;
+  &lt;div class="or-filter-panel__header"&gt;
+    Filters &lt;button&gt;Clear all&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="or-filter-group"&gt;
+    &lt;h4&gt;Category&lt;/h4&gt;
+    &lt;label&gt;&lt;input type="checkbox" /&gt; Components&lt;/label&gt;
+    &lt;label&gt;&lt;input type="checkbox" /&gt; Templates&lt;/label&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
   </div>
 
