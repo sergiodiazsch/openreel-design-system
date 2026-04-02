@@ -1336,6 +1336,7 @@
           Audio Player</a>
         <a href="#new-components" class="nav-link"><span class="cat-dot cat-dot--content"></span>New Components</a>
         <a href="#extended-components" class="nav-link"><span class="cat-dot cat-dot--content"></span>Extended (30)</a>
+        <a href="#batch3-components" class="nav-link"><span class="cat-dot cat-dot--layout"></span>More (30)</a>
         <a href="#video-multimedia" class="nav-link"><span class="cat-dot cat-dot--layout"></span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="15" height="10" rx="2"/><path d="M17 9l5-2v10l-5-2"/></svg>
           Video &amp; Media</a>
@@ -7242,6 +7243,724 @@ document.addEventListener('DOMContentLoaded', function() {
     &lt;label&gt;&lt;input type="checkbox" /&gt; Templates&lt;/label&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+</section>
+
+
+<!-- ============================================
+     BATCH 3 — 30 MORE COMPONENTS
+     ============================================ -->
+<section id="batch3-components" class="component-section" data-section="marquee gradient bento announcement progress ring notification center phone browser skeleton">
+  <h2 data-or-animate="fade-up">More Components</h2>
+  <p>30 additional UI patterns — layout, display, navigation, and utility components.</p>
+
+  <!-- 1. Marquee -->
+  <div class="component-card">
+    <h3>Marquee</h3>
+    <div class="preview-box" style="overflow:hidden;">
+      <style>.or-marquee{display:flex;overflow:hidden;white-space:nowrap;gap:0}.or-marquee-track{display:flex;gap:32px;animation:marquee-scroll 12s linear infinite;will-change:transform}.or-marquee-track:hover{animation-play-state:paused}.or-marquee-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--text-secondary);padding:8px 0}@keyframes marquee-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}</style>
+      <div class="or-marquee">
+        <div class="or-marquee-track">
+          <span class="or-marquee-item">&#9679; Brand Videos</span>
+          <span class="or-marquee-item">&#9679; Teleprompter</span>
+          <span class="or-marquee-item">&#9679; Auto-Captions</span>
+          <span class="or-marquee-item">&#9679; AI Editing</span>
+          <span class="or-marquee-item">&#9679; Brand Videos</span>
+          <span class="or-marquee-item">&#9679; Teleprompter</span>
+          <span class="or-marquee-item">&#9679; Auto-Captions</span>
+          <span class="or-marquee-item">&#9679; AI Editing</span>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-marquee"&gt;
+  &lt;div class="or-marquee-track"&gt;
+    &lt;span class="or-marquee-item"&gt;Brand Videos&lt;/span&gt;
+    &lt;span class="or-marquee-item"&gt;Teleprompter&lt;/span&gt;
+    &lt;span class="or-marquee-item"&gt;Auto-Captions&lt;/span&gt;
+    &lt;span class="or-marquee-item"&gt;AI Editing&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 2. Gradient Text -->
+  <div class="component-card">
+    <h3>Gradient Text</h3>
+    <div class="preview-box" style="display:flex;flex-direction:column;gap:12px;">
+      <style>.or-gradient-text{background:linear-gradient(90deg,var(--brand),#7B5CF0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;font-size:28px}.or-gradient-text-warm{background:linear-gradient(90deg,#F97316,#EC4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;font-size:28px}.or-gradient-text-cool{background:linear-gradient(90deg,#06B6D4,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;font-size:28px}</style>
+      <span class="or-gradient-text">OpenReel</span>
+      <span class="or-gradient-text-warm">OpenReel</span>
+      <span class="or-gradient-text-cool">OpenReel</span>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;span class="or-gradient-text"&gt;OpenReel&lt;/span&gt;
+&lt;span class="or-gradient-text-warm"&gt;OpenReel&lt;/span&gt;
+&lt;span class="or-gradient-text-cool"&gt;OpenReel&lt;/span&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 3. Bento Grid -->
+  <div class="component-card">
+    <h3>Bento Grid</h3>
+    <div class="preview-box">
+      <style>.or-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}.or-bento-item{background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);padding:20px;min-height:90px;font-size:13px;font-weight:500;color:var(--text-primary)}.or-bento-span-2{grid-column:span 2}</style>
+      <div class="or-bento">
+        <div class="or-bento-item or-bento-span-2">&#128248; Record — span 2</div>
+        <div class="or-bento-item">&#9998; Edit</div>
+        <div class="or-bento-item">&#128196; Export</div>
+        <div class="or-bento-item or-bento-span-2">&#127968; Brand Hub — span 2</div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-bento"&gt;
+  &lt;div class="or-bento-item or-bento-span-2"&gt;Wide item&lt;/div&gt;
+  &lt;div class="or-bento-item"&gt;Item&lt;/div&gt;
+  &lt;div class="or-bento-item"&gt;Item&lt;/div&gt;
+  &lt;div class="or-bento-item or-bento-span-2"&gt;Wide item&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 4. Announcement Bar -->
+  <div class="component-card">
+    <h3>Announcement Bar</h3>
+    <div class="preview-box" style="flex-direction:column;gap:8px;">
+      <style>.or-announcement{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;position:relative}.or-announcement-info{background:var(--brand-light);color:var(--brand)}.or-announcement-warning{background:var(--warning-50);color:#B54708}.or-announcement-success{background:var(--success-50);color:#027A48}.or-announcement-close{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;opacity:.6;font-size:16px;line-height:1;color:inherit}</style>
+      <div class="or-announcement or-announcement-info">
+        &#127381; New AI editing features are live! <a href="#" style="color:var(--brand);font-weight:600;margin-left:4px;">Learn more &rarr;</a>
+        <button class="or-announcement-close" onclick="this.parentElement.remove()">&#10005;</button>
+      </div>
+      <div class="or-announcement or-announcement-warning">
+        &#9888; Scheduled maintenance on Apr 5 at 2am UTC.
+        <button class="or-announcement-close" onclick="this.parentElement.remove()">&#10005;</button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-announcement or-announcement-info"&gt;
+  🎉 New features live!
+  &lt;a href="#"&gt;Learn more →&lt;/a&gt;
+  &lt;button class="or-announcement-close"&gt;✕&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 5. Sticky Header -->
+  <div class="component-card">
+    <h3>Sticky Header</h3>
+    <div class="preview-box" style="padding:0;overflow:hidden;">
+      <style>.or-sticky-header{position:sticky;top:0;z-index:100;background:var(--bg-primary);border-bottom:1px solid var(--border-primary);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:space-between;padding:12px 20px;font-size:13px;font-weight:600;color:var(--text-primary)}</style>
+      <div class="or-sticky-header">
+        <span style="color:var(--brand);font-weight:700;">OpenReel</span>
+        <nav style="display:flex;gap:20px;font-weight:500;font-size:13px;color:var(--text-secondary);">
+          <a href="#" style="color:var(--text-secondary);text-decoration:none;">Products</a>
+          <a href="#" style="color:var(--text-secondary);text-decoration:none;">Pricing</a>
+          <a href="#" style="color:var(--text-secondary);text-decoration:none;">Blog</a>
+        </nav>
+        <button class="or-btn or-btn-sm or-btn-primary">Get Started</button>
+      </div>
+      <div style="padding:24px 20px;font-size:13px;color:var(--text-secondary);">Page content scrolls under the sticky header above.</div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-sticky-header"&gt;
+  &lt;span&gt;Brand&lt;/span&gt;
+  &lt;nav&gt;...links...&lt;/nav&gt;
+  &lt;button class="or-btn or-btn-primary"&gt;CTA&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 6. Badge Group -->
+  <div class="component-card">
+    <h3>Badge Group</h3>
+    <div class="preview-box">
+      <style>.or-badge-group{display:flex;flex-wrap:wrap;gap:8px}.or-badge-dismissible{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-full);font-size:12px;font-weight:500;color:var(--text-primary)}.or-badge-dismiss{background:none;border:none;cursor:pointer;padding:0;line-height:1;color:var(--text-secondary);font-size:14px;display:flex;align-items:center}</style>
+      <div class="or-badge-group" id="badge-group-demo">
+        <span class="or-badge-dismissible">React <button class="or-badge-dismiss" onclick="this.parentElement.remove()" aria-label="Remove">&#10005;</button></span>
+        <span class="or-badge-dismissible">TypeScript <button class="or-badge-dismiss" onclick="this.parentElement.remove()" aria-label="Remove">&#10005;</button></span>
+        <span class="or-badge-dismissible">Design Systems <button class="or-badge-dismiss" onclick="this.parentElement.remove()" aria-label="Remove">&#10005;</button></span>
+        <span class="or-badge-dismissible">UI / UX <button class="or-badge-dismiss" onclick="this.parentElement.remove()" aria-label="Remove">&#10005;</button></span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-badge-group"&gt;
+  &lt;span class="or-badge-dismissible"&gt;
+    Tag &lt;button class="or-badge-dismiss" aria-label="Remove"&gt;✕&lt;/button&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 7. Progress Ring -->
+  <div class="component-card">
+    <h3>Progress Ring</h3>
+    <div class="preview-box" style="gap:24px;">
+      <style>.or-progress-ring{position:relative;display:inline-flex;align-items:center;justify-content:center}.or-progress-ring svg{transform:rotate(-90deg)}.or-progress-ring-label{position:absolute;font-size:14px;font-weight:700;color:var(--text-primary)}</style>
+      <div class="or-progress-ring">
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <circle class="or-progress-ring-bg" cx="40" cy="40" r="34" fill="none" stroke="var(--border-primary)" stroke-width="7"/>
+          <circle class="or-progress-ring-fill" cx="40" cy="40" r="34" fill="none" stroke="var(--brand)" stroke-width="7" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="59.8"/>
+        </svg>
+        <span class="or-progress-ring-label">72%</span>
+      </div>
+      <div class="or-progress-ring">
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="34" fill="none" stroke="var(--border-primary)" stroke-width="7"/>
+          <circle cx="40" cy="40" r="34" fill="none" stroke="#17B26A" stroke-width="7" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="106.8"/>
+        </svg>
+        <span class="or-progress-ring-label">50%</span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-progress-ring"&gt;
+  &lt;svg width="80" height="80" viewBox="0 0 80 80"&gt;
+    &lt;circle class="or-progress-ring-bg" cx="40" cy="40" r="34"
+      fill="none" stroke="var(--border-primary)" stroke-width="7"/&gt;
+    &lt;circle class="or-progress-ring-fill" cx="40" cy="40" r="34"
+      fill="none" stroke="var(--brand)" stroke-width="7"
+      stroke-dasharray="213.6" stroke-dashoffset="59.8"/&gt;
+  &lt;/svg&gt;
+  &lt;span class="or-progress-ring-label"&gt;72%&lt;/span&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 8. Dot Indicator -->
+  <div class="component-card">
+    <h3>Dot Indicator</h3>
+    <div class="preview-box" style="flex-direction:column;gap:16px;">
+      <style>.or-dots{display:flex;align-items:center;gap:8px}.or-dot{width:8px;height:8px;border-radius:50%;background:var(--border-primary);transition:all var(--duration-normal) var(--ease-default);cursor:pointer}.or-dot.active,.or-dots .or-dot:nth-child(3){background:var(--brand);width:20px;border-radius:4px}</style>
+      <div class="or-dots" role="tablist" aria-label="Slides">
+        <button class="or-dot" role="tab" aria-label="Slide 1"></button>
+        <button class="or-dot" role="tab" aria-label="Slide 2"></button>
+        <button class="or-dot active" role="tab" aria-selected="true" aria-label="Slide 3"></button>
+        <button class="or-dot" role="tab" aria-label="Slide 4"></button>
+        <button class="or-dot" role="tab" aria-label="Slide 5"></button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-dots" role="tablist"&gt;
+  &lt;button class="or-dot" role="tab"&gt;&lt;/button&gt;
+  &lt;button class="or-dot" role="tab"&gt;&lt;/button&gt;
+  &lt;button class="or-dot active" role="tab" aria-selected="true"&gt;&lt;/button&gt;
+  &lt;button class="or-dot" role="tab"&gt;&lt;/button&gt;
+  &lt;button class="or-dot" role="tab"&gt;&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 9. Link Card -->
+  <div class="component-card">
+    <h3>Link Card</h3>
+    <div class="preview-box" style="flex-direction:column;gap:10px;width:100%;max-width:360px;">
+      <style>.or-link-card{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-lg);text-decoration:none;color:var(--text-primary);transition:box-shadow var(--duration-normal) var(--ease-default),border-color var(--duration-normal)}.or-link-card:hover{border-color:var(--brand);box-shadow:var(--shadow-brand-sm)}.or-link-card-icon{width:36px;height:36px;background:var(--brand-light);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}.or-link-card-title{font-size:13px;font-weight:600;color:var(--text-primary)}.or-link-card-desc{font-size:12px;color:var(--text-secondary);margin-top:2px}.or-link-card-arrow{margin-left:auto;color:var(--text-secondary);font-size:18px;flex-shrink:0}</style>
+      <a href="#" class="or-link-card">
+        <div class="or-link-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <div><div class="or-link-card-title">Start Recording</div><div class="or-link-card-desc">Create a new studio session</div></div>
+        <span class="or-link-card-arrow">&#8250;</span>
+      </a>
+      <a href="#" class="or-link-card">
+        <div class="or-link-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div><div class="or-link-card-title">Upload Media</div><div class="or-link-card-desc">Import video or audio files</div></div>
+        <span class="or-link-card-arrow">&#8250;</span>
+      </a>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;a href="#" class="or-link-card"&gt;
+  &lt;div class="or-link-card-icon"&gt;&lt;!-- icon --&gt;&lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="or-link-card-title"&gt;Title&lt;/div&gt;
+    &lt;div class="or-link-card-desc"&gt;Description&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="or-link-card-arrow"&gt;›&lt;/span&gt;
+&lt;/a&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 10. Stat Bar -->
+  <div class="component-card">
+    <h3>Stat Bar</h3>
+    <div class="preview-box" style="gap:16px;">
+      <style>.or-stat-bar{display:flex;align-items:flex-end;gap:4px;height:48px}.or-stat-bar-col{width:12px;background:var(--brand);border-radius:3px 3px 0 0;opacity:.7;transition:opacity var(--duration-fast)}.or-stat-bar-col:hover{opacity:1}</style>
+      <div class="or-stat-bar" title="Weekly activity">
+        <div class="or-stat-bar-col" style="height:30%"></div>
+        <div class="or-stat-bar-col" style="height:55%"></div>
+        <div class="or-stat-bar-col" style="height:80%"></div>
+        <div class="or-stat-bar-col" style="height:45%"></div>
+        <div class="or-stat-bar-col" style="height:100%"></div>
+        <div class="or-stat-bar-col" style="height:65%"></div>
+        <div class="or-stat-bar-col" style="height:40%"></div>
+        <div class="or-stat-bar-col" style="height:85%"></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);">Weekly uploads</div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-stat-bar"&gt;
+  &lt;div class="or-stat-bar-col" style="height:30%"&gt;&lt;/div&gt;
+  &lt;div class="or-stat-bar-col" style="height:100%"&gt;&lt;/div&gt;
+  &lt;div class="or-stat-bar-col" style="height:65%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 11. Dot Badge -->
+  <div class="component-card">
+    <h3>Dot Badge</h3>
+    <div class="preview-box" style="gap:24px;">
+      <style>.or-dot-badge{position:relative;display:inline-flex}.or-dot-badge::after{content:'';position:absolute;top:0;right:0;width:9px;height:9px;background:#F04438;border-radius:50%;border:2px solid var(--bg-primary)}</style>
+      <span class="or-dot-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></span>
+      <span class="or-dot-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+      <span class="or-dot-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;span class="or-dot-badge"&gt;
+  &lt;!-- icon svg --&gt;
+&lt;/span&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 12. Breadcrumb Custom -->
+  <div class="component-card">
+    <h3>Breadcrumb Custom</h3>
+    <div class="preview-box">
+      <style>.or-breadcrumb-custom{display:flex;align-items:center;gap:0;font-size:13px;list-style:none;padding:0;margin:0}.or-breadcrumb-custom li{display:flex;align-items:center}.or-breadcrumb-custom a{color:var(--text-secondary);text-decoration:none;padding:4px 8px;border-radius:var(--radius-sm);transition:background var(--duration-fast),color var(--duration-fast)}.or-breadcrumb-custom a:hover{background:var(--bg-secondary);color:var(--text-primary)}.or-breadcrumb-sep{color:var(--text-secondary);padding:0 2px;font-size:16px}</style>
+      <nav aria-label="Breadcrumb"><ol class="or-breadcrumb-custom">
+        <li><a href="#">Home</a></li>
+        <li><span class="or-breadcrumb-sep">&#8250;</span></li>
+        <li><a href="#">Products</a></li>
+        <li><span class="or-breadcrumb-sep">&#8250;</span></li>
+        <li><a href="#" style="color:var(--text-primary);font-weight:500;" aria-current="page">Detail</a></li>
+      </ol></nav>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol class="or-breadcrumb-custom"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span class="or-breadcrumb-sep"&gt;›&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#" aria-current="page"&gt;Detail&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 13. Pricing Toggle -->
+  <div class="component-card">
+    <h3>Pricing Toggle</h3>
+    <div class="preview-box" style="flex-direction:column;gap:12px;">
+      <style>.or-pricing-toggle{display:inline-flex;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-full);padding:4px;gap:4px}.or-pricing-toggle-btn{padding:6px 18px;border-radius:var(--radius-full);border:none;cursor:pointer;font-size:13px;font-weight:500;background:transparent;color:var(--text-secondary);transition:all var(--duration-normal) var(--ease-default)}.or-pricing-toggle-btn.active{background:var(--brand);color:#fff;box-shadow:var(--shadow-brand-sm)}</style>
+      <div class="or-pricing-toggle" role="group" aria-label="Billing period">
+        <button class="or-pricing-toggle-btn active" onclick="this.classList.add('active');this.nextElementSibling.classList.remove('active')">Monthly</button>
+        <button class="or-pricing-toggle-btn" onclick="this.classList.add('active');this.previousElementSibling.classList.remove('active')">Annual <span style="font-size:11px;background:var(--success-50);color:var(--success-700);padding:1px 6px;border-radius:var(--radius-full);margin-left:4px;">Save 20%</span></button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-pricing-toggle" role="group"&gt;
+  &lt;button class="or-pricing-toggle-btn active"&gt;Monthly&lt;/button&gt;
+  &lt;button class="or-pricing-toggle-btn"&gt;Annual&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 14. Changelog Entry -->
+  <div class="component-card">
+    <h3>Changelog Entry</h3>
+    <div class="preview-box" style="flex-direction:column;gap:12px;width:100%;max-width:400px;">
+      <style>.or-changelog-entry{display:flex;gap:12px;align-items:flex-start}.or-changelog-badge{padding:2px 8px;border-radius:var(--radius-full);font-size:11px;font-weight:600;flex-shrink:0;margin-top:2px;text-transform:uppercase;letter-spacing:.4px}.or-changelog-badge-new{background:#EFF8FF;color:#175CD3}.or-changelog-badge-fix{background:#FEF3F2;color:#B42318}.or-changelog-badge-improve{background:#F0FDF4;color:#027A48}</style>
+      <div class="or-changelog-entry">
+        <span class="or-changelog-badge or-changelog-badge-new">New</span>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text-primary);">AI Script Generator</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Mar 28, 2026</div></div>
+      </div>
+      <div class="or-changelog-entry">
+        <span class="or-changelog-badge or-changelog-badge-fix">Fix</span>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text-primary);">Teleprompter scroll timing</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Mar 22, 2026</div></div>
+      </div>
+      <div class="or-changelog-entry">
+        <span class="or-changelog-badge or-changelog-badge-improve">Improve</span>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text-primary);">Export quality presets</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Mar 15, 2026</div></div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-changelog-entry"&gt;
+  &lt;span class="or-changelog-badge or-changelog-badge-new"&gt;New&lt;/span&gt;
+  &lt;div&gt;
+    &lt;div&gt;Feature name&lt;/div&gt;
+    &lt;div&gt;Date&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 15. Testimonial Carousel -->
+  <div class="component-card">
+    <h3>Testimonial Carousel</h3>
+    <div class="preview-box" style="flex-direction:column;">
+      <style>.or-testimonial-carousel{width:100%;max-width:480px}.or-testimonial-slide{padding:24px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-xl)}.or-testimonial-quote{font-size:15px;line-height:1.6;color:var(--text-primary);font-style:italic;margin:0 0 16px}</style>
+      <div class="or-testimonial-carousel">
+        <div class="or-testimonial-slide">
+          <p class="or-testimonial-quote">"OpenReel cut our video production time in half. The teleprompter and AI captions are game-changers for our team."</p>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="or-avatar or-avatar-sm" style="background:var(--brand);color:#fff;font-size:11px;">JM</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text-primary);">Jessica M.</div><div style="font-size:12px;color:var(--text-secondary);">Head of Content, Acme Co.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="or-dots" style="margin-top:12px;justify-content:center;">
+        <button class="or-dot active" aria-label="Slide 1"></button>
+        <button class="or-dot" aria-label="Slide 2"></button>
+        <button class="or-dot" aria-label="Slide 3"></button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-testimonial-carousel"&gt;
+  &lt;div class="or-testimonial-slide"&gt;
+    &lt;p class="or-testimonial-quote"&gt;"Quote text..."&lt;/p&gt;
+    &lt;div&gt;&lt;!-- author avatar + name --&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 16. Number Input -->
+  <div class="component-card">
+    <h3>Number Input</h3>
+    <div class="preview-box" style="gap:16px;">
+      <style>.or-number-input{display:inline-flex;align-items:center;border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden;background:var(--bg-primary)}.or-number-btn{width:36px;height:36px;border:none;background:var(--bg-secondary);color:var(--text-primary);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--duration-fast)}.or-number-btn:hover{background:var(--brand-light);color:var(--brand)}.or-number-value{min-width:48px;text-align:center;font-size:14px;font-weight:600;color:var(--text-primary);border:none;outline:none;background:transparent}</style>
+      <div class="or-number-input" role="group" aria-label="Quantity">
+        <button class="or-number-btn" aria-label="Decrease" onclick="var v=this.nextElementSibling;if(parseInt(v.textContent)>1)v.textContent=parseInt(v.textContent)-1">&#8722;</button>
+        <span class="or-number-value">1</span>
+        <button class="or-number-btn" aria-label="Increase" onclick="var v=this.previousElementSibling;v.textContent=parseInt(v.textContent)+1">&#43;</button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-number-input" role="group"&gt;
+  &lt;button class="or-number-btn" aria-label="Decrease"&gt;−&lt;/button&gt;
+  &lt;span class="or-number-value"&gt;1&lt;/span&gt;
+  &lt;button class="or-number-btn" aria-label="Increase"&gt;+&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 17. Color Dots -->
+  <div class="component-card">
+    <h3>Color Dots</h3>
+    <div class="preview-box">
+      <style>.or-color-dots{display:flex;gap:10px;align-items:center}.or-color-dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform var(--duration-fast),border-color var(--duration-fast);outline:none}.or-color-dot.selected,.or-color-dot:focus{border-color:var(--text-primary);transform:scale(1.15);box-shadow:0 0 0 3px var(--brand-light)}</style>
+      <div class="or-color-dots" role="radiogroup" aria-label="Color">
+        <button class="or-color-dot" style="background:#1F12DE;" aria-label="Indigo" onclick="document.querySelectorAll('.or-color-dot').forEach(d=>d.classList.remove('selected'));this.classList.add('selected')"></button>
+        <button class="or-color-dot selected" style="background:#7B5CF0;" aria-label="Violet" onclick="document.querySelectorAll('.or-color-dot').forEach(d=>d.classList.remove('selected'));this.classList.add('selected')"></button>
+        <button class="or-color-dot" style="background:#EC4899;" aria-label="Pink" onclick="document.querySelectorAll('.or-color-dot').forEach(d=>d.classList.remove('selected'));this.classList.add('selected')"></button>
+        <button class="or-color-dot" style="background:#F97316;" aria-label="Orange" onclick="document.querySelectorAll('.or-color-dot').forEach(d=>d.classList.remove('selected'));this.classList.add('selected')"></button>
+        <button class="or-color-dot" style="background:#17B26A;" aria-label="Green" onclick="document.querySelectorAll('.or-color-dot').forEach(d=>d.classList.remove('selected'));this.classList.add('selected')"></button>
+        <button class="or-color-dot" style="background:#101828;" aria-label="Black" onclick="document.querySelectorAll('.or-color-dot').forEach(d=>d.classList.remove('selected'));this.classList.add('selected')"></button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-color-dots" role="radiogroup"&gt;
+  &lt;button class="or-color-dot" style="background:#1F12DE;" aria-label="Indigo"&gt;&lt;/button&gt;
+  &lt;button class="or-color-dot selected" style="background:#7B5CF0;" aria-label="Violet"&gt;&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 18. Wizard Steps -->
+  <div class="component-card">
+    <h3>Wizard Steps</h3>
+    <div class="preview-box">
+      <style>.or-wizard{display:flex;align-items:center;gap:0;width:100%}.or-wizard-step{display:flex;align-items:center;gap:10px;flex:1}.or-wizard-step:last-child{flex:0}.or-wizard-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;border:2px solid var(--border-primary);color:var(--text-secondary);background:var(--bg-primary)}.or-wizard-step.complete .or-wizard-num{background:var(--brand);border-color:var(--brand);color:#fff}.or-wizard-step.current .or-wizard-num{border-color:var(--brand);color:var(--brand)}.or-wizard-label{font-size:12px;font-weight:500;color:var(--text-secondary)}.or-wizard-step.complete .or-wizard-label,.or-wizard-step.current .or-wizard-label{color:var(--text-primary)}.or-wizard-line{flex:1;height:2px;background:var(--border-primary);margin:0 8px}.or-wizard-step.complete+.or-wizard-line,.or-wizard-line.done{background:var(--brand)}</style>
+      <div class="or-wizard" role="list">
+        <div class="or-wizard-step complete" role="listitem">
+          <div class="or-wizard-num">&#10003;</div>
+          <div class="or-wizard-label">Account</div>
+        </div>
+        <div class="or-wizard-line done"></div>
+        <div class="or-wizard-step complete" role="listitem">
+          <div class="or-wizard-num">&#10003;</div>
+          <div class="or-wizard-label">Profile</div>
+        </div>
+        <div class="or-wizard-line"></div>
+        <div class="or-wizard-step current" role="listitem" aria-current="step">
+          <div class="or-wizard-num">3</div>
+          <div class="or-wizard-label">Plan</div>
+        </div>
+        <div class="or-wizard-line"></div>
+        <div class="or-wizard-step" role="listitem">
+          <div class="or-wizard-num">4</div>
+          <div class="or-wizard-label">Confirm</div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-wizard" role="list"&gt;
+  &lt;div class="or-wizard-step complete"&gt;
+    &lt;div class="or-wizard-num"&gt;✓&lt;/div&gt;
+    &lt;div class="or-wizard-label"&gt;Account&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="or-wizard-line done"&gt;&lt;/div&gt;
+  &lt;div class="or-wizard-step current" aria-current="step"&gt;
+    &lt;div class="or-wizard-num"&gt;3&lt;/div&gt;
+    &lt;div class="or-wizard-label"&gt;Plan&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 19. Empty Search -->
+  <div class="component-card">
+    <h3>Empty Search</h3>
+    <div class="preview-box">
+      <style>.or-empty-search{display:flex;flex-direction:column;align-items:center;gap:12px;padding:32px 20px;text-align:center}.or-empty-search-icon{width:52px;height:52px;background:var(--bg-secondary);border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-primary)}.or-empty-search-title{font-size:15px;font-weight:600;color:var(--text-primary)}.or-empty-search-desc{font-size:13px;color:var(--text-secondary);max-width:240px}</style>
+      <div class="or-empty-search" role="status" aria-live="polite">
+        <div class="or-empty-search-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="or-empty-search-title">No results found</div>
+        <div class="or-empty-search-desc">Try adjusting your search or filter to find what you're looking for.</div>
+        <button class="or-btn or-btn-sm or-btn-secondary">Clear filters</button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-empty-search" role="status" aria-live="polite"&gt;
+  &lt;div class="or-empty-search-icon"&gt;&lt;!-- search icon --&gt;&lt;/div&gt;
+  &lt;div class="or-empty-search-title"&gt;No results found&lt;/div&gt;
+  &lt;div class="or-empty-search-desc"&gt;Try adjusting your search.&lt;/div&gt;
+  &lt;button class="or-btn or-btn-secondary"&gt;Clear filters&lt;/button&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 20. Notification Center -->
+  <div class="component-card">
+    <h3>Notification Center</h3>
+    <div class="preview-box" style="align-items:flex-start;">
+      <style>.or-notif-center{width:320px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg)}.or-notif-center-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border-primary);font-size:14px;font-weight:600;color:var(--text-primary)}.or-notif-item{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border-primary);transition:background var(--duration-fast)}.or-notif-item:hover{background:var(--bg-secondary)}.or-notif-item:last-child{border-bottom:none}.or-notif-item.unread{background:var(--brand-light)}</style>
+      <div class="or-notif-center" role="log" aria-label="Notifications">
+        <div class="or-notif-center-header">
+          <span>Notifications</span>
+          <span style="background:var(--brand);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full);">3</span>
+        </div>
+        <div class="or-notif-item unread">
+          <div class="or-avatar or-avatar-xs" style="background:#7B5CF0;color:#fff;font-size:10px;flex-shrink:0;">SC</div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--text-primary);">Sarah shared a project</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">2 min ago</div></div>
+        </div>
+        <div class="or-notif-item unread">
+          <div class="or-avatar or-avatar-xs" style="background:#17B26A;color:#fff;font-size:10px;flex-shrink:0;">JD</div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--text-primary);">Export completed</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">15 min ago</div></div>
+        </div>
+        <div class="or-notif-item">
+          <div class="or-avatar or-avatar-xs" style="background:var(--brand);color:#fff;font-size:10px;flex-shrink:0;">OR</div>
+          <div><div style="font-size:13px;font-weight:500;color:var(--text-primary);">New feature: AI scenes</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">1 hour ago</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-notif-center" role="log" aria-label="Notifications"&gt;
+  &lt;div class="or-notif-center-header"&gt;Notifications &lt;span&gt;3&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="or-notif-item unread"&gt;
+    &lt;div class="or-avatar or-avatar-xs"&gt;SC&lt;/div&gt;
+    &lt;div&gt;&lt;div&gt;Message&lt;/div&gt;&lt;div&gt;2 min ago&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 21. Banner Card -->
+  <div class="component-card">
+    <h3>Banner Card</h3>
+    <div class="preview-box">
+      <style>.or-banner-card{position:relative;border-radius:var(--radius-xl);overflow:hidden;min-height:160px;display:flex;align-items:flex-end}.or-banner-card-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1F12DE 0%,#7B5CF0 100%)}.or-banner-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 60%)}.or-banner-card-content{position:relative;z-index:1;padding:20px 24px;color:#fff}</style>
+      <div class="or-banner-card" style="width:320px;">
+        <div class="or-banner-card-bg"></div>
+        <div class="or-banner-card-overlay"></div>
+        <div class="or-banner-card-content">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;opacity:.8;margin-bottom:6px;">New Feature</div>
+          <div style="font-size:18px;font-weight:700;line-height:1.3;margin-bottom:12px;">AI-Powered<br>Video Editing</div>
+          <button class="or-btn or-btn-sm" style="background:#fff;color:#1F12DE;font-weight:600;">Try Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-banner-card"&gt;
+  &lt;div class="or-banner-card-bg"&gt;&lt;/div&gt;
+  &lt;div class="or-banner-card-overlay"&gt;&lt;/div&gt;
+  &lt;div class="or-banner-card-content"&gt;
+    &lt;div&gt;Title&lt;/div&gt;
+    &lt;button&gt;CTA&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 22. Phone Frame -->
+  <div class="component-card">
+    <h3>Phone Frame</h3>
+    <div class="preview-box">
+      <style>.or-phone-frame{width:180px;background:#101828;border-radius:36px;padding:10px;box-shadow:0 0 0 2px #333741,var(--shadow-2xl)}.or-phone-notch{width:60px;height:18px;background:#101828;border-radius:0 0 14px 14px;margin:0 auto 8px;position:relative;z-index:1;border:2px solid #1F242F}.or-phone-screen{background:var(--bg-primary);border-radius:26px;overflow:hidden;min-height:300px;display:flex;flex-direction:column}</style>
+      <div class="or-phone-frame" role="img" aria-label="Phone mockup">
+        <div class="or-phone-notch"></div>
+        <div class="or-phone-screen">
+          <div style="background:var(--brand);padding:16px 14px 10px;color:#fff;font-size:11px;font-weight:700;">OpenReel Mobile</div>
+          <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;flex:1;">
+            <div style="height:8px;background:var(--border-primary);border-radius:4px;width:80%;"></div>
+            <div style="height:8px;background:var(--border-primary);border-radius:4px;width:60%;"></div>
+            <div style="height:64px;background:var(--bg-secondary);border-radius:var(--radius-md);margin-top:4px;"></div>
+            <div style="height:64px;background:var(--bg-secondary);border-radius:var(--radius-md);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-phone-frame"&gt;
+  &lt;div class="or-phone-notch"&gt;&lt;/div&gt;
+  &lt;div class="or-phone-screen"&gt;
+    &lt;!-- mobile content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 23. Browser Frame -->
+  <div class="component-card">
+    <h3>Browser Frame</h3>
+    <div class="preview-box">
+      <style>.or-browser-frame{border:1px solid var(--border-primary);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);width:100%;max-width:480px}.or-browser-bar{background:var(--bg-secondary);padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border-primary)}.or-browser-dots{display:flex;gap:6px}.or-browser-dots span{width:11px;height:11px;border-radius:50%;background:var(--border-primary)}.or-browser-dots span:nth-child(1){background:#FF5F57}.or-browser-dots span:nth-child(2){background:#FEBC2E}.or-browser-dots span:nth-child(3){background:#28C840}.or-browser-url{flex:1;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-md);padding:4px 10px;font-size:12px;color:var(--text-secondary);text-align:center}.or-browser-content{padding:24px;background:var(--bg-primary);min-height:100px}</style>
+      <div class="or-browser-frame" role="img" aria-label="Browser mockup">
+        <div class="or-browser-bar">
+          <div class="or-browser-dots"><span></span><span></span><span></span></div>
+          <div class="or-browser-url">app.openreel.com/studio</div>
+        </div>
+        <div class="or-browser-content">
+          <div style="height:10px;background:var(--border-primary);border-radius:4px;width:50%;margin-bottom:10px;"></div>
+          <div style="height:8px;background:var(--border-primary);border-radius:4px;width:80%;margin-bottom:8px;"></div>
+          <div style="height:8px;background:var(--border-primary);border-radius:4px;width:65%;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-browser-frame"&gt;
+  &lt;div class="or-browser-bar"&gt;
+    &lt;div class="or-browser-dots"&gt;
+      &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="or-browser-url"&gt;app.openreel.com&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="or-browser-content"&gt;&lt;!-- content --&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 24. Skeleton Variants -->
+  <div class="component-card">
+    <h3>Skeleton Variants</h3>
+    <div class="preview-box" style="flex-direction:column;gap:12px;width:100%;max-width:360px;">
+      <style>@keyframes skeleton-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}.or-skeleton-heading,.or-skeleton-text,.or-skeleton-avatar,.or-skeleton-btn{background:linear-gradient(90deg,var(--bg-secondary) 25%,var(--bg-tertiary) 50%,var(--bg-secondary) 75%);background-size:800px 100%;animation:skeleton-shimmer 1.5s ease-in-out infinite;border-radius:var(--radius-sm)}.or-skeleton-heading{height:20px;width:60%;border-radius:var(--radius-md)}.or-skeleton-text{height:12px;border-radius:var(--radius-sm)}.or-skeleton-avatar{width:40px;height:40px;border-radius:50%}.or-skeleton-btn{height:36px;width:100px;border-radius:var(--radius-md)}</style>
+      <div class="or-skeleton-heading"></div>
+      <div class="or-skeleton-text" style="width:100%"></div>
+      <div class="or-skeleton-text" style="width:85%"></div>
+      <div class="or-skeleton-text" style="width:70%"></div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+        <div class="or-skeleton-avatar"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+          <div class="or-skeleton-text" style="width:40%"></div>
+          <div class="or-skeleton-text" style="width:60%"></div>
+        </div>
+        <div class="or-skeleton-btn"></div>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-skeleton-heading"&gt;&lt;/div&gt;
+&lt;div class="or-skeleton-text"&gt;&lt;/div&gt;
+&lt;div class="or-skeleton-text"&gt;&lt;/div&gt;
+&lt;div class="or-skeleton-avatar"&gt;&lt;/div&gt;
+&lt;div class="or-skeleton-btn"&gt;&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 25. Aspect Ratio -->
+  <div class="component-card">
+    <h3>Aspect Ratio</h3>
+    <div class="preview-box" style="gap:12px;flex-wrap:wrap;align-items:flex-start;">
+      <style>.or-aspect{position:relative;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--radius-md);overflow:hidden}.or-aspect::before{content:'';display:block}.or-aspect-16-9::before{padding-bottom:56.25%}.or-aspect-4-3::before{padding-bottom:75%}.or-aspect-1-1::before{padding-bottom:100%}.or-aspect>*{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-secondary)}</style>
+      <div class="or-aspect or-aspect-16-9" style="width:160px;"><div>16 : 9</div></div>
+      <div class="or-aspect or-aspect-4-3" style="width:120px;"><div>4 : 3</div></div>
+      <div class="or-aspect or-aspect-1-1" style="width:80px;"><div>1 : 1</div></div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-aspect or-aspect-16-9" style="width:320px;"&gt;
+  &lt;div&gt;&lt;!-- content --&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 26. Textarea Counter -->
+  <div class="component-card">
+    <h3>Textarea with Counter</h3>
+    <div class="preview-box">
+      <style>.or-textarea-wrap{position:relative;width:100%;max-width:360px}.or-textarea-wrap textarea{width:100%;resize:vertical;padding:10px 12px 28px;box-sizing:border-box}.or-textarea-counter{position:absolute;bottom:8px;right:10px;font-size:11px;color:var(--text-secondary);pointer-events:none}.or-textarea-counter.warn{color:var(--error-500)}</style>
+      <div class="or-textarea-wrap">
+        <textarea class="or-input" rows="4" maxlength="200" id="ta-counter-demo" placeholder="Write a brief description..." oninput="var c=document.getElementById('ta-count');c.textContent=this.value.length+'/200';c.className='or-textarea-counter'+(this.value.length>160?' warn':'')"></textarea>
+        <span class="or-textarea-counter" id="ta-count">0/200</span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-textarea-wrap"&gt;
+  &lt;textarea class="or-input" maxlength="200"
+    oninput="counter.textContent=this.value.length+'/200'"&gt;
+  &lt;/textarea&gt;
+  &lt;span class="or-textarea-counter" id="counter"&gt;0/200&lt;/span&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 27. Pin Entry -->
+  <div class="component-card">
+    <h3>Pin Entry</h3>
+    <div class="preview-box">
+      <style>.or-pin-entry{display:flex;gap:10px}.or-pin-field{width:48px;height:56px;text-align:center;font-size:22px;font-weight:700;color:var(--text-primary);background:var(--bg-primary);border:2px solid var(--border-primary);border-radius:var(--radius-md);outline:none;transition:border-color var(--duration-fast)}.or-pin-field:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-light)}</style>
+      <div class="or-pin-entry" role="group" aria-label="PIN entry">
+        <input class="or-pin-field" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1" oninput="if(this.value.length===1&&this.nextElementSibling)this.nextElementSibling.focus()">
+        <input class="or-pin-field" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" oninput="if(this.value.length===1&&this.nextElementSibling)this.nextElementSibling.focus()">
+        <input class="or-pin-field" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3" oninput="if(this.value.length===1&&this.nextElementSibling)this.nextElementSibling.focus()">
+        <input class="or-pin-field" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-pin-entry" role="group" aria-label="PIN entry"&gt;
+  &lt;input class="or-pin-field" type="text"
+    inputmode="numeric" maxlength="1"
+    oninput="if(this.value.length===1)this.nextElementSibling.focus()"&gt;
+  &lt;input class="or-pin-field" ...&gt;
+  &lt;input class="or-pin-field" ...&gt;
+  &lt;input class="or-pin-field" ...&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 28. Avatar Status -->
+  <div class="component-card">
+    <h3>Avatar Status</h3>
+    <div class="preview-box" style="gap:20px;">
+      <style>.or-avatar-status-wrap{position:relative;display:inline-flex}.or-avatar-status-dot{position:absolute;bottom:1px;right:1px;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg-primary)}.or-avatar-status-online{background:#17B26A}.or-avatar-status-offline{background:var(--gray-400)}.or-avatar-status-busy{background:#F04438}.or-avatar-status-away{background:#F79009}</style>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div class="or-avatar-status-wrap">
+          <div class="or-avatar" style="background:#1F12DE;color:#fff;">JD</div>
+          <span class="or-avatar-status-dot or-avatar-status-online" title="Online"></span>
+        </div>
+        <span style="font-size:11px;color:var(--text-secondary);">Online</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div class="or-avatar-status-wrap">
+          <div class="or-avatar" style="background:#7B5CF0;color:#fff;">SC</div>
+          <span class="or-avatar-status-dot or-avatar-status-busy" title="Busy"></span>
+        </div>
+        <span style="font-size:11px;color:var(--text-secondary);">Busy</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div class="or-avatar-status-wrap">
+          <div class="or-avatar" style="background:#F97316;color:#fff;">AK</div>
+          <span class="or-avatar-status-dot or-avatar-status-away" title="Away"></span>
+        </div>
+        <span style="font-size:11px;color:var(--text-secondary);">Away</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div class="or-avatar-status-wrap">
+          <div class="or-avatar" style="background:var(--gray-400);color:#fff;">MR</div>
+          <span class="or-avatar-status-dot or-avatar-status-offline" title="Offline"></span>
+        </div>
+        <span style="font-size:11px;color:var(--text-secondary);">Offline</span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-avatar-status-wrap"&gt;
+  &lt;div class="or-avatar"&gt;JD&lt;/div&gt;
+  &lt;span class="or-avatar-status-dot or-avatar-status-online"
+    title="Online"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 29. Drag Handle -->
+  <div class="component-card">
+    <h3>Drag Handle</h3>
+    <div class="preview-box" style="flex-direction:column;gap:8px;width:100%;max-width:320px;">
+      <style>.or-drag-handle-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg-primary);border:1px solid var(--border-primary);border-radius:var(--radius-md);cursor:grab;transition:box-shadow var(--duration-fast),background var(--duration-fast)}.or-drag-handle-row:hover{box-shadow:var(--shadow-md);background:var(--bg-secondary)}.or-drag-handle-row:active{cursor:grabbing;box-shadow:var(--shadow-lg)}.or-drag-handle{display:flex;flex-direction:column;gap:3px;cursor:grab;padding:2px;opacity:.4;flex-shrink:0}.or-drag-handle:hover{opacity:.8}.or-drag-handle-dot{display:grid;grid-template-columns:repeat(2,4px);gap:3px}.or-drag-handle-dot span{width:3px;height:3px;background:var(--text-secondary);border-radius:50%}</style>
+      <div class="or-drag-handle-row" draggable="true">
+        <div class="or-drag-handle" aria-hidden="true"><div class="or-drag-handle-dot"><span></span><span></span><span></span><span></span></div><div class="or-drag-handle-dot"><span></span><span></span><span></span><span></span></div></div>
+        <span style="font-size:13px;font-weight:500;color:var(--text-primary);">Brand Video Final.mp4</span>
+      </div>
+      <div class="or-drag-handle-row" draggable="true">
+        <div class="or-drag-handle" aria-hidden="true"><div class="or-drag-handle-dot"><span></span><span></span><span></span><span></span></div><div class="or-drag-handle-dot"><span></span><span></span><span></span><span></span></div></div>
+        <span style="font-size:13px;font-weight:500;color:var(--text-primary);">Product Demo v2.mp4</span>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-drag-handle-row" draggable="true"&gt;
+  &lt;div class="or-drag-handle" aria-hidden="true"&gt;
+    &lt;div class="or-drag-handle-dot"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span&gt;Item label&lt;/span&gt;
+&lt;/div&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
+  </div>
+
+  <!-- 30. Truncate -->
+  <div class="component-card">
+    <h3>Truncate</h3>
+    <div class="preview-box" style="flex-direction:column;gap:12px;width:100%;max-width:380px;">
+      <style>.or-truncate{font-size:14px;line-height:1.6;color:var(--text-primary)}.or-truncate.collapsed{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.or-truncate-btn{margin-top:6px;background:none;border:none;cursor:pointer;color:var(--brand);font-size:13px;font-weight:500;padding:0;text-decoration:underline;text-underline-offset:2px}</style>
+      <div id="truncate-demo">
+        <div class="or-truncate collapsed" id="truncate-text">OpenReel is the leading enterprise video creation platform that empowers remote teams to record, collaborate, and produce professional videos from anywhere in the world. With AI-powered tools for teleprompter, auto-captions, scene detection, and brand customization, teams create broadcast-quality content at scale without needing a production crew.</div>
+        <button class="or-truncate-btn" id="truncate-toggle" onclick="var t=document.getElementById('truncate-text');var b=this;if(t.classList.contains('collapsed')){t.classList.remove('collapsed');b.textContent='Show less'}else{t.classList.add('collapsed');b.textContent='Show more'}">Show more</button>
+      </div>
+    </div>
+    <div class="code-wrapper"><pre><code>&lt;div class="or-truncate collapsed" id="text"&gt;
+  Long text content here...
+&lt;/div&gt;
+&lt;button class="or-truncate-btn"
+  onclick="document.getElementById('text').classList.toggle('collapsed');
+  this.textContent=this.textContent==='Show more'?'Show less':'Show more'"&gt;
+  Show more
+&lt;/button&gt;</code></pre><button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copy</button></div>
   </div>
 
 </section>

@@ -4849,6 +4849,737 @@
       ],
       "usage": "Sidebar filter panel with grouped options, counts, and clear action.",
       "a11y": "Follow ARIA best practices. Ensure keyboard accessibility."
+    },
+    {
+      "name": "Marquee",
+      "slug": "marquee",
+      "element": "div",
+      "category": "Layout",
+      "description": "Auto-scrolling horizontal ticker with pausable animation",
+      "cssClasses": [
+        "or-marquee",
+        "or-marquee-track",
+        "or-marquee-item"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Auto-scrolling horizontal ticker with pausable animation.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Gradient Text",
+      "slug": "gradient-text",
+      "element": "span",
+      "category": "Data Display",
+      "description": "Text with gradient color fill in brand, warm, and cool variants",
+      "cssClasses": [
+        "or-gradient-text",
+        "or-gradient-text-warm",
+        "or-gradient-text-cool"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Text with gradient color fill in brand, warm, and cool variants.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Bento Grid",
+      "slug": "bento-grid",
+      "element": "div",
+      "category": "Layout",
+      "description": "CSS grid layout with spanning options for bento-style layouts",
+      "cssClasses": [
+        "or-bento",
+        "or-bento-item",
+        "or-bento-span-2",
+        "or-bento-span-3",
+        "or-bento-row-2"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "CSS grid layout with spanning options for bento-style layouts.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Announcement Bar",
+      "slug": "announcement-bar",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Full-width top banner for announcements with dismiss button",
+      "cssClasses": [
+        "or-announcement",
+        "or-announcement-close",
+        "or-announcement-info",
+        "or-announcement-warning",
+        "or-announcement-success"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Full-width top banner for announcements with dismiss button.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Sticky Header",
+      "slug": "sticky-header",
+      "element": "div",
+      "category": "Navigation",
+      "description": "Header that sticks to top on scroll with shadow on scroll",
+      "cssClasses": [
+        "or-sticky-header"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Header that sticks to top on scroll with shadow on scroll.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Badge Group",
+      "slug": "badge-group",
+      "element": "div",
+      "category": "Data Display",
+      "description": "Grouped dismissible badges with remove button",
+      "cssClasses": [
+        "or-badge-group",
+        "or-badge-dismissible",
+        "or-badge-dismiss"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Grouped dismissible badges with remove button.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Progress Ring",
+      "slug": "progress-ring",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Circular SVG progress indicator with center label",
+      "cssClasses": [
+        "or-progress-ring",
+        "or-progress-ring-bg",
+        "or-progress-ring-fill",
+        "or-progress-ring-label"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Circular SVG progress indicator with center label.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Dot Indicator",
+      "slug": "dot-indicator",
+      "element": "div",
+      "category": "Navigation",
+      "description": "Row of dots for pagination or step indication",
+      "cssClasses": [
+        "or-dots",
+        "or-dot"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Row of dots for pagination or step indication.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Link Card",
+      "slug": "link-card",
+      "element": "a",
+      "category": "Navigation",
+      "description": "Clickable card with icon, title, description, and arrow",
+      "cssClasses": [
+        "or-link-card",
+        "or-link-card-icon",
+        "or-link-card-title",
+        "or-link-card-desc",
+        "or-link-card-arrow"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Clickable card with icon, title, description, and arrow.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Stat Bar",
+      "slug": "stat-bar",
+      "element": "div",
+      "category": "Data Display",
+      "description": "Mini vertical bar chart for inline data visualization",
+      "cssClasses": [
+        "or-stat-bar",
+        "or-stat-bar-col"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Mini vertical bar chart for inline data visualization.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Dot Badge",
+      "slug": "dot-badge",
+      "element": "span",
+      "category": "Data Display",
+      "description": "Red dot notification indicator on icons or avatars",
+      "cssClasses": [
+        "or-dot-badge"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Red dot notification indicator on icons or avatars.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Breadcrumb Custom",
+      "slug": "breadcrumb-custom",
+      "element": "nav",
+      "category": "Navigation",
+      "description": "Breadcrumb with custom separators and hover effects",
+      "cssClasses": [
+        "or-breadcrumb-custom",
+        "or-breadcrumb-sep"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Breadcrumb with custom separators and hover effects.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Pricing Toggle",
+      "slug": "pricing-toggle",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Monthly/Annual toggle switch for pricing pages",
+      "cssClasses": [
+        "or-pricing-toggle",
+        "or-pricing-toggle-btn"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Monthly/Annual toggle switch for pricing pages.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Changelog Entry",
+      "slug": "changelog-entry",
+      "element": "div",
+      "category": "Content",
+      "description": "Version changelog item with date, type badge, and description",
+      "cssClasses": [
+        "or-changelog-entry",
+        "or-changelog-badge",
+        "or-changelog-badge-new",
+        "or-changelog-badge-fix",
+        "or-changelog-badge-improve"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Version changelog item with date, type badge, and description.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Testimonial Carousel",
+      "slug": "testimonial-carousel",
+      "element": "div",
+      "category": "Content",
+      "description": "Sliding testimonial quotes with author attribution",
+      "cssClasses": [
+        "or-testimonial-carousel",
+        "or-testimonial-track",
+        "or-testimonial-slide",
+        "or-testimonial-quote"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Sliding testimonial quotes with author attribution.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Number Input",
+      "slug": "number-input",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Numeric stepper with increment/decrement buttons",
+      "cssClasses": [
+        "or-number-input",
+        "or-number-btn",
+        "or-number-value"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Numeric stepper with increment/decrement buttons.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Color Dots",
+      "slug": "color-dots",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Color swatch dots for product color selection",
+      "cssClasses": [
+        "or-color-dots",
+        "or-color-dot"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Color swatch dots for product color selection.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Wizard Steps",
+      "slug": "wizard-steps",
+      "element": "div",
+      "category": "Navigation",
+      "description": "Multi-step wizard with numbered progress circles",
+      "cssClasses": [
+        "or-wizard",
+        "or-wizard-step",
+        "or-wizard-num",
+        "or-wizard-label"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Multi-step wizard with numbered progress circles.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Empty Search",
+      "slug": "empty-search",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Empty state for search results with icon and message",
+      "cssClasses": [
+        "or-empty-search",
+        "or-empty-search-icon",
+        "or-empty-search-title",
+        "or-empty-search-desc"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Empty state for search results with icon and message.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Notification Center",
+      "slug": "notification-center",
+      "element": "div",
+      "category": "Content",
+      "description": "Panel with grouped notifications and read/unread states",
+      "cssClasses": [
+        "or-notif-center",
+        "or-notif-center-header",
+        "or-notif-item"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Panel with grouped notifications and read/unread states.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Banner Card",
+      "slug": "banner-card",
+      "element": "div",
+      "category": "Content",
+      "description": "Hero card with background image and gradient overlay",
+      "cssClasses": [
+        "or-banner-card",
+        "or-banner-card-bg",
+        "or-banner-card-overlay",
+        "or-banner-card-content"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Hero card with background image and gradient overlay.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Phone Frame",
+      "slug": "phone-frame",
+      "element": "div",
+      "category": "Layout",
+      "description": "Phone device mockup frame for showcasing mobile UIs",
+      "cssClasses": [
+        "or-phone-frame",
+        "or-phone-notch",
+        "or-phone-screen"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Phone device mockup frame for showcasing mobile UIs.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Browser Frame",
+      "slug": "browser-frame",
+      "element": "div",
+      "category": "Layout",
+      "description": "Browser window mockup with traffic lights and URL bar",
+      "cssClasses": [
+        "or-browser-frame",
+        "or-browser-bar",
+        "or-browser-dots",
+        "or-browser-url",
+        "or-browser-content"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Browser window mockup with traffic lights and URL bar.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Skeleton Variants",
+      "slug": "skeleton-variants",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Skeleton loading placeholders for text, headings, avatars, images",
+      "cssClasses": [
+        "or-skeleton-text",
+        "or-skeleton-heading",
+        "or-skeleton-avatar",
+        "or-skeleton-image",
+        "or-skeleton-btn",
+        "or-skeleton-card"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Skeleton loading placeholders for text, headings, avatars, images.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Aspect Ratio",
+      "slug": "aspect-ratio",
+      "element": "div",
+      "category": "Layout",
+      "description": "Container with fixed aspect ratio for images and videos",
+      "cssClasses": [
+        "or-aspect",
+        "or-aspect-16-9",
+        "or-aspect-4-3",
+        "or-aspect-1-1",
+        "or-aspect-21-9"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Container with fixed aspect ratio for images and videos.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Textarea Counter",
+      "slug": "textarea-counter",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Textarea with character count display and warning states",
+      "cssClasses": [
+        "or-textarea-wrap",
+        "or-textarea-counter"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Textarea with character count display and warning states.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Pin Entry",
+      "slug": "pin-entry",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Multi-digit PIN code input with auto-advance",
+      "cssClasses": [
+        "or-pin-entry",
+        "or-pin-field"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Multi-digit PIN code input with auto-advance.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Avatar Status",
+      "slug": "avatar-status",
+      "element": "div",
+      "category": "Data Display",
+      "description": "Avatar with online/offline/busy/away status indicator dot",
+      "cssClasses": [
+        "or-avatar-status-wrap",
+        "or-avatar-status-dot",
+        "or-avatar-status-online",
+        "or-avatar-status-offline",
+        "or-avatar-status-busy",
+        "or-avatar-status-away"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Avatar with online/offline/busy/away status indicator dot.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Drag Handle",
+      "slug": "drag-handle",
+      "element": "div",
+      "category": "Layout",
+      "description": "Grip handle for draggable elements with dot pattern",
+      "cssClasses": [
+        "or-drag-handle",
+        "or-drag-handle-dot",
+        "or-drag-handle-row"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Grip handle for draggable elements with dot pattern.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
+    },
+    {
+      "name": "Truncate",
+      "slug": "truncate",
+      "element": "div",
+      "category": "Content",
+      "description": "Text truncation with show more/less toggle",
+      "cssClasses": [
+        "or-truncate",
+        "or-truncate-btn"
+      ],
+      "status": "stable",
+      "variants": [],
+      "sizes": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default"
+        }
+      ],
+      "usage": "Text truncation with show more/less toggle.",
+      "a11y": "Ensure keyboard accessibility. Follow ARIA best practices."
     }
   ],
   "templates": [
