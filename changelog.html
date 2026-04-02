@@ -610,6 +610,123 @@
       <div style="position:relative;">
         <div class="timeline-line"></div>
 
+        <!-- v3.1.0 — April 2026 major release -->
+        <div class="timeline-entry" id="v3.1.0">
+          <div class="timeline-dot" style="top:4px;"></div>
+          <div class="section-card" style="padding:24px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; cursor:pointer;" onclick="toggleChangelog('v310')">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span style="font-size:18px; font-weight:700;">v3.1.0</span>
+                <span style="font-size:12px; color:var(--text-secondary);">April 2, 2026</span>
+                <span style="
+                  font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+                  padding:2px 8px; border-radius:var(--radius-full);
+                  background:var(--brand); color:#fff;
+                ">Latest</span>
+              </div>
+              <svg id="chevron-v310" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s;">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <p style="font-size:15px; font-weight:600; color:var(--brand); margin-bottom:16px;">Major Release — 131 Components, Motion Layer, Advanced Effects</p>
+            <div class="changelog-body" id="body-v310">
+              <div style="display:flex; flex-direction:column; gap:20px;">
+
+                <div>
+                  <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-secondary); margin-bottom:10px;">New Features</p>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                      <span style="font-size:13px;"><strong>70 new components</strong> — Video Player, Carousel, Context Menu, Avatar Group, Combobox, Bottom Sheet, Bento Grid, Metric Cards, Feature Cards, Code Block, and 60 more</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                      <span style="font-size:13px;"><strong>Motion layer</strong> (<code>openreel-motion.css</code>) — Smooth transitions, hover effects, colored accent shadows, keyframe animations for all 131 components</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                      <span style="font-size:13px;"><strong>Advanced effects</strong> (<code>openreel-effects.js</code>) — GSAP scroll animations, Canvas particle field, WebGL gradient, parallax, 3D tilt, magnetic buttons, cursor glow, command palette (Cmd+K), dark mode radial reveal, view transitions</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                      <span style="font-size:13px;"><strong>Responsive layer</strong> (<code>openreel-responsive.css</code>) — Full mobile support, hamburger menu, touch-friendly targets, responsive typography with clamp()</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                      <span style="font-size:13px;"><strong>Video/multimedia</strong> — Plyr-based video player, video cards, media controls, waveform visualizer</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                      <span style="font-size:13px;"><strong>Designer handoffs</strong> — Figma, Paper (print), and Framer handoff pages</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-added" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Added</span>
+                      <span style="font-size:13px;"><strong>Single-link bundle</strong> — <code>openreel-all.css</code> for easy Framer/Webflow injection</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-secondary); margin-bottom:10px;">Improvements</p>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-improved" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Improved</span>
+                      <span style="font-size:13px;">Shared CSS extraction — eliminated duplication across 22 pages</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-improved" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Improved</span>
+                      <span style="font-size:13px;">Dark mode overrides for all 131 components</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-improved" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Improved</span>
+                      <span style="font-size:13px;">Custom select styling (no more browser defaults)</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-improved" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Improved</span>
+                      <span style="font-size:13px;">Interactive demos for all components with JS handlers</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-improved" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Improved</span>
+                      <span style="font-size:13px;">Header search filters sidebar navigation live</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-improved" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Improved</span>
+                      <span style="font-size:13px;">Accessibility: ARIA roles, skip-to-content, focus indicators, 44px touch targets</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-improved" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Improved</span>
+                      <span style="font-size:13px;">SEO: OG meta tags, favicon, sitemap, robots.txt</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-secondary); margin-bottom:10px;">Bug Fixes</p>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-fixed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Fixed</span>
+                      <span style="font-size:13px;">MCP token naming collisions (--sm, --md, --lg no longer conflict)</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-fixed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Fixed</span>
+                      <span style="font-size:13px;">MCP code generators — semantic HTML elements, Svelte 5 runes, Vue type mapping</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-fixed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Fixed</span>
+                      <span style="font-size:13px;">get_css_setup to read shared CSS file with correct light/dark defaults</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <span class="change-fixed" style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:var(--radius-sm); flex-shrink:0;">Fixed</span>
+                      <span style="font-size:13px;">Enriched MCP guidelines from 1-line to 200-400 words each</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- v3.0.0 -->
         <div class="timeline-entry" id="v3.0.0">
           <div class="timeline-dot" style="top:4px;"></div>
@@ -618,11 +735,6 @@
               <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                 <span style="font-size:18px; font-weight:700;">v3.0.0</span>
                 <span style="font-size:12px; color:var(--text-secondary);">March 11, 2026</span>
-                <span style="
-                  font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-                  padding:2px 8px; border-radius:var(--radius-full);
-                  background:var(--brand); color:#fff;
-                ">Latest</span>
               </div>
               <svg id="chevron-v100" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.3s;">
                 <path d="M6 9l6 6 6-6"/>

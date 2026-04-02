@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: https://openreel-design-system.netlify.app/sitemap.xml
+
+# Static assets
+User-agent: *
+Disallow: /mcp/
+Disallow: /scripts/
+Disallow: /.claude/
+Disallow: /.superpowers/
+Disallow: /.netlify/
