@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Framer Handoff - OpenReel Design System</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/openreel.css" />
+  <link rel="stylesheet" href="css/openreel-motion.css" />
+  <link rel="stylesheet" href="css/openreel-responsive.css" />
+  <script src="js/openreel-effects.js" defer></script>
+
+  <style>
+    .dm-toggle {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; transition: all 0.2s ease;
+    }
+    .dm-toggle:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+    .sidebar-link {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--radius-md);
+      font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.15s;
+    }
+    .sidebar-link:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+    .sidebar-link.active { color: var(--brand); background: var(--brand-light); font-weight: 600; }
+    html.dark .sidebar-link.active { color: #818cf8; background: rgba(129,140,248,0.1); }
+
+    .section-title { font-size: var(--text-2xl); font-weight: 600; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .section-desc { font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-lg); max-width: 640px; }
+
+    .code-wrapper {
+      position: relative; background: var(--gray-900); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);
+    }
+    .code-wrapper pre { margin: 0; padding: 20px 24px; overflow-x: auto; }
+    .code-wrapper code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px; line-height: 1.7; color: #e2e8f0; white-space: pre;
+    }
+    .code-wrapper .copy-btn {
+      position: absolute; top: 12px; right: 12px; padding: 6px 14px; font-size: 12px; font-weight: 500;
+      color: #94a3b8; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease;
+    }
+    .code-wrapper .copy-btn:hover { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+
+    /* Step cards */
+    .step-card {
+      border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+      overflow: hidden; background: var(--bg-primary);
+    }
+    .step-header {
+      display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+      border-bottom: 1px solid var(--border-primary); background: var(--bg-secondary);
+    }
+    .step-number {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--brand); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-body { padding: 20px; }
+
+    /* Component snippet tabs */
+    .snippet-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 16px; }
+    .snippet-tab {
+      padding: 6px 14px; border-radius: var(--radius-md); font-size: 12px; font-weight: 600;
+      cursor: pointer; border: 1px solid var(--border-primary); background: var(--bg-secondary);
+      color: var(--text-secondary); transition: all 0.15s;
+    }
+    .snippet-tab:hover { color: var(--text-primary); border-color: var(--brand); }
+    .snippet-tab.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+    .snippet-panel { display: none; }
+    .snippet-panel.active { display: block; }
+
+    /* Token table */
+    .token-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      border: 1px solid var(--border-primary); border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .token-table th {
+      text-align: left; padding: 12px 16px; font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary);
+      background: var(--bg-secondary); border-bottom: 1px solid var(--border-primary);
+    }
+    .token-table td {
+      padding: 12px 16px; font-size: 14px; color: var(--text-primary);
+      border-bottom: 1px solid var(--border-primary); vertical-align: middle;
+    }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table tr:hover td { background: var(--bg-secondary); }
+    .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; }
+
+    /* Tip cards */
+    .tip-card {
+      display: flex; gap: 16px; padding: 16px 20px;
+      border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+      background: var(--bg-primary); margin-bottom: 12px;
+    }
+    .tip-icon {
+      width: 36px; height: 36px; flex-shrink: 0; border-radius: var(--radius-md);
+      background: var(--brand-light); display: flex; align-items: center; justify-content: center;
+    }
+    .tip-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .tip-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+
+    .fade-in { animation: fadeIn 0.4s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media(max-width:1024px) { .framer-sidebar { display: none !important; } main#main-content { margin-left: 0 !important; } }
+  </style>
+
+  <script>
+    (function() {
+      const stored = localStorage.getItem('ds-dark-mode');
+      if (stored === 'true' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', html.classList.contains('dark'));
+      const icon = document.getElementById('dm-icon');
+      if (icon) {
+        icon.innerHTML = html.classList.contains('dark')
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+      }
+    }
+    function copyCode(btn) {
+      const code = btn.closest('.code-wrapper').querySelector('code').textContent;
+      navigator.clipboard.writeText(code);
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    }
+    function showSnippet(component) {
+      document.querySelectorAll('.snippet-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.snippet-panel').forEach(p => p.classList.remove('active'));
+      const tab = document.querySelector('.snippet-tab[data-component="' + component + '"]');
+      const panel = document.getElementById('snippet-' + component);
+      if (tab) tab.classList.add('active');
+      if (panel) panel.classList.add('active');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      showSnippet('button');
+    });
+  </script>
+</head>
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+
+  <!-- HEADER -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="paper-handoff.html">
+              <span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></span>
+              <span class="nav-dd-text"><span class="nav-dd-name">Paper Handoff</span><span class="nav-dd-desc">Print specs &amp; PDF export</span></span>
+            </a>
+            <a href="framer-handoff.html">
+              <span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+              <span class="nav-dd-text"><span class="nav-dd-name">Framer Handoff</span><span class="nav-dd-desc">Prototyping with DS tokens</span></span>
+            </a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- LAYOUT -->
+  <div style="display:flex; padding-top:64px; min-height:100vh;">
+
+    <!-- SIDEBAR -->
+    <nav class="framer-sidebar" style="
+      position:sticky; top:64px; align-self:flex-start; width:240px; min-width:240px;
+      height:calc(100vh - 64px); overflow-y:auto; padding:24px 16px;
+      border-right:1px solid var(--border-primary); background:var(--bg-primary);
+    ">
+      <div style="margin-bottom:24px;">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Setup</p>
+        <a href="#getting-started" class="sidebar-link active">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Getting Started
+        </a>
+        <a href="#css-injection" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+          CSS Injection
+        </a>
+      </div>
+      <div style="margin-bottom:24px;">
+        <p style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary); padding:0 12px; margin-bottom:8px;">Components</p>
+        <a href="#component-snippets" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Code Snippets
+        </a>
+        <a href="#design-tokens" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          Design Tokens
+        </a>
+        <a href="#tips" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17H8v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg>
+          Tips
+        </a>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" style="flex:1; padding:40px 48px 80px; max-width:1100px;">
+
+      <!-- Hero -->
+      <div style="margin-bottom:56px;" class="fade-in">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+          <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em;">Framer Handoff</h1>
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.04em;padding:3px 10px;border-radius:var(--radius-full);background:var(--brand);color:#fff;">FRAMER</span>
+        </div>
+        <p class="section-desc">Use OpenReel Design System components in your Framer prototypes. Inject the CSS, copy the HTML snippets into code components, and prototype with the same tokens your production app uses.</p>
+      </div>
+
+      <!-- ==============================
+           SECTION 1: GETTING STARTED
+           ============================== -->
+      <section id="getting-started" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Getting Started</h2>
+        <p class="section-desc" style="margin-bottom:28px;">Three steps to use the OpenReel DS in any Framer project.</p>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-number">1</div>
+              <div>
+                <p style="font-size:14px;font-weight:600;color:var(--text-primary);">Inject the CSS in Framer Site Settings</p>
+                <p style="font-size:12px;color:var(--text-secondary);">Site Settings → Custom Code → Head tag</p>
+              </div>
+            </div>
+            <div class="step-body">
+              <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">Open your Framer project, go to <strong style="color:var(--text-primary);">Site Settings</strong> (gear icon, top right), select the <strong style="color:var(--text-primary);">Custom Code</strong> tab, and paste the following into the <strong style="color:var(--text-primary);">&lt;head&gt; tag</strong> area:</p>
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>&lt;link rel="stylesheet" href="https://openreel-design-system.netlify.app/css/openreel.css" /&gt;
+&lt;link rel="stylesheet" href="https://openreel-design-system.netlify.app/css/openreel-motion.css" /&gt;</code></pre>
+              </div>
+              <p style="font-size:12px;color:var(--text-secondary);margin-top:10px;">This loads all design tokens, component classes, and motion utilities. The motion file is optional but recommended for hover/transition effects.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-number">2</div>
+              <div>
+                <p style="font-size:14px;font-weight:600;color:var(--text-primary);">Use code components with the <code class="mono" style="background:var(--bg-tertiary);padding:2px 6px;border-radius:4px;">or-</code> class prefix</p>
+                <p style="font-size:12px;color:var(--text-secondary);">Insert → Code component → paste HTML</p>
+              </div>
+            </div>
+            <div class="step-body">
+              <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">In Framer, use <strong style="color:var(--text-primary);">Insert → Code</strong> to add a code component. Paste the HTML snippet from the Component Snippets section below. All OpenReel classes use the <code class="mono" style="background:var(--bg-tertiary);padding:2px 6px;border-radius:4px;">or-</code> prefix — they are globally available once the CSS is injected.</p>
+              <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>export default function PrimaryButton() {
+  return (
+    &lt;button className="or-btn or-btn--primary or-btn--md"&gt;
+      Get Started
+    &lt;/button&gt;
+  )
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-header">
+              <div class="step-number">3</div>
+              <div>
+                <p style="font-size:14px;font-weight:600;color:var(--text-primary);">Copy-paste from the DS docs</p>
+                <p style="font-size:12px;color:var(--text-secondary);">All 61 components available at index.html</p>
+              </div>
+            </div>
+            <div class="step-body">
+              <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">Browse <a href="index.html" style="color:var(--brand);text-decoration:none;font-weight:600;">the full component docs</a> to find any component. Each has an HTML tab with copy-ready markup. Paste it into a Framer code component — the injected CSS handles all styling automatically.</p>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-md);background:var(--brand);color:#fff;text-decoration:none;font-size:13px;font-weight:600;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                  Browse Components
+                </a>
+                <a href="playground.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-md);background:var(--bg-secondary);color:var(--text-primary);text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--border-primary);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Playground
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================
+           SECTION 2: CSS INJECTION CODE
+           ============================== -->
+      <section id="css-injection" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">CSS Injection Code</h2>
+        <p class="section-desc" style="margin-bottom:24px;">The complete code block to paste into Framer's custom head injection. Includes base tokens and optional motion utilities.</p>
+
+        <div style="margin-bottom:20px;">
+          <p style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px;">Minimal (tokens + components only)</p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- OpenReel Design System v1.0 --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" /&gt;
+&lt;link rel="stylesheet" href="https://openreel-design-system.netlify.app/css/openreel.css" /&gt;</code></pre>
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <p style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px;">Full (tokens + components + motion)</p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- OpenReel Design System v1.0 --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" /&gt;
+&lt;link rel="stylesheet" href="https://openreel-design-system.netlify.app/css/openreel.css" /&gt;
+&lt;link rel="stylesheet" href="https://openreel-design-system.netlify.app/css/openreel-motion.css" /&gt;</code></pre>
+          </div>
+        </div>
+
+        <div style="padding:16px 20px;border:1px solid rgba(31,18,222,0.2);border-radius:var(--radius-lg);background:rgba(31,18,222,0.05);">
+          <p style="font-size:13px;font-weight:600;color:var(--brand);margin-bottom:4px;">Where to find this in Framer</p>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">
+            Top-right gear icon → <strong style="color:var(--text-primary);">Site Settings</strong> → <strong style="color:var(--text-primary);">Custom Code</strong> tab → paste in the <strong style="color:var(--text-primary);">&lt;head&gt; tag</strong> textarea → click <strong style="color:var(--text-primary);">Save</strong>.
+          </p>
+        </div>
+      </section>
+
+      <!-- ==============================
+           SECTION 3: COMPONENT SNIPPETS
+           ============================== -->
+      <section id="component-snippets" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Component Code Snippets</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Ready-to-use HTML for Framer's code components. Select a component to see its snippet.</p>
+
+        <div class="snippet-tabs">
+          <button class="snippet-tab" data-component="button" onclick="showSnippet('button')">Button</button>
+          <button class="snippet-tab" data-component="input" onclick="showSnippet('input')">Input</button>
+          <button class="snippet-tab" data-component="card" onclick="showSnippet('card')">Card</button>
+          <button class="snippet-tab" data-component="badge" onclick="showSnippet('badge')">Badge</button>
+          <button class="snippet-tab" data-component="modal" onclick="showSnippet('modal')">Modal</button>
+          <button class="snippet-tab" data-component="tabs" onclick="showSnippet('tabs')">Tabs</button>
+          <button class="snippet-tab" data-component="toggle" onclick="showSnippet('toggle')">Toggle</button>
+          <button class="snippet-tab" data-component="avatar" onclick="showSnippet('avatar')">Avatar</button>
+        </div>
+
+        <!-- Button -->
+        <div id="snippet-button" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Primary Button --&gt;
+&lt;button class="or-btn or-btn--primary or-btn--md"&gt;Primary&lt;/button&gt;
+
+&lt;!-- Secondary --&gt;
+&lt;button class="or-btn or-btn--secondary or-btn--md"&gt;Secondary&lt;/button&gt;
+
+&lt;!-- Destructive --&gt;
+&lt;button class="or-btn or-btn--destructive or-btn--md"&gt;Delete&lt;/button&gt;
+
+&lt;!-- With icon --&gt;
+&lt;button class="or-btn or-btn--primary or-btn--md"&gt;
+  &lt;svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2"&gt;
+    &lt;path d="M12 5v14M5 12h14"/&gt;
+  &lt;/svg&gt;
+  Add Item
+&lt;/button&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;button class="or-btn or-btn--primary or-btn--sm"&gt;Small (32px)&lt;/button&gt;
+&lt;button class="or-btn or-btn--primary or-btn--md"&gt;Medium (40px)&lt;/button&gt;
+&lt;button class="or-btn or-btn--primary or-btn--lg"&gt;Large (48px)&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div id="snippet-input" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Basic Input --&gt;
+&lt;input class="or-input" type="text" placeholder="Enter text..." /&gt;
+
+&lt;!-- With label --&gt;
+&lt;div style="display:flex;flex-direction:column;gap:6px;"&gt;
+  &lt;label style="font-size:14px;font-weight:500;color:var(--text-primary);"&gt;
+    Email address
+  &lt;/label&gt;
+  &lt;input class="or-input" type="email" placeholder="you@example.com" /&gt;
+  &lt;p style="font-size:12px;color:var(--text-secondary);"&gt;
+    We'll never share your email.
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Error state --&gt;
+&lt;input class="or-input or-input--error" type="text"
+       placeholder="Invalid input" /&gt;
+
+&lt;!-- Select --&gt;
+&lt;select class="or-select"&gt;
+  &lt;option&gt;Option 1&lt;/option&gt;
+  &lt;option&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Card -->
+        <div id="snippet-card" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Basic Card --&gt;
+&lt;div class="or-card"&gt;
+  &lt;div class="or-card__header"&gt;
+    &lt;h3 class="or-card__title"&gt;Card Title&lt;/h3&gt;
+    &lt;p class="or-card__subtitle"&gt;Supporting description text&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="or-card__body"&gt;
+    &lt;p&gt;Card body content goes here.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="or-card__footer"&gt;
+    &lt;button class="or-btn or-btn--primary or-btn--sm"&gt;Confirm&lt;/button&gt;
+    &lt;button class="or-btn or-btn--secondary or-btn--sm"&gt;Cancel&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Stat Card --&gt;
+&lt;div class="or-card" style="padding:20px;"&gt;
+  &lt;p style="font-size:12px;font-weight:500;color:var(--text-secondary);"&gt;
+    Total Revenue
+  &lt;/p&gt;
+  &lt;p style="font-size:28px;font-weight:700;color:var(--text-primary);margin-top:4px;"&gt;
+    $48,295
+  &lt;/p&gt;
+  &lt;span class="or-badge or-badge--success"&gt;+12.5%&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <div id="snippet-badge" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Badge variants --&gt;
+&lt;span class="or-badge or-badge--brand"&gt;Brand&lt;/span&gt;
+&lt;span class="or-badge or-badge--success"&gt;Active&lt;/span&gt;
+&lt;span class="or-badge or-badge--error"&gt;Failed&lt;/span&gt;
+&lt;span class="or-badge or-badge--warning"&gt;Pending&lt;/span&gt;
+&lt;span class="or-badge or-badge--gray"&gt;Draft&lt;/span&gt;
+
+&lt;!-- With dot indicator --&gt;
+&lt;span class="or-badge or-badge--success"&gt;
+  &lt;span style="width:6px;height:6px;border-radius:50%;
+               background:currentColor;display:inline-block;
+               margin-right:5px;"&gt;&lt;/span&gt;
+  Online
+&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="snippet-modal" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Modal backdrop + dialog --&gt;
+&lt;div style="
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:100;
+"&gt;
+  &lt;div class="or-card" style="width:480px;max-width:90vw;"&gt;
+    &lt;div class="or-card__header" style="
+      display:flex;align-items:center;justify-content:space-between;
+    "&gt;
+      &lt;h3 class="or-card__title"&gt;Modal Title&lt;/h3&gt;
+      &lt;button style="
+        width:32px;height:32px;border:none;background:transparent;
+        cursor:pointer;display:flex;align-items:center;justify-content:center;
+        border-radius:var(--radius-md);color:var(--text-secondary);
+      "&gt;
+        &lt;svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"&gt;
+          &lt;path d="M18 6L6 18M6 6l12 12"/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="or-card__body"&gt;
+      &lt;p style="font-size:14px;color:var(--text-secondary);"&gt;
+        Modal body content.
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="or-card__footer"&gt;
+      &lt;button class="or-btn or-btn--primary or-btn--md"&gt;Confirm&lt;/button&gt;
+      &lt;button class="or-btn or-btn--secondary or-btn--md"&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div id="snippet-tabs" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Tabs navigation --&gt;
+&lt;div style="border-bottom:1px solid var(--border-primary);"&gt;
+  &lt;div style="display:flex;gap:0;"&gt;
+    &lt;button style="
+      padding:10px 18px;font-size:14px;font-weight:600;
+      border:none;background:transparent;cursor:pointer;
+      color:var(--brand);border-bottom:2px solid var(--brand);
+      font-family:var(--font-family);
+    "&gt;Overview&lt;/button&gt;
+    &lt;button style="
+      padding:10px 18px;font-size:14px;font-weight:500;
+      border:none;background:transparent;cursor:pointer;
+      color:var(--text-secondary);border-bottom:2px solid transparent;
+      font-family:var(--font-family);
+    "&gt;Analytics&lt;/button&gt;
+    &lt;button style="
+      padding:10px 18px;font-size:14px;font-weight:500;
+      border:none;background:transparent;cursor:pointer;
+      color:var(--text-secondary);border-bottom:2px solid transparent;
+      font-family:var(--font-family);
+    "&gt;Settings&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- Tab content panel --&gt;
+&lt;div style="padding:24px 0;"&gt;
+  &lt;p style="font-size:14px;color:var(--text-secondary);"&gt;
+    Active tab content here.
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Toggle -->
+        <div id="snippet-toggle" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Toggle switch --&gt;
+&lt;button class="or-toggle" role="switch" aria-checked="false"&gt;
+  &lt;span class="or-toggle__thumb"&gt;&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Toggle with label --&gt;
+&lt;label style="display:flex;align-items:center;gap:10px;cursor:pointer;"&gt;
+  &lt;button class="or-toggle" role="switch" aria-checked="true"&gt;
+    &lt;span class="or-toggle__thumb"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span style="font-size:14px;font-weight:500;color:var(--text-primary);"&gt;
+    Enable notifications
+  &lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Checkbox --&gt;
+&lt;label style="display:flex;align-items:center;gap:8px;cursor:pointer;"&gt;
+  &lt;input type="checkbox" class="or-checkbox" /&gt;
+  &lt;span style="font-size:14px;color:var(--text-primary);"&gt;
+    Accept terms and conditions
+  &lt;/span&gt;
+&lt;/label&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div id="snippet-avatar" class="snippet-panel">
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>&lt;!-- Avatar sizes --&gt;
+&lt;!-- XS: 24px --&gt;
+&lt;div style="
+  width:24px;height:24px;border-radius:50%;overflow:hidden;
+  background:var(--brand-light);display:flex;align-items:center;
+  justify-content:center;font-size:10px;font-weight:600;
+  color:var(--brand);
+"&gt;JD&lt;/div&gt;
+
+&lt;!-- MD: 40px with image --&gt;
+&lt;img src="https://api.dicebear.com/7.x/avataaars/svg?seed=OR"
+     alt="User avatar"
+     style="width:40px;height:40px;border-radius:50%;object-fit:cover;" /&gt;
+
+&lt;!-- XL: 64px --&gt;
+&lt;div style="
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--brand),var(--blue-500));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:700;color:#fff;
+"&gt;SR&lt;/div&gt;
+
+&lt;!-- Avatar group --&gt;
+&lt;div style="display:flex;"&gt;
+  &lt;img src="https://api.dicebear.com/7.x/avataaars/svg?seed=1"
+       style="width:36px;height:36px;border-radius:50%;border:2px solid var(--bg-primary);margin-left:-8px;" /&gt;
+  &lt;img src="https://api.dicebear.com/7.x/avataaars/svg?seed=2"
+       style="width:36px;height:36px;border-radius:50%;border:2px solid var(--bg-primary);margin-left:-8px;" /&gt;
+  &lt;img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3"
+       style="width:36px;height:36px;border-radius:50%;border:2px solid var(--bg-primary);margin-left:-8px;" /&gt;
+  &lt;div style="
+    width:36px;height:36px;border-radius:50%;border:2px solid var(--bg-primary);
+    margin-left:-8px;background:var(--bg-tertiary);display:flex;
+    align-items:center;justify-content:center;font-size:11px;
+    font-weight:600;color:var(--text-secondary);
+  "&gt;+4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================
+           SECTION 4: DESIGN TOKENS
+           ============================== -->
+      <section id="design-tokens" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Design Tokens in Framer</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Once the CSS is injected, all CSS custom properties are available everywhere in Framer — in code components via inline styles, and in the style panel.</p>
+
+        <div style="margin-bottom:24px;">
+          <p style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;">Using tokens in Framer code components</p>
+          <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre><code>// Reference CSS variables directly in style objects
+export default function TokenExample() {
+  return (
+    &lt;div style={{
+      backgroundColor: "var(--bg-primary)",
+      color: "var(--text-primary)",
+      padding: "var(--space-6)",
+      borderRadius: "var(--radius-lg)",
+      border: "1px solid var(--border-primary)",
+      boxShadow: "var(--shadow-md)",
+      fontFamily: "var(--font-family)",
+      fontSize: "var(--text-base)",
+      fontWeight: "var(--font-semibold)",
+    }}&gt;
+      Token-driven component
+    &lt;/div&gt;
+  )
+}</code></pre>
+          </div>
+        </div>
+
+        <p style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;">Key token groups</p>
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Token Group</th>
+              <th>Examples</th>
+              <th>Use for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="mono">--bg-*</code></td>
+              <td><code class="mono">--bg-primary, --bg-secondary, --bg-tertiary</code></td>
+              <td>Surface backgrounds, card layers</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--text-*</code></td>
+              <td><code class="mono">--text-primary, --text-secondary</code></td>
+              <td>Body copy, labels, captions</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--border-*</code></td>
+              <td><code class="mono">--border-primary</code></td>
+              <td>Card borders, dividers, inputs</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--brand-*</code></td>
+              <td><code class="mono">--brand, --brand-hover, --brand-light</code></td>
+              <td>CTA buttons, links, focus rings</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--text-*</code> (size)</td>
+              <td><code class="mono">--text-xs, --text-sm, --text-base, --text-md, --text-xl</code></td>
+              <td>Typography sizes</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--space-*</code></td>
+              <td><code class="mono">--space-2, --space-4, --space-6, --space-8</code></td>
+              <td>Padding, margin, gap</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--radius-*</code></td>
+              <td><code class="mono">--radius-sm, --radius-md, --radius-lg, --radius-full</code></td>
+              <td>Border radius on all elements</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--shadow-*</code></td>
+              <td><code class="mono">--shadow-xs, --shadow-sm, --shadow-md, --shadow-lg</code></td>
+              <td>Elevation for cards, modals, dropdowns</td>
+            </tr>
+            <tr>
+              <td><code class="mono">--duration-*</code></td>
+              <td><code class="mono">--duration-fast, --duration-normal, --duration-slow</code></td>
+              <td>Transition durations (100ms–300ms)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ==============================
+           SECTION 5: TIPS
+           ============================== -->
+      <section id="tips" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Tips</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Best practices for using the OpenReel DS effectively in Framer prototypes.</p>
+
+        <div class="tip-card">
+          <div class="tip-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <p class="tip-title">Use tokens, not hardcoded values</p>
+            <p class="tip-text">Always reference <code class="mono" style="background:var(--bg-tertiary);padding:2px 5px;border-radius:3px;">var(--token-name)</code> instead of hardcoding hex colors or pixel values. This ensures your prototype automatically adapts when the design system updates, and light/dark mode works for free.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <div>
+            <p class="tip-title">Wrap DS components in Framer override components</p>
+            <p class="tip-text">Create a Framer override that adds DS class names to native elements. This lets your design team drag-and-drop while still using real production classes. Example: Override a Framer rectangle with <code class="mono" style="background:var(--bg-tertiary);padding:2px 5px;border-radius:3px;">or-card</code> to give it proper token-based styling.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <div>
+            <p class="tip-title">Test dark mode in Framer preview</p>
+            <p class="tip-text">Add a toggle component that calls <code class="mono" style="background:var(--bg-tertiary);padding:2px 5px;border-radius:3px;">document.documentElement.classList.toggle('dark')</code> to switch between light and dark mode inside your Framer prototype preview. All DS tokens flip automatically.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div>
+            <p class="tip-title">Use motion tokens for transitions</p>
+            <p class="tip-text">When adding hover or state transitions in Framer variants, use <code class="mono" style="background:var(--bg-tertiary);padding:2px 5px;border-radius:3px;">var(--duration-normal)</code> (200ms) for standard interactions and <code class="mono" style="background:var(--bg-tertiary);padding:2px 5px;border-radius:3px;">var(--ease-spring)</code> for playful animations. This keeps motion consistent with the live product.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <div>
+            <p class="tip-title">Keep prototype and production in sync</p>
+            <p class="tip-text">Because the prototype uses the same CSS as production, any token change in <code class="mono" style="background:var(--bg-tertiary);padding:2px 5px;border-radius:3px;">openreel.css</code> is reflected immediately in both. No manual updates needed — your prototype is always a faithful representation of the live design system.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div>
+            <p class="tip-title">Avoid mixing DS classes with Framer's generated CSS</p>
+            <p class="tip-text">Framer may apply its own background/color styles via generated class names. If a DS component looks wrong, wrap it in a zero-padding container div and apply DS classes only to the inner element. Use <code class="mono" style="background:var(--bg-tertiary);padding:2px 5px;border-radius:3px;">!important</code> sparingly if Framer styles conflict.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

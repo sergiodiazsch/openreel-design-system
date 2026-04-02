@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <script src="auth-guard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paper Handoff - OpenReel Design System</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/openreel.css" />
+  <link rel="stylesheet" href="css/openreel-motion.css" />
+  <link rel="stylesheet" href="css/openreel-responsive.css" />
+  <script src="js/openreel-effects.js" defer></script>
+
+  <style>
+    .dm-toggle {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; transition: all 0.2s ease;
+    }
+    .dm-toggle:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+    .section-title { font-size: var(--text-2xl); font-weight: 600; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .section-desc { font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-lg); max-width: 640px; }
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .sr-only:focus{position:fixed;top:8px;left:8px;z-index:9999;width:auto;height:auto;padding:12px 24px;margin:0;overflow:visible;clip:auto;background:var(--brand);color:#fff;font-size:14px;font-weight:600;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);white-space:normal}
+
+    /* Color swatch cards */
+    .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+    .swatch-card {
+      border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--border-primary);
+      box-shadow: var(--shadow-xs);
+    }
+    .swatch-color { height: 80px; }
+    .swatch-info { padding: 12px; background: var(--bg-primary); }
+    .swatch-name { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .swatch-hex { font-size: 11px; color: var(--text-secondary); font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* Type specimen */
+    .type-row {
+      display: flex; align-items: baseline; gap: 24px; padding: 16px 0;
+      border-bottom: 1px solid var(--border-primary);
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta { min-width: 140px; }
+    .type-meta-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); }
+    .type-meta-value { font-size: 11px; color: var(--text-secondary); font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* Spacing bar */
+    .spacing-row { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
+    .spacing-bar { height: 12px; background: var(--brand); border-radius: 2px; display: block; }
+    .spacing-label { font-size: 12px; font-weight: 600; color: var(--text-primary); min-width: 90px; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .spacing-token { font-size: 11px; color: var(--text-secondary); font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* Component spec sheet */
+    .spec-card {
+      border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+      overflow: hidden; background: var(--bg-primary); margin-bottom: 24px;
+    }
+    .spec-card-header {
+      padding: 12px 20px; background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-primary);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .spec-card-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .spec-card-body { padding: 24px; display: flex; gap: 32px; align-items: flex-start; }
+    .spec-preview { flex-shrink: 0; }
+    .spec-table { width: 100%; font-size: 12px; }
+    .spec-table th { text-align: left; padding: 4px 8px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 0.06em; }
+    .spec-table td { padding: 5px 8px; color: var(--text-primary); border-bottom: 1px solid var(--border-primary); }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; color: var(--brand); }
+
+    /* Icon placeholder grid */
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+    .icon-cell {
+      border: 1px solid var(--border-primary); border-radius: var(--radius-md);
+      padding: 16px 8px; text-align: center; background: var(--bg-secondary);
+    }
+    .icon-placeholder {
+      width: 32px; height: 32px; margin: 0 auto 8px;
+      border: 1.5px dashed var(--text-secondary); border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .icon-cell-label { font-size: 10px; color: var(--text-secondary); word-break: break-word; font-family: 'SF Mono','Fira Code',monospace; }
+
+    .fade-in { animation: fadeIn 0.4s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media(max-width:1024px) { main#main-content { margin-left: 0 !important; } }
+
+    /* ---- PRINT STYLES ---- */
+    @media print {
+      /* Hide navigation and interactive chrome */
+      header, .no-print, .dm-toggle { display: none !important; }
+
+      body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+      main#main-content { padding: 0 !important; max-width: 100% !important; }
+
+      /* Reset backgrounds and borders */
+      .swatch-info, .spec-card, .spec-card-header, .icon-cell, .spec-card-body {
+        background: #fff !important; border-color: #ccc !important;
+      }
+      .swatch-color { border-bottom: 1px solid #ccc; }
+
+      /* Show hex values prominently under each swatch */
+      .swatch-hex::before { content: "Hex: "; font-weight: 600; }
+      .swatch-name { color: #000 !important; }
+      .swatch-hex { color: #333 !important; font-size: 10pt; }
+
+      /* Typography */
+      .section-title { color: #000 !important; font-size: 16pt; }
+      .section-desc { color: #333 !important; }
+      .type-meta-label, .type-meta-value { color: #333 !important; }
+      .spec-table th, .spec-table td { color: #000 !important; border-color: #ccc !important; }
+      .spec-table .mono { color: #000 !important; }
+      .spacing-label, .spacing-token { color: #000 !important; }
+      .spacing-bar { background: #333 !important; print-color-adjust: exact; }
+      .icon-cell-label { color: #333 !important; }
+      .icon-placeholder { border-color: #999 !important; }
+
+      /* Page breaks between major sections */
+      #color-swatches   { page-break-before: always; }
+      #type-specimen    { page-break-before: always; }
+      #spacing-scale    { page-break-before: always; }
+      #component-specs  { page-break-before: always; }
+      #icon-reference   { page-break-before: always; }
+
+      /* Avoid breaking inside component spec cards */
+      .spec-card { page-break-inside: avoid; }
+
+      /* Print URL as text so recipients know where the live version is */
+      footer { display: block !important; color: #666; font-size: 9pt; text-align: center; margin-top: 24px; }
+    }
+  </style>
+
+  <script>
+    (function() {
+      const stored = localStorage.getItem('ds-dark-mode');
+      if (stored === 'true' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('ds-dark-mode', html.classList.contains('dark'));
+      const icon = document.getElementById('dm-icon');
+      if (icon) {
+        icon.innerHTML = html.classList.contains('dark')
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+      }
+    }
+  </script>
+</head>
+<body>
+<a href="#main-content" class="sr-only">Skip to content</a>
+
+  <!-- HEADER -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;height:64px;background:var(--gray-900);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--brand),var(--blue-500));display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(31,18,222,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="#fff" stroke="none"/></svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.02em;">OpenReel <span style="font-weight:400;color:var(--gray-400);">Design System</span></span>
+      </a>
+      <span style="font-size:11px;font-weight:600;color:var(--brand);background:rgba(31,18,222,0.15);padding:3px 8px;border-radius:var(--radius-full);letter-spacing:0.03em;">v1.0</span>
+      <nav class="header-nav" style="margin-left:24px;">
+        <a href="index.html" class="header-nav-link">Docs</a>
+        <a href="playground.html" class="header-nav-link">Playground</a>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Tools <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="assistant.html" style="background:rgba(31,18,222,0.15);border:1px solid rgba(31,18,222,0.3);border-radius:8px;"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(129,140,248,0.9)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 9h8M8 13h4"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name" style="color:rgba(129,140,248,0.95);">AI Assistant</span><span class="nav-dd-desc">Chat &amp; build with AI</span></span></a>
+            <a href="icons.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Icons &amp; Tools</span><span class="nav-dd-desc">Icon library and utilities</span></span></a>
+            <a href="theme-builder.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Theme Builder</span><span class="nav-dd-desc">Customize design tokens live</span></span></a>
+            <a href="data-viz.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Data Viz</span><span class="nav-dd-desc">Charts and data visualization</span></span></a>
+            <a href="a11y.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="8" r="1.5" fill="rgba(255,255,255,0.6)"/><path d="M12 11v5"/><path d="M9 12h6"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">A11y Tools</span><span class="nav-dd-desc">Accessibility checker &amp; guides</span></span></a>
+          </div>
+        </div>
+        <div class="nav-dropdown-trigger">
+          <button class="header-nav-link" type="button" aria-haspopup="true" aria-expanded="false">Resources <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-dropdown">
+            <a href="templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Templates</span><span class="nav-dd-desc">Ready-to-use page templates</span></span></a>
+            <a href="animations.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Animations</span><span class="nav-dd-desc">Motion presets and transitions</span></span></a>
+            <a href="forms.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Forms</span><span class="nav-dd-desc">Form patterns and validation</span></span></a>
+            <a href="layouts.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Layouts</span><span class="nav-dd-desc">Page layout patterns</span></span></a>
+            <a href="email-templates.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Email Templates</span><span class="nav-dd-desc">Responsive email components</span></span></a>
+            <a href="figma-handoff.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Figma Handoff</span><span class="nav-dd-desc">Design-to-code workflow</span></span></a>
+            <a href="paper-handoff.html">
+              <span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></span>
+              <span class="nav-dd-text"><span class="nav-dd-name">Paper Handoff</span><span class="nav-dd-desc">Print specs &amp; PDF export</span></span>
+            </a>
+            <a href="framer-handoff.html">
+              <span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+              <span class="nav-dd-text"><span class="nav-dd-name">Framer Handoff</span><span class="nav-dd-desc">Prototyping with DS tokens</span></span>
+            </a>
+            <a href="changelog.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">Changelog</span><span class="nav-dd-desc">Release notes and updates</span></span></a>
+            <a href="mcp-guide.html"><span class="nav-dd-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span><span class="nav-dd-text"><span class="nav-dd-name">MCP Guide</span><span class="nav-dd-desc">AI integration setup</span></span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="position:relative;width:320px;">
+        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search components..." style="width:100%;padding:9px 14px 9px 38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);color:#fff;font-size:13px;font-family:var(--font-family);outline:none;transition:all 0.2s ease;" onfocus="this.style.borderColor='rgba(31,18,222,0.5)';this.style.boxShadow='0 0 0 3px rgba(31,18,222,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"/>
+        <kbd style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);font-family:'SF Mono',monospace;">/</kbd>
+      </div>
+      <button class="dm-toggle no-print" onclick="toggleDarkMode()" title="Toggle dark mode">
+        <svg id="dm-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+      <button onclick="window.print()" class="no-print" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-md);background:var(--brand);color:#fff;border:none;font-size:13px;font-weight:600;font-family:var(--font-family);cursor:pointer;transition:all 0.2s;" title="Print or save as PDF">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Print / PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- LAYOUT -->
+  <div style="padding-top:64px; min-height:100vh;">
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" style="padding:40px 48px 80px; max-width:1100px; margin:0 auto;">
+
+      <!-- Hero -->
+      <div style="margin-bottom:56px;" class="fade-in">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+          <h1 style="font-size:28px; font-weight:700; letter-spacing:-0.02em;">Paper &amp; Print Handoff</h1>
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.04em;padding:3px 10px;border-radius:var(--radius-full);background:var(--brand);color:#fff;">PRINT</span>
+        </div>
+        <p class="section-desc">Printable design specifications for team reference and documentation. Use the <strong>Print / PDF</strong> button above to generate a clean print-ready version.</p>
+        <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;" class="no-print">
+          <a href="#color-swatches" style="font-size:13px;font-weight:500;color:var(--brand);text-decoration:none;">Color Swatches</a>
+          <span style="color:var(--border-primary);">·</span>
+          <a href="#type-specimen" style="font-size:13px;font-weight:500;color:var(--brand);text-decoration:none;">Typography</a>
+          <span style="color:var(--border-primary);">·</span>
+          <a href="#spacing-scale" style="font-size:13px;font-weight:500;color:var(--brand);text-decoration:none;">Spacing Scale</a>
+          <span style="color:var(--border-primary);">·</span>
+          <a href="#component-specs" style="font-size:13px;font-weight:500;color:var(--brand);text-decoration:none;">Component Specs</a>
+          <span style="color:var(--border-primary);">·</span>
+          <a href="#icon-reference" style="font-size:13px;font-weight:500;color:var(--brand);text-decoration:none;">Icon Reference</a>
+        </div>
+      </div>
+
+      <!-- ==============================
+           SECTION 1: COLOR SWATCHES
+           ============================== -->
+      <section id="color-swatches" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Color Swatches</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Brand colors, grays, and semantic palettes. Each card shows the color token name and hex value for print reference.</p>
+
+        <h3 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);margin-bottom:12px;">Brand</h3>
+        <div class="swatch-grid" style="margin-bottom:32px;">
+          <div class="swatch-card">
+            <div class="swatch-color" style="background:#1F12DE;"></div>
+            <div class="swatch-info"><p class="swatch-name">--brand</p><p class="swatch-hex">#1F12DE</p></div>
+          </div>
+          <div class="swatch-card">
+            <div class="swatch-color" style="background:#1a0fbc;"></div>
+            <div class="swatch-info"><p class="swatch-name">--brand-hover</p><p class="swatch-hex">#1a0fbc</p></div>
+          </div>
+          <div class="swatch-card">
+            <div class="swatch-color" style="background:rgba(31,18,222,0.1);border-bottom:1px solid var(--border-primary);"></div>
+            <div class="swatch-info"><p class="swatch-name">--brand-light</p><p class="swatch-hex">rgba(31,18,222,0.10)</p></div>
+          </div>
+        </div>
+
+        <h3 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);margin-bottom:12px;">Grays</h3>
+        <div class="swatch-grid" style="margin-bottom:32px;">
+          <div class="swatch-card"><div class="swatch-color" style="background:#F9FAFB;border-bottom:1px solid var(--border-primary);"></div><div class="swatch-info"><p class="swatch-name">--gray-25</p><p class="swatch-hex">#F9FAFB</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#F2F4F7;border-bottom:1px solid var(--border-primary);"></div><div class="swatch-info"><p class="swatch-name">--gray-50</p><p class="swatch-hex">#F2F4F7</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#EAECF0;border-bottom:1px solid var(--border-primary);"></div><div class="swatch-info"><p class="swatch-name">--gray-100</p><p class="swatch-hex">#EAECF0</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#D0D5DD;"></div><div class="swatch-info"><p class="swatch-name">--gray-200</p><p class="swatch-hex">#D0D5DD</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#98A2B3;"></div><div class="swatch-info"><p class="swatch-name">--gray-400</p><p class="swatch-hex">#98A2B3</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#667085;"></div><div class="swatch-info"><p class="swatch-name">--gray-500</p><p class="swatch-hex">#667085</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#344054;"></div><div class="swatch-info"><p class="swatch-name">--gray-700</p><p class="swatch-hex">#344054</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#101828;"></div><div class="swatch-info"><p class="swatch-name">--gray-900</p><p class="swatch-hex">#101828</p></div></div>
+        </div>
+
+        <h3 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);margin-bottom:12px;">Semantic</h3>
+        <div class="swatch-grid" style="margin-bottom:32px;">
+          <div class="swatch-card"><div class="swatch-color" style="background:#12B76A;"></div><div class="swatch-info"><p class="swatch-name">--success-500</p><p class="swatch-hex">#12B76A</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#ECFDF3;border-bottom:1px solid var(--border-primary);"></div><div class="swatch-info"><p class="swatch-name">--success-50</p><p class="swatch-hex">#ECFDF3</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#F04438;"></div><div class="swatch-info"><p class="swatch-name">--error-500</p><p class="swatch-hex">#F04438</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#FEF3F2;border-bottom:1px solid var(--border-primary);"></div><div class="swatch-info"><p class="swatch-name">--error-50</p><p class="swatch-hex">#FEF3F2</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#F79009;"></div><div class="swatch-info"><p class="swatch-name">--warning-500</p><p class="swatch-hex">#F79009</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#FFFAEB;border-bottom:1px solid var(--border-primary);"></div><div class="swatch-info"><p class="swatch-name">--warning-50</p><p class="swatch-hex">#FFFAEB</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#2E90FA;"></div><div class="swatch-info"><p class="swatch-name">--blue-500</p><p class="swatch-hex">#2E90FA</p></div></div>
+          <div class="swatch-card"><div class="swatch-color" style="background:#EFF8FF;border-bottom:1px solid var(--border-primary);"></div><div class="swatch-info"><p class="swatch-name">--blue-50</p><p class="swatch-hex">#EFF8FF</p></div></div>
+        </div>
+      </section>
+
+      <!-- ==============================
+           SECTION 2: TYPOGRAPHY SPECIMEN
+           ============================== -->
+      <section id="type-specimen" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Typography Specimen</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Inter typeface — all sizes and weights used in the design system.</p>
+
+        <div style="border:1px solid var(--border-primary);border-radius:var(--radius-lg);overflow:hidden;">
+          <div style="padding:12px 20px;background:var(--bg-secondary);border-bottom:1px solid var(--border-primary);display:grid;grid-template-columns:140px 1fr;gap:16px;">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);">Token / Weight</span>
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);">Sample</span>
+          </div>
+          <div style="padding:0 20px;">
+            <div class="type-row">
+              <div class="type-meta"><p class="type-meta-label">--text-2xl / 700</p><p class="type-meta-value">24px · Bold</p></div>
+              <span style="font-size:24px;font-weight:700;color:var(--text-primary);">The quick brown fox</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><p class="type-meta-label">--text-xl / 600</p><p class="type-meta-value">20px · Semibold</p></div>
+              <span style="font-size:20px;font-weight:600;color:var(--text-primary);">The quick brown fox</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><p class="type-meta-label">--text-lg / 600</p><p class="type-meta-value">18px · Semibold</p></div>
+              <span style="font-size:18px;font-weight:600;color:var(--text-primary);">The quick brown fox jumps</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><p class="type-meta-label">--text-md / 500</p><p class="type-meta-value">16px · Medium</p></div>
+              <span style="font-size:16px;font-weight:500;color:var(--text-primary);">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><p class="type-meta-label">--text-base / 400</p><p class="type-meta-value">14px · Regular</p></div>
+              <span style="font-size:14px;font-weight:400;color:var(--text-primary);">The quick brown fox jumps over the lazy dog. Body copy at base size.</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><p class="type-meta-label">--text-sm / 400</p><p class="type-meta-value">12px · Regular</p></div>
+              <span style="font-size:12px;font-weight:400;color:var(--text-secondary);">The quick brown fox jumps over the lazy dog. Caption and label text.</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><p class="type-meta-label">--text-xs / 600</p><p class="type-meta-value">10px · Semibold</p></div>
+              <span style="font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-secondary);">BADGE · TAG · LABEL</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div style="padding:16px;border:1px solid var(--border-primary);border-radius:var(--radius-lg);background:var(--bg-secondary);">
+            <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);margin-bottom:6px;">Font Family</p>
+            <p style="font-size:14px;color:var(--text-primary);font-family:var(--font-family);">Inter, system-ui, sans-serif</p>
+          </div>
+          <div style="padding:16px;border:1px solid var(--border-primary);border-radius:var(--radius-lg);background:var(--bg-secondary);">
+            <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);margin-bottom:6px;">Weights Used</p>
+            <p style="font-size:14px;color:var(--text-primary);">400 · 500 · 600 · 700</p>
+          </div>
+          <div style="padding:16px;border:1px solid var(--border-primary);border-radius:var(--radius-lg);background:var(--bg-secondary);">
+            <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);margin-bottom:6px;">Contrast Minimum</p>
+            <p style="font-size:14px;color:var(--text-primary);">4.5:1 normal · 3:1 large</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================
+           SECTION 3: SPACING SCALE
+           ============================== -->
+      <section id="spacing-scale" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Spacing Scale</h2>
+        <p class="section-desc" style="margin-bottom:24px;">All spacing tokens from the design system, shown as proportional bars. Base unit: 4px.</p>
+
+        <div style="border:1px solid var(--border-primary);border-radius:var(--radius-lg);padding:24px;background:var(--bg-primary);">
+          <div class="spacing-row"><div class="spacing-bar" style="width:4px;"></div><span class="spacing-label">--space-1</span><span class="spacing-token">4px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:6px;"></div><span class="spacing-label">--space-1h</span><span class="spacing-token">6px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:8px;"></div><span class="spacing-label">--space-2</span><span class="spacing-token">8px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:10px;"></div><span class="spacing-label">--space-2h</span><span class="spacing-token">10px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:12px;"></div><span class="spacing-label">--space-3</span><span class="spacing-token">12px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:16px;"></div><span class="spacing-label">--space-4</span><span class="spacing-token">16px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:20px;"></div><span class="spacing-label">--space-5</span><span class="spacing-token">20px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:24px;"></div><span class="spacing-label">--space-6</span><span class="spacing-token">24px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:32px;"></div><span class="spacing-label">--space-8</span><span class="spacing-token">32px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:40px;"></div><span class="spacing-label">--space-10</span><span class="spacing-token">40px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:48px;"></div><span class="spacing-label">--space-12</span><span class="spacing-token">48px</span></div>
+          <div class="spacing-row"><div class="spacing-bar" style="width:64px;"></div><span class="spacing-label">--space-16</span><span class="spacing-token">64px</span></div>
+        </div>
+      </section>
+
+      <!-- ==============================
+           SECTION 4: COMPONENT SPEC SHEETS
+           ============================== -->
+      <section id="component-specs" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Component Spec Sheets</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Annotated dimensions for core components: padding, border-radius, and font size.</p>
+
+        <!-- Button -->
+        <div class="spec-card">
+          <div class="spec-card-header">
+            <span class="spec-card-title">Button</span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-secondary);">Form Controls</span>
+          </div>
+          <div class="spec-card-body">
+            <div class="spec-preview">
+              <button style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;height:40px;background:var(--brand);color:#fff;border:none;border-radius:var(--radius-md);font-size:14px;font-weight:600;font-family:var(--font-family);cursor:default;">Primary Button</button>
+              <div style="margin-top:8px;display:flex;gap:8px;">
+                <button style="display:inline-flex;align-items:center;padding:4px 12px;height:32px;background:var(--brand);color:#fff;border:none;border-radius:var(--radius-md);font-size:13px;font-weight:600;font-family:var(--font-family);cursor:default;">SM</button>
+                <button style="display:inline-flex;align-items:center;padding:10px 18px;height:48px;background:var(--brand);color:#fff;border:none;border-radius:var(--radius-md);font-size:15px;font-weight:600;font-family:var(--font-family);cursor:default;">LG</button>
+              </div>
+            </div>
+            <table class="spec-table">
+              <thead><tr><th>Property</th><th>SM (32px)</th><th>MD (40px)</th><th>LG (48px)</th></tr></thead>
+              <tbody>
+                <tr><td>Height</td><td class="mono">32px</td><td class="mono">40px</td><td class="mono">48px</td></tr>
+                <tr><td>Padding X</td><td class="mono">12px</td><td class="mono">16px (--space-4)</td><td class="mono">18px</td></tr>
+                <tr><td>Padding Y</td><td class="mono">4px</td><td class="mono">8px (--space-2)</td><td class="mono">10px</td></tr>
+                <tr><td>Font Size</td><td class="mono">13px (--text-sm)</td><td class="mono">14px (--text-base)</td><td class="mono">15px</td></tr>
+                <tr><td>Font Weight</td><td class="mono">600 (--font-semibold)</td><td class="mono">600</td><td class="mono">600</td></tr>
+                <tr><td>Border Radius</td><td class="mono">8px (--radius-md)</td><td class="mono">8px</td><td class="mono">8px</td></tr>
+                <tr><td>CSS Class</td><td class="mono">.or-btn--sm</td><td class="mono">.or-btn--md</td><td class="mono">.or-btn--lg</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="spec-card">
+          <div class="spec-card-header">
+            <span class="spec-card-title">Input</span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-secondary);">Form Controls</span>
+          </div>
+          <div class="spec-card-body">
+            <div class="spec-preview" style="min-width:200px;">
+              <input class="or-input" type="text" placeholder="Placeholder text" style="cursor:default;" />
+            </div>
+            <table class="spec-table">
+              <thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead>
+              <tbody>
+                <tr><td>Height</td><td class="mono">40px</td><td class="mono">—</td></tr>
+                <tr><td>Padding X</td><td class="mono">14px</td><td class="mono">--space-3 + 2</td></tr>
+                <tr><td>Padding Y</td><td class="mono">9px</td><td class="mono">—</td></tr>
+                <tr><td>Font Size</td><td class="mono">14px</td><td class="mono">--text-base</td></tr>
+                <tr><td>Border Radius</td><td class="mono">8px</td><td class="mono">--radius-md</td></tr>
+                <tr><td>Border</td><td class="mono">1px solid</td><td class="mono">--border-primary</td></tr>
+                <tr><td>Focus Ring</td><td class="mono">3px offset</td><td class="mono">--brand · 0.15 opacity</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Card -->
+        <div class="spec-card">
+          <div class="spec-card-header">
+            <span class="spec-card-title">Card</span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-secondary);">Data Display</span>
+          </div>
+          <div class="spec-card-body">
+            <div class="spec-preview" style="min-width:220px;">
+              <div class="or-card" style="max-width:220px;">
+                <div class="or-card__header"><h3 class="or-card__title">Card Title</h3><p class="or-card__subtitle">Subtitle text</p></div>
+                <div class="or-card__body" style="font-size:13px;color:var(--text-secondary);">Card body content area.</div>
+                <div class="or-card__footer"><button class="or-btn or-btn--primary or-btn--sm">Action</button></div>
+              </div>
+            </div>
+            <table class="spec-table">
+              <thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead>
+              <tbody>
+                <tr><td>Padding (header/footer)</td><td class="mono">16px 20px</td><td class="mono">--space-4/--space-5</td></tr>
+                <tr><td>Padding (body)</td><td class="mono">20px</td><td class="mono">--space-5</td></tr>
+                <tr><td>Border Radius</td><td class="mono">10px</td><td class="mono">--radius-lg</td></tr>
+                <tr><td>Border</td><td class="mono">1px solid</td><td class="mono">--border-primary</td></tr>
+                <tr><td>Shadow</td><td class="mono">var(--shadow-xs)</td><td class="mono">--shadow-xs</td></tr>
+                <tr><td>Title Font</td><td class="mono">16px / 600</td><td class="mono">--text-md / --font-semibold</td></tr>
+                <tr><td>Subtitle Font</td><td class="mono">14px / 400</td><td class="mono">--text-base / --font-regular</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <div class="spec-card">
+          <div class="spec-card-header">
+            <span class="spec-card-title">Badge</span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-secondary);">Data Display</span>
+          </div>
+          <div class="spec-card-body">
+            <div class="spec-preview">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <span class="or-badge or-badge--brand">Brand</span>
+                <span class="or-badge or-badge--success">Success</span>
+                <span class="or-badge or-badge--error">Error</span>
+                <span class="or-badge or-badge--warning">Warning</span>
+                <span class="or-badge or-badge--gray">Default</span>
+              </div>
+            </div>
+            <table class="spec-table">
+              <thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead>
+              <tbody>
+                <tr><td>Padding</td><td class="mono">2px 8px</td><td class="mono">--space-1 / --space-2</td></tr>
+                <tr><td>Font Size</td><td class="mono">12px</td><td class="mono">--text-sm</td></tr>
+                <tr><td>Font Weight</td><td class="mono">600</td><td class="mono">--font-semibold</td></tr>
+                <tr><td>Border Radius</td><td class="mono">9999px</td><td class="mono">--radius-full</td></tr>
+                <tr><td>Line Height</td><td class="mono">20px</td><td class="mono">--leading-sm</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================
+           SECTION 5: ICON REFERENCE
+           ============================== -->
+      <section id="icon-reference" style="margin-bottom:64px;" class="fade-in">
+        <h2 class="section-title">Icon Reference</h2>
+        <p class="section-desc" style="margin-bottom:24px;">Available icon names for use with the design system. Default size: 20px. Use 16px for inline/compact, 24px for feature icons.</p>
+
+        <div class="icon-grid">
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></div><p class="icon-cell-label">plus</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg></div><p class="icon-cell-label">x / close</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg></div><p class="icon-cell-label">check</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg></div><p class="icon-cell-label">chevron-down</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg></div><p class="icon-cell-label">chevron-right</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><p class="icon-cell-label">search</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><p class="icon-cell-label">user</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><p class="icon-cell-label">shield</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg></div><p class="icon-cell-label">wifi</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><p class="icon-cell-label">grid</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div><p class="icon-cell-label">layout</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div><p class="icon-cell-label">file</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></div><p class="icon-cell-label">upload</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15" transform="scale(1,-1) translate(0,-24)"/></svg></div><p class="icon-cell-label">download</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><p class="icon-cell-label">coffee</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><p class="icon-cell-label">clock</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></div><p class="icon-cell-label">mail</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><p class="icon-cell-label">message</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div><p class="icon-cell-label">bar-chart</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div><p class="icon-cell-label">sun</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></div><p class="icon-cell-label">moon</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><p class="icon-cell-label">help-circle</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><p class="icon-cell-label">alert-triangle</p></div>
+          <div class="icon-cell"><div class="icon-placeholder"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div><p class="icon-cell-label">trash</p></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer style="text-align:center;padding:24px;font-size:12px;color:var(--text-secondary);border-top:1px solid var(--border-primary);">
+    OpenReel Design System v1.0 — openreel-design-system.netlify.app — Print generated on <span id="print-date"></span>
+  </footer>
+  <script>
+    document.getElementById('print-date').textContent = new Date().toLocaleDateString();
+  </script>
+</body>
+</html>
