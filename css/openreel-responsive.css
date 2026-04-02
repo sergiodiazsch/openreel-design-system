@@ -638,3 +638,228 @@ html, body {
   }
 }
 }
+
+
+/* ─────────────────────────────────────────────
+   14. NUCLEAR MOBILE OVERRIDES
+   ─────────────────────────────────────────────
+   These catch inline styles that can't be targeted
+   with specific selectors. Heavy use of !important
+   is intentional — inline styles require it.
+   ───────────────────────────────────────────── */
+
+/* === EVERYTHING MUST FIT THE VIEWPORT === */
+@media (max-width: 767px) {
+  * {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  /* Force all direct children of main/sections to be full width */
+  main > *,
+  #main-content > *,
+  section > div {
+    max-width: 100% !important;
+    overflow-x: hidden;
+  }
+
+  /* All inline flex containers: column on mobile if they have big children */
+  [style*="display:flex"]:not(.or-btn):not(.or-badge):not(.or-chip):not(header):not(.or-hamburger):not(nav) {
+    flex-wrap: wrap !important;
+  }
+
+  /* Fixed-width elements: cap at 100% */
+  [style*="width:260px"],
+  [style*="width: 260px"],
+  [style*="width:240px"],
+  [style*="width: 240px"],
+  [style*="width:320px"],
+  [style*="width: 320px"],
+  [style*="width:400px"],
+  [style*="width: 400px"],
+  [style*="width:420px"],
+  [style*="width: 420px"],
+  [style*="width:540px"],
+  [style*="width: 540px"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Min-width elements: remove minimum */
+  [style*="min-width:"][style*="px"]:not(.or-btn):not(.or-badge) {
+    min-width: 0 !important;
+  }
+
+  /* Large padding: reduce */
+  [style*="padding:56px"],
+  [style*="padding: 56px"],
+  [style*="padding:48px"],
+  [style*="padding: 48px"],
+  [style*="padding:40px"],
+  [style*="padding: 40px"] {
+    padding: 24px 16px !important;
+  }
+
+  /* Large font sizes: scale down */
+  [style*="font-size:40px"],
+  [style*="font-size: 40px"] {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+  }
+
+  [style*="font-size:36px"],
+  [style*="font-size: 36px"] {
+    font-size: 24px !important;
+  }
+
+  [style*="font-size:30px"],
+  [style*="font-size: 30px"] {
+    font-size: 22px !important;
+  }
+
+  [style*="font-size:24px"],
+  [style*="font-size: 24px"] {
+    font-size: 20px !important;
+  }
+
+  [style*="font-size:22px"],
+  [style*="font-size: 22px"] {
+    font-size: 18px !important;
+  }
+
+  [style*="font-size:20px"],
+  [style*="font-size: 20px"] {
+    font-size: 17px !important;
+  }
+
+  /* Side-by-side layouts: stack */
+  [style*="display:flex"][style*="gap:48px"],
+  [style*="display: flex"][style*="gap: 48px"],
+  [style*="display:flex"][style*="gap:40px"],
+  [style*="display: flex"][style*="gap: 40px"],
+  [style*="display:flex"][style*="gap:32px"],
+  [style*="display: flex"][style*="gap: 32px"] {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  /* Grids: single column */
+  [style*="grid-template-columns"][style*="1fr 1fr 1fr"],
+  [style*="grid-template-columns: repeat"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Max-width containers: full width with padding */
+  [style*="max-width:960px"],
+  [style*="max-width: 960px"],
+  [style*="max-width:800px"],
+  [style*="max-width: 800px"],
+  [style*="max-width:720px"],
+  [style*="max-width: 720px"] {
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Component demo previews: scroll if needed */
+  .preview-box,
+  .preview-box-start,
+  .preview-box-col {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Component cards: full width */
+  .component-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Images: never overflow */
+  img, svg, canvas, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Absolute positioned decorative elements: hide */
+  [style*="position:absolute"][style*="filter:blur"],
+  [style*="position: absolute"][style*="filter: blur"] {
+    display: none !important;
+  }
+
+  /* Large gaps in sections: reduce */
+  [style*="margin-bottom:64px"],
+  [style*="margin-bottom: 64px"] {
+    margin-bottom: 32px !important;
+  }
+
+  [style*="margin-bottom:48px"],
+  [style*="margin-bottom: 48px"] {
+    margin-bottom: 24px !important;
+  }
+
+  /* Figma handoff, do's/don'ts: stack */
+  [style*="display:flex"][style*="align-items:start"] {
+    flex-direction: column !important;
+  }
+}
+
+/* === VERY SMALL SCREENS (< 400px) === */
+@media (max-width: 399px) {
+  body {
+    font-size: 13px !important;
+  }
+
+  [style*="font-size:18px"],
+  [style*="font-size: 18px"] {
+    font-size: 15px !important;
+  }
+
+  [style*="font-size:16px"],
+  [style*="font-size: 16px"] {
+    font-size: 14px !important;
+  }
+
+  [style*="padding:24px"],
+  [style*="padding: 24px"] {
+    padding: 12px !important;
+  }
+
+  .or-btn-sm, .or-btn-md {
+    font-size: 12px !important;
+    padding: 8px 12px !important;
+  }
+
+  /* Hamburger: adjust position */
+  .or-hamburger {
+    top: 12px !important;
+    left: 12px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+
+/* ── Forms Page Fixes ── */
+@media (max-width: 767px) {
+  /* Form sections: stack */
+  [style*="display:grid"][style*="1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Form containers: full width */
+  form, .form-section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Login card: full width */
+  [style*="max-width:400px"],
+  [style*="max-width: 400px"],
+  [style*="max-width:480px"],
+  [style*="max-width: 480px"] {
+    max-width: 100% !important;
+    margin: 0 16px !important;
+  }
+}
