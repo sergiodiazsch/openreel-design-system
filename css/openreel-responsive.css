@@ -130,9 +130,38 @@ html, body {
     top: 0 !important;
     left: 0 !important;
     height: 100vh !important;
-    padding-top: 72px !important;
+    height: 100dvh !important; /* dynamic viewport height for mobile browsers */
+    padding-top: 64px !important;
+    padding-bottom: 24px !important;
     background: var(--bg-primary, #fff) !important;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Sidebar nav links: bigger touch targets on mobile */
+  #ds-sidebar .nav-link,
+  .ds-sidebar .nav-link {
+    min-height: 40px !important;
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Sidebar section headers */
+  #ds-sidebar p[style*="text-transform:uppercase"],
+  #ds-sidebar p[style*="text-transform: uppercase"] {
+    padding-top: 16px !important;
+    margin-top: 8px !important;
+    border-top: 1px solid var(--border-primary, #eaecf0) !important;
+  }
+
+  #ds-sidebar p[style*="text-transform:uppercase"]:first-child,
+  #ds-sidebar p[style*="text-transform: uppercase"]:first-child {
+    border-top: none !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
   }
 
   #ds-sidebar.or-sidebar-open,

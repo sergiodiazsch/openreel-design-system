@@ -1565,6 +1565,14 @@
     btn.addEventListener('click', toggle);
     overlay.addEventListener('click', toggle);
 
+    // Close sidebar when ANY link inside it is clicked (mobile nav)
+    sidebar.addEventListener('click', function (e) {
+      var link = e.target.closest('a, .nav-link');
+      if (link && sidebar.classList.contains('or-sidebar-open')) {
+        setTimeout(toggle, 150);
+      }
+    });
+
     // Close on Escape
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && sidebar.classList.contains('or-sidebar-open')) {
