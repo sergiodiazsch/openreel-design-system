@@ -1658,7 +1658,76 @@
   }
 
   /* ─────────────────────────────────────────────
-   * 12. INIT
+   * 12. ACCESSIBILITY (A11Y)
+   * ───────────────────────────────────────────── */
+
+  function initA11y() {
+    // Accordions
+    document.querySelectorAll('.or-accordion-trigger, [onclick*="toggle"][onclick*="open"]').forEach(trigger => {
+      if (!trigger.getAttribute('role')) trigger.setAttribute('role', 'button');
+      if (!trigger.getAttribute('tabindex')) trigger.setAttribute('tabindex', '0');
+      const parent = trigger.closest('.or-accordion-item, [class*="accordion"]');
+      const isOpen = parent?.classList.contains('open') || parent?.classList.contains('or-active');
+      trigger.setAttribute('aria-expanded', String(!!isOpen));
+    });
+
+    // Tabs
+    document.querySelectorAll('.or-tab-pill, .or-tab-underline, [role="tab"]').forEach(tab => {
+      if (!tab.getAttribute('role')) tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-selected', String(tab.classList.contains('active')));
+      if (!tab.getAttribute('tabindex')) tab.setAttribute('tabindex', tab.classList.contains('active') ? '0' : '-1');
+    });
+
+    // Tab lists
+    document.querySelectorAll('.or-tabs-wrap, .or-tabs, [class*="tab-list"]').forEach(list => {
+      if (!list.getAttribute('role')) list.setAttribute('role', 'tablist');
+    });
+
+    // Modals
+    document.querySelectorAll('.or-modal-backdrop, [class*="modal-backdrop"]').forEach(modal => {
+      if (!modal.getAttribute('role')) modal.setAttribute('role', 'dialog');
+      if (!modal.getAttribute('aria-modal')) modal.setAttribute('aria-modal', 'true');
+    });
+
+    // Toggles
+    document.querySelectorAll('.or-toggle, [class*="toggle-track"]').forEach(toggle => {
+      if (!toggle.getAttribute('role')) toggle.setAttribute('role', 'switch');
+      const input = toggle.querySelector('input[type="checkbox"]');
+      if (input) toggle.setAttribute('aria-checked', String(input.checked));
+    });
+
+    // Progress bars
+    document.querySelectorAll('.or-progress-fill, [class*="progress-fill"]').forEach(bar => {
+      const parent = bar.parentElement;
+      if (parent && !parent.getAttribute('role')) {
+        parent.setAttribute('role', 'progressbar');
+        const width = parseInt(bar.style.width) || 0;
+        parent.setAttribute('aria-valuenow', String(width));
+        parent.setAttribute('aria-valuemin', '0');
+        parent.setAttribute('aria-valuemax', '100');
+      }
+    });
+
+    // Tooltips — ensure focusable
+    document.querySelectorAll('.or-tooltip-wrap').forEach(wrap => {
+      if (!wrap.getAttribute('tabindex')) wrap.setAttribute('tabindex', '0');
+    });
+
+    // Skip link — add if missing
+    if (!document.querySelector('.sr-only[href="#main-content"], a[href="#main-content"]')) {
+      const skip = document.createElement('a');
+      skip.href = '#main-content';
+      skip.className = 'sr-only';
+      skip.textContent = 'Skip to content';
+      skip.style.cssText = 'position:absolute;top:-40px;left:0;background:var(--brand);color:#fff;padding:8px 16px;z-index:99999;transition:top 0.2s;font-size:14px;border-radius:0 0 8px 0;';
+      skip.addEventListener('focus', () => skip.style.top = '0');
+      skip.addEventListener('blur', () => skip.style.top = '-40px');
+      document.body.prepend(skip);
+    }
+  }
+
+  /* ─────────────────────────────────────────────
+   * 13. INIT
    * ───────────────────────────────────────────── */
 
   function init() {
@@ -1679,6 +1748,7 @@
     initHamburger();
     initNavActive();
     initHeaderSearch();
+    initA11y();
   }
 
   if (document.readyState === "loading") {
