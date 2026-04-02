@@ -9100,6 +9100,153 @@ if (secEl) {
     secEl.textContent = String(sec).padStart(2, '0');
   }, 1000);
 }
+
+// === BATCH 2+3 INTERACTIVE HANDLERS ===
+
+// Collapsible toggle
+document.querySelectorAll('.or-collapsible-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.or-collapsible').classList.toggle('or-open');
+  });
+});
+
+// Combobox toggle
+document.querySelectorAll('.or-combobox-input').forEach(input => {
+  input.addEventListener('focus', () => input.closest('.or-combobox')?.classList.add('or-open'));
+  input.addEventListener('input', () => {
+    const list = input.closest('.or-combobox')?.querySelector('.or-combobox-list');
+    if (!list) return;
+    const q = input.value.toLowerCase();
+    list.querySelectorAll('.or-combobox-option').forEach(opt => {
+      opt.style.display = opt.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.or-combobox')) {
+    document.querySelectorAll('.or-combobox.or-open').forEach(c => c.classList.remove('or-open'));
+  }
+});
+
+// Combobox option select
+document.querySelectorAll('.or-combobox-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    const combo = opt.closest('.or-combobox');
+    const input = combo?.querySelector('.or-combobox-input');
+    if (input) input.value = opt.textContent.trim();
+    combo?.classList.remove('or-open');
+  });
+});
+
+// Radio cards
+document.querySelectorAll('.or-radio-card').forEach(card => {
+  card.addEventListener('click', () => {
+    card.closest('.preview-box, .preview-box-col, div')?.querySelectorAll('.or-radio-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+  });
+});
+
+// Checkbox cards
+document.querySelectorAll('.or-checkbox-card').forEach(card => {
+  card.addEventListener('click', () => card.classList.toggle('selected'));
+});
+
+// Speed dial toggle
+document.querySelectorAll('.or-speed-dial-trigger').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.or-speed-dial')?.classList.toggle('or-open'));
+});
+
+// Split button dropdown
+document.querySelectorAll('.or-split-btn-toggle').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.or-split-btn')?.classList.toggle('or-open'));
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.or-split-btn')) {
+    document.querySelectorAll('.or-split-btn.or-open').forEach(s => s.classList.remove('or-open'));
+  }
+});
+
+// Expandable search
+document.querySelectorAll('.or-search-expand-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const wrap = btn.closest('.or-search-expand');
+    wrap?.classList.toggle('or-open');
+    if (wrap?.classList.contains('or-open')) wrap.querySelector('.or-search-expand-input')?.focus();
+  });
+});
+
+// Bottom sheet dismiss
+document.querySelectorAll('.or-bottom-sheet [data-dismiss]').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.or-bottom-sheet')?.classList.remove('or-active'));
+});
+
+// Dot indicator
+document.querySelectorAll('.or-dots .or-dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    dot.closest('.or-dots')?.querySelectorAll('.or-dot').forEach(d => d.classList.remove('active'));
+    dot.classList.add('active');
+  });
+});
+
+// Pricing toggle
+document.querySelectorAll('.or-pricing-toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.or-pricing-toggle')?.querySelectorAll('.or-pricing-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Chip group multi-select
+document.querySelectorAll('.or-chip-group .or-chip').forEach(chip => {
+  chip.addEventListener('click', () => chip.classList.toggle('selected'));
+});
+
+// Badge dismiss
+document.querySelectorAll('.or-badge-dismiss').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.or-badge, .or-badge-dismissible')?.remove());
+});
+
+// Truncate show more/less
+document.querySelectorAll('.or-truncate-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const truncate = btn.previousElementSibling;
+    if (truncate?.classList.contains('or-truncate')) {
+      truncate.classList.toggle('expanded');
+      btn.textContent = truncate.classList.contains('expanded') ? 'Show less' : 'Show more';
+    }
+  });
+});
+
+// Color dots selection
+document.querySelectorAll('.or-color-dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    dot.closest('.or-color-dots')?.querySelectorAll('.or-color-dot').forEach(d => d.classList.remove('selected'));
+    dot.classList.add('selected');
+  });
+});
+
+// Number input stepper
+document.querySelectorAll('.or-number-input').forEach(group => {
+  const val = group.querySelector('.or-number-value');
+  if (!val) return;
+  group.querySelectorAll('.or-number-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      let n = parseInt(val.value || val.textContent) || 0;
+      n += btn.textContent.trim() === '+' || btn.querySelector('svg')?.innerHTML.includes('M12 5v14') ? 1 : -1;
+      if (n < 0) n = 0;
+      if (val.tagName === 'INPUT') val.value = n;
+      else val.textContent = n;
+    });
+  });
+});
+
+// Announcement bar dismiss
+document.querySelectorAll('.or-announcement-close').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const bar = btn.closest('.or-announcement');
+    if (bar) { bar.style.transition = 'opacity .2s, max-height .3s'; bar.style.opacity = '0'; bar.style.maxHeight = '0'; bar.style.overflow = 'hidden'; setTimeout(() => bar.remove(), 300); }
+  });
+});
 </script>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
