@@ -1,11 +1,11 @@
 {
   "meta": {
     "name": "OpenReel Design System",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "prefix": "or-",
     "font": "Inter",
     "repository": "openreel-design-system",
-    "lastUpdated": "2026-03-12"
+    "lastUpdated": "2026-04-01"
   },
   "tokens": {
     "colors": {
@@ -3877,6 +3877,460 @@
         "avatar",
         "date-time-display"
       ]
+    },
+    {
+      "name": "Video Player",
+      "slug": "video-player",
+      "element": "div",
+      "category": "Content",
+      "description": "Full-featured video player with controls, progress bar, volume, and fullscreen support",
+      "status": "stable",
+      "cssClasses": [
+        "or-video-player",
+        "or-video-player__controls",
+        "or-video-player__progress",
+        "or-video-player__volume",
+        "or-video-player--fullscreen"
+      ],
+      "variants": [
+        "default",
+        "minimal",
+        "fullscreen"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "muted",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "controls",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "poster",
+          "type": "string",
+          "default": null
+        }
+      ],
+      "usage": "Use to present video content with branded OpenReel controls; prefer minimal variant inside cards.",
+      "a11y": "Include captions track and aria-label on all control buttons; support keyboard playback via Space/Enter."
+    },
+    {
+      "name": "Video Card",
+      "slug": "video-card",
+      "element": "article",
+      "category": "Content",
+      "description": "Card component displaying a video thumbnail, title, metadata, and action buttons",
+      "status": "stable",
+      "cssClasses": [
+        "or-video-card",
+        "or-video-card__thumbnail",
+        "or-video-card__body",
+        "or-video-card__title",
+        "or-video-card__meta",
+        "or-video-card__actions"
+      ],
+      "variants": [
+        "default",
+        "compact",
+        "featured"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "thumbnail",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "duration",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "options": ["draft", "processing", "published", "archived"],
+          "default": "published"
+        }
+      ],
+      "usage": "Use to display a video asset in a grid or list; pair with Badge for status and Avatar for the creator.",
+      "a11y": "Use semantic <article> element, provide alt text for thumbnail image, and label all icon-only actions."
+    },
+    {
+      "name": "Carousel",
+      "slug": "carousel",
+      "element": "div",
+      "category": "Layout",
+      "description": "Horizontally scrollable carousel with navigation arrows, pagination dots, and optional autoplay",
+      "status": "stable",
+      "cssClasses": [
+        "or-carousel",
+        "or-carousel__track",
+        "or-carousel__slide",
+        "or-carousel__prev",
+        "or-carousel__next",
+        "or-carousel__dots"
+      ],
+      "variants": [
+        "default",
+        "peek",
+        "fullwidth"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "props": [
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "interval",
+          "type": "number",
+          "default": 4000
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "showDots",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "showArrows",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "usage": "Use for hero media, template galleries, or featured content sliders; avoid more than 7 slides without pagination.",
+      "a11y": "Wrap in role=\"region\" with aria-label, expose prev/next buttons with aria-label, and pause autoplay on focus."
+    },
+    {
+      "name": "Context Menu",
+      "slug": "context-menu",
+      "element": "div",
+      "category": "Overlay",
+      "description": "Right-click triggered contextual menu with grouped actions and keyboard navigation",
+      "status": "stable",
+      "cssClasses": [
+        "or-context-menu",
+        "or-context-menu__item",
+        "or-context-menu__separator",
+        "or-context-menu__group",
+        "or-context-menu__shortcut"
+      ],
+      "variants": [
+        "default",
+        "dense"
+      ],
+      "props": [
+        {
+          "name": "items",
+          "type": "array",
+          "default": []
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "offset",
+          "type": "number",
+          "default": 4
+        }
+      ],
+      "usage": "Trigger on contextmenu event over a target element; use groups and separators to organize related actions.",
+      "a11y": "Use role=\"menu\" with role=\"menuitem\" children; support arrow key navigation, Escape to close, and Home/End keys."
+    },
+    {
+      "name": "Avatar Group",
+      "slug": "avatar-group",
+      "element": "div",
+      "category": "Data Display",
+      "description": "Stacked group of avatars with overflow count indicator and tooltip on hover",
+      "status": "stable",
+      "cssClasses": [
+        "or-avatar-group",
+        "or-avatar-group__item",
+        "or-avatar-group__overflow"
+      ],
+      "variants": [
+        "default",
+        "stacked",
+        "spaced"
+      ],
+      "sizes": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "props": [
+        {
+          "name": "max",
+          "type": "number",
+          "default": 5
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        },
+        {
+          "name": "overlap",
+          "type": "string",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        }
+      ],
+      "usage": "Use to show collaborators, participants, or assignees; display overflow count when list exceeds max.",
+      "a11y": "Wrap in a list element, give each avatar a descriptive aria-label, and expose the full names via tooltip."
+    },
+    {
+      "name": "Inline Edit",
+      "slug": "inline-edit",
+      "element": "div",
+      "category": "Form Controls",
+      "description": "Click-to-edit text field that toggles between a display label and an editable input",
+      "status": "stable",
+      "cssClasses": [
+        "or-inline-edit",
+        "or-inline-edit__display",
+        "or-inline-edit__input",
+        "or-inline-edit--editing",
+        "or-inline-edit--saving"
+      ],
+      "variants": [
+        "default",
+        "underline",
+        "ghost"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Click to edit"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "confirmOnBlur",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "usage": "Use for table cells, titles, or settings where inline editing reduces modal overhead.",
+      "a11y": "Display label must be focusable via Tab; trigger edit on Enter/Space; confirm with Enter and cancel with Escape."
+    },
+    {
+      "name": "Callout",
+      "slug": "callout",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Inline informational block with icon, title, and body text for contextual guidance",
+      "status": "stable",
+      "cssClasses": [
+        "or-callout",
+        "or-callout--info",
+        "or-callout--success",
+        "or-callout--warning",
+        "or-callout--error",
+        "or-callout__icon",
+        "or-callout__body"
+      ],
+      "variants": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "options": ["info", "success", "warning", "error"],
+          "default": "info"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "usage": "Use within forms or content pages to provide non-blocking guidance; prefer over Toast for persistent messages.",
+      "a11y": "Apply role=\"note\" for informational, role=\"alert\" for error/warning variants; never rely on color alone."
+    },
+    {
+      "name": "Loading Overlay",
+      "slug": "loading-overlay",
+      "element": "div",
+      "category": "Feedback",
+      "description": "Full-surface overlay with spinner and optional message to block interaction during async operations",
+      "status": "stable",
+      "cssClasses": [
+        "or-loading-overlay",
+        "or-loading-overlay__spinner",
+        "or-loading-overlay__message",
+        "or-loading-overlay--visible",
+        "or-loading-overlay--transparent"
+      ],
+      "variants": [
+        "default",
+        "transparent",
+        "blur"
+      ],
+      "props": [
+        {
+          "name": "visible",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "options": ["default", "transparent", "blur"],
+          "default": "default"
+        }
+      ],
+      "usage": "Use to block a panel or full page during data fetching or form submission; always show a spinner with status text.",
+      "a11y": "Set aria-busy=\"true\" on the parent, use role=\"status\" with a live region message, and trap focus inside overlay."
+    },
+    {
+      "name": "Cookie Banner",
+      "slug": "cookie-banner",
+      "element": "div",
+      "category": "Content",
+      "description": "GDPR-compliant cookie consent banner with accept, decline, and customize actions",
+      "status": "stable",
+      "cssClasses": [
+        "or-cookie-banner",
+        "or-cookie-banner__content",
+        "or-cookie-banner__actions",
+        "or-cookie-banner--bottom",
+        "or-cookie-banner--modal"
+      ],
+      "variants": [
+        "bottom-bar",
+        "modal",
+        "corner"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "options": ["bottom-bar", "modal", "corner"],
+          "default": "bottom-bar"
+        },
+        {
+          "name": "showCustomize",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "policyUrl",
+          "type": "string",
+          "default": null
+        }
+      ],
+      "usage": "Display once per session until the user makes a consent choice; persist preference to localStorage.",
+      "a11y": "Use role=\"dialog\" with aria-label, ensure all buttons are keyboard reachable, and never auto-dismiss without user action."
+    },
+    {
+      "name": "Countdown Timer",
+      "slug": "countdown-timer",
+      "element": "div",
+      "category": "Data Display",
+      "description": "Live countdown timer displaying days, hours, minutes, and seconds until a target date",
+      "status": "stable",
+      "cssClasses": [
+        "or-countdown",
+        "or-countdown__unit",
+        "or-countdown__value",
+        "or-countdown__label",
+        "or-countdown--compact",
+        "or-countdown--expired"
+      ],
+      "variants": [
+        "default",
+        "compact",
+        "card"
+      ],
+      "props": [
+        {
+          "name": "target",
+          "type": "string",
+          "default": null
+        },
+        {
+          "name": "showDays",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "showSeconds",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onExpire",
+          "type": "function",
+          "default": null
+        }
+      ],
+      "usage": "Use for event launch dates, offer expiry, or session timeouts; trigger onExpire callback when time reaches zero.",
+      "a11y": "Announce updates via aria-live=\"polite\" at a maximum of once per minute to avoid screen reader noise."
     }
   ],
   "guidelines": {

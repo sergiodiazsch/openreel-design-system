@@ -1612,7 +1612,53 @@
   }
 
   /* ─────────────────────────────────────────────
-   * 11. INIT
+   * 11. HEADER SEARCH
+   * ───────────────────────────────────────────── */
+
+  function initHeaderSearch() {
+    const searchInput = document.querySelector('header input[type="search"], header input[placeholder*="Search"]');
+    const sidebar = document.getElementById('ds-sidebar');
+    if (!searchInput || !sidebar) return;
+
+    const navLinks = sidebar.querySelectorAll('.nav-link');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      navLinks.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        const show = !q || text.includes(q);
+        link.style.display = show ? '' : 'none';
+      });
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const q = searchInput.value.toLowerCase().trim();
+        if (!q) return;
+        // Find first visible nav link and click it
+        for (const link of navLinks) {
+          if (link.style.display !== 'none' && link.textContent.toLowerCase().includes(q)) {
+            link.click();
+            searchInput.value = '';
+            searchInput.dispatchEvent(new Event('input'));
+            break;
+          }
+        }
+      }
+    });
+
+    // "/" shortcut to focus search
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+   * 12. INIT
    * ───────────────────────────────────────────── */
 
   function init() {
@@ -1632,6 +1678,7 @@
     initAnatomy();
     initHamburger();
     initNavActive();
+    initHeaderSearch();
   }
 
   if (document.readyState === "loading") {
