@@ -2277,4 +2277,32 @@ html.dark .or-avatar-status-dot { border-color:var(--bg-primary); }
 .or-truncate { overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
 .or-truncate.expanded { display:block; -webkit-line-clamp:unset; }
 .or-truncate-btn { background:none; border:none; color:var(--brand); font-size:13px; font-weight:600; cursor:pointer; padding:4px 0; transition:opacity var(--duration-fast) var(--ease-default); }
-.or-truncate-btn:hover { opacity:.8; }
+
+/* ══════════════════════════════════════════════
+   DARK MODE AUDIT — Missing overrides (batch 2+3)
+   ══════════════════════════════════════════════ */
+
+/* Skeleton — base .or-skeleton uses var(--gray-200); swap to dark bg token */
+html.dark .or-skeleton { background:var(--bg-tertiary); }
+
+/* #23 Chip Group — single-select reset state uses gray-100 bg / gray-700 text */
+html.dark .or-chip-group[data-single] .or-chip.selected ~ .or-chip { background:var(--bg-tertiary); color:var(--text-secondary); }
+
+/* #24 Status Timeline — step label uses gray-500 */
+html.dark .or-status-step-label { color:var(--text-secondary); }
+
+/* #113 Breadcrumb — separator dot uses gray-300 */
+html.dark .or-breadcrumb-sep { color:var(--border-primary); }
+
+/* #116 Testimonial Carousel — author title uses gray-500 */
+html.dark .or-testimonial-author-title { color:var(--text-secondary); }
+
+/* #121 Notification Center — timestamp uses gray-400 */
+html.dark .or-notif-item-time { color:var(--text-secondary); }
+
+/* #122 Banner Card — ensure text stays white in dark (card has dark overlay) */
+html.dark .or-banner-card { color:#fff; }
+
+/* Footer inline styles — border-top:#EAECF0, text color:#101828 */
+html.dark footer { border-top-color:var(--border-primary) !important; }
+html.dark footer span[style*="color:#101828"] { color:var(--text-primary) !important; }
