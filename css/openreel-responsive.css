@@ -253,16 +253,54 @@ html, body {
   .ds-sidebar .nav-link {
     min-height: 40px !important;
     padding: 10px 12px !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
     display: flex !important;
     align-items: center !important;
+    gap: 8px !important;
+  }
+
+  /* Sidebar SVG icons: slightly smaller on mobile */
+  #ds-sidebar .nav-link svg {
+    width: 12px !important;
+    height: 12px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* CRITICAL: Expand ALL collapsed sidebar groups on mobile */
+  #ds-sidebar .sidebar-group-items,
+  #ds-sidebar [id^="group-"] {
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Hide the collapse chevron on mobile — everything is expanded */
+  #ds-sidebar .sidebar-group-chevron {
+    display: none !important;
+  }
+
+  /* Sidebar group buttons: style as section headers, not toggles */
+  #ds-sidebar .sidebar-group {
+    pointer-events: none !important;
+    padding: 12px 12px 4px !important;
+    margin-top: 8px !important;
+  }
+
+  /* Hide cat-dot indicators on mobile — saves space */
+  #ds-sidebar .cat-dot {
+    display: none !important;
+  }
+
+  /* Sidebar section dividers */
+  #ds-sidebar .sidebar-divider {
+    margin: 8px 0 !important;
   }
 
   /* Sidebar section headers */
   #ds-sidebar p[style*="text-transform:uppercase"],
   #ds-sidebar p[style*="text-transform: uppercase"] {
-    padding-top: 16px !important;
-    margin-top: 8px !important;
+    padding-top: 12px !important;
+    margin-top: 4px !important;
     border-top: 1px solid var(--border-primary, #eaecf0) !important;
   }
 
