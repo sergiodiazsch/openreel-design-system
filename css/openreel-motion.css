@@ -901,7 +901,244 @@ html.dark .or-glass-lg {
 
 
 /* ==========================================================================
-   24. REDUCED MOTION
+   24. ENHANCED COMPONENT TRANSITIONS
+   ========================================================================== */
+
+/* ── Badges ── */
+.or-badge {
+  transition: transform var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+.or-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ── Tags ── */
+.or-tag {
+  transition: background-color var(--duration-fast) var(--ease-default),
+              color var(--duration-fast) var(--ease-default),
+              transform var(--duration-fast) var(--ease-default);
+}
+.or-tag:hover {
+  background-color: var(--gray-200);
+  transform: translateY(-1px);
+}
+
+/* ── Avatars ── */
+.or-avatar {
+  transition: transform var(--duration-normal) var(--ease-default),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-avatar:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Table rows ── */
+.or-table tbody tr {
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+.or-table tbody tr:hover {
+  background-color: var(--gray-50);
+}
+html.dark .or-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.or-table th {
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+/* ── Timeline items ── */
+.or-timeline-item {
+  transition: transform var(--duration-normal) var(--ease-default);
+}
+.or-timeline-item:hover {
+  transform: translateX(4px);
+}
+
+.or-timeline-dot {
+  transition: transform var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-timeline-item:hover .or-timeline-dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px var(--brand-light);
+}
+
+/* ── Stepper steps ── */
+.or-step {
+  transition: opacity var(--duration-normal) var(--ease-default);
+}
+.or-step:hover {
+  opacity: 0.85;
+}
+.or-step-circle {
+  transition: transform var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-step:hover .or-step-circle {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Navigation links refinement ── */
+.nav-link {
+  transition: background-color var(--duration-fast) var(--ease-default),
+              color var(--duration-fast) var(--ease-default),
+              padding-left var(--duration-normal) var(--ease-default);
+}
+.nav-link:hover {
+  padding-left: 14px;
+}
+
+/* ── Breadcrumb links ── */
+.or-breadcrumbs a {
+  transition: color var(--duration-fast) var(--ease-default),
+              text-decoration-color var(--duration-fast) var(--ease-default);
+}
+.or-breadcrumbs a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+}
+
+/* ── Notification badge pulse ── */
+.or-notif {
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+.or-notif:hover {
+  transform: scale(1.15);
+}
+
+/* ── Activity feed items ── */
+.or-activity-item {
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+.or-activity-item:hover {
+  background-color: var(--gray-50);
+}
+html.dark .or-activity-item:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ── Stat cards ── */
+.or-stat {
+  transition: transform var(--duration-normal) var(--ease-default),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Pricing cards ── */
+.or-pricing {
+  transition: transform var(--duration-normal) var(--ease-default),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-pricing:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.or-pricing.featured:hover {
+  box-shadow: var(--shadow-brand-md);
+}
+
+/* ── CTA Banner ── */
+.or-cta {
+  transition: transform var(--duration-normal) var(--ease-default),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── File upload drop zone ── */
+.or-upload-zone {
+  transition: border-color var(--duration-fast) var(--ease-default),
+              background-color var(--duration-fast) var(--ease-default);
+}
+.or-upload-zone:hover,
+.or-upload-zone.dragover {
+  border-color: var(--brand);
+  background-color: var(--brand-light);
+}
+
+/* ── Color picker swatches ── */
+.or-color-swatch {
+  transition: transform var(--duration-fast) var(--ease-spring),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+.or-color-swatch:hover {
+  transform: scale(1.2);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Kanban cards ── */
+.or-kanban-card {
+  transition: transform var(--duration-normal) var(--ease-default),
+              box-shadow var(--duration-normal) var(--ease-default);
+  cursor: grab;
+}
+.or-kanban-card:hover {
+  transform: translateY(-2px) rotate(-0.5deg);
+  box-shadow: var(--shadow-md);
+}
+.or-kanban-card:active {
+  cursor: grabbing;
+  transform: scale(1.02) rotate(-1deg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Testimonial cards ── */
+.or-testimonial {
+  transition: transform var(--duration-normal) var(--ease-default),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-testimonial:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Bottom nav items ── */
+.or-bottom-nav-item {
+  transition: color var(--duration-fast) var(--ease-default),
+              transform var(--duration-fast) var(--ease-default);
+}
+.or-bottom-nav-item:active {
+  transform: scale(0.92);
+}
+
+/* ── FAB ── */
+.or-fab {
+  transition: transform var(--duration-normal) var(--ease-default),
+              box-shadow var(--duration-normal) var(--ease-default);
+}
+.or-fab:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-brand-md);
+}
+.or-fab:active {
+  transform: scale(0.95);
+}
+
+/* ── Image gallery items ── */
+.or-gallery-item {
+  transition: transform var(--duration-normal) var(--ease-default),
+              opacity var(--duration-normal) var(--ease-default);
+}
+.or-gallery-item:hover {
+  transform: scale(1.03);
+}
+.or-gallery-item:hover ~ .or-gallery-item {
+  opacity: 0.7;
+}
+
+
+/* ==========================================================================
+   25. REDUCED MOTION
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
